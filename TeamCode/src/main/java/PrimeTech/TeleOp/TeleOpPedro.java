@@ -12,7 +12,7 @@ import PrimeTech.Components.Outtake.Outtake;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
-@TeleOp(name = "TeleOpPedro")
+@TeleOp(name = "TeleOpPedro", group = "TeleOp")
 public class TeleOpPedro extends OpMode {
     private final Pose startPose = new Pose(0, 0, 0);
     private Follower follower;

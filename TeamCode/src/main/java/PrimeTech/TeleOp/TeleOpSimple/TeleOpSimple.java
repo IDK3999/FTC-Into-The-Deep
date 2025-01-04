@@ -8,7 +8,7 @@ import PrimeTech.Components.Hang.Hang;
 import PrimeTech.Components.Outtake.Outtake;
 import PrimeTech.TeleOp.TeleOpSimple.Drivetrain.Drivetrain;
 
-@TeleOp(name = "TeleOpSimple")
+@TeleOp(name = "TeleOpSimple", group = "TeleOp")
 public class TeleOpSimple extends OpMode {
     @Override
     public void init() {
