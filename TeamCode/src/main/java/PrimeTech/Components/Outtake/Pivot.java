@@ -86,9 +86,9 @@ public class Pivot {
         motorPivot.setPower(power);
 
         // Telemetry
-        telemetry.addData("pivot_pos: ", pivot_pos);
-        telemetry.addData("pivot_target: ", target);
-        telemetry.update();
+        //telemetry.addData("pivot_pos: ", pivot_pos);
+        //telemetry.addData("pivot_target: ", target);
+        //telemetry.update();
     }
 
     enum LiftState {
