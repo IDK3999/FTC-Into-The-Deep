@@ -1,5 +1,8 @@
 package PrimeTech.Components.Modes;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
+import PrimeTech.Components.Limelight.Limelight;
 import PrimeTech.Components.Outtake.Claw;
 import PrimeTech.Components.Outtake.Extension;
 import PrimeTech.Components.Outtake.Pivot;
@@ -56,11 +59,12 @@ public class AllModes {
                 Extension.getInstance().run_to_target(extensionTarget);
                 extensionTarget += increment;
 
-//                if ( code for finding a piece ) {
+                if (Limelight.getInstance().foundPiece()) {
 //                    foundAPiece = FoundAPiece.YES;
 //                    whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.OPEN_CLAW;
-//                }
-//                break;
+                    telemetry.addData("Found a piece", "Yes");
+                }
+                break;
             case YES:
                 switch (whatToDo_intake_sample_loop) {
                     case OPEN_CLAW:
@@ -76,7 +80,7 @@ public class AllModes {
 //                        if ( code for finding distance to the piece ) {
 //                            whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.CLOSE_CLAW;
 //                        }
-//                        break;
+                        break;
                     case CLOSE_CLAW:
                         Claw.getInstance().openingServo.setPosition(Claw.CLOSED_POS);
                         whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.GET_PIVOT_UP;
