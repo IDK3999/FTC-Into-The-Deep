@@ -1,7 +1,8 @@
 package PrimeTech.Components.Limelight;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+import static PrimeTech.Global.Global.hardwareMap;
+import static PrimeTech.Global.Global.telemetry;
+
 
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;

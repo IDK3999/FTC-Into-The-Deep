@@ -1,6 +1,6 @@
 package PrimeTech.Components.Outtake;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static PrimeTech.Global.Global.hardwareMap;
 
 import com.qualcomm.robotcore.hardware.Servo;
 

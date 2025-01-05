@@ -1,6 +1,6 @@
 package PrimeTech.Components.Gamepad;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+import static PrimeTech.Global.Global.gamepad1;
 
 public class Gamepad {
     private static Gamepad instance = null;
