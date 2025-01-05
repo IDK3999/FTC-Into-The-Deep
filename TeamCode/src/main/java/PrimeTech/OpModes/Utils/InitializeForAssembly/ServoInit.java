@@ -1,4 +1,4 @@
-package PrimeTech.OpModes.InitializeForAssembly;
+package PrimeTech.OpModes.Utils.InitializeForAssembly;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
