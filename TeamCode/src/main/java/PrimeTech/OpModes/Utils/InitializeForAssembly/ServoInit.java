@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp(name = "Servo To Init", group = "InitializeForAssembly")
 public class ServoInit extends OpMode {
     Servo servo = null;
-    private final int pose = 1;
+    private final double pose = 1.0;
     @Override
     public void init() {
         servo = hardwareMap.get(Servo.class, "servo");
