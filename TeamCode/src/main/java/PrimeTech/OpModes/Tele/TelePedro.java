@@ -1,4 +1,4 @@
-package PrimeTech.TeleOp;
+package PrimeTech.OpModes.Tele;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
@@ -12,8 +12,8 @@ import PrimeTech.Components.Outtake.Outtake;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
-@TeleOp(name = "TeleOpPedro", group = "TeleOp")
-public class TeleOpPedro extends OpMode {
+@TeleOp(name = "TelePedro", group = "TeleOp")
+public class TelePedro extends OpMode {
     private final Pose startPose = new Pose(0, 0, 0);
     private Follower follower;
 

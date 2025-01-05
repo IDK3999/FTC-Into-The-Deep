@@ -1,4 +1,4 @@
-package PrimeTech.TeleOp.TeleOpSimple;
+package PrimeTech.OpModes.Tele.TeleSimple;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -6,10 +6,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import PrimeTech.Components.Gamepad.Gamepad;
 import PrimeTech.Components.Hang.Hang;
 import PrimeTech.Components.Outtake.Outtake;
-import PrimeTech.TeleOp.TeleOpSimple.Drivetrain.Drivetrain;
+import PrimeTech.OpModes.Tele.TeleSimple.Drivetrain.Drivetrain;
 
-@TeleOp(name = "TeleOpSimple", group = "TeleOp")
-public class TeleOpSimple extends OpMode {
+@TeleOp(name = "TeleSimple", group = "TeleOp")
+public class TeleSimple extends OpMode {
     @Override
     public void init() {
         Drivetrain.getInstance().init();
