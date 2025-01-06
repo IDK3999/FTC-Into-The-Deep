@@ -25,19 +25,19 @@ public class Drivetrain {
         // TODO: Check if FLOAT is better than BRAKE for movement
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
         leftBack.setZeroPowerBehavior(BRAKE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         leftFront.setZeroPowerBehavior(BRAKE);
-
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
         rightBack.setZeroPowerBehavior(BRAKE);
-        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         rightFront.setZeroPowerBehavior(BRAKE);
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+
     }
 
     public void loop() {

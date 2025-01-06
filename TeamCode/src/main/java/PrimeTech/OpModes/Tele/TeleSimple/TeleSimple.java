@@ -18,8 +18,8 @@ public class TeleSimple extends OpMode {
         Global.telemetry = telemetry;
         Global.gamepad1 = gamepad1;
         Drivetrain.getInstance().init();
-//        Gamepad.getInstance().init();
-//        Outtake.getInstance().init();
+        Gamepad.getInstance().init();
+        Outtake.getInstance().init();
 //        Hang.getInstance().init();
       //  Limelight.getInstance().init();
     }
@@ -27,9 +27,9 @@ public class TeleSimple extends OpMode {
     @Override
     public void loop() {
         Drivetrain.getInstance().loop();
-//        Gamepad.getInstance().loop();
-//        Outtake.getInstance().loop();
-//        Hang.getInstance().loop();
+        Gamepad.getInstance().loop();
+        Outtake.getInstance().loop();
+        Hang.getInstance().loop();
      //   Limelight.getInstance().loop();
     }
 }

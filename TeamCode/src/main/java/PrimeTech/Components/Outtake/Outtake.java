@@ -15,7 +15,7 @@ public class Outtake {
     }
 
     public void init() {
-        Claw.getInstance().init();
+      //  Claw.getInstance().init();
         Extension.getInstance().init();
         Pivot.getInstance().init();
     }

@@ -14,11 +14,11 @@ public class Extension {
     // TODO: Edit with correct values
     public static final double MAX_TICKS = 0.0;
     public static final double MIN_TICKS = 0.0;
-    public static double p = 0, i = 0, d = 0;
+    public static double p = 0.004, i = 0, d = 0;
     public static double f = 0;
     public static double target = 0;
     private static Extension instance = null;
-    public final double increment = 0;
+    public final double increment = 50.0;
 
     public final double ticks_in_degrees = (double) 8192/360;
     public DcMotorEx extension_left = null;

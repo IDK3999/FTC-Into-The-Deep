@@ -10,7 +10,7 @@ import PrimeTech.Components.Outtake.Pivot;
 public class AllModes {
     static double pivotTarget = Pivot.TICKS_FOR_PARALLEL;
     static double extensionTarget = Extension.MIN_TICKS;
-    static double increment = 0.0;
+    static double increment = 50.0;
     static WhatToRetract_intake_sample_init whatToRetract_intake_sample_init = WhatToRetract_intake_sample_init.CLAW;
     static FoundAPiece foundAPiece = FoundAPiece.NO;
     static WhatToDo_intake_sample_loop whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.OPEN_CLAW;
