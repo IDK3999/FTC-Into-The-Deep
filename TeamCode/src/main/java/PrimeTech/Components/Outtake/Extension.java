@@ -12,7 +12,7 @@ import PrimeTech.Components.Gamepad.Gamepad;
 
 public class Extension {
     // TODO: Edit with correct values
-    public static final double MAX_TICKS = 0.0;
+    public static final double MAX_TICKS = 2400;
     public static final double MIN_TICKS = 0.0;
     public static double p = 0.004, i = 0, d = 0;
     public static double f = 0;

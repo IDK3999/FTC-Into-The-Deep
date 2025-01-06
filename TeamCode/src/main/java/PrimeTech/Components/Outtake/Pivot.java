@@ -11,7 +11,7 @@ import PrimeTech.Components.Gamepad.Gamepad;
 
 public class Pivot {
     // TODO: Edit with correct values
-    public static final double MAX_TICKS = 0;
+    public static final double MAX_TICKS = 2400;
     public static final double MIN_TICKS = 0;
     public static final double TICKS_FOR_PARALLEL = 0;
     public static double p = 0.002, i = 0.01, d = 0.00025;
