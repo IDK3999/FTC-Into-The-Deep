@@ -1,8 +1,11 @@
 package PrimeTech.Components.Outtake;
 
+import PrimeTech.Components.Gamepad.Gamepad;
+import PrimeTech.Components.Modes.FSMModes;
+
 public class InitPos {
     private static InitPos instance = null;
-    WhatToRetract whatToRetract = WhatToRetract.CLAW;
+    WhatToRetract whatToRetract = WhatToRetract.IDLE;
 
     public static synchronized InitPos getInstance() {
         if (instance == null) {
@@ -13,35 +16,41 @@ public class InitPos {
 
     public void return_to_init_pos() {
         switch (whatToRetract) {
+            case IDLE:
+                FSMModes.getInstance().FSM();
+                if (Gamepad.getInstance().circle()){
+                    Extension.target = 0.0;
+                    Pivot.target = 0.0;
+                    whatToRetract = WhatToRetract.CLAW;
+                }
+                break;
             case CLAW:
-                Claw.getInstance().openingServo.setPosition(Claw.CLOSED_POS);
+               /* Claw.getInstance().openingServo.setPosition(Claw.CLOSED_POS);
                 Claw.getInstance().rotationServo.setPosition(Claw.ROTATION_INIT);
                 Claw.getInstance().frontBackServo_left.setPosition(Claw.FRONT_BACK_INIT);
-                Claw.getInstance().frontBackServo_right.setPosition(Claw.FRONT_BACK_INIT);
+                Claw.getInstance().frontBackServo_right.setPosition(Claw.FRONT_BACK_INIT);*/
                 whatToRetract = WhatToRetract.EXTENSION;
                 break;
             case EXTENSION:
-                if (Extension.getInstance().extension_left.getCurrentPosition() != Extension.MIN_TICKS) {
-                    Extension.getInstance().run_to_target(Extension.MIN_TICKS);
+
+                if (Extension.extension_right.getCurrentPosition() > 100) {
+                    Extension.getInstance().run_to_target(Extension.target);
                 } else {
                     whatToRetract = WhatToRetract.PIVOT;
                 }
                 break;
             case PIVOT:
-                if (Pivot.getInstance().motorPivot.getCurrentPosition() != Pivot.MIN_TICKS) {
-                    Pivot.getInstance().run_to_target(Pivot.MIN_TICKS);
+                Pivot.target = 0;
+                if (Pivot.getInstance().motorPivot.getCurrentPosition() > 100) {
+                    Pivot.getInstance().run_to_target(Pivot.target);
                 } else {
-                    whatToRetract = WhatToRetract.OVER;
+                    whatToRetract = WhatToRetract.IDLE;
                 }
-                break;
-            case OVER:
-                Outtake.getInstance().turn_returnToInitPos_OFF();
-                whatToRetract = WhatToRetract.CLAW;
                 break;
         }
     }
 
     enum WhatToRetract {
-        CLAW, EXTENSION, PIVOT, OVER
+        CLAW, EXTENSION, PIVOT, IDLE
     }
 }

@@ -29,7 +29,7 @@ public class TeleSimple extends OpMode {
         Drivetrain.getInstance().loop();
         Gamepad.getInstance().loop();
         Outtake.getInstance().loop();
-        Hang.getInstance().loop();
+//        Hang.getInstance().loop();
      //   Limelight.getInstance().loop();
     }
 }

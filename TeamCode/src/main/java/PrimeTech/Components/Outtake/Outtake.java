@@ -5,7 +5,6 @@ import PrimeTech.Components.Modes.FSMModes;
 
 public class Outtake {
     private static Outtake instance = null;
-    ReturnToInitPos returnToInitPos = ReturnToInitPos.OFF;
 
     public static synchronized Outtake getInstance() {
         if (instance == null) {
@@ -21,23 +20,6 @@ public class Outtake {
     }
 
     public void loop() {
-        switch (returnToInitPos) {
-            case OFF:
-                if (Gamepad.getInstance().circle()) {
-                    returnToInitPos = ReturnToInitPos.ON;
-                }
-                FSMModes.getInstance().FSM();
-                break;
-            case ON:
-                InitPos.getInstance().return_to_init_pos();
-                break;
-        }
-    }
-
-    public void turn_returnToInitPos_OFF(){
-        returnToInitPos = ReturnToInitPos.OFF;
-    }
-    enum ReturnToInitPos {
-        ON, OFF
+        InitPos.getInstance().return_to_init_pos();
     }
 }
