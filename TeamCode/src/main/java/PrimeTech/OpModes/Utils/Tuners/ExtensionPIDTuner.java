@@ -41,7 +41,7 @@ public class ExtensionPIDTuner extends OpMode {
     @Override
     public void loop(){
         controller.setPID(p, i, d);
-        int lift_pos = extension_left.getCurrentPosition();
+        int lift_pos = extension_right.getCurrentPosition();
         double pid = controller.calculate(lift_pos, target);
         double ff = Math.cos(Math.toRadians(lift_pos/ticks_in_degrees))*f;
         double power = pid + ff;
