@@ -19,8 +19,10 @@ public class Extension {
     public static double target = 0;
     private static Extension instance = null;
     public final double increment = 0;
+
+    public final double ticks_in_degrees = (double) 8192/360;
     public DcMotorEx extension_left = null;
-    public DcMotorEx extension_right = null;
+    static public DcMotorEx extension_right = null;
     LiftState liftState = LiftState.MIN;
     private PIDController controller;
 
@@ -37,11 +39,13 @@ public class Extension {
         extension_left = hardwareMap.get(DcMotorEx.class, "extensionLeft");
         extension_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         extension_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        extension_left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         extension_left.setDirection(DcMotorSimple.Direction.REVERSE);
 
         extension_right = hardwareMap.get(DcMotorEx.class, "extensionRight");
         extension_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         extension_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        extension_right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void loop() {
@@ -82,9 +86,10 @@ public class Extension {
 
     public void run_to_target(double target) {
         controller.setPID(p, i, d);
-        int lift_pos = extension_left.getCurrentPosition();
+        int lift_pos = extension_right.getCurrentPosition();
         double pid = controller.calculate(lift_pos, target);
-        double power = pid + f;
+        double ff = Math.cos(Math.toRadians(lift_pos/ticks_in_degrees))*f;
+        double power = pid + ff;
 
         extension_right.setPower(power);
         extension_left.setPower(power);

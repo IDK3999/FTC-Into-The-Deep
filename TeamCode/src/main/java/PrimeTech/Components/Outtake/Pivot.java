@@ -19,6 +19,8 @@ public class Pivot {
     public static double target = 0;
     private static Pivot instance = null;
     public final double increment = 0;
+
+    public final double ticks_in_degrees = (double) 8192/360;
     public DcMotorEx motorPivot = null;
     LiftState liftState = LiftState.MIN;
     private PIDController controller;
@@ -36,6 +38,7 @@ public class Pivot {
         motorPivot = hardwareMap.get(DcMotorEx.class, "motorPivot");
         motorPivot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorPivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motorPivot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void loop() {
@@ -46,22 +49,22 @@ public class Pivot {
     public double fsm() {
         switch (liftState) {
             case MIN:
-                if (Gamepad.getInstance().right_bumper()) {
+                if (Gamepad.getInstance().left_bumper()) {
                     target += increment;
                     liftState = LiftState.INRANGE;
                 }
                 break;
             case MAX:
-                if (Gamepad.getInstance().left_bumper()) {
+                if (Gamepad.getInstance().right_bumper()) {
                     target -= increment;
                     liftState = LiftState.INRANGE;
                 }
                 break;
             case INRANGE:
-                if (Gamepad.getInstance().right_bumper()) {
+                if (Gamepad.getInstance().left_bumper()) {
                     target += increment;
                 }
-                if (Gamepad.getInstance().left_bumper()) {
+                if (Gamepad.getInstance().right_bumper()) {
                     target -= increment;
                 }
                 if (target > MAX_TICKS) {
@@ -81,7 +84,8 @@ public class Pivot {
         controller.setPID(p, i, d);
         int pivot_pos = motorPivot.getCurrentPosition();
         double pid = controller.calculate(pivot_pos, target);
-        double power = pid + f;
+        double ff = Math.cos(Math.toRadians(pivot_pos/ticks_in_degrees))*f*(1+Extension.extension_right.getCurrentPosition()*0.027/28);
+        double power = pid + ff;
 
         motorPivot.setPower(power);
 

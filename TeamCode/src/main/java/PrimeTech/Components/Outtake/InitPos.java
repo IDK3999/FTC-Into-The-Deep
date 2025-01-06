@@ -35,7 +35,7 @@ public class InitPos {
                 }
                 break;
             case OVER:
-                Outtake.getInstance().returnToInitPos = Outtake.ReturnToInitPos.OFF;
+                Outtake.getInstance().turn_returnToInitPos_OFF();
                 whatToRetract = WhatToRetract.CLAW;
                 break;
         }

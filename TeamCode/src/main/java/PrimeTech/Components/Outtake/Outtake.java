@@ -34,6 +34,9 @@ public class Outtake {
         }
     }
 
+    public void turn_returnToInitPos_OFF(){
+        returnToInitPos = ReturnToInitPos.OFF;
+    }
     enum ReturnToInitPos {
         ON, OFF
     }
