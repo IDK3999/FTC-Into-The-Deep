@@ -30,7 +30,7 @@ public class Limelight {
     public void loop() {
         LLResult result = limelight.getLatestResult();
         if (result != null) {
-            if (result.isValid()) {
+
                 telemetry.addData("limelight pipeline", result.getPipelineIndex());
 
                 pythonOutputs = result.getPythonOutput();
@@ -42,11 +42,14 @@ public class Limelight {
 //                } else {
 //                    telemetry.addData("Python Output", "No data available");
 //                }
-            }
+
         }
     }
 
     public boolean foundPiece() {
         return pythonOutputs[0] == 1;
+    }
+    public int getAngle(){
+        return (int) pythonOutputs[5];
     }
 }
