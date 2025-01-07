@@ -20,7 +20,9 @@ public class InitPos {
                 FSMModes.getInstance().FSM();
                 if (Gamepad.getInstance().circle()){
                     Extension.target = 0.0;
+                    Extension.getInstance().change_liftState_to_MIN();
                     Pivot.target = 0.0;
+                    Pivot.getInstance().change_liftState_to_MIN();
                     whatToRetract = WhatToRetract.CLAW;
                 }
                 break;

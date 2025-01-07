@@ -71,7 +71,7 @@ public class Pivot {
                     liftState = LiftState.MAX;
                     target = MAX_TICKS;
                 }
-                if (target <= MIN_TICKS) {
+                if (target < MIN_TICKS) {
                     liftState = LiftState.MIN;
                     target = MIN_TICKS;
                 }
@@ -93,6 +93,10 @@ public class Pivot {
         //telemetry.addData("pivot_pos: ", pivot_pos);
         //telemetry.addData("pivot_target: ", target);
         //telemetry.update();
+    }
+
+    public void change_liftState_to_MIN(){
+        liftState = LiftState.MIN;
     }
 
     enum LiftState {

@@ -1,5 +1,6 @@
 package PrimeTech.OpModes.Tele.TeleSimple;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -11,6 +12,7 @@ import PrimeTech.Global.Global;
 import PrimeTech.OpModes.Tele.TeleSimple.Drivetrain.Drivetrain;
 
 @TeleOp(name = "TeleSimple", group = "TeleOp")
+@Config
 public class TeleSimple extends OpMode {
     @Override
     public void init() {
@@ -20,7 +22,7 @@ public class TeleSimple extends OpMode {
         Drivetrain.getInstance().init();
         Gamepad.getInstance().init();
         Outtake.getInstance().init();
-//        Hang.getInstance().init();
+        Hang.getInstance().init();
       //  Limelight.getInstance().init();
     }
 
@@ -29,7 +31,7 @@ public class TeleSimple extends OpMode {
         Drivetrain.getInstance().loop();
         Gamepad.getInstance().loop();
         Outtake.getInstance().loop();
-//        Hang.getInstance().loop();
+        Hang.getInstance().loop();
      //   Limelight.getInstance().loop();
     }
 }

@@ -100,6 +100,9 @@ public class Extension {
         telemetry.update();
     }
 
+    public void change_liftState_to_MIN(){
+        liftState = LiftState.MIN;
+    }
     enum LiftState {
         MAX, INRANGE, MIN
     }
