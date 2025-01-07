@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import PrimeTech.Global.Global;
 
-@TeleOp(name = "Servo To Init", group = "InitializeForAssembly")
+@TeleOp(name = "TestServo")
 public class TestServo extends OpMode{
     public static final double OPEN_POS = 1.0;
     public static final double CLOSED_POS = 0.0;
