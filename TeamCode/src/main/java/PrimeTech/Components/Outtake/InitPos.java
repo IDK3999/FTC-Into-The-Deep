@@ -18,7 +18,7 @@ public class InitPos {
         switch (whatToRetract) {
             case IDLE:
                 FSMModes.getInstance().FSM();
-                if (Gamepad.getInstance().circle()){
+                if (Gamepad.getInstance().circle()) {
                     Extension.target = 0.0;
                     Extension.getInstance().change_liftState_to_MIN();
                     Pivot.target = 0.0;

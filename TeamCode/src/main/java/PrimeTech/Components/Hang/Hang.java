@@ -5,7 +5,6 @@ import static PrimeTech.Global.Global.hardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import PrimeTech.Components.Gamepad.Gamepad;
-import PrimeTech.Global.Global;
 
 public class Hang {
     // TODO: Edit with correct values

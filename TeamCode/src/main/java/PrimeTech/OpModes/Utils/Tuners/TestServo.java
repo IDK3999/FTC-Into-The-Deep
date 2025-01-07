@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import PrimeTech.Global.Global;
 
 @TeleOp(name = "TestServo")
-public class TestServo extends OpMode{
+public class TestServo extends OpMode {
     public static final double OPEN_POS = 1.0;
     public static final double CLOSED_POS = 0.0;
 
@@ -22,9 +22,9 @@ public class TestServo extends OpMode{
     Servo frontBackServo_left = null;
     Servo frontBackServo_right = null;
 
-    double openingServo_pos=CLOSED_POS;
-    double rotationServo_pos=ROTATION_INIT;
-    double frontBackServoRight_pos=FRONT_BACK_INIT;
+    double openingServo_pos = CLOSED_POS;
+    double rotationServo_pos = ROTATION_INIT;
+    double frontBackServoRight_pos = FRONT_BACK_INIT;
 
     @Override
     public void init() {

@@ -17,12 +17,11 @@ public class Extension {
     public static double p = 0.004, i = 0, d = 0;
     public static double f = 0;
     public static double target = 0;
+    static public DcMotorEx extension_right = null;
     private static Extension instance = null;
     public final double increment = 50.0;
-
-    public final double ticks_in_degrees = (double) 8192/360;
+    public final double ticks_in_degrees = (double) 8192 / 360;
     public DcMotorEx extension_left = null;
-    static public DcMotorEx extension_right = null;
     LiftState liftState = LiftState.MIN;
     private PIDController controller;
 
@@ -88,7 +87,7 @@ public class Extension {
         controller.setPID(p, i, d);
         int lift_pos = extension_right.getCurrentPosition();
         double pid = controller.calculate(lift_pos, target);
-        double ff = Math.cos(Math.toRadians(lift_pos/ticks_in_degrees))*f;
+        double ff = Math.cos(Math.toRadians(lift_pos / ticks_in_degrees)) * f;
         double power = pid + ff;
 
         extension_right.setPower(power);
@@ -100,9 +99,10 @@ public class Extension {
         telemetry.update();
     }
 
-    public void change_liftState_to_MIN(){
+    public void change_liftState_to_MIN() {
         liftState = LiftState.MIN;
     }
+
     enum LiftState {
         MAX, INRANGE, MIN
     }

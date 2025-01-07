@@ -2,8 +2,6 @@ package pedroPathing.constants;
 
 import com.pedropathing.localization.Encoder;
 import com.pedropathing.localization.constants.ThreeWheelConstants;
-import com.pedropathing.localization.constants.ThreeWheelIMUConstants;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
 public class LConstants {
     static {

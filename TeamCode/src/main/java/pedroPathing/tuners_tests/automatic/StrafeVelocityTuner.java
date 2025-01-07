@@ -50,19 +50,15 @@ import pedroPathing.constants.LConstants;
 @Config
 @Autonomous(name = "Strafe Velocity Tuner", group = "Automatic Tuners")
 public class StrafeVelocityTuner extends OpMode {
+    public static double DISTANCE = 48;
+    public static double RECORD_NUMBER = 10;
     private ArrayList<Double> velocities = new ArrayList<>();
-
     private DcMotorEx leftFront;
     private DcMotorEx leftRear;
     private DcMotorEx rightFront;
     private DcMotorEx rightRear;
     private List<DcMotorEx> motors;
-
     private PoseUpdater poseUpdater;
-
-    public static double DISTANCE = 48;
-    public static double RECORD_NUMBER = 10;
-
     private Telemetry telemetryA;
 
     private boolean end;

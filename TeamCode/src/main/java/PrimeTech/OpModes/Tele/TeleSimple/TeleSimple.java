@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import PrimeTech.Components.Gamepad.Gamepad;
 import PrimeTech.Components.Hang.Hang;
-import PrimeTech.Components.Limelight.Limelight;
 import PrimeTech.Components.Outtake.Outtake;
 import PrimeTech.Global.Global;
 import PrimeTech.OpModes.Tele.TeleSimple.Drivetrain.Drivetrain;
@@ -23,7 +22,7 @@ public class TeleSimple extends OpMode {
         Gamepad.getInstance().init();
         Outtake.getInstance().init();
         Hang.getInstance().init();
-      //  Limelight.getInstance().init();
+        //  Limelight.getInstance().init();
     }
 
     @Override
@@ -32,6 +31,6 @@ public class TeleSimple extends OpMode {
         Gamepad.getInstance().loop();
         Outtake.getInstance().loop();
         Hang.getInstance().loop();
-     //   Limelight.getInstance().loop();
+        //   Limelight.getInstance().loop();
     }
 }
