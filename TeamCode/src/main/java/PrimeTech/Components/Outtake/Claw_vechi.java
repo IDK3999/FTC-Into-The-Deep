@@ -73,7 +73,12 @@ public class Claw_vechi {
     }
 
     public void loop() {
-        // Opening/closing FSM
+        openState_method();
+        frontBackState_method();
+        ll_method();
+    }
+
+    public void openState_method(){
         switch (openState) {
             case OPEN:
                 if (Gamepad.getInstance().cross()) {
@@ -90,8 +95,8 @@ public class Claw_vechi {
                 }
                 break;
         }
-
-        // Front/back movement FSM
+    }
+    public void frontBackState_method(){
         switch (frontBackState) {
             case FRONT:
                 if (Gamepad.getInstance().triangle()) {
@@ -118,10 +123,10 @@ public class Claw_vechi {
                 }
                 break;
         }
+    }
 
-
-
-         switch(ll){
+    public void ll_method(){
+        switch(ll){
             case OFF:
                 if(Gamepad.getInstance().square()){
                     ll = LL.ON;
@@ -140,10 +145,10 @@ public class Claw_vechi {
                     rotationServo.setPosition(ROTATION_INIT);
                 }
                 break;
-            }
-
-
+        }
     }
+
+
 
     void move_to_ll_postion(){
         double pieceAngle = Limelight.getInstance().getAngle()/360;
@@ -158,6 +163,10 @@ public class Claw_vechi {
         else{
             rotationServo.setPosition(0.25);
         }
+    }
+    public void rotate(double angle) {
+        frontBackServo_right.setPosition(angle);
+        frontBackServo_left.setPosition(angle);
     }
 
     public void change_to_OFF(){

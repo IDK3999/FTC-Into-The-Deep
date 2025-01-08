@@ -18,7 +18,13 @@ public class AllModes {
         static FoundAPiece foundAPiece = FoundAPiece.NO;
         static WhatToDo_intake_sample_loop whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.OPEN_CLAW;
     */
-
+    public static AllModes instance = null;
+     public static synchronized  AllModes getInstance(){
+         if(instance == null){
+             instance = new AllModes();
+         }
+         return instance;
+     }
 
 
     enum WhatToMove {
@@ -33,15 +39,32 @@ public class AllModes {
         Claw_vechi.getInstance().loop();
     }
 
+
+
+
+    public static void intake_specimen_init(){
+       Claw_vechi.getInstance().change_to_OFF();
+       Claw_vechi.getInstance().change_to_CLOSED_POS();
+       Claw_vechi.getInstance().change_to_BACK_POS();
+       AllModes.getInstance().move_to_position(0, 3500);
+       Claw_vechi.getInstance().rotate((Pivot.motorPivot.getCurrentPosition()*Pivot.ticks_in_degrees-90)/360);
+    }
     public static void intake_specimen() {
+        Claw_vechi.getInstance().openState_method();
 
     }
 
-    public static void outtake_sample() {
 
+
+    public static void intake_sample(){
+        Extension.getInstance().loop();
+        Pivot.getInstance().loop();
+        Claw_vechi.getInstance().openState_method();
+        Claw_vechi.getInstance().ll_method();
+        Claw_vechi.getInstance().rotate(0.0/*trebuie schimbat*/+Pivot.motorPivot.getCurrentPosition()*Pivot.ticks_in_degrees/360);
     }
 
-    void move_to_position(double extension_target, double pivot_target) {
+     void move_to_position(double extension_target, double pivot_target) {
         Extension.target = extension_target;
         Pivot.target = pivot_target;
         switch (whatToMove) {
@@ -63,107 +86,19 @@ public class AllModes {
                 if (Pivot.getInstance().motorPivot.getCurrentPosition() > pivot_target + 50 || Pivot.getInstance().motorPivot.getCurrentPosition() < pivot_target - 50) {
                     Pivot.getInstance().run_to_target(pivot_target);
                 } else {
-                    whatToMove = WhatToMove.EXTENSION;
-                }
-                break;
-            case EXTENSION:
-                if (Extension.extension_right.getCurrentPosition() > pivot_target + 50 || Extension.extension_right.getCurrentPosition() < pivot_target - 50) {
-                    Extension.getInstance().run_to_target(pivot_target);
-                } else {
-                    whatToMove = WhatToMove.CLAW;
+                    FSMModes.getInstance().init_over();
                 }
                 break;
         }
     }
 }
 
- /*   public static void intake_sample_init() {
-        pivotTarget = Pivot.TICKS_FOR_PARALLEL;
-        extensionTarget = Extension.MIN_TICKS;
+ /*public static void intake_sample_init() {
 
-        switch (whatToRetract_intake_sample_init) {
-            case CLAW:
-                Claw.getInstance().rotate(0.0);
-                Claw.getInstance().move_to_angle(0.5);
-                whatToRetract_intake_sample_init = WhatToRetract_intake_sample_init.EXTENSION;
-                break;
-            case EXTENSION:
-                if (Extension.getInstance().extension_left.getCurrentPosition() != extensionTarget) {
-                    Extension.getInstance().run_to_target(extensionTarget);
-                } else {
-                    whatToRetract_intake_sample_init = WhatToRetract_intake_sample_init.PIVOT;
-                }
-                break;
-            case PIVOT:
-                if (Pivot.getInstance().motorPivot.getCurrentPosition() != pivotTarget) {
-                    Pivot.getInstance().run_to_target(pivotTarget);
-                } else {
-                    whatToRetract_intake_sample_init = WhatToRetract_intake_sample_init.OVER;
-                }
-                break;
-            case OVER:
-                FSMModes.getInstance().init = FSMModes.Init.OVER;
-                break;
-        }
-
-        foundAPiece = FoundAPiece.NO;
     }
 
     public static void intake_sample_loop() {
-        switch (foundAPiece) {
-            case NO:
-                Claw.getInstance().perpendicular_on_the_ground();
-                Extension.getInstance().run_to_target(extensionTarget);
-                extensionTarget += increment;
 
-                if (Limelight.getInstance().foundPiece()) {
-//                    foundAPiece = FoundAPiece.YES;
-//                    whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.OPEN_CLAW;
-                    telemetry.addData("Found a piece", "Yes");
-                }
-                break;
-            case YES:
-                switch (whatToDo_intake_sample_loop) {
-                    case OPEN_CLAW:
-                        Claw.getInstance().openingServo.setPosition(Claw.OPEN_POS);
-                        whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.GET_PIVOT_DOWN;
-                        break;
-                    case GET_PIVOT_DOWN:
-//                        Claw.getInstance().rotate( code for finding angle );
-                        Pivot.getInstance().run_to_target(pivotTarget);
-                        Claw.getInstance().perpendicular_on_the_ground();
-                        pivotTarget -= increment;
-
-//                        if ( code for finding distance to the piece ) {
-//                            whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.CLOSE_CLAW;
-//                        }
-                        break;
-                    case CLOSE_CLAW:
-                        Claw.getInstance().openingServo.setPosition(Claw.CLOSED_POS);
-                        whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.GET_PIVOT_UP;
-                        break;
-                    case GET_PIVOT_UP:
-                        if (Pivot.getInstance().motorPivot.getCurrentPosition() != Pivot.TICKS_FOR_PARALLEL) {
-                            Pivot.getInstance().run_to_target(Pivot.TICKS_FOR_PARALLEL);
-                            Claw.getInstance().perpendicular_on_the_ground();
-                        } else {
-                            Claw.getInstance().rotate(0.0);
-                            whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.RETRACT;
-                        }
-                        break;
-                    case RETRACT:
-                        if (Extension.getInstance().extension_left.getCurrentPosition() != Extension.MIN_TICKS) {
-                            Extension.getInstance().run_to_target(Extension.MIN_TICKS);
-                        } else {
-                            whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.OVER;
-                        }
-                        break;
-                    case OVER:
-                        FSMModes.getInstance().modes = FSMModes.Modes.GENERAL;
-                        break;
-                }
-                break;
-        }
     }
 
     public static void outtake_sample_init() {

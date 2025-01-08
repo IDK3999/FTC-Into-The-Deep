@@ -19,8 +19,8 @@ public class Pivot {
     private static Pivot instance = null;
     public final double increment = 50;
 
-    public final double ticks_in_degrees = (double) 8192 / 360;
-    public DcMotorEx motorPivot = null;
+    public static final double ticks_in_degrees = (double) 8192 / 360;
+    public static DcMotorEx motorPivot = null;
     LiftState liftState = LiftState.MIN;
     private PIDController controller;
 
