@@ -30,7 +30,7 @@ public class Hang {
     }
 
     public void loop() {
-        if (Gamepad.getInstance().triangle()) {
+        if (Gamepad.getInstance().dpad_up()) {
             leftHangServo.setPosition(-OPEN_POS);
             rightHangServo.setPosition(OPEN_POS);
         }

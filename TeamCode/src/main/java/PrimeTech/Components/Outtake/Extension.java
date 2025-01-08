@@ -33,6 +33,8 @@ public class Extension {
     }
 
     public void init() {
+        target = 0;
+        liftState = LiftState.MIN;
         controller = new PIDController(p, i, d);
 
         extension_left = hardwareMap.get(DcMotorEx.class, "extensionLeft");

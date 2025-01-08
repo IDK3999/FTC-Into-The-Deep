@@ -23,8 +23,8 @@ public class InitPos {
                     Extension.getInstance().change_liftState_to_MIN();
                     Pivot.target = 0.0;
                     Pivot.getInstance().change_liftState_to_MIN();
+                    Claw_vechi.getInstance().change_to_OFF();
                     Claw_vechi.getInstance().change_to_CLOSED_POS();
-                    Claw_vechi.getInstance().change_to_ROTATION_INIT();
                     Claw_vechi.getInstance().change_to_BACK_POS();
                     whatToRetract = WhatToRetract.CLAW;
                 }

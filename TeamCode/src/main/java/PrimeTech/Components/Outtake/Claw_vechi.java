@@ -5,13 +5,14 @@ import static PrimeTech.Global.Global.hardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import PrimeTech.Components.Gamepad.Gamepad;
+import PrimeTech.Components.Limelight.Limelight;
 
 public class Claw_vechi {
     private static Claw_vechi instance = null;
-    Servo openingServo = null;
-    Servo rotationServo = null;
-    Servo frontBackServo_left = null;
-    Servo frontBackServo_right = null;
+    public Servo openingServo = null;
+    public Servo rotationServo = null;
+    public Servo frontBackServo_left = null;
+    public Servo frontBackServo_right = null;
 
     enum OpenState {
         OPEN, CLOSED
@@ -20,16 +21,16 @@ public class Claw_vechi {
     OpenState openState = OpenState.CLOSED;
 
     enum FrontBackState {
-        FRONT, BACK
+        FRONT, BACK, MID
     }
 
     FrontBackState frontBackState = FrontBackState.FRONT;
 
-    enum LeftRightState {
-        RIGHT, LEFT, INRANGE
+    enum LL{
+        ON, OFF, LOCK
     }
 
-    LeftRightState leftRightState = LeftRightState.INRANGE;
+    LL ll = LL.OFF;
 
     // Servo positions
     // TODO: Adjust with actual positions
@@ -37,14 +38,11 @@ public class Claw_vechi {
     public static final double CLOSED_POS = 0.0;
 
     public static final double FRONT_POS = 0.875;
+    public static final double MID_POS = 0.3;
     public static final double BACK_POS = 0.0;
 
-    public static final double ROTATION_INIT = 0.0;
+    public static final double ROTATION_INIT = 0.25;
 
-    public static final double ROTATION_INCREMENT = 0.05;
-    public static final double RIGHT_FINAL_STATE = 0.25;
-    public static final double LEFT_FINAL_STATE = 0.75;
-    public static final double MID_POS = 0.5;
 
     public static synchronized Claw_vechi getInstance() {
         if (instance == null) {
@@ -54,11 +52,15 @@ public class Claw_vechi {
     }
 
     public void init() {
+        ll = LL.OFF;
+        frontBackState = FrontBackState.FRONT;
+        openState = OpenState.CLOSED;
+
         openingServo = hardwareMap.get(Servo.class, "openingServo");
         openingServo.setPosition(CLOSED_POS);
 
         rotationServo = hardwareMap.get(Servo.class, "rotationServo");
-        rotationServo.setPosition(MID_POS);
+        rotationServo.setPosition(ROTATION_INIT);
 
         frontBackServo_left = hardwareMap.get(Servo.class, "frontBackServoLeft");
         frontBackServo_left.setDirection(Servo.Direction.REVERSE);
@@ -90,13 +92,20 @@ public class Claw_vechi {
         }
 
         // Front/back movement FSM
-        ///trebuie schimbat pe dpad_up&down
         switch (frontBackState) {
             case FRONT:
                 if (Gamepad.getInstance().triangle()) {
                     // Transition to BACK state
                     frontBackServo_right.setPosition(BACK_POS);
                     frontBackServo_left.setPosition(BACK_POS);
+                    frontBackState = FrontBackState.MID;
+                }
+                break;
+            case MID:
+                if (Gamepad.getInstance().triangle()) {
+                    // Transition to BACK state
+                    frontBackServo_right.setPosition(MID_POS);
+                    frontBackServo_left.setPosition(MID_POS);
                     frontBackState = FrontBackState.BACK;
                 }
                 break;
@@ -110,48 +119,52 @@ public class Claw_vechi {
                 break;
         }
 
-        // Left/right movement FSM
-        switch (leftRightState) {
-            case RIGHT:
-                if (Gamepad.getInstance().dpad_right()) {
-                    // Transition to INRANGE state
-                    rotationServo.setPosition(rotationServo.getPosition() - ROTATION_INCREMENT);
-                    leftRightState = LeftRightState.INRANGE;
+
+
+         switch(ll){
+            case OFF:
+                if(Gamepad.getInstance().square()){
+                    ll = LL.ON;
                 }
                 break;
-            case LEFT:
-                if (Gamepad.getInstance().dpad_left()) {
-                    // Transition to INRANGE state
-                    rotationServo.setPosition(rotationServo.getPosition() + ROTATION_INCREMENT);
-                    leftRightState = LeftRightState.INRANGE;
+
+            case ON:
+                move_to_ll_postion();
+                if(Gamepad.getInstance().square()){
+                    ll = LL.LOCK;
                 }
                 break;
-            case INRANGE:
-                if (Gamepad.getInstance().dpad_right()) {
-                    rotationServo.setPosition(rotationServo.getPosition() - ROTATION_INCREMENT);
-                    if (rotationServo.getPosition() < LEFT_FINAL_STATE) {
-                        // Transition to LEFT state
-                        rotationServo.setPosition(LEFT_FINAL_STATE);
-                        leftRightState = LeftRightState.LEFT;
-                    }
-                }
-                if (Gamepad.getInstance().dpad_left()) {
-                    rotationServo.setPosition(rotationServo.getPosition() + ROTATION_INCREMENT);
-                    if (rotationServo.getPosition() > RIGHT_FINAL_STATE) {
-                        // Transition to RIGHT state
-                        rotationServo.setPosition(RIGHT_FINAL_STATE);
-                        leftRightState = LeftRightState.RIGHT;
-                    }
+            case LOCK:
+                if(Gamepad.getInstance().square()){
+                    ll = LL.OFF;
+                    rotationServo.setPosition(ROTATION_INIT);
                 }
                 break;
+            }
+
+
+    }
+
+    void move_to_ll_postion(){
+        double pieceAngle = Limelight.getInstance().getAngle()/360;
+        if(Limelight.getInstance().foundPiece()){
+            if(pieceAngle<0.21){
+                rotationServo.setPosition(rotationServo.getPosition()-0.001);
+            }
+            else if(pieceAngle>0.29){
+                rotationServo.setPosition(rotationServo.getPosition()+0.001);
+            }
+        }
+        else{
+            rotationServo.setPosition(0.25);
         }
     }
 
+    public void change_to_OFF(){
+        ll = LL.OFF;
+    }
     public void change_to_CLOSED_POS(){
         openState = OpenState.CLOSED;
-    }
-    public void change_to_ROTATION_INIT(){
-        leftRightState = LeftRightState.INRANGE;
     }
     public void change_to_BACK_POS(){
         frontBackState =FrontBackState.BACK;

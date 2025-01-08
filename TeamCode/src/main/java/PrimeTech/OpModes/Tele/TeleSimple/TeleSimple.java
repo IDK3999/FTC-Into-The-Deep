@@ -23,7 +23,7 @@ public class TeleSimple extends OpMode {
         Gamepad.getInstance().init();
         Outtake.getInstance().init();
       //  Hang.getInstance().init();
-      //  Limelight.getInstance().init();
+        Limelight.getInstance().init();
     }
 
     @Override
@@ -32,6 +32,6 @@ public class TeleSimple extends OpMode {
         Gamepad.getInstance().loop();
         Outtake.getInstance().loop();
        // Hang.getInstance().loop();
-     //   Limelight.getInstance().loop();
+        Limelight.getInstance().loop();
     }
 }

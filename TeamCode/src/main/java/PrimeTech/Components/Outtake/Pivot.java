@@ -10,11 +10,11 @@ import PrimeTech.Components.Gamepad.Gamepad;
 
 public class Pivot {
     // TODO: Edit with correct values
-    public static final double MAX_TICKS = 2400;
+    public static final double MAX_TICKS = 3600;
     public static final double MIN_TICKS = 0.0;
     public static final double TICKS_FOR_PARALLEL = 0;
-    public static double p = 0.002, i = 0.01, d = 0.00025;
-    public static double f = 0.26;
+    public static double p = 0.002, i = 0.03, d = 0.0002;
+    public static double f = 0.3;
     public static double target = 0;
     private static Pivot instance = null;
     public final double increment = 50;
@@ -32,6 +32,9 @@ public class Pivot {
     }
 
     public void init() {
+        target = 0;
+        liftState = LiftState.MIN;
+
         controller = new PIDController(p, i, d);
 
         motorPivot = hardwareMap.get(DcMotorEx.class, "motorPivot");

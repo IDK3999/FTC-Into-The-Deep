@@ -15,7 +15,7 @@ public class FSMModes {
     }
 
     public void FSM() {
-        /*switch (modes) {
+       /* switch (modes) {
             case GENERAL:
                 if (Gamepad.getInstance().dpad_right()) {
                     modes = Modes.INTAKE_OUTTAKE_SPECIMEN;
@@ -30,7 +30,7 @@ public class FSMModes {
                     init = Init.NOT_OVER;
                 }*/
                 AllModes.general();
-            /*    break;
+                /*break;
             case INTAKE_SAMPLE:
                 switch (init) {
                     case NOT_OVER:
@@ -55,8 +55,8 @@ public class FSMModes {
                     modes = Modes.GENERAL;
                 }
                 AllModes.outtake_sample_loop();
-                break;*/
-      //  }
+                break;
+        }*/
     }
 
     enum Modes {

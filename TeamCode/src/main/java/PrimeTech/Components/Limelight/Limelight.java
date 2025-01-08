@@ -19,6 +19,8 @@ public class Limelight {
     }
 
     public void init() {
+
+
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
         limelight.setPollRateHz(100);
@@ -49,7 +51,7 @@ public class Limelight {
     public boolean foundPiece() {
         return pythonOutputs[0] == 1;
     }
-    public int getAngle(){
-        return (int) pythonOutputs[5];
+    public double getAngle(){
+        return pythonOutputs[5];
     }
 }

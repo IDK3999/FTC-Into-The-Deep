@@ -2,25 +2,80 @@ package PrimeTech.Components.Modes;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
+import PrimeTech.Components.Gamepad.Gamepad;
 import PrimeTech.Components.Limelight.Limelight;
 import PrimeTech.Components.Outtake.Claw;
 import PrimeTech.Components.Outtake.Claw_vechi;
 import PrimeTech.Components.Outtake.Extension;
+import PrimeTech.Components.Outtake.InitPos;
 import PrimeTech.Components.Outtake.Pivot;
 
 public class AllModes {
-    static double pivotTarget = Pivot.TICKS_FOR_PARALLEL;
-    static double extensionTarget = Extension.MIN_TICKS;
-    static double increment = 50.0;
-  /*  static WhatToRetract_intake_sample_init whatToRetract_intake_sample_init = WhatToRetract_intake_sample_init.CLAW;
-    static FoundAPiece foundAPiece = FoundAPiece.NO;
-    static WhatToDo_intake_sample_loop whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.OPEN_CLAW;
-*/
+    /*    static double pivotTarget = Pivot.TICKS_FOR_PARALLEL;
+        static double extensionTarget = Extension.MIN_TICKS;
+        static double increment = .0;
+      /*  static WhatToRetract_intake_sample_init whatToRetract_intake_sample_init = WhatToRetract_intake_sample_init.CLAW;
+        static FoundAPiece foundAPiece = FoundAPiece.NO;
+        static WhatToDo_intake_sample_loop whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.OPEN_CLAW;
+    */
+
+
+
+    enum WhatToMove {
+        CLAW, EXTENSION_RETRACT, PIVOT, EXTENSION, STOP
+    }
+
+    WhatToMove whatToMove = WhatToMove.CLAW;
+
     public static void general() {
         Extension.getInstance().loop();
         Pivot.getInstance().loop();
         Claw_vechi.getInstance().loop();
     }
+
+    public static void intake_specimen() {
+
+    }
+
+    public static void outtake_sample() {
+
+    }
+
+    void move_to_position(double extension_target, double pivot_target) {
+        Extension.target = extension_target;
+        Pivot.target = pivot_target;
+        switch (whatToMove) {
+            case CLAW:
+                Claw_vechi.getInstance().openingServo.setPosition(Claw_vechi.CLOSED_POS);
+                Claw_vechi.getInstance().rotationServo.setPosition(Claw_vechi.ROTATION_INIT);
+                Claw_vechi.getInstance().frontBackServo_left.setPosition(Claw_vechi.BACK_POS);
+                Claw_vechi.getInstance().frontBackServo_right.setPosition(Claw_vechi.BACK_POS);
+                whatToMove = WhatToMove.EXTENSION_RETRACT;
+                break;
+            case EXTENSION_RETRACT:
+                if (Extension.extension_right.getCurrentPosition() > 50) {
+                    Extension.getInstance().run_to_target(0);
+                } else {
+                    whatToMove = WhatToMove.PIVOT;
+                }
+                break;
+            case PIVOT:
+                if (Pivot.getInstance().motorPivot.getCurrentPosition() > pivot_target + 50 || Pivot.getInstance().motorPivot.getCurrentPosition() < pivot_target - 50) {
+                    Pivot.getInstance().run_to_target(pivot_target);
+                } else {
+                    whatToMove = WhatToMove.EXTENSION;
+                }
+                break;
+            case EXTENSION:
+                if (Extension.extension_right.getCurrentPosition() > pivot_target + 50 || Extension.extension_right.getCurrentPosition() < pivot_target - 50) {
+                    Extension.getInstance().run_to_target(pivot_target);
+                } else {
+                    whatToMove = WhatToMove.CLAW;
+                }
+                break;
+        }
+    }
+}
 
  /*   public static void intake_sample_init() {
         pivotTarget = Pivot.TICKS_FOR_PARALLEL;
@@ -144,4 +199,4 @@ public class AllModes {
     enum WhatToDo_intake_sample_loop {
         OPEN_CLAW, GET_PIVOT_DOWN, CLOSE_CLAW, GET_PIVOT_UP, RETRACT, OVER
     }*/
-}
+//}
