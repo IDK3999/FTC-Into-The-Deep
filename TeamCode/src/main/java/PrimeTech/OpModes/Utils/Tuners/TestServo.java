@@ -8,16 +8,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import PrimeTech.Global.Global;
 
-@TeleOp(name = "Servo To Init", group = "InitializeForAssembly")
+@TeleOp(name = "test servo", group = "InitializeForAssembly")
 public class TestServo extends OpMode{
-    public static final double OPEN_POS = 1.0;
+    public static final double OPEN_POS = 0.0;
     public static final double CLOSED_POS = 0.0;
 
     public static final double FRONT_BACK_INIT = 0.0;
-    public static final double OMEGA = 0.0;
 
-    public static final double ROTATION_INIT = 0.0;
-    public Servo openingServo = null;
+    public static final double ROTATION_INIT = 0.5;
+    Servo openingServo = null;
     Servo rotationServo = null;
     Servo frontBackServo_left = null;
     Servo frontBackServo_right = null;
@@ -30,6 +29,7 @@ public class TestServo extends OpMode{
     public void init() {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         openingServo = hardwareMap.get(Servo.class, "openingServo");
+        //openingServo.setDirection(Servo.Direction.REVERSE);
         openingServo.setPosition(CLOSED_POS);
 
         rotationServo = hardwareMap.get(Servo.class, "rotationServo");
@@ -47,10 +47,10 @@ public class TestServo extends OpMode{
 
     @Override
     public void loop() {
-        openingServo.setPosition(openingServo_pos);
-        rotationServo.setPosition(rotationServo_pos);
-        frontBackServo_right.setPosition(frontBackServoRight_pos);
-        frontBackServo_left.setPosition(frontBackServoRight_pos);
+        openingServo.setPosition(0.2);
+        rotationServo.setPosition(0.25);
+        frontBackServo_right.setPosition(0.25);
+        frontBackServo_left.setPosition(0.25);
 
 
         telemetry.addData("openingServo_pos: ", openingServo_pos);

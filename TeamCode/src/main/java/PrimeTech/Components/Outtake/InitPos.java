@@ -23,14 +23,17 @@ public class InitPos {
                     Extension.getInstance().change_liftState_to_MIN();
                     Pivot.target = 0.0;
                     Pivot.getInstance().change_liftState_to_MIN();
+                    Claw_vechi.getInstance().change_to_CLOSED_POS();
+                    Claw_vechi.getInstance().change_to_ROTATION_INIT();
+                    Claw_vechi.getInstance().change_to_BACK_POS();
                     whatToRetract = WhatToRetract.CLAW;
                 }
                 break;
             case CLAW:
-               /* Claw.getInstance().openingServo.setPosition(Claw.CLOSED_POS);
-                Claw.getInstance().rotationServo.setPosition(Claw.ROTATION_INIT);
-                Claw.getInstance().frontBackServo_left.setPosition(Claw.FRONT_BACK_INIT);
-                Claw.getInstance().frontBackServo_right.setPosition(Claw.FRONT_BACK_INIT);*/
+                Claw_vechi.getInstance().openingServo.setPosition(Claw_vechi.CLOSED_POS);
+                Claw_vechi.getInstance().rotationServo.setPosition(Claw_vechi.ROTATION_INIT);
+                Claw_vechi.getInstance().frontBackServo_left.setPosition(Claw_vechi.BACK_POS);
+                Claw_vechi.getInstance().frontBackServo_right.setPosition(Claw_vechi.BACK_POS);
                 whatToRetract = WhatToRetract.EXTENSION;
                 break;
             case EXTENSION:

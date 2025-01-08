@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.tel
 
 import PrimeTech.Components.Limelight.Limelight;
 import PrimeTech.Components.Outtake.Claw;
+import PrimeTech.Components.Outtake.Claw_vechi;
 import PrimeTech.Components.Outtake.Extension;
 import PrimeTech.Components.Outtake.Pivot;
 
@@ -11,16 +12,17 @@ public class AllModes {
     static double pivotTarget = Pivot.TICKS_FOR_PARALLEL;
     static double extensionTarget = Extension.MIN_TICKS;
     static double increment = 50.0;
-    static WhatToRetract_intake_sample_init whatToRetract_intake_sample_init = WhatToRetract_intake_sample_init.CLAW;
+  /*  static WhatToRetract_intake_sample_init whatToRetract_intake_sample_init = WhatToRetract_intake_sample_init.CLAW;
     static FoundAPiece foundAPiece = FoundAPiece.NO;
     static WhatToDo_intake_sample_loop whatToDo_intake_sample_loop = WhatToDo_intake_sample_loop.OPEN_CLAW;
-
+*/
     public static void general() {
         Extension.getInstance().loop();
         Pivot.getInstance().loop();
+        Claw_vechi.getInstance().loop();
     }
 
-    public static void intake_sample_init() {
+ /*   public static void intake_sample_init() {
         pivotTarget = Pivot.TICKS_FOR_PARALLEL;
         extensionTarget = Extension.MIN_TICKS;
 
@@ -141,5 +143,5 @@ public class AllModes {
 
     enum WhatToDo_intake_sample_loop {
         OPEN_CLAW, GET_PIVOT_DOWN, CLOSE_CLAW, GET_PIVOT_UP, RETRACT, OVER
-    }
+    }*/
 }
