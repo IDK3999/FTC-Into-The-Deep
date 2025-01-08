@@ -18,31 +18,23 @@ import PrimeTech.Global.Global;
 public class PivotAndExtensionPIDTuner extends OpMode {
     public static final double MAX_TICKS = 2600;
     public static final double MIN_TICKS = 0;
-
-    private PIDController controller_pivot;
-
     public static double p_pivot = 0.002, i_pivot = 0.05, d_pivot = 0.00025;
     public static double f_pivot = 0.26;
-
     public static double increment_pivot = 50;
     public static double target_pivot = 0;
-
-    public DcMotorEx motorPivot = null;
-
-    private PIDController controller_extension;
-
     public static double p_extension = 0.004, i_extension = 0, d_extension = 0;
     public static double f_extension = 0;
-
-    public static double increment_extension =50;
+    public static double increment_extension = 50;
     public static double target_extension = 0;
-
+    public DcMotorEx motorPivot = null;
     public DcMotorEx extension_left = null;
     public DcMotorEx extension_right = null;
-
     public double ticks_in_degrees = (double) 8192 / 360;
+    private PIDController controller_pivot;
+    private PIDController controller_extension;
+
     @Override
-    public void init(){
+    public void init() {
         Global.gamepad1 = gamepad1;
         Gamepad.getInstance().init();
         controller_pivot = new PIDController(p_pivot, i_pivot, d_pivot);
@@ -67,19 +59,19 @@ public class PivotAndExtensionPIDTuner extends OpMode {
     }
 
     @Override
-    public void loop(){
+    public void loop() {
         Gamepad.getInstance().loop();
 
-        if(Gamepad.getInstance().left_bumper() && target_pivot<MAX_TICKS) {
+        if (Gamepad.getInstance().left_bumper() && target_pivot < MAX_TICKS) {
             target_pivot += increment_pivot;
         }
-        if (Gamepad.getInstance().right_bumper() && target_pivot>MIN_TICKS) {
+        if (Gamepad.getInstance().right_bumper() && target_pivot > MIN_TICKS) {
             target_pivot -= increment_pivot;
         }
         controller_pivot.setPID(p_pivot, i_pivot, d_pivot);
         int pivot_pos = motorPivot.getCurrentPosition();
         double pid_pivot = controller_pivot.calculate(pivot_pos, target_pivot);
-        double ff_pivot = f_pivot*(1+extension_right.getCurrentPosition()*0.027/28)*Math.cos(Math.toRadians(pivot_pos / ticks_in_degrees));
+        double ff_pivot = f_pivot * (1 + extension_right.getCurrentPosition() * 0.027 / 28) * Math.cos(Math.toRadians(pivot_pos / ticks_in_degrees));
         double power_pivot = pid_pivot + ff_pivot;
 
         motorPivot.setPower(power_pivot);
@@ -89,16 +81,16 @@ public class PivotAndExtensionPIDTuner extends OpMode {
         telemetry.addData("pivot_target: ", target_pivot);
         telemetry.update();
 
-        if(target_extension<MAX_TICKS){
+        if (target_extension < MAX_TICKS) {
             target_extension += increment_extension * Gamepad.getInstance().right_trigger();
         }
-        if(target_extension>MIN_TICKS) {
+        if (target_extension > MIN_TICKS) {
             target_extension -= increment_extension * Gamepad.getInstance().left_trigger();
         }
         controller_extension.setPID(p_extension, i_extension, d_extension);
         int lift_pos = extension_right.getCurrentPosition();
         double pid_extension = controller_extension.calculate(lift_pos, target_extension);
-        double ff_extension = Math.cos(Math.toRadians(lift_pos/ticks_in_degrees))*f_extension;
+        double ff_extension = Math.cos(Math.toRadians(lift_pos / ticks_in_degrees)) * f_extension;
         double power_extension = pid_extension + ff_extension;
 
         extension_right.setPower(power_extension);

@@ -1,6 +1,5 @@
 package PrimeTech.OpModes.Utils.InitializeForAssembly;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -9,9 +8,10 @@ import PrimeTech.Global.Global;
 
 @TeleOp(name = "Servo To Init", group = "InitializeForAssembly")
 public class ServoInit extends OpMode {
+    public static double pose = 0.0;
     Servo servoL = null;
     Servo servoR = null;
-    public static double pose = 0.0;
+
     @Override
     public void init() {
         servoL = hardwareMap.get(Servo.class, "servo_left");

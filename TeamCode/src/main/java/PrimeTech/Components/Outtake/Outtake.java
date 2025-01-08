@@ -1,8 +1,5 @@
 package PrimeTech.Components.Outtake;
 
-import PrimeTech.Components.Gamepad.Gamepad;
-import PrimeTech.Components.Modes.FSMModes;
-
 public class Outtake {
     private static Outtake instance = null;
 

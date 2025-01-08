@@ -1,7 +1,6 @@
 package PrimeTech.Components.Outtake;
 
 import static PrimeTech.Global.Global.hardwareMap;
-import static PrimeTech.Global.Global.telemetry;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -20,7 +19,7 @@ public class Pivot {
     private static Pivot instance = null;
     public final double increment = 50;
 
-    public final double ticks_in_degrees = (double) 8192/360;
+    public final double ticks_in_degrees = (double) 8192 / 360;
     public DcMotorEx motorPivot = null;
     LiftState liftState = LiftState.MIN;
     private PIDController controller;
@@ -84,7 +83,7 @@ public class Pivot {
         controller.setPID(p, i, d);
         int pivot_pos = motorPivot.getCurrentPosition();
         double pid = controller.calculate(pivot_pos, target);
-        double ff = Math.cos(Math.toRadians(pivot_pos/ticks_in_degrees))*f*(1+Extension.extension_right.getCurrentPosition()*0.027/28);
+        double ff = Math.cos(Math.toRadians(pivot_pos / ticks_in_degrees)) * f * (1 + Extension.extension_right.getCurrentPosition() * 0.027 / 28);
         double power = pid + ff;
 
         motorPivot.setPower(power);
@@ -95,7 +94,7 @@ public class Pivot {
         //telemetry.update();
     }
 
-    public void change_liftState_to_MIN(){
+    public void change_liftState_to_MIN() {
         liftState = LiftState.MIN;
     }
 
