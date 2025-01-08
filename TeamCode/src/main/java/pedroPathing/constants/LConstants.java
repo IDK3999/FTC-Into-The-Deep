@@ -1,24 +1,21 @@
 package pedroPathing.constants;
 
 import com.pedropathing.localization.Encoder;
-import com.pedropathing.localization.constants.ThreeWheelConstants;
+import com.pedropathing.localization.constants.TwoWheelConstants;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
 public class LConstants {
     static {
-        ThreeWheelConstants.forwardTicksToInches = .001989436789;
-        ThreeWheelConstants.strafeTicksToInches = .001989436789;
-        ThreeWheelConstants.turnTicksToInches = .001989436789;
-        ThreeWheelConstants.leftY = 1;
-        ThreeWheelConstants.rightY = -1;
-        ThreeWheelConstants.strafeX = -2.5;
-        ThreeWheelConstants.leftEncoder_HardwareMapName = "leftFrontE";
-        ThreeWheelConstants.rightEncoder_HardwareMapName = "rearE";
-        ThreeWheelConstants.strafeEncoder_HardwareMapName = "rightFrontE";
-        ThreeWheelConstants.leftEncoderDirection = Encoder.REVERSE;
-        ThreeWheelConstants.rightEncoderDirection = Encoder.REVERSE;
-        ThreeWheelConstants.strafeEncoderDirection = Encoder.FORWARD;
-//        ThreeWheelIMUConstants.IMU_HardwareMapName = "imu";
-//        ThreeWheelIMUConstants.IMU_Orientation = new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.LEFT);
+        TwoWheelConstants.forwardTicksToInches = 0.0042;
+        TwoWheelConstants.strafeTicksToInches = .004;
+        TwoWheelConstants.forwardY = 3.9;
+        TwoWheelConstants.strafeX = -5.7;
+        TwoWheelConstants.forwardEncoder_HardwareMapName = "leftFront";
+        TwoWheelConstants.strafeEncoder_HardwareMapName = "leftBack";
+        TwoWheelConstants.forwardEncoderDirection = Encoder.REVERSE;
+        TwoWheelConstants.strafeEncoderDirection = Encoder.REVERSE;
+        TwoWheelConstants.IMU_HardwareMapName = "imu";
+        TwoWheelConstants.IMU_Orientation = new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.RIGHT, RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
     }
 }
 
