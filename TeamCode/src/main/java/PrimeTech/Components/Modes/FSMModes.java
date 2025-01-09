@@ -7,7 +7,7 @@ public class FSMModes {
     private static FSMModes instance = null;
 
     enum Modes {
-        GENERAL, INTAKE_SAMPLE, INTAKE_SPECIMEN
+        GENERAL, INTAKE_SAMPLE, INTAKE_SPECIMEN, OUTTAKE_SPECIMEN
     }
     public Modes modes = Modes.GENERAL;
 
@@ -27,6 +27,9 @@ public class FSMModes {
                 if (Gamepad.getInstance().dpad_down()) {
                     modes = Modes.INTAKE_SAMPLE;
                 }
+                if (Gamepad.getInstance().dpad_up()) {
+                    modes = Modes.OUTTAKE_SPECIMEN;
+                }
                 AllModes.general();
                 break;
             case INTAKE_SAMPLE:
@@ -41,8 +44,18 @@ public class FSMModes {
                         }
                         AllModes.intake_specimen();
                 break;
+
+            case OUTTAKE_SPECIMEN:
+                     if (Gamepad.getInstance().dpad_up()) {
+                         modes = Modes.GENERAL;
+                     }
+                     AllModes.outtake_specimen();
+                break;
         }
     }
 
+    public void change_to_general(){
+        modes = Modes.GENERAL;
+    }
 
 }

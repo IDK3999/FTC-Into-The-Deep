@@ -10,7 +10,7 @@ import PrimeTech.Components.Gamepad.Gamepad;
 
 public class Pivot {
     // TODO: Edit with correct values
-    public static final double MAX_TICKS = 3000;
+    public static final double MAX_TICKS = 2100;
     public static final double MIN_TICKS = 0.0;
     public static final double TICKS_FOR_PARALLEL = 0;
     public static double p = 0.0017, i = 0.02, d = 0.00012;
@@ -95,6 +95,10 @@ public class Pivot {
         //telemetry.addData("pivot_pos: ", pivot_pos);
         //telemetry.addData("pivot_target: ", target);
         //telemetry.update();
+    }
+
+    public static double pivot_angle(){
+        return motorPivot.getCurrentPosition()/ticks_in_degrees;
     }
 
     public void change_liftState_to_MIN() {

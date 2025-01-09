@@ -12,7 +12,7 @@ import PrimeTech.Components.Gamepad.Gamepad;
 
 public class Extension {
     // TODO: Edit with correct values
-    public static final double MAX_TICKS = 2600;
+    public static  double MAX_TICKS = 1000;
     public static final double MIN_TICKS = 0.0;
     public static double p = 0.004, i = 0, d = 0;
     public static double f = 0;
@@ -24,6 +24,11 @@ public class Extension {
     public DcMotorEx extension_left = null;
     LiftState liftState = LiftState.MIN;
     private PIDController controller;
+
+    enum AngleState{
+        OVER, UNDER
+    }
+    AngleState angleState = AngleState.UNDER;
 
     public static synchronized Extension getInstance() {
         if (instance == null) {
@@ -56,6 +61,32 @@ public class Extension {
 
     public double fsm() {
         double last_target = target;
+
+        switch(angleState){
+            case UNDER:
+               /* if (target > MAX_TICKS) {
+                    target = MAX_TICKS;
+                    liftState = LiftState.MAX;
+                }*/
+                if(Pivot.pivot_angle()>75){
+                    angleState = AngleState.OVER;
+                    liftState = LiftState.INRANGE;
+                    MAX_TICKS = 3000;
+                }
+                break;
+            case OVER:
+                /*if (target > MAX_TICKS) {
+                    liftState = LiftState.MAX;
+                    target = MAX_TICKS;
+                }*/
+                if(Pivot.pivot_angle()<75){
+                    angleState = AngleState.UNDER;
+                    MAX_TICKS = 1000;
+                    target = MAX_TICKS;
+                }
+
+                break;
+        }
 
         switch (liftState) {
             case MIN:

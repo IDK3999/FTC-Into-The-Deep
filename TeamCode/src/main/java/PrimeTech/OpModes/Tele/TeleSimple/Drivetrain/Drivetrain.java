@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class Drivetrain {
+    final double baterry_saver = 0.6;
     private static Drivetrain instance = null;
     DcMotor leftBack = null;
     DcMotor leftFront = null;
@@ -46,10 +47,10 @@ public class Drivetrain {
         double x = smoothControl(gamepad1.left_stick_x);
         double rx = smoothControl(gamepad1.right_stick_x);
 
-        leftFront.setPower(y + x + rx);
-        leftBack.setPower(y - x + rx);
-        rightFront.setPower(y - x - rx);
-        rightBack.setPower(y + x - rx);
+        leftFront.setPower((y + x + rx)*baterry_saver);
+        leftBack.setPower((y - x + rx)*baterry_saver);
+        rightFront.setPower((y - x - rx)*baterry_saver);
+        rightBack.setPower((y + x - rx)*baterry_saver);
     }
 
     private double smoothControl(double val) {
