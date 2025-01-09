@@ -79,6 +79,7 @@ public class PivotAndExtensionPIDTuner extends OpMode {
         // Telemetry
         telemetry.addData("pivot_pos: ", pivot_pos);
         telemetry.addData("pivot_target: ", target_pivot);
+        telemetry.addData("chestia",1 + extension_right.getCurrentPosition() * 0.027 / 28);
         telemetry.update();
 
         if (target_extension < MAX_TICKS) {

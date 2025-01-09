@@ -103,14 +103,6 @@ public class Claw_vechi {
                     // Transition to BACK state
                     frontBackServo_right.setPosition(BACK_POS);
                     frontBackServo_left.setPosition(BACK_POS);
-                    frontBackState = FrontBackState.MID;
-                }
-                break;
-            case MID:
-                if (Gamepad.getInstance().triangle()) {
-                    // Transition to BACK state
-                    frontBackServo_right.setPosition(MID_POS);
-                    frontBackServo_left.setPosition(MID_POS);
                     frontBackState = FrontBackState.BACK;
                 }
                 break;

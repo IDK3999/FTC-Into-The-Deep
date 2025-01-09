@@ -10,14 +10,14 @@ import PrimeTech.Components.Gamepad.Gamepad;
 
 public class Pivot {
     // TODO: Edit with correct values
-    public static final double MAX_TICKS = 3600;
+    public static final double MAX_TICKS = 3000;
     public static final double MIN_TICKS = 0.0;
     public static final double TICKS_FOR_PARALLEL = 0;
-    public static double p = 0.002, i = 0.03, d = 0.0002;
-    public static double f = 0.3;
+    public static double p = 0.0017, i = 0.02, d = 0.00012;
+    public static double f = 0.13;
     public static double target = 0;
     private static Pivot instance = null;
-    public final double increment = 50;
+    public final double increment = 20;
 
     public static final double ticks_in_degrees = (double) 8192 / 360;
     public static DcMotorEx motorPivot = null;

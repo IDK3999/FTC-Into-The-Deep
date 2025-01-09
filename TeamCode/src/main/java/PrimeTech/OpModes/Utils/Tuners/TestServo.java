@@ -55,15 +55,17 @@ public class TestServo extends OpMode{
         Limelight.getInstance().loop();
 
         double pieceAngle = Limelight.getInstance().getAngle()/360;
+        double newAngle = rotationServo.getPosition()+pieceAngle-0.25;
+        rotationServo.setPosition(Math.max(0,Math.min(0.5,newAngle)));
         openingServo.setPosition(0.2);
         //rotationServo.setPosition(0.5);
         telemetry.addData("Piece angle", Limelight.getInstance().getAngle());
-        telemetry.addData("Servo angle",rotationServo.getPosition()-0.25+ (double) Limelight.getInstance().getAngle() /360);
+        telemetry.addData("Servo angle",rotationServo.getPosition());
         //rotationServo.setPosition(rotationServo.getPosition()-0.25+ (double) Limelight.getInstance().getAngle() /360);
 
         if(Limelight.getInstance().foundPiece()){
 
-
+            /*
         if(pieceAngle<0.21){
             rotationServo.setPosition(rotationServo.getPosition()-0.001);
         }
@@ -73,9 +75,11 @@ public class TestServo extends OpMode{
         }
         else{
             rotationServo.setPosition(0.25);
+        */
         }
-        frontBackServo_right.setPosition(0.25);
-        frontBackServo_left.setPosition(0.25);
+        frontBackServo_right.setPosition(1);
+        frontBackServo_left.setPosition(1);
+        //sleep();
 
 
 //        telemetry.addData("openingServo_pos: ", openingServo_pos);

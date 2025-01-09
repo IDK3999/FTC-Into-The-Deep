@@ -46,7 +46,7 @@ public class InitPos {
                 break;
             case PIVOT:
                 Pivot.target = 0;
-                if (Pivot.getInstance().motorPivot.getCurrentPosition() > 100) {
+                if (Pivot.motorPivot.getCurrentPosition() > 100) {
                     Pivot.getInstance().run_to_target(Pivot.target);
                 } else {
                     whatToRetract = WhatToRetract.IDLE;
