@@ -5,6 +5,7 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
+import com.pedropathing.pathgen.BezierLine;
 import com.pedropathing.pathgen.PathBuilder;
 import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
@@ -17,9 +18,9 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
-@Autonomous(name = "Squircle", group = "Auto")
-public class Squircle extends OpMode {
-    private final Pose startPose = new Pose(24, 72, Math.toRadians(0));
+@Autonomous(name = "SimpleTestAuto", group = "Auto")
+public class SimpleTestAuto extends OpMode {
+    private final Pose startPose = new Pose(24, 24, Math.toRadians(90));
     private Telemetry telemetryA;
     private Follower follower;
     private PathChain generatedPath;
@@ -34,37 +35,13 @@ public class Squircle extends OpMode {
 
         builder
                 .addPath(
-                        new BezierCurve(
-                                new Point(24.000, 72.000, Point.CARTESIAN),
-                                new Point(24.000, 120.000, Point.CARTESIAN),
-                                new Point(72.000, 120.000, Point.CARTESIAN)
-                        )
-                )
-                .setTangentHeadingInterpolation()
-                .addPath(
-                        new BezierCurve(
-                                new Point(72.000, 120.000, Point.CARTESIAN),
-                                new Point(120.000, 120.000, Point.CARTESIAN),
-                                new Point(120.000, 72.000, Point.CARTESIAN)
-                        )
-                )
-                .setTangentHeadingInterpolation()
-                .addPath(
-                        new BezierCurve(
-                                new Point(120.000, 72.000, Point.CARTESIAN),
-                                new Point(120.000, 24.000, Point.CARTESIAN),
-                                new Point(72.000, 24.000, Point.CARTESIAN)
-                        )
-                )
-                .setTangentHeadingInterpolation()
-                .addPath(
-                        new BezierCurve(
-                                new Point(72.000, 24.000, Point.CARTESIAN),
+                        // Line 1
+                        new BezierLine(
                                 new Point(24.000, 24.000, Point.CARTESIAN),
-                                new Point(24.000, 72.000, Point.CARTESIAN)
+                                new Point(24.000, 120.000, Point.CARTESIAN)
                         )
                 )
-                .setTangentHeadingInterpolation();
+                .setConstantHeadingInterpolation(Math.toRadians(90));
 
         generatedPath = builder.build();
 
