@@ -33,12 +33,24 @@ public class FSMModes {
                 AllModes.general();
                 break;
             case INTAKE_SAMPLE:
+                        if (Gamepad.getInstance().dpad_right()) {
+                             modes = Modes.INTAKE_SPECIMEN;
+                        }
+                        if (Gamepad.getInstance().dpad_up()) {
+                            modes = Modes.OUTTAKE_SPECIMEN;
+                        }
                         if (Gamepad.getInstance().dpad_down()) {
                             modes = Modes.GENERAL;
                         }
                         AllModes.intake_sample();
                 break;
             case INTAKE_SPECIMEN:
+                        if (Gamepad.getInstance().dpad_down()) {
+                            modes = Modes.INTAKE_SAMPLE;
+                        }
+                        if (Gamepad.getInstance().dpad_up()) {
+                            modes = Modes.OUTTAKE_SPECIMEN;
+                        }
                         if (Gamepad.getInstance().dpad_right()) {
                             modes = Modes.GENERAL;
                         }
@@ -46,10 +58,16 @@ public class FSMModes {
                 break;
 
             case OUTTAKE_SPECIMEN:
-                     if (Gamepad.getInstance().dpad_up()) {
-                         modes = Modes.GENERAL;
-                     }
-                     AllModes.outtake_specimen();
+                    if (Gamepad.getInstance().dpad_right()) {
+                        modes = Modes.INTAKE_SPECIMEN;
+                    }
+                    if (Gamepad.getInstance().dpad_down()) {
+                        modes = Modes.INTAKE_SAMPLE;
+                    }
+                    if (Gamepad.getInstance().dpad_up()) {
+                        modes = Modes.GENERAL;
+                    }
+                    AllModes.outtake_specimen();
                 break;
         }
     }
