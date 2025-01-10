@@ -17,6 +17,8 @@ public class AllModes {
     static double outtakeExtension = 0;
     static double outtakePivot = 0;
 
+    static double outtakeSamplePivot = 0;
+
     public static AllModes instance = null;
 
     public static synchronized AllModes getInstance() {
@@ -34,12 +36,20 @@ public class AllModes {
         Claw_vechi.getInstance().loop();
     }
 
-    public  static void outtake_specimen(){
-        Pivot.target = AllModes.outtakePivot;
-        Extension.target = AllModes.outtakeExtension;
+    public static void outtake_sample(){
+        Pivot.target = outtakeSamplePivot;
 
-        Pivot.getInstance().run_to_target(AllModes.outtakePivot);
-        Extension.getInstance().run_to_target(AllModes.outtakeExtension);
+        Pivot.getInstance().run_to_target(outtakeSamplePivot);
+        Claw_vechi.getInstance().loop();
+        Extension.getInstance().loop();
+    }
+
+    public  static void outtake_specimen(){
+        Pivot.target = outtakePivot;
+        Extension.target = outtakeExtension;
+
+        Pivot.getInstance().run_to_target(outtakePivot);
+        Extension.getInstance().run_to_target(outtakeExtension);
         Claw_vechi.getInstance().openState_method();
         Claw_vechi.getInstance().rotate(0.3 + Pivot.pivot_angle() / 180);
     }
@@ -47,10 +57,10 @@ public class AllModes {
     public static void intake_specimen() {
        // Extension.getInstance().loop();
         //Pivot.getInstance().loop();
-        Pivot.target = AllModes.intakePivot;
-        Extension.target = AllModes.intakeExtension;
+        Pivot.target = intakePivot;
+        Extension.target = intakeExtension;
 
-        Pivot.getInstance().run_to_target(AllModes.intakePivot);
+        Pivot.getInstance().run_to_target(intakePivot);
         Extension.getInstance().run_to_target(AllModes.intakeExtension);
         Claw_vechi.getInstance().openState_method();
         Claw_vechi.getInstance().rotate(0.3 + Pivot.pivot_angle() / 180);

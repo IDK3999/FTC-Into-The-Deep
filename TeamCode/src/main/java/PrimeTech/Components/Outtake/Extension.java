@@ -62,12 +62,12 @@ public class Extension {
     public double fsm() {
         double last_target = target;
 
-        switch(angleState){
+       /* switch(angleState){
             case UNDER:
-               /* if (target > MAX_TICKS) {
+                if (target > MAX_TICKS) {
                     target = MAX_TICKS;
                     liftState = LiftState.MAX;
-                }*/
+                }
                 if(Pivot.pivot_angle()>75){
                     angleState = AngleState.OVER;
                     liftState = LiftState.INRANGE;
@@ -75,10 +75,10 @@ public class Extension {
                 }
                 break;
             case OVER:
-                /*if (target > MAX_TICKS) {
+                if (target > MAX_TICKS) {
                     liftState = LiftState.MAX;
                     target = MAX_TICKS;
-                }*/
+                }
                 if(Pivot.pivot_angle()<75){
                     angleState = AngleState.UNDER;
                     MAX_TICKS = 1000;
@@ -86,7 +86,7 @@ public class Extension {
                 }
 
                 break;
-        }
+        }*/
 
         switch (liftState) {
             case MIN:
@@ -135,6 +135,10 @@ public class Extension {
     public void change_liftState_to_MIN() {
         liftState = LiftState.MIN;
     }
+    public void change_liftState_to_INRANGE() {
+        liftState = LiftState.INRANGE;
+    }
+
 
     enum LiftState {
         MAX, INRANGE, MIN

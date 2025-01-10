@@ -27,6 +27,7 @@ public class InitPos {
                     Claw_vechi.getInstance().change_to_CLOSED_POS();
                     Claw_vechi.getInstance().change_to_BACK_POS();
                     FSMModes.getInstance().change_to_general();
+                    Extension.MAX_TICKS = 1000;
                     whatToRetract = WhatToRetract.CLAW;
                 }
                 break;
