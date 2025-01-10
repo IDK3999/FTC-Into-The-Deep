@@ -196,7 +196,7 @@ public class Claw_vechi {
     public void change_to_CLOSED_POS(){
         openState = OpenState.CLOSED;
     }
-    public void change_to_BACK_POS(){
+    public void change_to_FRONT_POS(){
         frontBackState =FrontBackState.FRONT;
     }
 

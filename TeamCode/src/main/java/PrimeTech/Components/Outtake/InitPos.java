@@ -25,7 +25,7 @@ public class InitPos {
                     Pivot.getInstance().change_liftState_to_MIN();
                     Claw_vechi.getInstance().change_to_OFF();
                     Claw_vechi.getInstance().change_to_CLOSED_POS();
-                    Claw_vechi.getInstance().change_to_BACK_POS();
+                    Claw_vechi.getInstance().change_to_FRONT_POS();
                     FSMModes.getInstance().change_to_general();
                     Extension.MAX_TICKS = 1000;
                     whatToRetract = WhatToRetract.CLAW;
