@@ -47,20 +47,9 @@ public class Limelight {
     public void loop() {
         LLResult result = limelight.getLatestResult();
         if (result != null) {
-
-                telemetry.addData("limelight pipeline", result.getPipelineIndex());
-
                 pythonOutputs = result.getPythonOutput();
-                telemetry.addData("Color", pythonOutputs[6]);
-//                if (pythonOutputs != null && pythonOutputs.length > 0) {
-//                    // Display the Python script outputs
-//                    for (int i = 0; i < pythonOutputs.length; i++) {
-//                        telemetry.addData("Python Output " + i, pythonOutputs[i]);
-//                    }
-//                } else {
-//                    telemetry.addData("Python Output", "No data available");
-//                }
-
+                //telemetry.addData("limelight pipeline", result.getPipelineIndex());
+                //telemetry.addData("Color", pythonOutputs[6]);
         }
     }
 
