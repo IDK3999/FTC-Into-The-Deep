@@ -12,7 +12,7 @@ import PrimeTech.Components.Outtake.Pivot;
 
 public class AllModes {
     static double intakeExtension = 0;
-    static double intakePivot = 330;
+    static double intakePivot = 350;
 
     static double outtakeExtension = 1000;
     static double outtakePivot = 1500;
@@ -64,6 +64,7 @@ public class AllModes {
         Pivot.getInstance().run_to_target(intakePivot);
         Extension.getInstance().run_to_target(AllModes.intakeExtension);
         Claw_vechi.getInstance().openState_method();
+        Claw_vechi.getInstance().ll_method();
         Claw_vechi.getInstance().rotate(0.3 + Pivot.pivot_angle() / 180);
 
     }
@@ -73,7 +74,7 @@ public class AllModes {
         Extension.getInstance().loop();
         Pivot.getInstance().loop();
         Claw_vechi.getInstance().openState_method();
-        //Claw_vechi.getInstance().ll_method();
+        Claw_vechi.getInstance().ll_method();
         Claw_vechi.getInstance().rotate(0.75 +Pivot.pivot_angle() / 180);
     }
 }

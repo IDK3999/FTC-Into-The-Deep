@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class Drivetrain {
-    final double baterry_saver = 0.6;
+    final double baterry_saver = 1;
     private static Drivetrain instance = null;
     DcMotor leftBack = null;
     DcMotor leftFront = null;

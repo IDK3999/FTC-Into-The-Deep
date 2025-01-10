@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import PrimeTech.Components.Gamepad.Gamepad;
 import PrimeTech.Components.Limelight.Limelight;
 import PrimeTech.Global.Global;
 
@@ -25,13 +26,15 @@ public class TestServo extends OpMode{
     double openingServo_pos=CLOSED_POS;
     double rotationServo_pos=ROTATION_INIT;
     double frontBackServoRight_pos=FRONT_BACK_INIT;
-
+    boolean press=false;
     @Override
     public void init() {
+        Global.gamepad1 = gamepad1;
 
+        Gamepad.getInstance().init();
         Global.hardwareMap = hardwareMap;
         Global.telemetry = telemetry;
-        Limelight.getInstance().init();
+        //Limelight.getInstance().init();
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         openingServo = hardwareMap.get(Servo.class, "openingServo");
         //openingServo.setDirection(Servo.Direction.REVERSE);
@@ -47,22 +50,30 @@ public class TestServo extends OpMode{
 
         frontBackServo_right = hardwareMap.get(Servo.class, "frontBackServoRight");
         frontBackServo_right.setPosition(FRONT_BACK_INIT);
-        Global.gamepad1 = gamepad1;
     }
 
     @Override
     public void loop() {
         Limelight.getInstance().loop();
+        Gamepad.getInstance().loop();
 
-        double pieceAngle = Limelight.getInstance().getAngle()/360;
-        double newAngle = rotationServo.getPosition()+pieceAngle-0.25;
-        rotationServo.setPosition(Math.max(0,Math.min(0.5,newAngle)));
+
         openingServo.setPosition(0.2);
-        //rotationServo.setPosition(0.5);
-        telemetry.addData("Piece angle", Limelight.getInstance().getAngle());
-        telemetry.addData("Servo angle",rotationServo.getPosition());
-        //rotationServo.setPosition(rotationServo.getPosition()-0.25+ (double) Limelight.getInstance().getAngle() /360);
 
+        //rotationServo.setPosition(0.5);
+
+        double pieceAngle=0;
+        //rotationServo.setPosition(rotationServo.getPosition()-0.25+ (double) Limelight.getInstance().getAngle() /360);
+        if(Gamepad.getInstance().square()){
+            press=!press;
+            pieceAngle = Limelight.getInstance().getAngle()/360;
+            double newAngle = rotationServo.getPosition()+pieceAngle-0.25;
+            rotationServo.setPosition(Math.max(0,Math.min(0.5,newAngle)));
+
+        }
+        telemetry.addData("Piece angle", pieceAngle);
+        telemetry.addData("Servo angle",rotationServo.getPosition());
+        telemetry.addData("Press",press);
         if(Limelight.getInstance().foundPiece()){
 
             /*
@@ -86,6 +97,7 @@ public class TestServo extends OpMode{
 //        telemetry.addData("rotationServo_pos: ", rotationServo_pos);
 //        telemetry.addData("frontBackServoRight_pos: ", frontBackServoRight_pos);
         telemetry.update();
+
     }
 
     void move_to_ll_angle(){

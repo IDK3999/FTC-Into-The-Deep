@@ -7,6 +7,8 @@ import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 public class Limelight {
+
+    //0 red  1 blue
     private static Limelight instance = null;
     public double[] pythonOutputs;
     private Limelight3A limelight;
@@ -18,11 +20,24 @@ public class Limelight {
         return instance;
     }
 
-    public void init() {
-
-
+    public void init_blue() {
+        //0 red  1 blue
+        int color = 1;
+        double[] pythonInputs={color,0,0,0,0,0,0,0};
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
+        limelight.updatePythonInputs(pythonInputs);
+        limelight.setPollRateHz(100);
+        telemetry.setMsTransmissionInterval(11);
+        limelight.pipelineSwitch(0);
+        limelight.start();
+    }
 
+    public void init_red() {
+        //0 red  1 blue
+        int color = 0;
+        double[] pythonInputs={color,0,0,0,0,0,0,0};
+        limelight = hardwareMap.get(Limelight3A.class, "limelight");
+        limelight.updatePythonInputs(pythonInputs);
         limelight.setPollRateHz(100);
         telemetry.setMsTransmissionInterval(11);
         limelight.pipelineSwitch(0);
@@ -36,6 +51,7 @@ public class Limelight {
                 telemetry.addData("limelight pipeline", result.getPipelineIndex());
 
                 pythonOutputs = result.getPythonOutput();
+                telemetry.addData("Color", pythonOutputs[6]);
 //                if (pythonOutputs != null && pythonOutputs.length > 0) {
 //                    // Display the Python script outputs
 //                    for (int i = 0; i < pythonOutputs.length; i++) {

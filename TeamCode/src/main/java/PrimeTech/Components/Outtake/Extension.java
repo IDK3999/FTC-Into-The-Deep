@@ -62,32 +62,10 @@ public class Extension {
     public double fsm() {
         double last_target = target;
 
-       /* switch(angleState){
-            case UNDER:
-                if (target > MAX_TICKS) {
-                    target = MAX_TICKS;
-                    liftState = LiftState.MAX;
-                }
-                if(Pivot.pivot_angle()>75){
-                    angleState = AngleState.OVER;
-                    liftState = LiftState.INRANGE;
-                    MAX_TICKS = 3000;
-                }
-                break;
-            case OVER:
-                if (target > MAX_TICKS) {
-                    liftState = LiftState.MAX;
-                    target = MAX_TICKS;
-                }
-                if(Pivot.pivot_angle()<75){
-                    angleState = AngleState.UNDER;
-                    MAX_TICKS = 1000;
-                    target = MAX_TICKS;
-                }
-
-                break;
-        }*/
-
+        if(Pivot.pivot_angle()<80 && target > 1000){
+            MAX_TICKS = 1000;
+            target = MAX_TICKS;
+        }
         switch (liftState) {
             case MIN:
                 target += increment * Gamepad.getInstance().right_trigger();
@@ -127,8 +105,8 @@ public class Extension {
         extension_left.setPower(power);
 
         // Telemetry
-        telemetry.addData("lift_pos: ", lift_pos);
-        telemetry.addData("lift_target: ", target);
+        //telemetry.addData("lift_pos: ", lift_pos);
+        //telemetry.addData("lift_target: ", target);
         telemetry.update();
     }
 

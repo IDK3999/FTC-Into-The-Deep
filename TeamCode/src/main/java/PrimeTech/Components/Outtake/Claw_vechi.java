@@ -1,6 +1,7 @@
 package PrimeTech.Components.Outtake;
 
 import static PrimeTech.Global.Global.hardwareMap;
+import static PrimeTech.Global.Global.telemetry;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -32,6 +33,8 @@ public class Claw_vechi {
 
     LL ll = LL.OFF;
 
+    boolean press=false;
+    double last_pieceAngle=0;
     // Servo positions
     // TODO: Adjust with actual positions
     public static final double OPEN_POS = 0.25;
@@ -75,7 +78,7 @@ public class Claw_vechi {
     public void loop() {
         openState_method();
         frontBackState_method();
-        //ll_method();
+        ll_method();
     }
 
     public void openState_method(){
@@ -117,8 +120,8 @@ public class Claw_vechi {
         }
     }
 
-   /* public void ll_method(){
-        switch(ll){
+    public void ll_method(){
+       /* switch(ll){
             case OFF:
                 if(Gamepad.getInstance().square()){
                     ll = LL.ON;
@@ -137,12 +140,14 @@ public class Claw_vechi {
                     rotationServo.setPosition(ROTATION_INIT);
                 }
                 break;
-        }
+        }*/
+        move_to_ll_postion();
     }
-*/
+
 
 
     void move_to_ll_postion(){
+        /*
         double pieceAngle = Limelight.getInstance().getAngle()/360;
         if(Limelight.getInstance().foundPiece()){
             if(pieceAngle<0.21){
@@ -155,6 +160,30 @@ public class Claw_vechi {
         else{
             rotationServo.setPosition(0.25);
         }
+
+         */
+        double pieceAngle=Limelight.getInstance().getAngle()/360;
+        if(Limelight.getInstance().foundPiece()){
+            last_pieceAngle=pieceAngle;
+        }
+        //rotationServo.setPosition(rotationServo.getPosition()-0.25+ (double) Limelight.getInstance().getAngle() /360);
+        if(Gamepad.getInstance().square()){
+            press=!press;
+            //pieceAngle = ;
+            if(Limelight.getInstance().foundPiece()){
+                double newAngle = rotationServo.getPosition()+last_pieceAngle-0.25;
+                rotationServo.setPosition(Math.max(0,Math.min(0.5,newAngle)));
+
+            }
+
+        }
+        if(!press){
+            rotationServo.setPosition(0.25);
+        }
+        telemetry.addData("Absolute Piece angle", Limelight.getInstance().getAngle());
+        telemetry.addData("Piece angle", pieceAngle);
+        telemetry.addData("Servo angle",rotationServo.getPosition());
+        telemetry.addData("Press",press);
     }
     public void rotate(double angle) {
         frontBackServo_right.setPosition(angle);

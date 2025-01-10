@@ -11,20 +11,20 @@ import PrimeTech.Components.Outtake.Outtake;
 import PrimeTech.Global.Global;
 import PrimeTech.OpModes.Tele.TeleSimple.Drivetrain.Drivetrain;
 
-@TeleOp(name = "TeleSimple", group = "TeleOp")
+@TeleOp(name = "TeleSimpleRed", group = "TeleOp")
 @Config
-public class TeleSimple extends OpMode {
+public class TeleSimpleRed extends OpMode {
     @Override
     public void init() {
         Global.hardwareMap = hardwareMap;
         Global.telemetry = telemetry;
         Global.gamepad1 = gamepad1;
-        //Limelight.getInstance().init();
+        Limelight.getInstance().init_red();
 
         Drivetrain.getInstance().init();
         Gamepad.getInstance().init();
         Outtake.getInstance().init();
-      //  Hang.getInstance().init();
+        //  Hang.getInstance().init();
     }
 
     @Override
@@ -34,6 +34,6 @@ public class TeleSimple extends OpMode {
         Drivetrain.getInstance().loop();
         Gamepad.getInstance().loop();
         Outtake.getInstance().loop();
-       // Hang.getInstance().loop();
+        // Hang.getInstance().loop();
     }
 }
