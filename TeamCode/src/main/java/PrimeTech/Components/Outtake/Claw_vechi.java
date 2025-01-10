@@ -75,7 +75,7 @@ public class Claw_vechi {
     public void loop() {
         openState_method();
         frontBackState_method();
-        ll_method();
+        //ll_method();
     }
 
     public void openState_method(){
@@ -117,7 +117,7 @@ public class Claw_vechi {
         }
     }
 
-    public void ll_method(){
+   /* public void ll_method(){
         switch(ll){
             case OFF:
                 if(Gamepad.getInstance().square()){
@@ -139,7 +139,7 @@ public class Claw_vechi {
                 break;
         }
     }
-
+*/
 
 
     void move_to_ll_postion(){
