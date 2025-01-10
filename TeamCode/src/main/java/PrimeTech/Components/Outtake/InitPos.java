@@ -34,8 +34,8 @@ public class InitPos {
             case CLAW:
                 Claw_vechi.getInstance().openingServo.setPosition(Claw_vechi.CLOSED_POS);
                 Claw_vechi.getInstance().rotationServo.setPosition(Claw_vechi.ROTATION_INIT);
-                Claw_vechi.getInstance().frontBackServo_left.setPosition(Claw_vechi.BACK_POS);
-                Claw_vechi.getInstance().frontBackServo_right.setPosition(Claw_vechi.BACK_POS);
+                Claw_vechi.getInstance().frontBackServo_left.setPosition(Claw_vechi.FRONT_POS);
+                Claw_vechi.getInstance().frontBackServo_right.setPosition(Claw_vechi.FRONT_POS);
                 whatToRetract = WhatToRetract.EXTENSION;
                 break;
             case EXTENSION:

@@ -67,10 +67,10 @@ public class Claw_vechi {
 
         frontBackServo_left = hardwareMap.get(Servo.class, "frontBackServoLeft");
         frontBackServo_left.setDirection(Servo.Direction.REVERSE);
-        frontBackServo_left.setPosition(BACK_POS);
+        frontBackServo_left.setPosition(FRONT_POS);
 
         frontBackServo_right = hardwareMap.get(Servo.class, "frontBackServoRight");
-        frontBackServo_right.setPosition(BACK_POS);
+        frontBackServo_right.setPosition(FRONT_POS);
 
 
     }
@@ -197,7 +197,7 @@ public class Claw_vechi {
         openState = OpenState.CLOSED;
     }
     public void change_to_BACK_POS(){
-        frontBackState =FrontBackState.BACK;
+        frontBackState =FrontBackState.FRONT;
     }
 
 }
