@@ -8,11 +8,11 @@ import PrimeTech.Components.Outtake.Pivot;
 
 @Config
 public class AllModes {
-    static double intakeExtension = 0;
-    public static double intakePivot = 450;
+    static double intakeSpecimenExtension = 0;
+    public static double intakeSpecimenPivot = 450;
 
-    static double outtakeExtension = 1000;
-    static double outtakePivot = 1500;
+    static double outtakeSpecimenExtension = 1000;
+    static double outtakeSpecimenPivot = 1500;
 
     static double outtakeSamplePivot = 2250;
 
@@ -42,22 +42,22 @@ public class AllModes {
     }
 
     public  static void outtake_specimen(){
-        Pivot.target = outtakePivot;
-        Extension.target = outtakeExtension;
+        Pivot.target = outtakeSpecimenPivot;
+        Extension.target = outtakeSpecimenExtension;
 
-        Pivot.getInstance().run_to_target(outtakePivot);
-        Extension.getInstance().run_to_target(outtakeExtension);
+        Pivot.getInstance().run_to_target(outtakeSpecimenPivot);
+        Extension.getInstance().run_to_target(outtakeSpecimenExtension);
 
         Claw_vechi.getInstance().openState_method();
         Claw_vechi.getInstance().rotate(0.3 + Pivot.pivot_angle() / 180);
     }
 
     public static void intake_specimen() {
-        Pivot.target = intakePivot;
-        Extension.target = intakeExtension;
+        Pivot.target = intakeSpecimenPivot;
+        Extension.target = intakeSpecimenExtension;
 
-        Pivot.getInstance().run_to_target(intakePivot);
-        Extension.getInstance().run_to_target(AllModes.intakeExtension);
+        Pivot.getInstance().run_to_target(intakeSpecimenPivot);
+        Extension.getInstance().run_to_target(intakeSpecimenExtension);
 
         Claw_vechi.getInstance().openState_method();
         Claw_vechi.getInstance().ll_method();

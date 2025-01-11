@@ -8,7 +8,7 @@ public class Outtake {
     WhatToRetract whatToRetract = WhatToRetract.IDLE;
 
     enum WhatToRetract {
-        CLAW, EXTENSION, PIVOT, IDLE
+        EXTENSION, PIVOT, IDLE
     }
     public static synchronized Outtake getInstance() {
         if (instance == null) {
