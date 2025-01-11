@@ -30,9 +30,7 @@ public class AllModes {
         }
         return instance;
     }
-
-
-
+    
     public static void general() {
         Extension.getInstance().loop();
         Pivot.getInstance().loop();
