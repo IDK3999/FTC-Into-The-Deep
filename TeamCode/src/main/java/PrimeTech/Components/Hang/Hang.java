@@ -23,7 +23,8 @@ public class Hang {
 
     public void init() {
         leftHangServo = hardwareMap.get(Servo.class, "leftHangServo");
-        leftHangServo.setPosition(-CLOSED_POS);
+        leftHangServo.setDirection(Servo.Direction.REVERSE);
+        leftHangServo.setPosition(CLOSED_POS);
 
         rightHangServo = hardwareMap.get(Servo.class, "rightHangServo");
         rightHangServo.setPosition(CLOSED_POS);
@@ -31,7 +32,7 @@ public class Hang {
 
     public void loop() {
         if (Gamepad.getInstance().dpad_up()) {
-            leftHangServo.setPosition(-OPEN_POS);
+            leftHangServo.setPosition(OPEN_POS);
             rightHangServo.setPosition(OPEN_POS);
         }
     }
