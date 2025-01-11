@@ -1,11 +1,13 @@
 package PrimeTech.OpModes.Utils.InitializeForAssembly;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import PrimeTech.Global.Global;
 
+@Disabled
 @TeleOp(name = "Servo To Init", group = "InitializeForAssembly")
 public class ServoInit extends OpMode {
     public static double pose = 0.0;
