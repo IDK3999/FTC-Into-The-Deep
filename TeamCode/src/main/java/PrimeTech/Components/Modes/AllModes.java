@@ -12,7 +12,7 @@ import PrimeTech.Components.Outtake.Pivot;
 
 public class AllModes {
     static double intakeExtension = 0;
-    static double intakePivot = 350;
+    static double intakePivot = 400;
 
     static double outtakeExtension = 1000;
     static double outtakePivot = 1500;
