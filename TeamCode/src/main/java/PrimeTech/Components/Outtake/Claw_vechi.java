@@ -60,10 +60,10 @@ public class Claw_vechi {
         openState = OpenState.CLOSED;
 
         openingServo = hardwareMap.get(Servo.class, "openingServo");
-        openingServo.setPosition(CLOSED_POS);
+
 
         rotationServo = hardwareMap.get(Servo.class, "rotationServo");
-        rotationServo.setPosition(ROTATION_INIT);
+
 
         frontBackServo_left = hardwareMap.get(Servo.class, "frontBackServoLeft");
 
@@ -73,6 +73,8 @@ public class Claw_vechi {
 
     }
     public void start(){
+        openingServo.setPosition(CLOSED_POS);
+        rotationServo.setPosition(ROTATION_INIT);
         frontBackServo_left.setDirection(Servo.Direction.REVERSE);
         frontBackServo_left.setPosition(FRONT_POS);
         frontBackServo_right.setPosition(FRONT_POS);
