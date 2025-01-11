@@ -51,7 +51,7 @@ import pedroPathing.constants.LConstants;
 public class ForwardVelocityTuner extends OpMode {
     public static double DISTANCE = 48;
     public static double RECORD_NUMBER = 10;
-    private ArrayList<Double> velocities = new ArrayList<>();
+    private final ArrayList<Double> velocities = new ArrayList<>();
     private DcMotorEx leftFront;
     private DcMotorEx leftRear;
     private DcMotorEx rightFront;
@@ -159,7 +159,7 @@ public class ForwardVelocityTuner extends OpMode {
             for (Double velocity : velocities) {
                 average += velocity;
             }
-            average /= (double) velocities.size();
+            average /= velocities.size();
 
             telemetryA.addData("forward velocity:", average);
             telemetryA.update();

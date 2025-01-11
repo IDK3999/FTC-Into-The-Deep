@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class FConstants {
     static {
         FollowerConstants.localizers = Localizers.TWO_WHEEL;
-//        FollowerConstants.localizers = Localizers.THREE_WHEEL_IMU;
 
         FollowerConstants.leftFrontMotorName = "leftFront";
         FollowerConstants.leftRearMotorName = "leftBack";
@@ -50,5 +49,3 @@ public class FConstants {
         FollowerConstants.pathEndHeadingConstraint = 0.007;
     }
 }
-
-// TODO: Edit with correct values

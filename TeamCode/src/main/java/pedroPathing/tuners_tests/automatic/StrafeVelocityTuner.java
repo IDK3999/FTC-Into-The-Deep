@@ -52,7 +52,7 @@ import pedroPathing.constants.LConstants;
 public class StrafeVelocityTuner extends OpMode {
     public static double DISTANCE = 48;
     public static double RECORD_NUMBER = 10;
-    private ArrayList<Double> velocities = new ArrayList<>();
+    private final ArrayList<Double> velocities = new ArrayList<>();
     private DcMotorEx leftFront;
     private DcMotorEx leftRear;
     private DcMotorEx rightFront;
@@ -157,7 +157,7 @@ public class StrafeVelocityTuner extends OpMode {
             for (Double velocity : velocities) {
                 average += velocity;
             }
-            average /= (double) velocities.size();
+            average /= velocities.size();
 
             telemetryA.addData("strafe velocity:", average);
             telemetryA.update();
