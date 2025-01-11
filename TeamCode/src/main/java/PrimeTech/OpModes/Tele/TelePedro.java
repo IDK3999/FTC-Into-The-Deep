@@ -3,6 +3,7 @@ package PrimeTech.OpModes.Tele;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.util.Constants;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -12,6 +13,7 @@ import PrimeTech.Components.Outtake.Outtake;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
+@Disabled
 @TeleOp(name = "TelePedro", group = "TeleOp")
 public class TelePedro extends OpMode {
     private final Pose startPose = new Pose(0, 0, 0);
