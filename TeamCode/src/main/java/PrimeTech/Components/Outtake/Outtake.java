@@ -15,6 +15,9 @@ public class Outtake {
         Extension.getInstance().init();
         Pivot.getInstance().init();
     }
+    public void start(){
+        Claw_vechi.getInstance().start();
+    }
 
     public void loop() {
         InitPos.getInstance().return_to_init_pos();

@@ -26,7 +26,10 @@ public class TeleSimpleRed extends OpMode {
         Outtake.getInstance().init();
         //  Hang.getInstance().init();
     }
-
+    @Override
+    public void start() {
+        Outtake.getInstance().start();
+    }
     @Override
     public void loop() {
         Limelight.getInstance().loop();

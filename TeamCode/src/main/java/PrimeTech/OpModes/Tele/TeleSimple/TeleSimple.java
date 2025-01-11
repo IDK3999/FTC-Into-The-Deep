@@ -27,10 +27,7 @@ public class TeleSimple extends OpMode {
       //  Hang.getInstance().init();
     }
 
-    @Override
-    public void start() {
-        super.start();
-    }
+
 
     @Override
     public void loop() {

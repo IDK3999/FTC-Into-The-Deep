@@ -28,6 +28,11 @@ public class TeleSimpleBlue extends OpMode {
     }
 
     @Override
+    public void start() {
+        Outtake.getInstance().start();
+    }
+
+    @Override
     public void loop() {
         Limelight.getInstance().loop();
 
