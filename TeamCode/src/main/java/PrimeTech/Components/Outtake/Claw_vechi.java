@@ -22,26 +22,25 @@ public class Claw_vechi {
     OpenState openState = OpenState.CLOSED;
 
     enum FrontBackState {
-        FRONT, BACK, MID
+        FRONT, BACK
     }
 
     FrontBackState frontBackState = FrontBackState.FRONT;
 
-    enum LL{
-        ON, OFF, LOCK
+    enum SquarePressed{
+        YES, NO
     }
 
-    LL ll = LL.OFF;
+    SquarePressed squarePressed = SquarePressed.NO;
 
-    boolean press=false;
-    double last_pieceAngle=0;
+    boolean press = false;
+    double last_pieceAngle = 0;
     // Servo positions
     // TODO: Adjust with actual positions
     public static final double OPEN_POS = 0.25;
     public static final double CLOSED_POS = 0.0;
 
     public static final double FRONT_POS = 0.875;
-    public static final double MID_POS = 0.3;
     public static final double BACK_POS = 0.0;
 
     public static final double ROTATION_INIT = 0.25;
@@ -55,9 +54,7 @@ public class Claw_vechi {
     }
 
     public void init() {
-        ll = LL.OFF;
-        frontBackState = FrontBackState.FRONT;
-        openState = OpenState.CLOSED;
+
 
         openingServo = hardwareMap.get(Servo.class, "openingServo");
 
@@ -66,19 +63,22 @@ public class Claw_vechi {
 
 
         frontBackServo_left = hardwareMap.get(Servo.class, "frontBackServoLeft");
-
+        frontBackServo_left.setDirection(Servo.Direction.REVERSE);
 
         frontBackServo_right = hardwareMap.get(Servo.class, "frontBackServoRight");
 
 
     }
     public void start(){
+        squarePressed = SquarePressed.NO;
+        frontBackState = FrontBackState.FRONT;
+        openState = OpenState.CLOSED;
+
         openingServo.setPosition(CLOSED_POS);
         rotationServo.setPosition(ROTATION_INIT);
-        frontBackServo_left.setDirection(Servo.Direction.REVERSE);
+
         frontBackServo_left.setPosition(FRONT_POS);
         frontBackServo_right.setPosition(FRONT_POS);
-
     }
     public void loop() {
         openState_method();
@@ -126,78 +126,66 @@ public class Claw_vechi {
     }
 
     public void ll_method(){
-       /* switch(ll){
-            case OFF:
-                if(Gamepad.getInstance().square()){
-                    ll = LL.ON;
-                }
-                break;
 
-            case ON:
-                move_to_ll_postion();
-                if(Gamepad.getInstance().square()){
-                    ll = LL.LOCK;
-                }
-                break;
-            case LOCK:
-                if(Gamepad.getInstance().square()){
-                    ll = LL.OFF;
-                    rotationServo.setPosition(ROTATION_INIT);
-                }
-                break;
-        }*/
-        move_to_ll_postion();
-    }
-
-
-
-    void move_to_ll_postion(){
-        /*
         double pieceAngle = Limelight.getInstance().getAngle()/360;
-        if(Limelight.getInstance().foundPiece()){
-            if(pieceAngle<0.21){
-                rotationServo.setPosition(rotationServo.getPosition()-0.001);
-            }
-            else if(pieceAngle>0.29){
-                rotationServo.setPosition(rotationServo.getPosition()+0.001);
-            }
-        }
-        else{
-            rotationServo.setPosition(0.25);
+
+        switch(squarePressed){
+            case NO:
+                rotationServo.setPosition(0.25);
+                if(Gamepad.getInstance().square() && Limelight.getInstance().foundPiece()){
+
+                    move_to_ll_angle(pieceAngle);
+
+                    squarePressed = SquarePressed.YES;
+                }
+                break;
+            case YES:
+                if(Gamepad.getInstance().square() && Limelight.getInstance().foundPiece()){
+                    move_to_ll_angle(pieceAngle);
+                }
+                else if(Gamepad.getInstance().square() && !Limelight.getInstance().foundPiece()){
+                    squarePressed = SquarePressed.NO;
+                }
+                break;
         }
 
-         */
-        double pieceAngle=Limelight.getInstance().getAngle()/360;
+
+/*
         if(Limelight.getInstance().foundPiece()){
-            last_pieceAngle=pieceAngle;
+            last_pieceAngle = pieceAngle;
         }
-        //rotationServo.setPosition(rotationServo.getPosition()-0.25+ (double) Limelight.getInstance().getAngle() /360);
+
         if(Gamepad.getInstance().square()){
-            press=!press;
-            //pieceAngle = ;
+            press = !press;
             if(Limelight.getInstance().foundPiece()){
-                double newAngle = rotationServo.getPosition()+last_pieceAngle-0.25;
+                double newAngle = rotationServo.getPosition() + last_pieceAngle - 0.25;
                 rotationServo.setPosition(Math.max(0,Math.min(0.5,newAngle)));
 
             }
 
         }
+
         if(!press){
             rotationServo.setPosition(0.25);
         }
+
+*/
         telemetry.addData("Absolute Piece angle", Limelight.getInstance().getAngle());
         telemetry.addData("Piece angle", pieceAngle);
         telemetry.addData("Servo angle",rotationServo.getPosition());
         telemetry.addData("Press",press);
+
+    }
+
+    void move_to_ll_angle(double pieceAngle){
+        double newAngle = rotationServo.getPosition() + pieceAngle - 0.25;
+        rotationServo.setPosition(Math.max(0,Math.min(0.5,newAngle)));
     }
     public void rotate(double angle) {
         frontBackServo_right.setPosition(angle);
         frontBackServo_left.setPosition(angle);
     }
 
-    public void change_to_OFF(){
-        ll = LL.OFF;
-    }
     public void change_to_CLOSED_POS(){
         openState = OpenState.CLOSED;
     }

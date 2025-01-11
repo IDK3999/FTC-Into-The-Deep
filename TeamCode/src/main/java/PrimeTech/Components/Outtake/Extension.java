@@ -14,21 +14,26 @@ public class Extension {
     // TODO: Edit with correct values
     public static  double MAX_TICKS = 1000;
     public static final double MIN_TICKS = 0.0;
+
+    private PIDController controller;
     public static double p = 0.004, i = 0, d = 0;
     public static double f = 0;
+
     public static double target = 0;
+
     static public DcMotorEx extension_right = null;
-    private static Extension instance = null;
+
     public final double increment = 50.0;
     public final double ticks_in_degrees = (double) 8192 / 360;
-    public DcMotorEx extension_left = null;
-    LiftState liftState = LiftState.MIN;
-    private PIDController controller;
 
-    enum AngleState{
-        OVER, UNDER
+    public DcMotorEx extension_left = null;
+
+    enum LiftState {
+        MAX, INRANGE, MIN
     }
-    AngleState angleState = AngleState.UNDER;
+    LiftState liftState = LiftState.MIN;
+
+    private static Extension instance = null;
 
     public static synchronized Extension getInstance() {
         if (instance == null) {
@@ -38,8 +43,6 @@ public class Extension {
     }
 
     public void init() {
-        target = 0;
-        liftState = LiftState.MIN;
         controller = new PIDController(p, i, d);
 
         extension_left = hardwareMap.get(DcMotorEx.class, "extensionLeft");
@@ -52,6 +55,12 @@ public class Extension {
         extension_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         extension_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         extension_right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
+    public void start(){
+        target = 0;
+        MAX_TICKS = 1000;
+        liftState = LiftState.MIN;
     }
 
     public void loop() {
@@ -118,7 +127,5 @@ public class Extension {
     }
 
 
-    enum LiftState {
-        MAX, INRANGE, MIN
-    }
+
 }

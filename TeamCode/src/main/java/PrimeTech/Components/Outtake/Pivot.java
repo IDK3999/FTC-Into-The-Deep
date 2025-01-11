@@ -12,17 +12,26 @@ public class Pivot {
     // TODO: Edit with correct values
     public static final double MAX_TICKS = 2100;
     public static final double MIN_TICKS = 0.0;
-    public static final double TICKS_FOR_PARALLEL = 0;
+
+    private PIDController controller;
     public static double p = 0.0017, i = 0.02, d = 0.00012;
     public static double f = 0.13;
-    public static double target = 0;
-    private static Pivot instance = null;
-    public final double increment = 20;
 
+    public static double target = 0;
+
+    public final double increment = 20;
     public static final double ticks_in_degrees = (double) 8192 / 360;
+
     public static DcMotorEx motorPivot = null;
+
+
+    enum LiftState {
+        MAX, INRANGE, MIN
+    }
     LiftState liftState = LiftState.MIN;
-    private PIDController controller;
+
+
+    private static Pivot instance = null;
 
     public static synchronized Pivot getInstance() {
         if (instance == null) {
@@ -32,9 +41,6 @@ public class Pivot {
     }
 
     public void init() {
-        target = 0;
-        liftState = LiftState.MIN;
-
         controller = new PIDController(p, i, d);
 
         motorPivot = hardwareMap.get(DcMotorEx.class, "motorPivot");
@@ -48,25 +54,30 @@ public class Pivot {
         run_to_target(local_target);
     }
 
+    public void start(){
+        target = 0;
+        liftState = LiftState.MIN;
+    }
+
     public double fsm() {
         switch (liftState) {
             case MIN:
-                if (Gamepad.getInstance().left_bumper()) {
+                if (Gamepad.getInstance().right_bumper()) {
                     target += increment;
                     liftState = LiftState.INRANGE;
                 }
                 break;
             case MAX:
-                if (Gamepad.getInstance().right_bumper()) {
+                if (Gamepad.getInstance().left_bumper()) {
                     target -= increment;
                     liftState = LiftState.INRANGE;
                 }
                 break;
             case INRANGE:
-                if (Gamepad.getInstance().left_bumper()) {
+                if (Gamepad.getInstance().right_bumper()) {
                     target += increment;
                 }
-                if (Gamepad.getInstance().right_bumper()) {
+                if (Gamepad.getInstance().left_bumper()) {
                     target -= increment;
                 }
                 if (target > MAX_TICKS) {
@@ -105,7 +116,5 @@ public class Pivot {
         liftState = LiftState.MIN;
     }
 
-    enum LiftState {
-        MAX, INRANGE, MIN
-    }
+
 }
