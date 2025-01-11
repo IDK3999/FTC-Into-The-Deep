@@ -2,6 +2,8 @@ package PrimeTech.Components.Modes;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import PrimeTech.Components.Gamepad.Gamepad;
 import PrimeTech.Components.Limelight.Limelight;
 import PrimeTech.Components.Outtake.Claw;
@@ -10,9 +12,10 @@ import PrimeTech.Components.Outtake.Extension;
 import PrimeTech.Components.Outtake.InitPos;
 import PrimeTech.Components.Outtake.Pivot;
 
+@Config
 public class AllModes {
     static double intakeExtension = 0;
-    static double intakePivot = 400;
+    public static double intakePivot = 400;
 
     static double outtakeExtension = 1000;
     static double outtakePivot = 1500;
