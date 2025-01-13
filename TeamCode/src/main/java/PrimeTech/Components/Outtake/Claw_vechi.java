@@ -83,7 +83,14 @@ public class Claw_vechi {
     public void loop() {
         openState_method();
         frontBackState_method();
-        ll_method();
+        //ll_method();
+        onSquarePress();
+    }
+
+    public void onSquarePress(){
+        if(Gamepad.getInstance().square()){
+            rotationServo.setPosition(ROTATION_INIT);
+        }
     }
 
     public void openState_method(){
@@ -186,11 +193,13 @@ public class Claw_vechi {
         frontBackServo_left.setPosition(angle);
     }
 
-    public void change_to_CLOSED_POS(){
-        openState = OpenState.CLOSED;
+    public void change_to_OPEN_POS(){
+        openingServo.setPosition(OPEN_POS);
+        openState = OpenState.OPEN;
     }
     public void change_to_FRONT_POS(){
         frontBackState =FrontBackState.FRONT;
     }
+
 
 }

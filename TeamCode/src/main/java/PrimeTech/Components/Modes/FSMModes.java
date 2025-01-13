@@ -60,6 +60,9 @@ public class FSMModes {
         if(modes == Modes.OUTTAKE_SAMPLE){
             Extension.MAX_TICKS = 1000;
         }
+        if(mode == Modes.INTAKE_SAMPLE && mode != modes){
+            AllModes.intake_sample_init();
+        }
         if(modes == mode){
             modes = Modes.GENERAL;
         }

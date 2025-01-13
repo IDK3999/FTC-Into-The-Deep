@@ -16,6 +16,8 @@ public class AllModes {
 
     static double outtakeSamplePivot = 2250;
 
+    static double intakeSamplePivot = 0;
+
     public static AllModes instance = null;
 
     public static synchronized AllModes getInstance() {
@@ -60,14 +62,19 @@ public class AllModes {
         Extension.getInstance().run_to_target(intakeSpecimenExtension);
 
         Claw_vechi.getInstance().openState_method();
-        Claw_vechi.getInstance().ll_method();
+        //Claw_vechi.getInstance().ll_method();
         Claw_vechi.getInstance().rotate(0.3 + Pivot.pivot_angle() / 180);
 
     }
 
+    public static void intake_sample_init(){
+        Claw_vechi.getInstance().change_to_OPEN_POS();
+    }
+
     public static void intake_sample() {
         Extension.getInstance().loop();
-        Pivot.getInstance().loop();
+        Pivot.getInstance().run_to_target(intakeSamplePivot);
+
         Claw_vechi.getInstance().openState_method();
         Claw_vechi.getInstance().ll_method();
         Claw_vechi.getInstance().rotate(0.75 + Pivot.pivot_angle() / 180);
