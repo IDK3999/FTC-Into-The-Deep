@@ -10,7 +10,7 @@ public class FSMModes {
     enum Modes {
         GENERAL, INTAKE_SAMPLE, INTAKE_SPECIMEN, OUTTAKE_SPECIMEN, OUTTAKE_SAMPLE
     }
-    public Modes modes = Modes.GENERAL;
+    private Modes modes = Modes.GENERAL;
 
     public static synchronized FSMModes getInstance() {
         if (instance == null) {

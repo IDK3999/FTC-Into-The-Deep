@@ -135,8 +135,9 @@ public class Claw_vechi {
     public void ll_method(){
 
         double pieceAngle = Limelight.getInstance().getAngle()/360;
-
-        switch(squarePressed){
+        telemetry.addData("Piece Angle", pieceAngle);
+        rotationServo.setPosition(pieceAngle);
+        /*switch(squarePressed){
             case NO:
                 rotationServo.setPosition(0.25);
                 if(Gamepad.getInstance().square() && Limelight.getInstance().foundPiece()){
@@ -154,7 +155,7 @@ public class Claw_vechi {
                     squarePressed = SquarePressed.NO;
                 }
                 break;
-        }
+        }*/
 
 
 /*
