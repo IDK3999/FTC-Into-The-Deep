@@ -134,7 +134,7 @@ public class AllModes {
     }
 
     public static void intake_sample() {
-        run_to_pos_in_order(intakeSamplePivot,outtakeSpecimenExtension,true);
+        run_to_pos_in_order(intakeSamplePivot,intakeSampleExtension,true);
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
             Claw.getInstance().ll_method();

@@ -80,9 +80,7 @@ public class PivotAndExtensionPIDTuner extends OpMode {
         motorPivot.setPower(power_pivot);
 
         // Telemetry
-        telemetry.addData("pivot_pos: ", pivot_pos);
-        telemetry.addData("pivot_target: ", target_pivot);
-        telemetry.update();
+
 
         /*if (target_extension < MAX_TICKS) {
             target_extension += increment_extension * Gamepad.getInstance().right_trigger();
@@ -96,13 +94,16 @@ public class PivotAndExtensionPIDTuner extends OpMode {
         controller_extension.setPID(extension_p, extension_i, extension_d);
         int lift_pos = extension_right.getCurrentPosition();
         double pid_extension = controller_extension.calculate(lift_pos, target_extension);
-        double ff_extension = Math.sin(Math.toRadians(Pivot.pivot_angle()))*lift_pos / 2600 * extension_f;
+        double ff_extension = Math.sin(Math.toRadians(motorPivot.getCurrentPosition()/ticks_in_degrees))*lift_pos / 2600 * extension_f;
         double power_extension = pid_extension + ff_extension;
 
         extension_right.setPower(power_extension);
         extension_left.setPower(power_extension);
 
         // Telemetry
+        //
+        telemetry.addData("pivot_pos: ", pivot_pos);
+        telemetry.addData("pivot_target: ", target_pivot);
         telemetry.addData("lift_pos: ", lift_pos);
         telemetry.addData("lift_target: ", target_extension);
         telemetry.update();

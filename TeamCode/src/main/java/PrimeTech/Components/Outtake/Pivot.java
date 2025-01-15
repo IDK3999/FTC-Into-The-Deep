@@ -14,7 +14,7 @@ public class Pivot {
     public static final double MIN_TICKS = 0.0;
 
     private PIDController controller;
-    public static double p = 0.0017, i = 0.02, d = 0.00012;
+    public static double p = 0.0026, i = 0.015, d = 0.0005;
     public static double f = 0.13;
 
     public static double target = 0;
