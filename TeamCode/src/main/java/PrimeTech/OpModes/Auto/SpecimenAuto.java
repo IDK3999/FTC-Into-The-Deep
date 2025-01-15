@@ -135,10 +135,10 @@ public class SpecimenAuto extends OpMode {
             case 1:
                 if (!follower.isBusy()) {
                     // Score Preload
-                    while(AllModes.getInstance().retractCase != AllModes.RetractCase.IDLE){
+                    /*while(AllModes.getInstance().retractCase != AllModes.RetractCase.IDLE){
                         AllModes.getInstance().run_to_pos_in_order(AllModes.outtakeSpecimenPivot, AllModes.outtakeSpecimenExtension, false);
                     }
-
+*/
 
 
                     follower.followPath(getAndGiveAll, false);

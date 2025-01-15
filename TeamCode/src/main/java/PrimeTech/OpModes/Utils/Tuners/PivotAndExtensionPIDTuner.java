@@ -21,12 +21,12 @@ import PrimeTech.Global.Global;
 public class PivotAndExtensionPIDTuner extends OpMode {
     public static final double MAX_TICKS = 2600;
     public static final double MIN_TICKS = 0;
-    public static double p_pivot = 0.002, i_pivot = 0.05, d_pivot = 0.00025;
-    public static double f_pivot = 0.26;
+    public static double pivot_p = 0, pivot_i = 0, pivot_d = 0.0;
+    public static double pivot_f = 0;
     public static double increment_pivot = 50;
     public static double target_pivot = 0;
-    public static double p_extension = 0.004, i_extension = 0, d_extension = 0;
-    public static double f_extension = 0;
+    public static double extension_p = 0, extension_i = 0, extension_d = 0;
+    public static double extension_f = 0;
     public static double increment_extension = 50;
     public static double target_extension = 0;
     public DcMotorEx motorPivot = null;
@@ -38,15 +38,15 @@ public class PivotAndExtensionPIDTuner extends OpMode {
 
     @Override
     public void init() {
-        Global.gamepad1 = gamepad1;
-        Gamepad.getInstance().init();
-        controller_pivot = new PIDController(p_pivot, i_pivot, d_pivot);
+        //Global.gamepad1 = gamepad1;
+        //Gamepad.getInstance().init();
+        controller_pivot = new PIDController(pivot_p, pivot_i, pivot_d);
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         motorPivot = hardwareMap.get(DcMotorEx.class, "motorPivot");
         motorPivot.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         motorPivot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        controller_extension = new PIDController(p_extension, i_extension, d_extension);
+        controller_extension = new PIDController(extension_p, extension_i, extension_d);
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
         extension_left = hardwareMap.get(DcMotorEx.class, "extensionLeft");
@@ -63,18 +63,18 @@ public class PivotAndExtensionPIDTuner extends OpMode {
 
     @Override
     public void loop() {
-        Gamepad.getInstance().loop();
+        /*Gamepad.getInstance().loop();
 
         if (Gamepad.getInstance().left_bumper() && target_pivot < MAX_TICKS) {
             target_pivot += increment_pivot;
         }
         if (Gamepad.getInstance().right_bumper() && target_pivot > MIN_TICKS) {
             target_pivot -= increment_pivot;
-        }
-        controller_pivot.setPID(p_pivot, i_pivot, d_pivot);
+        }*/
+        controller_pivot.setPID(pivot_p, pivot_i, pivot_d);
         int pivot_pos = motorPivot.getCurrentPosition();
         double pid_pivot = controller_pivot.calculate(pivot_pos, target_pivot);
-        double ff_pivot = f_pivot * (1 + extension_right.getCurrentPosition() * 0.027 / 28) * Math.cos(Math.toRadians(pivot_pos / ticks_in_degrees));
+        double ff_pivot = pivot_f * (1 + extension_right.getCurrentPosition() * 0.027 / 28) * Math.cos(Math.toRadians(pivot_pos / ticks_in_degrees));
         double power_pivot = pid_pivot + ff_pivot;
 
         motorPivot.setPower(power_pivot);
@@ -82,19 +82,21 @@ public class PivotAndExtensionPIDTuner extends OpMode {
         // Telemetry
         telemetry.addData("pivot_pos: ", pivot_pos);
         telemetry.addData("pivot_target: ", target_pivot);
-        telemetry.addData("chestia",1 + extension_right.getCurrentPosition() * 0.027 / 28);
         telemetry.update();
 
-        if (target_extension < MAX_TICKS) {
+        /*if (target_extension < MAX_TICKS) {
             target_extension += increment_extension * Gamepad.getInstance().right_trigger();
         }
         if (target_extension > MIN_TICKS) {
             target_extension -= increment_extension * Gamepad.getInstance().left_trigger();
-        }
-        controller_extension.setPID(p_extension, i_extension, d_extension);
+        }*/
+
+
+
+        controller_extension.setPID(extension_p, extension_i, extension_d);
         int lift_pos = extension_right.getCurrentPosition();
         double pid_extension = controller_extension.calculate(lift_pos, target_extension);
-        double ff_extension = Math.sin(Math.toRadians(Pivot.pivot_angle()))*lift_pos / 2600 * f_extension;
+        double ff_extension = Math.sin(Math.toRadians(Pivot.pivot_angle()))*lift_pos / 2600 * extension_f;
         double power_extension = pid_extension + ff_extension;
 
         extension_right.setPower(power_extension);

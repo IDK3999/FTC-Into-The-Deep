@@ -198,9 +198,18 @@ public class Claw {
         openingServo.setPosition(OPEN_POS);
         openState = OpenState.OPEN;
     }
+
+    public void change_to_CLOSED_POS(){
+        openingServo.setPosition(CLOSED_POS);
+        openState = OpenState.CLOSED;
+    }
+
     public void change_to_FRONT_POS(){
         frontBackState =FrontBackState.FRONT;
     }
 
-
+    public void pivotToAngle(double angle){
+        frontBackServo_right.setPosition(angle);
+        frontBackServo_left.setPosition(angle);
+    }
 }
