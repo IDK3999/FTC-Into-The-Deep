@@ -1,7 +1,6 @@
 package PrimeTech.Components.Modes;
 
 import PrimeTech.Components.Gamepad.Gamepad;
-import PrimeTech.Components.Outtake.Claw_vechi;
 import PrimeTech.Components.Outtake.Extension;
 
 public class FSMModes {

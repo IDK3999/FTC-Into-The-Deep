@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import PrimeTech.Components.Gamepad.Gamepad;
 import PrimeTech.Components.Limelight.Limelight;
 
-public class Claw_vechi {
-    private static Claw_vechi instance = null;
+public class Claw {
+    private static Claw instance = null;
     public Servo openingServo = null;
     public Servo rotationServo = null;
     public Servo frontBackServo_left = null;
@@ -46,9 +46,9 @@ public class Claw_vechi {
     public static final double ROTATION_INIT = 0.25;
 
 
-    public static synchronized Claw_vechi getInstance() {
+    public static synchronized Claw getInstance() {
         if (instance == null) {
-            instance = new Claw_vechi();
+            instance = new Claw();
         }
         return instance;
     }

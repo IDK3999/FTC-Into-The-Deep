@@ -18,12 +18,12 @@ public class Outtake {
     }
 
     public void init() {
-        Claw_vechi.getInstance().init();
+        Claw.getInstance().init();
         Extension.getInstance().init();
         Pivot.getInstance().init();
     }
     public void start(){
-        Claw_vechi.getInstance().start();
+        Claw.getInstance().start();
     }
 
     public void loop() {
@@ -32,7 +32,7 @@ public class Outtake {
                 FSMModes.getInstance().FSM();
                 if (Gamepad.getInstance().circle()) {
 
-                    Claw_vechi.getInstance().start();
+                    Claw.getInstance().start();
                     Extension.getInstance().start();
                     Pivot.getInstance().start();
 

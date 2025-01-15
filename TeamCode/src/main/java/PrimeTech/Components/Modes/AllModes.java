@@ -2,9 +2,8 @@ package PrimeTech.Components.Modes;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import PrimeTech.Components.Outtake.Claw_vechi;
+import PrimeTech.Components.Outtake.Claw;
 import PrimeTech.Components.Outtake.Extension;
-import PrimeTech.Components.Outtake.Outtake;
 import PrimeTech.Components.Outtake.Pivot;
 
 @Config
@@ -80,7 +79,7 @@ public class AllModes {
     public static void general() {
         Extension.getInstance().loop();
         Pivot.getInstance().loop();
-        Claw_vechi.getInstance().loop();
+        Claw.getInstance().loop();
     }
 
     public static void outtake_sample_init(){
@@ -90,7 +89,7 @@ public class AllModes {
     }
 
     public static void outtake_sample(){
-        Claw_vechi.getInstance().loop();
+        Claw.getInstance().loop();
 
         AllModes.getInstance().run_to_pos_in_order(outtakeSamplePivot,outtakeSampleExtension,false);
     }
@@ -102,8 +101,8 @@ public class AllModes {
     }
 
     public  static void outtake_specimen(){
-        Claw_vechi.getInstance().openState_method();
-        Claw_vechi.getInstance().rotate(0.3 + Pivot.pivot_angle() / 180);
+        Claw.getInstance().openState_method();
+        Claw.getInstance().rotate(0.3 + Pivot.pivot_angle() / 180);
 
         AllModes.getInstance().run_to_pos_in_order(outtakeSpecimenPivot,outtakeSpecimenExtension,false);
     }
@@ -115,8 +114,8 @@ public class AllModes {
     }
 
     public static void intake_specimen() {
-        Claw_vechi.getInstance().openState_method();
-        Claw_vechi.getInstance().rotate(0.3 + Pivot.pivot_angle() / 180);
+        Claw.getInstance().openState_method();
+        Claw.getInstance().rotate(0.3 + Pivot.pivot_angle() / 180);
 
         AllModes.getInstance().run_to_pos_in_order(intakeSpecimenPivot,intakeSpecimenExtension,false);
     }
@@ -125,14 +124,14 @@ public class AllModes {
         AllModes.getInstance().setRetractCase_to_EXTENSION_RETRACT();
         Pivot.target = intakeSamplePivot;
         Extension.target = intakeSampleExtension;
-        Claw_vechi.getInstance().change_to_OPEN_POS();
+        Claw.getInstance().change_to_OPEN_POS();
     }
 
     public static void intake_sample() {
 
-        Claw_vechi.getInstance().openState_method();
-        Claw_vechi.getInstance().ll_method();
-        Claw_vechi.getInstance().rotate(0.75 + Pivot.pivot_angle() / 180);
+        Claw.getInstance().openState_method();
+        Claw.getInstance().ll_method();
+        Claw.getInstance().rotate(0.75 + Pivot.pivot_angle() / 180);
 
         AllModes.getInstance().run_to_pos_in_order(intakeSamplePivot,outtakeSpecimenExtension,true);}
     }
