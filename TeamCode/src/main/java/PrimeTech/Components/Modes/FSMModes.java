@@ -38,17 +38,25 @@ public class FSMModes {
                 break;
         }
         if (Gamepad.getInstance().dpad_right()) {
-            change_mode(Modes.INTAKE_SPECIMEN);
+            modes = Modes.INTAKE_SPECIMEN;
+            AllModes.intake_specimen_init();
+            //change_mode(Modes.INTAKE_SPECIMEN);
         }
         if (Gamepad.getInstance().dpad_down()) {
-            change_mode(Modes.INTAKE_SAMPLE);
+            modes = Modes.INTAKE_SAMPLE;
+            AllModes.intake_sample_init();
+            //change_mode(Modes.INTAKE_SAMPLE);
         }
         if (Gamepad.getInstance().dpad_up()) {
-            change_mode(Modes.OUTTAKE_SPECIMEN);
+            modes = Modes.OUTTAKE_SAMPLE;
+            AllModes.outtake_sample_init();
+            //change_mode(Modes.OUTTAKE_SPECIMEN);
         }
         if (Gamepad.getInstance().dpad_left()) {
-            Extension.getInstance().change_liftState_to_INRANGE();
-            change_mode(Modes.OUTTAKE_SAMPLE);
+            modes = Modes.OUTTAKE_SPECIMEN;
+            AllModes.outtake_specimen_init();
+            //Extension.getInstance().change_liftState_to_INRANGE();
+            //change_mode(Modes.OUTTAKE_SAMPLE);
         }
     }
 
@@ -67,6 +75,7 @@ public class FSMModes {
             modes = Modes.GENERAL;
         }
         else{
+            AllModes.getInstance().setRetractCase_to_EXTENSION_RETRACT();
             modes = mode;
         }
 

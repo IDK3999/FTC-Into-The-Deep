@@ -11,7 +11,7 @@ import PrimeTech.Components.Gamepad.Gamepad;
 import PrimeTech.Components.Limelight.Limelight;
 import PrimeTech.Global.Global;
 
-@Disabled
+//@Disabled
 @TeleOp(name = "test servo", group = "InitializeForAssembly")
 public class TestServo extends OpMode{
     public static final double OPEN_POS = 0.0;
@@ -32,11 +32,10 @@ public class TestServo extends OpMode{
     @Override
     public void init() {
         Global.gamepad1 = gamepad1;
-
         Gamepad.getInstance().init();
         Global.hardwareMap = hardwareMap;
         Global.telemetry = telemetry;
-        //Limelight.getInstance().init();
+        Limelight.getInstance().init_blue();
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         openingServo = hardwareMap.get(Servo.class, "openingServo");
         //openingServo.setDirection(Servo.Direction.REVERSE);
@@ -52,6 +51,8 @@ public class TestServo extends OpMode{
 
         frontBackServo_right = hardwareMap.get(Servo.class, "frontBackServoRight");
         frontBackServo_right.setPosition(FRONT_BACK_INIT);
+        rotationServo.setPosition(0.25);
+
     }
 
     @Override
@@ -63,17 +64,14 @@ public class TestServo extends OpMode{
         openingServo.setPosition(0.2);
 
         //rotationServo.setPosition(0.5);
+        double angle = Limelight.getInstance().getAngle()/360;
+
+        rotationServo.setPosition(angle);
 
         double pieceAngle=0;
         //rotationServo.setPosition(rotationServo.getPosition()-0.25+ (double) Limelight.getInstance().getAngle() /360);
-        if(Gamepad.getInstance().square()){
-            press=!press;
-            pieceAngle = Limelight.getInstance().getAngle()/360;
-            double newAngle = rotationServo.getPosition()+pieceAngle-0.25;
-            rotationServo.setPosition(Math.max(0,Math.min(0.5,newAngle)));
 
-        }
-        telemetry.addData("Piece angle", pieceAngle);
+        telemetry.addData("Piece angle", angle);
         telemetry.addData("Servo angle",rotationServo.getPosition());
         telemetry.addData("Press",press);
         if(Limelight.getInstance().foundPiece()){

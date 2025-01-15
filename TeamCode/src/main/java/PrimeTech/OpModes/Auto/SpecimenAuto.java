@@ -12,6 +12,7 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import PrimeTech.Components.Modes.AllModes;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
@@ -134,6 +135,11 @@ public class SpecimenAuto extends OpMode {
             case 1:
                 if (!follower.isBusy()) {
                     // Score Preload
+                    while(AllModes.getInstance().retractCase != AllModes.RetractCase.IDLE){
+                        AllModes.getInstance().run_to_pos_in_order(AllModes.outtakeSpecimenPivot, AllModes.outtakeSpecimenExtension, false);
+                    }
+
+
 
                     follower.followPath(getAndGiveAll, false);
                     setPathState(2);

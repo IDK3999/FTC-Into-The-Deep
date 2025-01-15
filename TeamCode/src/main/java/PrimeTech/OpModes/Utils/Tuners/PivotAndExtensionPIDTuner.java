@@ -12,9 +12,10 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import PrimeTech.Components.Gamepad.Gamepad;
+import PrimeTech.Components.Outtake.Pivot;
 import PrimeTech.Global.Global;
 
-@Disabled
+//@Disabled
 @TeleOp(name = "Pivot & Extension PID Tuner", group = "Tuners")
 @Config
 public class PivotAndExtensionPIDTuner extends OpMode {
@@ -93,7 +94,7 @@ public class PivotAndExtensionPIDTuner extends OpMode {
         controller_extension.setPID(p_extension, i_extension, d_extension);
         int lift_pos = extension_right.getCurrentPosition();
         double pid_extension = controller_extension.calculate(lift_pos, target_extension);
-        double ff_extension = Math.cos(Math.toRadians(lift_pos / ticks_in_degrees)) * f_extension;
+        double ff_extension = Math.sin(Math.toRadians(Pivot.pivot_angle()))*lift_pos / 2600 * f_extension;
         double power_extension = pid_extension + ff_extension;
 
         extension_right.setPower(power_extension);
