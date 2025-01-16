@@ -9,4 +9,5 @@ public class Global {
     public static HardwareMap hardwareMap;
     public static Telemetry telemetry;
     public static Gamepad gamepad1;
+    public static Gamepad gamepad2;
 }

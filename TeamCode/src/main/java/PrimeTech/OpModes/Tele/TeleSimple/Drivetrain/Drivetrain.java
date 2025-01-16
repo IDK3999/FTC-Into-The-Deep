@@ -1,7 +1,7 @@
 package PrimeTech.OpModes.Tele.TeleSimple.Drivetrain;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
-import static PrimeTech.Global.Global.gamepad1;
+import static PrimeTech.Global.Global.gamepad2;
 import static PrimeTech.Global.Global.hardwareMap;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -43,9 +43,9 @@ public class Drivetrain {
 
     public void loop() {
         // Gamepad control
-        double y = smoothControl(-gamepad1.left_stick_y);
-        double x = smoothControl(gamepad1.left_stick_x);
-        double rx = smoothControl(gamepad1.right_stick_x);
+        double y = smoothControl(-gamepad2.left_stick_y);
+        double x = smoothControl(gamepad2.left_stick_x);
+        double rx = smoothControl(gamepad2.right_stick_x);
 
         leftFront.setPower((y + x + rx)*baterry_saver);
         leftBack.setPower((y - x + rx)*baterry_saver);

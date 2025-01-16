@@ -9,9 +9,9 @@ import PrimeTech.Components.Outtake.Pivot;
 @Config
 public class AllModes {
     public static double intakeSpecimenExtension = 0;
-    public static double intakeSpecimenPivot = 450;
+    public static double intakeSpecimenPivot = 375;
 
-    public static double outtakeSpecimenExtension = 1000;
+    public static double outtakeSpecimenExtension = 950;
     public static double outtakeSpecimenPivot = 1500;
 
     public static double outtakeSamplePivot = 2250;
@@ -42,13 +42,13 @@ public class AllModes {
         switch(retractCase){
             case EXTENSION_RETRACT:
                 if (Extension.extension_right.getCurrentPosition() > 100) {
-                    Extension.getInstance().run_to_target(Extension.target);
+                    Extension.getInstance().run_to_target(0);
                 } else {
                     retractCase = RetractCase.PIVOT;
                 }
                 break;
             case PIVOT:
-                if (Pivot.motorPivot.getCurrentPosition() > pivotTarget + 50 || Pivot.motorPivot.getCurrentPosition() < pivotTarget - 50 ) {
+                if (Pivot.motorPivot.getCurrentPosition() > pivotTarget + 100 || Pivot.motorPivot.getCurrentPosition() < pivotTarget - 100 ) {
                     Pivot.getInstance().run_to_target(pivotTarget);
                 } else {
                     retractCase = RetractCase.EXTENSION;
@@ -56,7 +56,7 @@ public class AllModes {
                 break;
             case EXTENSION:
                 Pivot.getInstance().run_to_target(pivotTarget);
-                if (Extension.extension_right.getCurrentPosition() > extensionTarget + 50 || Extension.extension_right.getCurrentPosition() < extensionTarget - 50) {
+                if (Extension.extension_right.getCurrentPosition() > extensionTarget + 100 || Extension.extension_right.getCurrentPosition() < extensionTarget - 100) {
                     Extension.getInstance().run_to_target(extensionTarget);
                 } else {
                     retractCase = RetractCase.IDLE;
@@ -91,8 +91,11 @@ public class AllModes {
     public static void outtake_sample(){
 
         run_to_pos_in_order(outtakeSamplePivot,outtakeSampleExtension,false);
+
         if(retractCase == RetractCase.IDLE){
-            Claw.getInstance().loop();
+            Claw.getInstance().pivot(0.25);
+            Claw.getInstance().rotate(0.25);
+            Claw.getInstance().openState_method();
         }
     }
 
@@ -108,7 +111,9 @@ public class AllModes {
 
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
-            Claw.getInstance().rotate(0.3 + Pivot.pivot_angle() / 180);
+            Claw.getInstance().rotate(0.75);
+            Claw.getInstance().frontBackState_method();
+            //Claw.getInstance().pivot(0.5 + Pivot.pivot_angle() / 180);
         }
     }
 
@@ -122,7 +127,8 @@ public class AllModes {
         run_to_pos_in_order(intakeSpecimenPivot,intakeSpecimenExtension,false);
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
-            Claw.getInstance().rotate(0.3 + Pivot.pivot_angle() / 180);
+            Claw.getInstance().rotate(0.25);
+            Claw.getInstance().pivot(0.5 + Pivot.pivot_angle() / 180);
         }
     }
 
@@ -138,7 +144,7 @@ public class AllModes {
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
             Claw.getInstance().ll_method();
-            Claw.getInstance().rotate(0.75 + Pivot.pivot_angle() / 180);
+            Claw.getInstance().pivot(Claw.FRONT_POS);
         }
 
     }

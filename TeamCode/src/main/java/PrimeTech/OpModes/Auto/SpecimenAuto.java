@@ -77,9 +77,13 @@ public class SpecimenAuto extends OpMode {
                 .addPath(new BezierLine(new Point(get1), new Point(give1)))
                 .setConstantHeadingInterpolation(give1.getHeading())
                 .addPath(new BezierCurve(new Point(give1), new Point(get2Control1), new Point(get2)))
+                .setConstantHeadingInterpolation(give1.getHeading())
                 .addPath(new BezierLine(new Point(get2), new Point(give2)))
+                .setConstantHeadingInterpolation(give1.getHeading())
                 .addPath(new BezierCurve(new Point(give2), new Point(get3Control1), new Point(get3)))
+                .setConstantHeadingInterpolation(give1.getHeading())
                 .addPath(new BezierLine(new Point(get3), new Point(give3)))
+                .setConstantHeadingInterpolation(give1.getHeading())
                 .build();
 
         grabSample1 = follower.pathBuilder()
@@ -137,9 +141,7 @@ public class SpecimenAuto extends OpMode {
                     // Score Preload
                     /*while(AllModes.getInstance().retractCase != AllModes.RetractCase.IDLE){
                         AllModes.getInstance().run_to_pos_in_order(AllModes.outtakeSpecimenPivot, AllModes.outtakeSpecimenExtension, false);
-                    }
-*/
-
+                    }*/
 
                     follower.followPath(getAndGiveAll, false);
                     setPathState(2);

@@ -37,10 +37,10 @@ public class Claw {
     double last_pieceAngle = 0;
     // Servo positions
     // TODO: Adjust with actual positions
-    public static final double OPEN_POS = 0.25;
+    public static final double OPEN_POS = 0.5;
     public static final double CLOSED_POS = 0.0;
 
-    public static final double FRONT_POS = 0.875;
+    public static final double FRONT_POS = 1;
     public static final double BACK_POS = 0.0;
 
     public static final double ROTATION_INIT = 0.25;
@@ -89,7 +89,16 @@ public class Claw {
 
     public void onSquarePress(){
         if(Gamepad.getInstance().square()){
-            rotationServo.setPosition(ROTATION_INIT);
+            //rotationServo.setPosition(ROTATION_INIT);
+            switch (squarePressed){
+                case YES:
+                    squarePressed = SquarePressed.NO;
+                    break;
+
+                case NO:
+                    squarePressed = SquarePressed.YES;
+                    break;
+            }
         }
     }
 
@@ -134,62 +143,32 @@ public class Claw {
 
     public void ll_method(){
 
+        onSquarePress();
+
         double pieceAngle = Limelight.getInstance().getAngle()/360;
         telemetry.addData("Piece Angle", pieceAngle);
-        rotationServo.setPosition(pieceAngle);
-        /*switch(squarePressed){
-            case NO:
-                rotationServo.setPosition(0.25);
-                if(Gamepad.getInstance().square() && Limelight.getInstance().foundPiece()){
-
-                    move_to_ll_angle(pieceAngle);
-
-                    squarePressed = SquarePressed.YES;
-                }
-                break;
-            case YES:
-                if(Gamepad.getInstance().square() && Limelight.getInstance().foundPiece()){
-                    move_to_ll_angle(pieceAngle);
-                }
-                else if(Gamepad.getInstance().square() && !Limelight.getInstance().foundPiece()){
-                    squarePressed = SquarePressed.NO;
-                }
-                break;
-        }*/
+        if(squarePressed == SquarePressed.YES && Limelight.getInstance().foundPiece())
+            rotationServo.setPosition(pieceAngle);
 
 
-/*
-        if(Limelight.getInstance().foundPiece()){
-            last_pieceAngle = pieceAngle;
-        }
-
-        if(Gamepad.getInstance().square()){
-            press = !press;
-            if(Limelight.getInstance().foundPiece()){
-                double newAngle = rotationServo.getPosition() + last_pieceAngle - 0.25;
-                rotationServo.setPosition(Math.max(0,Math.min(0.5,newAngle)));
-
-            }
-
-        }
-
-        if(!press){
-            rotationServo.setPosition(0.25);
-        }
-
-*/
         telemetry.addData("Absolute Piece angle", Limelight.getInstance().getAngle());
         telemetry.addData("Piece angle", pieceAngle);
         telemetry.addData("Servo angle",rotationServo.getPosition());
-        telemetry.addData("Press",press);
+        telemetry.addData("Press",squarePressed);
 
     }
+
 
     void move_to_ll_angle(double pieceAngle){
         double newAngle = rotationServo.getPosition() + pieceAngle - 0.25;
         rotationServo.setPosition(Math.max(0,Math.min(0.5,newAngle)));
     }
-    public void rotate(double angle) {
+
+    public void rotate(double angle){
+        rotationServo.setPosition(angle);
+    }
+
+    public void pivot(double angle) {
         frontBackServo_right.setPosition(angle);
         frontBackServo_left.setPosition(angle);
     }

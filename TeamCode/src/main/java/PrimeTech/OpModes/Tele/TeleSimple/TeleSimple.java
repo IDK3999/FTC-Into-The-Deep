@@ -18,6 +18,7 @@ public abstract class TeleSimple extends OpMode {
         Global.hardwareMap = hardwareMap;
         Global.telemetry = telemetry;
         Global.gamepad1 = gamepad1;
+        Global.gamepad2 = gamepad2;
 
         Drivetrain.getInstance().init();
         Gamepad.getInstance().init();
