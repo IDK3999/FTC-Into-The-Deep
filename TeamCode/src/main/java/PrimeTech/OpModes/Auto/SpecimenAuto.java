@@ -20,10 +20,10 @@ import pedroPathing.constants.LConstants;
 public class SpecimenAuto extends OpMode {
     // region Declare Poses
     // Score coords
-    private final double scoreX = 39.9;
-    private final double scoreYStep = 2;
+    public static double scoreX = 39.9;
+    public static double scoreYStep = 2;
     // Give coords
-    private final double giveX = 17.9;
+    public static double giveX = 17.9;
     // Poses
     private final Pose start = new Pose(7.9, 55, Math.toRadians(0));
     private final Pose get1 = new Pose(37, 121, Math.toRadians(-90));
