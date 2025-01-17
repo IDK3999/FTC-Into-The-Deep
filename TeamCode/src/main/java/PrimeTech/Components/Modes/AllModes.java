@@ -119,6 +119,7 @@ public class AllModes {
 
     public static void intake_specimen_init(){
         setRetractCase_to_EXTENSION_RETRACT();
+
         Pivot.target = intakeSpecimenPivot;
         Extension.target = intakeSpecimenExtension;
     }
@@ -135,6 +136,7 @@ public class AllModes {
     public static void intake_sample_init(){
         setRetractCase_to_EXTENSION_RETRACT();
         Pivot.target = intakeSamplePivot;
+        Claw.getInstance().rotate(0.25);
         Extension.target = intakeSampleExtension;
         Claw.getInstance().change_to_OPEN_POS();
     }
@@ -143,7 +145,7 @@ public class AllModes {
         run_to_pos_in_order(intakeSamplePivot,intakeSampleExtension,true);
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
-            Claw.getInstance().ll_method();
+            //Claw.getInstance().ll_method();
             Claw.getInstance().pivot(Claw.FRONT_POS);
         }
 

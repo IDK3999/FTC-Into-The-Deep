@@ -1,6 +1,7 @@
 package PrimeTech.Components.Modes;
 
 import PrimeTech.Components.Gamepad.Gamepad;
+import PrimeTech.Components.Outtake.Claw;
 import PrimeTech.Components.Outtake.Extension;
 
 public class FSMModes {
@@ -59,6 +60,9 @@ public class FSMModes {
     public void change_mode(Modes mode){
         if(modes == Modes.OUTTAKE_SAMPLE){
             Extension.MAX_TICKS = 1000;
+        }
+        if(modes == Modes.INTAKE_SAMPLE){
+            Claw.getInstance().rotate(0.5);
         }
         if(modes == mode){
             modes = Modes.GENERAL;

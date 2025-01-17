@@ -40,7 +40,7 @@ public class Claw {
     public static final double OPEN_POS = 0.5;
     public static final double CLOSED_POS = 0.0;
 
-    public static final double FRONT_POS = 1;
+    public static final double FRONT_POS = 0.95;
     public static final double BACK_POS = 0.0;
 
     public static final double ROTATION_INIT = 0.25;

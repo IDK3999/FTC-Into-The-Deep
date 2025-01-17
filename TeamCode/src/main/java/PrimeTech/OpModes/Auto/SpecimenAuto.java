@@ -1,5 +1,6 @@
 package PrimeTech.OpModes.Auto;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
@@ -16,22 +17,23 @@ import PrimeTech.Components.Modes.AllModes;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
+@Config
 @Autonomous(name = "Specimen Auto", group = "Auto")
 public class SpecimenAuto extends OpMode {
     // region Declare Poses
     // Score coords
-    public static double scoreX = 39.9;
+    public static double scoreX = 39.7;
     public static double scoreYStep = 2;
     // Give coords
     public static double giveX = 17.9;
     // Poses
     private final Pose start = new Pose(7.9, 55, Math.toRadians(0));
     private final Pose get1 = new Pose(37, 121, Math.toRadians(-90));
-    private final Pose get1Control1 = new Pose(10.5, 33.4, Math.toRadians(0));
-    private final Pose get1Control2 = new Pose(74.3, 37.5, Math.toRadians(0));
+    private final Pose get1Control1 = new Pose(10.5, 33.4, Math.toRadians(-90));
+    private final Pose get1Control2 = new Pose(74.3, 37.5, Math.toRadians(-90));
     private final Pose give1 = new Pose(giveX, 21.1, Math.toRadians(-90));
     private final Pose get2 = new Pose(52, 13, Math.toRadians(-90));
-    private final Pose get2Control1 = new Pose(72.3, 30.6, Math.toRadians(0));
+    private final Pose get2Control1 = new Pose(72.3, 30.6, Math.toRadians(-90));
     private final Pose give2 = new Pose(giveX, 13, Math.toRadians(-90));
     private final Pose get3 = new Pose(58, 8.6, Math.toRadians(-90));
     private final Pose get3Control1 = new Pose(61.5, 16.6, Math.toRadians(0));
