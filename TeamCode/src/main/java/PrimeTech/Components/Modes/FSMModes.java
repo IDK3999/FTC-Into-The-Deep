@@ -38,17 +38,16 @@ public class FSMModes {
                 break;
         }
         if (Gamepad.getInstance().dpad_right()) {
-
             change_mode(Modes.INTAKE_SPECIMEN);
         }
         if (Gamepad.getInstance().dpad_down()) {
             change_mode(Modes.INTAKE_SAMPLE);
         }
         if (Gamepad.getInstance().dpad_up()) {
-           change_mode(Modes.OUTTAKE_SPECIMEN);
+           change_mode(Modes.OUTTAKE_SAMPLE);
         }
         if (Gamepad.getInstance().dpad_left()) {
-           change_mode(Modes.OUTTAKE_SAMPLE);
+           change_mode(Modes.OUTTAKE_SPECIMEN);
         }
 
     }
@@ -62,7 +61,7 @@ public class FSMModes {
             Extension.MAX_TICKS = 1000;
         }
         if(modes == Modes.INTAKE_SAMPLE){
-            Claw.getInstance().rotate(0.5);
+            Claw.getInstance().pivot(0.5);
         }
         if(modes == mode){
             modes = Modes.GENERAL;

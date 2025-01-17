@@ -71,14 +71,14 @@ public class Claw {
     }
     public void start(){
         squarePressed = SquarePressed.NO;
-        frontBackState = FrontBackState.FRONT;
+        frontBackState = FrontBackState.BACK;
         openState = OpenState.CLOSED;
 
         openingServo.setPosition(CLOSED_POS);
         rotationServo.setPosition(ROTATION_INIT);
 
-        frontBackServo_left.setPosition(FRONT_POS);
-        frontBackServo_right.setPosition(FRONT_POS);
+        frontBackServo_left.setPosition(BACK_POS);
+        frontBackServo_right.setPosition(BACK_POS);
     }
     public void loop() {
         openState_method();
@@ -187,8 +187,4 @@ public class Claw {
         frontBackState =FrontBackState.FRONT;
     }
 
-    public void pivotToAngle(double angle){
-        frontBackServo_right.setPosition(angle);
-        frontBackServo_left.setPosition(angle);
-    }
 }

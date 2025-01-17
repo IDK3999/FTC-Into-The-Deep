@@ -12,7 +12,7 @@ public class AllModes {
     public static double intakeSpecimenPivot = 375;
 
     public static double outtakeSpecimenExtension = 950;
-    public static double outtakeSpecimenPivot = 1500;
+    public static double outtakeSpecimenPivot = 2500;
 
     public static double outtakeSamplePivot = 2250;
     public static double outtakeSampleExtension = 2600;
@@ -111,9 +111,8 @@ public class AllModes {
 
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
-            Claw.getInstance().rotate(0.75);
+            Claw.getInstance().rotate(0.9);
             Claw.getInstance().frontBackState_method();
-            //Claw.getInstance().pivot(0.5 + Pivot.pivot_angle() / 180);
         }
     }
 
