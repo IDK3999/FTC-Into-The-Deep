@@ -12,7 +12,7 @@ import PrimeTech.Components.Gamepad.Gamepad;
 
 public class Extension {
     // TODO: Edit with correct values
-    public static  double MAX_TICKS = 1000;
+    public static  double MAX_TICKS = 1500;
     public static final double MIN_TICKS = 0.0;
 
     private PIDController controller;
@@ -71,8 +71,8 @@ public class Extension {
     public double fsm() {
         double last_target = target;
 
-        if(Pivot.pivot_angle()<80 && target > 1000){
-            MAX_TICKS = 1000;
+        if(Pivot.pivot_angle()<80 && target > 1500){
+            MAX_TICKS = 1500;
             target = MAX_TICKS;
         }
         switch (liftState) {
