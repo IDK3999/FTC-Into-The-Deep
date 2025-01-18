@@ -125,7 +125,7 @@ public class AllModes {
 
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
-            Claw.getInstance().rotate(0.9);
+            Claw.getInstance().rotate(0.85);
             Claw.getInstance().frontBackState_method();
         }
     }
