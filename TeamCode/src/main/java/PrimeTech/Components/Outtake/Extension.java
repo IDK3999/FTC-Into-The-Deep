@@ -107,7 +107,7 @@ public class Extension {
         controller.setPID(p, i, d);
         int lift_pos = extension_right.getCurrentPosition();
         double pid = controller.calculate(lift_pos, target);
-        double ff = Math.cos(Math.toRadians(lift_pos / ticks_in_degrees)) * f;
+        double ff = Math.sin(Math.toRadians(Pivot.pivot_angle()))*lift_pos * f;
         double power = pid + ff;
 
         extension_right.setPower(power);

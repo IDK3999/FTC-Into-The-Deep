@@ -22,6 +22,9 @@ public class AllModes {
 
     public static AllModes instance = null;
 
+    enum Mode{
+        INTAKE_SAMPLE, INTAKE_SPECIMEN, OUTTAKE_SAMPLE, OUTTAKE_SPECIMEN
+    }
     public static synchronized AllModes getInstance() {
         if (instance == null) {
             instance = new AllModes();
@@ -38,7 +41,7 @@ public class AllModes {
     public static void setRetractCase_to_EXTENSION_RETRACT(){
         retractCase = RetractCase.EXTENSION_RETRACT;
     }
-    public static void run_to_pos_in_order(double pivotTarget, double extensionTarget, boolean intake_sample){
+    public static void run_to_pos_in_order(double pivotTarget, double extensionTarget, Mode mode){
         switch(retractCase){
             case EXTENSION_RETRACT:
                 if (Extension.extension_right.getCurrentPosition() > 100) {
@@ -63,15 +66,24 @@ public class AllModes {
                 }
                 break;
             case IDLE:
-                if(intake_sample){
-                    Extension.getInstance().loop();
-                    Pivot.getInstance().run_to_target(pivotTarget);
+                switch(mode){
+                    case INTAKE_SAMPLE:
+                        Extension.getInstance().loop();
+                        Pivot.getInstance().run_to_target(pivotTarget);
+                        break;
+                    case OUTTAKE_SAMPLE:
+                        Pivot.getInstance().run_to_target(pivotTarget);
+                        Extension.getInstance().run_to_target(extensionTarget);
+                        break;
+                    case INTAKE_SPECIMEN:
+                        Pivot.getInstance().loop();
+                        Extension.getInstance().run_to_target(extensionTarget);
+                        break;
+                    case OUTTAKE_SPECIMEN:
+                        Pivot.getInstance().run_to_target(pivotTarget);
+                        Extension.getInstance().loop();
+                        break;
                 }
-                else{
-                    Pivot.getInstance().run_to_target(pivotTarget);
-                    Extension.getInstance().run_to_target(extensionTarget);
-                }
-
                 break;
         }
     }
@@ -90,7 +102,7 @@ public class AllModes {
 
     public static void outtake_sample(){
 
-        run_to_pos_in_order(outtakeSamplePivot,outtakeSampleExtension,false);
+        run_to_pos_in_order(outtakeSamplePivot,outtakeSampleExtension,Mode.OUTTAKE_SAMPLE);
 
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().pivot(0.25);
@@ -108,7 +120,7 @@ public class AllModes {
 
     public  static void outtake_specimen(){
 
-        run_to_pos_in_order(outtakeSpecimenPivot,outtakeSpecimenExtension,false);
+        run_to_pos_in_order(outtakeSpecimenPivot,outtakeSpecimenExtension,Mode.OUTTAKE_SPECIMEN);
 
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
@@ -125,7 +137,7 @@ public class AllModes {
     }
 
     public static void intake_specimen() {
-        run_to_pos_in_order(intakeSpecimenPivot,intakeSpecimenExtension,false);
+        run_to_pos_in_order(intakeSpecimenPivot,intakeSpecimenExtension,Mode.INTAKE_SPECIMEN);
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
             Claw.getInstance().rotate(0.25);
@@ -143,7 +155,7 @@ public class AllModes {
     }
 
     public static void intake_sample() {
-        run_to_pos_in_order(intakeSamplePivot,intakeSampleExtension,true);
+        run_to_pos_in_order(intakeSamplePivot,intakeSampleExtension,Mode.INTAKE_SAMPLE);
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
             //Claw.getInstance().ll_method();

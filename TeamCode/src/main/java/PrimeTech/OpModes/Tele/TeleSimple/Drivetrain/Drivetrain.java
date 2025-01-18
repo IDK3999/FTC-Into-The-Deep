@@ -24,6 +24,8 @@ public class Drivetrain {
 
     public void init() {
         // TODO: Check if FLOAT is better than BRAKE for movement
+
+
         leftBack = hardwareMap.get(DcMotor.class, "leftBack");
         leftBack.setZeroPowerBehavior(BRAKE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
