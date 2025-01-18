@@ -101,7 +101,7 @@ public class AllModes {
 
     public static void outtake_specimen_init(){
         setRetractCase_to_EXTENSION_RETRACT();
-        Claw.getInstance().pivot(0.2);
+        Claw.getInstance().pivot(0.2);  
         Pivot.target = outtakeSpecimenPivot;
         Extension.target = outtakeSpecimenExtension;
     }
