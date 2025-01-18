@@ -1,4 +1,4 @@
-package PrimeTech.OpModes.Auto;
+package PrimeTech.OpModes.Auto.Uncomplete;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.follower.Follower;
@@ -14,7 +14,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import PrimeTech.Components.Modes.AllModes;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
