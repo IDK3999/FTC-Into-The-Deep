@@ -1,5 +1,6 @@
 package PrimeTech.OpModes.Auto.Right;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierLine;
@@ -11,14 +12,19 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import PrimeTech.Components.Outtake.Claw;
+import PrimeTech.Global.Global;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
+@Config
 @Autonomous(name = "Park Right", group = "Auto")
 public class Park extends OpMode {
     // region Declare
     public static double startX = 8.3;
-    public static double parkY = 9.0;
+    public static double parkY = 20.0;
+
+    public static double maxSec = 3;
 
     private final Pose start = new Pose(startX, 55);
     private final Pose parking = new Pose(startX, parkY);
@@ -27,19 +33,13 @@ public class Park extends OpMode {
 
     private int pathState;
     private Path park;
+
+    private Timer pathTimer, opmodeTimer;
     // endregion Declare
 
     public void buildPaths() {
         park = new Path(new BezierLine(new Point(start), new Point(parking)));
         park.setConstantHeadingInterpolation(Math.toRadians(0));
-    }
-
-    @Override
-    public void init() {
-        Constants.setConstants(FConstants.class, LConstants.class);
-        follower = new Follower(hardwareMap);
-        follower.setStartingPose(start);
-        buildPaths();
     }
 
     public void autonomousPathUpdate() {
@@ -49,7 +49,7 @@ public class Park extends OpMode {
                 setPathState(1);
                 break;
             case 1:
-                if (!follower.isBusy()) {
+                if (pathTimer.getElapsedTimeSeconds() > maxSec) {
                     setPathState(-1);
                 }
                 break;
@@ -58,11 +58,28 @@ public class Park extends OpMode {
 
     public void setPathState(int pState) {
         pathState = pState;
+        pathTimer.resetTimer();
+    }
+
+    @Override
+    public void init() {
+        Global.hardwareMap = hardwareMap;
+
+        pathTimer = new Timer();
+
+        Constants.setConstants(FConstants.class, LConstants.class);
+        follower = new Follower(hardwareMap);
+        follower.setStartingPose(start);
+        buildPaths();
+
+        Claw.getInstance().init();
     }
 
     @Override
     public void start() {
         setPathState(0);
+        Claw.getInstance().start();
+
     }
 
     @Override
