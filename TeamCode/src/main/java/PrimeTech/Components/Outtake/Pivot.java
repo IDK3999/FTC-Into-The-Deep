@@ -19,7 +19,7 @@ public class Pivot {
 
     public static double target = 0;
 
-    public final double increment = 20;
+    public final double increment = 50;
     public static final double ticks_in_degrees = (double) 8192 / 360;
 
     public static DcMotorEx motorPivot = null;

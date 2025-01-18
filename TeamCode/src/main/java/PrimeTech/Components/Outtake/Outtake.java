@@ -49,6 +49,7 @@ public class Outtake {
                 }
                 break;
             case PIVOT:
+                Extension.getInstance().run_to_target(100);
                 if (Pivot.motorPivot.getCurrentPosition() > 100) {
                     Pivot.getInstance().run_to_target(Pivot.target);
                 } else {

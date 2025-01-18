@@ -51,6 +51,7 @@ public class AllModes {
                 }
                 break;
             case PIVOT:
+                Extension.getInstance().run_to_target(100);
                 if (Pivot.motorPivot.getCurrentPosition() > pivotTarget + 100 || Pivot.motorPivot.getCurrentPosition() < pivotTarget - 100 ) {
                     Pivot.getInstance().run_to_target(pivotTarget);
                 } else {
@@ -113,7 +114,7 @@ public class AllModes {
 
     public static void outtake_specimen_init(){
         setRetractCase_to_EXTENSION_RETRACT();
-        Claw.getInstance().pivot(0.2);  
+        Claw.getInstance().pivot(0);
         Pivot.target = outtakeSpecimenPivot;
         Extension.target = outtakeSpecimenExtension;
     }
