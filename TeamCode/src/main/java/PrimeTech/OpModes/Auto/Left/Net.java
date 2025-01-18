@@ -21,12 +21,13 @@ import pedroPathing.constants.LConstants;
 public class Net extends OpMode {
     // region Declare
     public static double startX = 8.3;
-    public static double parkY = 20.0;
+    public static double parkX = 11;
+    public static double parkY = 124;
 
     public static double maxSec = 3;
 
-    private final Pose start = new Pose(startX, 55);
-    private final Pose parking = new Pose(startX, parkY);
+    private final Pose start = new Pose(startX, 89);
+    private final Pose parking = new Pose(parkX, parkY);
 
     private Follower follower;
 
