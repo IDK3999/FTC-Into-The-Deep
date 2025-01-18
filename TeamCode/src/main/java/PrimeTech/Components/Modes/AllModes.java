@@ -11,7 +11,7 @@ public class AllModes {
     public static double intakeSpecimenExtension = 0;
     public static double intakeSpecimenPivot = 375;
 
-    public static double outtakeSpecimenExtension = 950;
+    public static double outtakeSpecimenExtension = 1400;
     public static double outtakeSpecimenPivot = 2500;
 
     public static double outtakeSamplePivot = 2250;
