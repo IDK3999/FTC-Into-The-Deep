@@ -61,7 +61,7 @@ public class FSMModes {
             Extension.MAX_TICKS = 1000;
         }
         if(modes == Modes.INTAKE_SAMPLE){
-            Claw.getInstance().pivot(0.5);
+            Claw.getInstance().pivot(0.4);
         }
         if(modes == mode){
             modes = Modes.GENERAL;

@@ -59,7 +59,7 @@ public class Extension {
 
     public void start(){
         target = 0;
-        MAX_TICKS = 1000;
+        MAX_TICKS = 1500;
         liftState = LiftState.MIN;
     }
 

@@ -129,7 +129,7 @@ public class AllModes {
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
             Claw.getInstance().rotate(0.25);
-            Claw.getInstance().pivot(0.5 + Pivot.pivot_angle() / 180);
+            Claw.getInstance().pivot(0.4 + Pivot.pivot_angle() / 180);
         }
     }
 
