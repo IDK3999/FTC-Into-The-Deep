@@ -15,6 +15,13 @@ public class Claw {
     public Servo frontBackServo_left = null;
     public Servo frontBackServo_right = null;
 
+    enum Rotation{
+        ZERO, NINETIES
+    }
+
+    Rotation rotation = Rotation.ZERO;
+
+
     enum OpenState {
         OPEN, CLOSED
     }
@@ -46,6 +53,7 @@ public class Claw {
     public static final double BACK_POS = 0.0;
 
     public static final double ROTATION_INIT = 0.25;
+    public static final double ROTATION_PERPENDICULAR = 0.5;
 
 
     public static synchronized Claw getInstance() {
@@ -72,24 +80,18 @@ public class Claw {
 
     }
     public void start(){
-        squarePressed = SquarePressed.NO;
         frontBackState = FrontBackState.BACK;
         openState = OpenState.CLOSED;
+        rotation = Rotation.ZERO;
+
 
         openingServo.setPosition(CLOSED_POS);
         rotationServo.setPosition(ROTATION_INIT);
 
+
         frontBackServo_left.setPosition(BACK_POS);
         frontBackServo_right.setPosition(BACK_POS);
     }
-    public void loop() {
-        openState_method();
-        frontBackState_method();
-        //ll_method();
-        //onSquarePress();
-    }
-
-
 
     public void openState_method(){
         switch (openState) {
@@ -109,7 +111,50 @@ public class Claw {
                 break;
         }
     }
-    public void frontBackState_method(){
+
+    public void intake_rotation(){
+        switch(rotation){
+            case ZERO:
+                if(Gamepad.getInstance().triangle()){
+                    rotate(ROTATION_PERPENDICULAR);
+                    rotation = Rotation.NINETIES;
+                }
+                break;
+            case NINETIES:
+                if(Gamepad.getInstance().triangle()){
+                    rotate(ROTATION_INIT);
+                    rotation = Rotation.ZERO;
+                }
+                break;
+        }
+    }
+
+
+
+
+    public void rotate(double angle){
+        rotationServo.setPosition(angle);
+    }
+
+    public void pivot(double angle) {
+        frontBackServo_right.setPosition(angle);
+        frontBackServo_left.setPosition(angle);
+    }
+
+    public void change_to_OPEN_POS(){
+        openingServo.setPosition(OPEN_POS);
+        openState = OpenState.OPEN;
+    }
+
+    /* public void change_to_CLOSED_POS(){
+        openingServo.setPosition(CLOSED_POS);
+        openState = OpenState.CLOSED;
+    }
+
+    public void change_to_FRONT_POS(){
+        frontBackState =FrontBackState.FRONT;
+    } */
+/* public void frontBackState_method(){
         switch (frontBackState) {
             case FRONT:
                 if (Gamepad.getInstance().triangle()) {
@@ -128,32 +173,7 @@ public class Claw {
                 }
                 break;
         }
-    }
-
-
-    public void rotate(double angle){
-        rotationServo.setPosition(angle);
-    }
-
-    public void pivot(double angle) {
-        frontBackServo_right.setPosition(angle);
-        frontBackServo_left.setPosition(angle);
-    }
-
-    public void change_to_OPEN_POS(){
-        openingServo.setPosition(OPEN_POS);
-        openState = OpenState.OPEN;
-    }
-
-    public void change_to_CLOSED_POS(){
-        openingServo.setPosition(CLOSED_POS);
-        openState = OpenState.CLOSED;
-    }
-
-    public void change_to_FRONT_POS(){
-        frontBackState =FrontBackState.FRONT;
-    }
-
+    }*/
     /*public void onSquarePress(){
            if(Gamepad.getInstance().square()){
                //rotationServo.setPosition(ROTATION_INIT);

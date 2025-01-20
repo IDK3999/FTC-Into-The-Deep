@@ -89,14 +89,6 @@ public class AllModes {
         }
     }
 
-    public static void general() {
-        Extension.getInstance().loop();
-        Pivot.getInstance().loop();
-        Claw.getInstance().loop();
-    }
-
-
-
     ///OUTTAKE SAMPLE
     public static void outtake_sample_init(){
         setRetractCase_to_EXTENSION_RETRACT();
@@ -136,8 +128,6 @@ public class AllModes {
 
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
-            //
-            //Claw.getInstance().frontBackState_method();
         }
     }
 
@@ -184,7 +174,7 @@ public class AllModes {
 
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
-            //Claw.getInstance().ll_method();
+            Claw.getInstance().intake_rotation();
             Claw.getInstance().pivot(Claw.FRONT_POS);
         }
 

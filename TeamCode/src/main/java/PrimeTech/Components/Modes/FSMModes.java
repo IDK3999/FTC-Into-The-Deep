@@ -21,14 +21,10 @@ public class FSMModes {
 
     public void start(){
         modes = Modes.GENERAL;
-        
     }
 
     public void FSM() {
         switch (modes) {
-            case GENERAL:
-                AllModes.general();
-                break;
             case INTAKE_SAMPLE:
                 AllModes.intake_sample();
                 break;
