@@ -18,12 +18,16 @@ public class Outtake {
     }
 
     public void init() {
+        whatToRetract = WhatToRetract.IDLE;
         Claw.getInstance().init();
         Extension.getInstance().init();
         Pivot.getInstance().init();
     }
+
     public void start(){
         Claw.getInstance().start();
+        Extension.getInstance().start();
+        Pivot.getInstance().start();
     }
 
     public void loop() {
@@ -36,7 +40,7 @@ public class Outtake {
                     Extension.getInstance().start();
                     Pivot.getInstance().start();
 
-                    FSMModes.getInstance().change_to_general();
+                    FSMModes.getInstance().start();
 
                     whatToRetract = WhatToRetract.EXTENSION;
                 }

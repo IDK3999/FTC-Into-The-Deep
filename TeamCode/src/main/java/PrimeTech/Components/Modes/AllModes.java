@@ -95,68 +95,93 @@ public class AllModes {
         Claw.getInstance().loop();
     }
 
+
+
+    ///OUTTAKE SAMPLE
     public static void outtake_sample_init(){
-        Pivot.target = outtakeSamplePivot;
         setRetractCase_to_EXTENSION_RETRACT();
+
+        Pivot.target = outtakeSamplePivot;
+
         Extension.target = outtakeSampleExtension;
+        Claw.getInstance().rotate(Claw.ROTATION_INIT);
     }
 
     public static void outtake_sample(){
-
         run_to_pos_in_order(outtakeSamplePivot,outtakeSampleExtension,Mode.OUTTAKE_SAMPLE);
 
         if(retractCase == RetractCase.IDLE){
-            Claw.getInstance().pivot(0.25);
-            Claw.getInstance().rotate(0.25);
+            Claw.getInstance().pivot(Claw.OUTTAKE_SAMPLE_PIVOT_POS);
+
             Claw.getInstance().openState_method();
         }
     }
 
+
+    ///OUTTAKE SPECIMEN
     public static void outtake_specimen_init(){
         setRetractCase_to_EXTENSION_RETRACT();
-        Claw.getInstance().pivot(0);
+
         Pivot.target = outtakeSpecimenPivot;
+
         Extension.target = outtakeSpecimenExtension;
+        Extension.getInstance().change_liftState_to_INRANGE();
+
+        Claw.getInstance().pivot(Claw.BACK_POS);
+        Claw.getInstance().rotate(Claw.ROTATION_INIT);
     }
 
     public  static void outtake_specimen(){
-
         run_to_pos_in_order(outtakeSpecimenPivot,outtakeSpecimenExtension,Mode.OUTTAKE_SPECIMEN);
 
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
-            Claw.getInstance().rotate(0.85);
-            Claw.getInstance().frontBackState_method();
+            //
+            //Claw.getInstance().frontBackState_method();
         }
     }
 
+
+
+    ///INTAKE SPECIMEN
     public static void intake_specimen_init(){
         setRetractCase_to_EXTENSION_RETRACT();
 
         Pivot.target = intakeSpecimenPivot;
+
         Extension.target = intakeSpecimenExtension;
+
+        Claw.getInstance().pivot(Claw.MID_POS);
+        Claw.getInstance().rotate(Claw.ROTATION_INIT);
     }
 
     public static void intake_specimen() {
         run_to_pos_in_order(intakeSpecimenPivot,intakeSpecimenExtension,Mode.INTAKE_SPECIMEN);
+
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
-            Claw.getInstance().rotate(0.25);
-            Claw.getInstance().pivot(0.4 + Pivot.pivot_angle() / 180);
+
+            Claw.getInstance().pivot(Claw.MID_POS + Pivot.pivot_angle() / 180);
         }
     }
 
-    public static void intake_sample_init(){
+
+   ///INTAKE SAMPLE
+   public static void intake_sample_init(){
         setRetractCase_to_EXTENSION_RETRACT();
+
         Pivot.target = intakeSamplePivot;
-        Claw.getInstance().rotate(0.25);
+
         Extension.target = intakeSampleExtension;
         Extension.getInstance().start();
+
         Claw.getInstance().change_to_OPEN_POS();
+        Claw.getInstance().rotate(Claw.ROTATION_INIT);
     }
 
     public static void intake_sample() {
         run_to_pos_in_order(intakeSamplePivot,intakeSampleExtension,Mode.INTAKE_SAMPLE);
+
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
             //Claw.getInstance().ll_method();

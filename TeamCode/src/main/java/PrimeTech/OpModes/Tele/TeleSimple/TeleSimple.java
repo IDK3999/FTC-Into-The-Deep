@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import PrimeTech.Components.Gamepad.Gamepad;
 import PrimeTech.Components.Limelight.Limelight;
+import PrimeTech.Components.Modes.FSMModes;
 import PrimeTech.Components.Outtake.Extension;
 import PrimeTech.Components.Outtake.Outtake;
 import PrimeTech.Components.Outtake.Pivot;
@@ -29,8 +30,7 @@ public abstract class TeleSimple extends OpMode {
     @Override
     public void start() {
         Outtake.getInstance().start();
-        Extension.getInstance().start();
-        Pivot.getInstance().start();
+        FSMModes.getInstance().start();
     }
 
     @Override

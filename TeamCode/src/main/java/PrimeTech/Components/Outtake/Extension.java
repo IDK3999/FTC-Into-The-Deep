@@ -70,11 +70,6 @@ public class Extension {
 
     public double fsm() {
         double last_target = target;
-
-        if(Pivot.pivot_angle()<80 && target > 1500){
-            MAX_TICKS = 1500;
-            target = MAX_TICKS;
-        }
         switch (liftState) {
             case MIN:
                 target += increment * Gamepad.getInstance().right_trigger();

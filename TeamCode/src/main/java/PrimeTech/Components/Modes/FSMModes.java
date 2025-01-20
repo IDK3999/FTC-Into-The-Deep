@@ -19,6 +19,11 @@ public class FSMModes {
         return instance;
     }
 
+    public void start(){
+        modes = Modes.GENERAL;
+        
+    }
+
     public void FSM() {
         switch (modes) {
             case GENERAL:
@@ -37,58 +42,21 @@ public class FSMModes {
                 AllModes.outtake_sample();
                 break;
         }
-        if (Gamepad.getInstance().dpad_right()) {
-            change_mode(Modes.INTAKE_SPECIMEN);
+        if (Gamepad.getInstance().dpad_right() && modes != Modes.INTAKE_SPECIMEN) {
+            modes = Modes.INTAKE_SPECIMEN;
+            AllModes.intake_specimen_init();
         }
-        if (Gamepad.getInstance().dpad_down()) {
-            change_mode(Modes.INTAKE_SAMPLE);
+        if (Gamepad.getInstance().dpad_down() && modes != Modes.INTAKE_SAMPLE) {
+            modes = Modes.INTAKE_SAMPLE;
+            AllModes.intake_sample_init();
         }
-        if (Gamepad.getInstance().dpad_up()) {
-           change_mode(Modes.OUTTAKE_SAMPLE);
+        if (Gamepad.getInstance().dpad_up() && modes != Modes.OUTTAKE_SAMPLE) {
+            modes = Modes.OUTTAKE_SAMPLE;
+            AllModes.outtake_sample_init();
         }
-        if (Gamepad.getInstance().dpad_left()) {
-           change_mode(Modes.OUTTAKE_SPECIMEN);
-        }
-
-    }
-
-    public void change_to_general(){
-        modes = Modes.GENERAL;
-    }
-
-    public void change_mode(Modes mode){
-        if(modes == Modes.OUTTAKE_SAMPLE){
-            Extension.MAX_TICKS = 1000;
-        }
-        if(modes == Modes.INTAKE_SAMPLE){
-            Claw.getInstance().pivot(0.4);
-        }
-        if(modes == mode){
-            modes = Modes.GENERAL;
-        }
-        else{
-            if (Gamepad.getInstance().dpad_right()) {
-                modes = Modes.INTAKE_SPECIMEN;
-                AllModes.intake_specimen_init();
-                //change_mode(Modes.INTAKE_SPECIMEN);
-            }
-            if (Gamepad.getInstance().dpad_down()) {
-                modes = Modes.INTAKE_SAMPLE;
-                AllModes.intake_sample_init();
-                //change_mode(Modes.INTAKE_SAMPLE);
-            }
-            if (Gamepad.getInstance().dpad_up()) {
-                modes = Modes.OUTTAKE_SAMPLE;
-                AllModes.outtake_sample_init();
-                //change_mode(Modes.OUTTAKE_SPECIMEN);
-            }
-            if (Gamepad.getInstance().dpad_left()) {
-                modes = Modes.OUTTAKE_SPECIMEN;
-                AllModes.outtake_specimen_init();
-                //Extension.getInstance().change_liftState_to_INRANGE();
-                //change_mode(Modes.OUTTAKE_SAMPLE);
-            }
-            modes = mode;
+        if (Gamepad.getInstance().dpad_left() && modes != Modes.OUTTAKE_SPECIMEN) {
+            modes = Modes.OUTTAKE_SPECIMEN;
+            AllModes.outtake_specimen_init();
         }
 
     }
