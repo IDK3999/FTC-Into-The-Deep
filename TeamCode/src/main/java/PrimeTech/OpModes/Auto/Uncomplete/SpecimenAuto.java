@@ -43,7 +43,7 @@ public class SpecimenAuto extends OpMode {
     private final Pose Sample = new Pose(12.2, 32.3, Math.toRadians(180));
     private double scoreY = 58;
     private final Pose score1 = new Pose(scoreX, scoreY += scoreYStep, Math.toRadians(0));
-    private final Pose score2 = new Pose(scoreX, scoreY += 2, Math.toRadians(180));
+    private final Pose score2 = new Pose(scoreX, scoreY += scoreYStep, Math.toRadians(180));
 
     // another Sample
 
