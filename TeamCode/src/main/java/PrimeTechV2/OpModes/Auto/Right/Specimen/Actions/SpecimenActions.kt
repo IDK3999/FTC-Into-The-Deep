@@ -1,5 +1,6 @@
 package PrimeTechV2.OpModes.Auto.Right.Specimen.Actions
 
+import PrimeTechV2.Components.ActionGroups.ActionGroups
 import PrimeTechV2.OpModes.Auto.Right.Specimen.Path.SpecimenPaths
 import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
@@ -21,6 +22,7 @@ object SpecimenActions {
         get() = SequentialGroup(
             FollowPath(SpecimenPaths.grabSample1Path, true),
             // Grab Mechanism
+            ActionGroups.grabSpecimen
         )
 
     val scoreSample1: Command
