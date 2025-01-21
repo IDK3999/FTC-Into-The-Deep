@@ -29,6 +29,7 @@ object Lift: Subsystem() {
     // endregion Declare Components
     val lowPosition = 0.0
     val highPosition = 1500.0
+    val grabPosition = 40.0
     // region Declare Values
 
     // endregion Declare Values
@@ -46,6 +47,14 @@ object Lift: Subsystem() {
         get() = RunToPosition(
             motors,
             highPosition,
+            controller,
+            this
+        )
+
+    val toGrab: Command
+        get() = RunToPosition(
+            motors,
+            grabPosition,
             controller,
             this
         )
