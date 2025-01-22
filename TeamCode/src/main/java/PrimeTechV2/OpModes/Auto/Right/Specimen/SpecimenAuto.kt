@@ -16,6 +16,9 @@ import pedroPathing.constants.LConstants
 
 @Autonomous(name = "Steroid Specimen Auto")
 class SpecimenAuto : PedroOpMode(Claw, Lift) {
+    val fConstants: FConstants = FConstants()
+    val lConstants: LConstants = LConstants()
+
     override fun onInit() {
         Constants.setConstants(FConstants::class.java, LConstants::class.java)
 
