@@ -25,6 +25,9 @@ public class FSMModes {
 
     public void FSM() {
         switch (modes) {
+            case GENERAL:
+                AllModes.general();
+                break;
             case INTAKE_SAMPLE:
                 AllModes.intake_sample();
                 break;
