@@ -24,11 +24,11 @@ object Lift: Subsystem() {
     val tolerance = 10.0
     val controller = PIDControllerWrapper(PIDController(p, i, d), tolerance)
     // endregion Declare Components
+
+    // region Declare Values
     val lowPosition = 0.0
     val highPosition = 1500.0
     val grabPosition = 40.0
-    // region Declare Values
-
     // endregion Declare Values
 
     // region Commands
