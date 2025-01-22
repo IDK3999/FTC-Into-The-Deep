@@ -44,7 +44,7 @@ class SpecimenAuto : NextFTCOpMode(Claw, Lift) {
 
         CommandManager.scheduleCommand(
             SequentialGroup(
-                ActionGroups.initializeHandling
+//                ActionGroups.initializeHandling
 //                SpecimenActions.scorePreload,
 //                SpecimenActions.getAndGiveAll,
 //                SpecimenActions.grabSample1,
