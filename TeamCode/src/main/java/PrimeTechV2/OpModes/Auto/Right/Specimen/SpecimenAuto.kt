@@ -1,5 +1,6 @@
 package PrimeTechV2.OpModes.Auto.Right.Specimen
 
+import PrimeTechV2.Components.ActionGroups.ActionGroups
 import PrimeTechV2.Components.Handling.Claw
 import PrimeTechV2.Components.Handling.Lift
 import PrimeTechV2.OpModes.Auto.Right.Specimen.Actions.SpecimenActions
@@ -42,17 +43,18 @@ class SpecimenAuto : PedroOpMode(Claw, Lift) {
 
         CommandManager.scheduleCommand(
             SequentialGroup(
-                SpecimenActions.scorePreload,
-                SpecimenActions.getAndGiveAll,
-                SpecimenActions.grabSample1,
-                SpecimenActions.scoreSample1,
-                SpecimenActions.grabSample2,
-                SpecimenActions.scoreSample2,
-                SpecimenActions.grabSample3,
-                SpecimenActions.scoreSample3,
-                SpecimenActions.grabSample4,
-                SpecimenActions.scoreSample4,
-                SpecimenActions.park
+                ActionGroups.initializeHandling
+//                SpecimenActions.scorePreload,
+//                SpecimenActions.getAndGiveAll,
+//                SpecimenActions.grabSample1,
+//                SpecimenActions.scoreSample1,
+//                SpecimenActions.grabSample2,
+//                SpecimenActions.scoreSample2,
+//                SpecimenActions.grabSample3,
+//                SpecimenActions.scoreSample3,
+//                SpecimenActions.grabSample4,
+//                SpecimenActions.scoreSample4,
+//                SpecimenActions.park
             )
         )
     }
