@@ -7,6 +7,13 @@ import com.rowanmcalpin.nextftc.core.command.groups.ParallelGroup
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
 
 object ActionGroups {
+    val initializeHandling: Command
+        get() = SequentialGroup(
+            Claw.close,
+            Claw.vertical,
+            Claw.back
+        )
+
     val grabSpecimen: Command
         get() = SequentialGroup(
             ParallelGroup(
@@ -14,7 +21,7 @@ object ActionGroups {
                 Claw.vertical,
                 Claw.front,
             ),
-            Lift.toGrab,
+            Lift.toGrabSpecimen,
             Claw.close,
             Lift.toLow
         )

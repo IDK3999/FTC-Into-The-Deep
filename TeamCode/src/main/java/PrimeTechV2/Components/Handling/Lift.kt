@@ -2,11 +2,8 @@ package PrimeTechV2.Components.Handling
 
 import PrimeTechV2.Utils.PIDControllerWrapper
 import com.arcrobotics.ftclib.controller.PIDController
-import com.qualcomm.robotcore.hardware.Servo
 import com.rowanmcalpin.nextftc.core.Subsystem
 import com.rowanmcalpin.nextftc.core.command.Command
-import com.rowanmcalpin.nextftc.ftc.OpModeData
-import com.rowanmcalpin.nextftc.ftc.hardware.ServoToPosition
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorEx
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorGroup
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.RunToPosition
@@ -51,7 +48,7 @@ object Lift: Subsystem() {
             this
         )
 
-    val toGrab: Command
+    val toGrabSpecimen: Command
         get() = RunToPosition(
             motors,
             grabPosition,

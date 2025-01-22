@@ -1,9 +1,7 @@
 package PrimeTechV2.OpModes.Auto.Right.Specimen
 
-import PrimeTechV2.OpModes.Auto.Right.Specimen.Actions.SpecimenActions
 import PrimeTechV2.OpModes.Auto.Right.Specimen.Path.SpecimenPaths
-import com.pedropathing.follower.Follower
-import com.pedropathing.util.Constants
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.rowanmcalpin.nextftc.core.command.CommandManager
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
 import com.rowanmcalpin.nextftc.ftc.OpModeData
@@ -11,7 +9,8 @@ import com.rowanmcalpin.nextftc.pedro.PedroOpMode
 import pedroPathing.constants.FConstants
 import pedroPathing.constants.LConstants
 
-class SpecimenAuto : PedroOpMode() {
+@Autonomous(name = "Steroid Specimen Auto")
+class SpecimenAuto : PedroOpMode(Claw, Lift) {
     override fun onInit() {
         Constants.setConstants(FConstants::class.java, LConstants::class.java)
 

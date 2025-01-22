@@ -44,10 +44,10 @@ public class Claw {
     double last_pieceAngle = 0;
     // Servo positions
     // TODO: Adjust with actual positions
-    public static final double OPEN_POS = 0.5;
+    public static final double OPEN_POS = 0.6;
     public static final double CLOSED_POS = 0.0;
 
-    public static final double FRONT_POS = 0.95;
+    public static final double FRONT_POS = 0.875;
     public static final double MID_POS = 0.4;
     public static final double OUTTAKE_SAMPLE_PIVOT_POS = 0.25;
     public static final double BACK_POS = 0.0;
