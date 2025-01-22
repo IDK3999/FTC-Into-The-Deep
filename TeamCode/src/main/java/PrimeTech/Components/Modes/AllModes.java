@@ -11,11 +11,11 @@ public class AllModes {
     public static double intakeSpecimenExtension = 0;
     public static double intakeSpecimenPivot = 375;
 
-    public static double outtakeSpecimenExtension = 1400;
-    public static double outtakeSpecimenPivot = 2500;
+    public static double outtakeSpecimenExtension = 950;
+    public static double outtakeSpecimenPivot = 2400;
 
     public static double outtakeSamplePivot = 2250;
-    public static double outtakeSampleExtension = 2600;
+    public static double outtakeSampleExtension = 2500;
 
     public static double intakeSamplePivot = 0;
     public static double intakeSampleExtension = 0;
@@ -51,7 +51,7 @@ public class AllModes {
                 }
                 break;
             case PIVOT:
-                Extension.getInstance().run_to_target(100);
+                Extension.getInstance().run_to_target(25);
                 if (Pivot.motorPivot.getCurrentPosition() > pivotTarget + 100 || Pivot.motorPivot.getCurrentPosition() < pivotTarget - 100 ) {
                     Pivot.getInstance().run_to_target(pivotTarget);
                 } else {
@@ -89,6 +89,11 @@ public class AllModes {
         }
     }
 
+    public static void general(){
+        Extension.getInstance().loop();
+        Pivot.getInstance().loop();
+    }
+
     ///OUTTAKE SAMPLE
     public static void outtake_sample_init(){
         setRetractCase_to_EXTENSION_RETRACT();
@@ -96,17 +101,14 @@ public class AllModes {
         Pivot.target = outtakeSamplePivot;
 
         Extension.target = outtakeSampleExtension;
+
         Claw.getInstance().rotate(Claw.ROTATION_INIT);
+        Claw.getInstance().pivot(Claw.OUTTAKE_SAMPLE_PIVOT_POS);
     }
 
     public static void outtake_sample(){
         run_to_pos_in_order(outtakeSamplePivot,outtakeSampleExtension,Mode.OUTTAKE_SAMPLE);
-
-        if(retractCase == RetractCase.IDLE){
-            Claw.getInstance().pivot(Claw.OUTTAKE_SAMPLE_PIVOT_POS);
-
-            Claw.getInstance().openState_method();
-        }
+        Claw.getInstance().openState_method();
     }
 
 
@@ -125,10 +127,7 @@ public class AllModes {
 
     public  static void outtake_specimen(){
         run_to_pos_in_order(outtakeSpecimenPivot,outtakeSpecimenExtension,Mode.OUTTAKE_SPECIMEN);
-
-        if(retractCase == RetractCase.IDLE){
-            Claw.getInstance().openState_method();
-        }
+        Claw.getInstance().openState_method();
     }
 
 
@@ -167,6 +166,7 @@ public class AllModes {
 
         Claw.getInstance().change_to_OPEN_POS();
         Claw.getInstance().rotate(Claw.ROTATION_INIT);
+        Claw.getInstance().pivot(Claw.FRONT_POS);
     }
 
     public static void intake_sample() {
@@ -175,7 +175,7 @@ public class AllModes {
         if(retractCase == RetractCase.IDLE){
             Claw.getInstance().openState_method();
             Claw.getInstance().intake_rotation();
-            Claw.getInstance().pivot(Claw.FRONT_POS);
+
         }
 
     }
