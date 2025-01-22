@@ -28,14 +28,14 @@ class SpecimenAuto : NextFTCOpMode(Claw, Lift) {
         //follower.resetIMU()
         //follower.setStartingPose(SpecimenPaths.start)
 
-        OpModeData.telemetry = telemetry
+//        OpModeData.telemetry = telemetry
     }
 
     override fun onUpdate() {
 //        telemetry.addData("x", follower.pose.x)
 //        telemetry.addData("y", follower.pose.y)
 //        telemetry.addData("heading", follower.pose.heading)
-        telemetry.update()
+//        telemetry.update()
     }
 
     override fun onStartButtonPressed() {
