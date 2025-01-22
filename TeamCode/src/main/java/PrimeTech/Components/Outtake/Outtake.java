@@ -52,18 +52,11 @@ public class Outtake {
                 break;
             case PIVOT:
                 Extension.getInstance().run_to_target(25);
-<<<<<<< Updated upstream
-                if (Pivot.motorPivot.getCurrentPosition() > 100) {
-                    Pivot.getInstance().run_to_target(Pivot.target);
-                } else {
-                    whatToRetract = WhatToRetract.IDLE;
-=======
                 if (Pivot.motorPivot.getCurrentPosition() != 0) {
                     Pivot.getInstance().run_to_target(0);
                     if (Pivot.motorPivot.getVelocity() == 0) {
                         whatToRetract = WhatToRetract.IDLE;
                     }
->>>>>>> Stashed changes
                 }
                 break;
         }
