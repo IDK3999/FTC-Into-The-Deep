@@ -28,6 +28,7 @@ public class Pivot {
     enum LiftState {
         MAX, INRANGE, MIN
     }
+
     LiftState liftState = LiftState.MIN;
 
 
@@ -49,15 +50,17 @@ public class Pivot {
         motorPivot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
+    public void start(){
+        target = 0;
+        liftState = LiftState.MIN;
+    }
+
     public void loop() {
         double local_target = fsm();
         run_to_target(local_target);
     }
 
-    public void start(){
-        target = 0;
-        liftState = LiftState.MIN;
-    }
+
 
     public double fsm() {
         switch (liftState) {
@@ -108,13 +111,11 @@ public class Pivot {
         //telemetry.update();
     }
 
+
     public static double pivot_angle(){
         return motorPivot.getCurrentPosition()/ticks_in_degrees;
     }
 
-    public void change_liftState_to_MIN() {
-        liftState = LiftState.MIN;
-    }
 
 
 }
