@@ -33,12 +33,12 @@ public class Claw {
 
     FrontBackState frontBackState = FrontBackState.FRONT;
     // Servo positions
-    public static final double OPEN_POS = 0.6;
-    public static final double CLOSED_POS = 0.0;
+    public static final double OPEN_POS = 0.65;
+    public static final double CLOSED_POS = 0.05;
 
-    public static final double FRONT_POS = 0.85;
-    public static final double MID_POS = 0.4;
-    public static final double OUTTAKE_SAMPLE_PIVOT_POS = 0.25;
+    public static final double FRONT_POS = 1;
+    public static final double MID_POS = 0.55;
+    public static final double OUTTAKE_SAMPLE_PIVOT_POS = 0.35 ;
     public static final double BACK_POS = 0.0;
 
     public static final double ROTATION_INIT = 0.25;
