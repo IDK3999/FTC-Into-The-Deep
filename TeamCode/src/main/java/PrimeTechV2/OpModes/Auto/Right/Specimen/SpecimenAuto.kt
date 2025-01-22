@@ -1,6 +1,11 @@
 package PrimeTechV2.OpModes.Auto.Right.Specimen
 
+import PrimeTechV2.Components.Handling.Claw
+import PrimeTechV2.Components.Handling.Lift
+import PrimeTechV2.OpModes.Auto.Right.Specimen.Actions.SpecimenActions
 import PrimeTechV2.OpModes.Auto.Right.Specimen.Path.SpecimenPaths
+import com.pedropathing.follower.Follower
+import com.pedropathing.util.Constants
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.rowanmcalpin.nextftc.core.command.CommandManager
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
