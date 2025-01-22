@@ -21,7 +21,7 @@ object ActionGroups {
                 Claw.vertical,
                 Claw.front,
             ),
-            Lift.toGrab,
+            Lift.toGrabSpecimen,
             Claw.close,
             Lift.toLow
         )
