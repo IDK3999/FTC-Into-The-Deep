@@ -9,6 +9,7 @@ import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
 object ActionGroups {
     val initializeHandling: Command
         get() = SequentialGroup(
+            Lift.toGrabSpecimen,
             Claw.close,
             Claw.vertical,
             Claw.back
