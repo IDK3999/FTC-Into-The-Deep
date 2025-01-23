@@ -1,23 +1,15 @@
 package PrimeTechV2.OpModes.Auto.Right.Specimen
 
-import PrimeTechV2.Components.ActionGroups.ActionGroups
 import PrimeTechV2.Components.Handling.Claw
 import PrimeTechV2.Components.Handling.Lift
-import PrimeTechV2.OpModes.Auto.Right.Specimen.Actions.SpecimenActions
 import PrimeTechV2.OpModes.Auto.Right.Specimen.Path.SpecimenPaths
-import com.pedropathing.follower.Follower
-import com.pedropathing.util.Constants
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.rowanmcalpin.nextftc.core.command.CommandManager
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
-import com.rowanmcalpin.nextftc.ftc.NextFTCOpMode
-import com.rowanmcalpin.nextftc.ftc.OpModeData
 import com.rowanmcalpin.nextftc.pedro.PedroOpMode
-import pedroPathing.constants.FConstants
-import pedroPathing.constants.LConstants
 
 @Autonomous(name = "Steroid Specimen Auto")
-class SpecimenAuto : NextFTCOpMode(Claw, Lift) {
+class SpecimenAuto : PedroOpMode(Claw, Lift) {
 //    val fConstants: FConstants = FConstants()
 //    val lConstants: LConstants = LConstants()
 
