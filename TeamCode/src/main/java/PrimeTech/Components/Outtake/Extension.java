@@ -12,7 +12,7 @@ import PrimeTech.Components.Gamepad.Gamepad;
 
 public class Extension {
     // TODO: Edit with correct values
-    public static  double MAX_TICKS = 1800;
+    public static  double MAX_TICKS = 1600;
     public static final double MIN_TICKS = 0.0;
 
     private PIDController controller;
@@ -59,7 +59,6 @@ public class Extension {
 
     public void start(){
         target = 0;
-        MAX_TICKS = 1800;
         liftState = LiftState.MIN;
     }
 
