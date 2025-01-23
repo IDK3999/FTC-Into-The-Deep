@@ -45,29 +45,26 @@ public class AllModes {
     public static void run_to_pos_in_order(double pivotTarget, double extensionTarget, Mode mode){
         switch(retractCase){
             case EXTENSION_RETRACT:
-                if (Extension.extension_right.getCurrentPosition() != 0) {
+                if (Extension.extension_right.getCurrentPosition() > 100) {
                     Extension.getInstance().run_to_target(0);
-                    if(Extension.extension_right.getVelocity() == 0){
-                        retractCase = RetractCase.PIVOT;
-                    }
+                } else {
+                    retractCase = RetractCase.PIVOT;
                 }
                 break;
             case PIVOT:
                 Extension.getInstance().run_to_target(25);
-                if (Pivot.motorPivot.getCurrentPosition() != pivotTarget) {
+                if (Pivot.motorPivot.getCurrentPosition() > pivotTarget + 100 || Pivot.motorPivot.getCurrentPosition() < pivotTarget - 100 ) {
                     Pivot.getInstance().run_to_target(pivotTarget);
-                    if(Pivot.motorPivot.getVelocity() == 0){
-                        retractCase = RetractCase.EXTENSION;
-                    }
+                } else {
+                    retractCase = RetractCase.EXTENSION;
                 }
                 break;
             case EXTENSION:
                 Pivot.getInstance().run_to_target(pivotTarget);
-                if (Extension.extension_right.getCurrentPosition() != extensionTarget) {
+                if (Extension.extension_right.getCurrentPosition() > extensionTarget + 100 || Extension.extension_right.getCurrentPosition() < extensionTarget - 100) {
                     Extension.getInstance().run_to_target(extensionTarget);
-                    if(Extension.extension_right.getVelocity() == 0){
-                        retractCase = RetractCase.IDLE;
-                    }
+                } else {
+                    retractCase = RetractCase.IDLE;
                 }
                 break;
             case IDLE:
