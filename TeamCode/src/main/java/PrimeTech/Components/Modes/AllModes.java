@@ -14,11 +14,11 @@ public class AllModes {
     public static double outtakeSpecimenExtension = 800;
     public static double outtakeSpecimenPivot = 2100;
 
-    public static double outtakeSamplePivot = 2250;
     public static double outtakeSampleExtension = 2500;
-
-    public static double intakeSamplePivot = 0;
+    public static double outtakeSamplePivot = 2100;
+    
     public static double intakeSampleExtension = 0;
+    public static double intakeSamplePivot = 0;
 
     public static AllModes instance = null;
 
