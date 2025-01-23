@@ -36,10 +36,7 @@ public class Outtake {
                 FSMModes.getInstance().FSM();
                 if (Gamepad.getInstance().circle()) {
 
-                    Claw.getInstance().start();
-                    Extension.getInstance().start();
-                    Pivot.getInstance().start();
-
+                    start();
                     FSMModes.getInstance().start();
 
                     whatToRetract = WhatToRetract.EXTENSION;
@@ -53,7 +50,7 @@ public class Outtake {
                 }
                 break;
             case PIVOT:
-                Extension.getInstance().run_to_target(100);
+                Extension.getInstance().run_to_target(25);
                 if (Pivot.motorPivot.getCurrentPosition() > 100) {
                     Pivot.getInstance().run_to_target(Pivot.target);
                 } else {

@@ -59,7 +59,7 @@ public class Extension {
 
     public void start(){
         target = 0;
-        MAX_TICKS = 1500;
+        MAX_TICKS = 1800;
         liftState = LiftState.MIN;
     }
 
@@ -114,9 +114,6 @@ public class Extension {
         telemetry.update();
     }
 
-    public void change_liftState_to_MIN() {
-        liftState = LiftState.MIN;
-    }
     public void change_liftState_to_INRANGE() {
         liftState = LiftState.INRANGE;
     }
