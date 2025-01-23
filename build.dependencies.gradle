@@ -17,9 +17,9 @@ dependencies {
     implementation 'org.firstinspires.ftc:FtcCommon:10.1.1'
     implementation 'org.firstinspires.ftc:Vision:10.1.1'
 
-    implementation 'com.rowanmcalpin.nextftc:core:0.5.5-beta1'
-    implementation 'com.rowanmcalpin.nextftc:ftc:0.5.5-beta1'
-    implementation 'com.rowanmcalpin.nextftc:pedro:0.5.5-beta1'
+    implementation 'com.rowanmcalpin.nextftc:core:0.5.6-beta'
+    implementation 'com.rowanmcalpin.nextftc:ftc:0.5.6-beta'
+    implementation 'com.rowanmcalpin.nextftc:pedro:0.5.6-beta'
     
     implementation 'com.pedropathing:pedro:1.0.6'
 
