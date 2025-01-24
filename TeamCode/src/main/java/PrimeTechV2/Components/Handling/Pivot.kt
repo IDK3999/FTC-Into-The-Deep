@@ -17,7 +17,7 @@ object Pivot: Subsystem() {
     val p = 0.0026
     val i = 0.015
     val d = 0.0005
-    val tolerance = 10.0
+    val tolerance = 50.0
     val controller = PIDControllerWrapper(PIDController(p, i, d), tolerance)
     // endregion Declare Components
     val lowPosition = 0.0

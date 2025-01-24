@@ -24,7 +24,7 @@ object Lift: Subsystem() {
     val p = 0.01
     val i = 0.15
     val d = 0.00027
-    val tolerance = 10.0
+    val tolerance = 50.0
     val controller = PIDControllerWrapper(PIDController(p, i, d), tolerance)
     // endregion Declare Components
 
