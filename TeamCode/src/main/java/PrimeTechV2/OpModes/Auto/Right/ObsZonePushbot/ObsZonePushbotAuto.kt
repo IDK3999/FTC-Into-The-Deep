@@ -49,12 +49,12 @@ class ObsZonePushbotAuto: PedroOpMode(Claw, Lift, Pivot) {
                 ActionGroups.initializeHandling,
                 ObsZonePushbotActions.scorePreload,
                 ObsZonePushbotActions.get1,
-                ObsZonePushbotActions.give1,
-                ObsZonePushbotActions.get2,
-                ObsZonePushbotActions.give2,
-                ObsZonePushbotActions.get3,
-                ObsZonePushbotActions.give3,
-                ObsZonePushbotActions.park
+                ObsZonePushbotActions.give1
+//                ObsZonePushbotActions.get2,
+//                ObsZonePushbotActions.give2,
+//                ObsZonePushbotActions.get3,
+//                ObsZonePushbotActions.give3,
+//                ObsZonePushbotActions.park
             )
         )
     }
