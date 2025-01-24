@@ -4,6 +4,7 @@ import PrimeTechV2.Utils.PIDControllerWrapper
 import com.arcrobotics.ftclib.controller.PIDController
 import com.rowanmcalpin.nextftc.core.Subsystem
 import com.rowanmcalpin.nextftc.core.command.Command
+import com.rowanmcalpin.nextftc.ftc.hardware.controllables.HoldPosition
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorEx
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.RunToPosition
 
@@ -27,6 +28,9 @@ object Pivot: Subsystem() {
     // endregion Declare Values
 
     // region Commands
+    override val defaultCommand
+        get() = HoldPosition(pivotMotor, controller, this)
+
     val toLow: Command
         get() = RunToPosition(
             pivotMotor,

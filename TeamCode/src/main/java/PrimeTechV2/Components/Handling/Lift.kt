@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.rowanmcalpin.nextftc.core.Subsystem
 import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.ftc.OpModeData
+import com.rowanmcalpin.nextftc.ftc.hardware.controllables.HoldPosition
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorEx
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorGroup
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.RunToPosition
@@ -34,6 +35,9 @@ object Lift: Subsystem() {
     // endregion Declare Values
 
     // region Commands
+    override val defaultCommand
+        get() = HoldPosition(motors, controller, this)
+
     val toLow: Command
         get() = RunToPosition(
             motors,
