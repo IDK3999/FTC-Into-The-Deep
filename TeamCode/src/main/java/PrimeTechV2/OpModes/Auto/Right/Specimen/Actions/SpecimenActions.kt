@@ -1,6 +1,8 @@
 package PrimeTechV2.OpModes.Auto.Right.Specimen.Actions
 
 import PrimeTechV2.Components.ActionGroups.ActionGroups
+import PrimeTechV2.Components.Handling.Lift
+import PrimeTechV2.Components.Handling.Pivot
 import PrimeTechV2.OpModes.Auto.Right.Specimen.Path.SpecimenPaths
 import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
@@ -11,6 +13,8 @@ object SpecimenActions {
         get() = SequentialGroup(
             FollowPath(SpecimenPaths.scorePreloadPath, true),
             // Scoring mechanism
+            Pivot.toMid,
+            Lift.toHigh
         )
 
     val getAndGiveAll: Command
