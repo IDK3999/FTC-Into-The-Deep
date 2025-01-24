@@ -1,4 +1,4 @@
-package PrimeTechV2.OpModes.Auto.Right.ObsZonePushbot.Paths
+package PrimeTechV2.OpModes.Auto.Right.PreloadSpecimen.Paths
 
 import com.pedropathing.localization.Pose
 import com.pedropathing.pathgen.BezierCurve
@@ -8,7 +8,7 @@ import com.pedropathing.pathgen.Point
 import com.rowanmcalpin.nextftc.pedro.FollowerNotInitializedException
 import com.rowanmcalpin.nextftc.pedro.PedroData.follower
 
-object ObsZonePushbotPaths {
+object PreloadSpecimenPaths {
     // region Poses
     var scoreX: Double = 39.0
     private var scoreY = 65.0

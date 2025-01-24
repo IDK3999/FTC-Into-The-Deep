@@ -1,20 +1,19 @@
-package PrimeTechV2.OpModes.Auto.Right.ObsZonePushbot.Actions
+package PrimeTechV2.OpModes.Auto.Right.PreloadSpecimen.Actions
 
 import PrimeTechV2.Components.ActionGroups.ActionGroups
 import PrimeTechV2.Components.Handling.Claw
 import PrimeTechV2.Components.Handling.Lift
 import PrimeTechV2.Components.Handling.Pivot
-import PrimeTechV2.OpModes.Auto.Right.ObsZonePushbot.Paths.ObsZonePushbotPaths
+import PrimeTechV2.OpModes.Auto.Right.PreloadSpecimen.Paths.PreloadSpecimenPaths
 import com.rowanmcalpin.nextftc.core.command.Command
-import com.rowanmcalpin.nextftc.core.command.groups.ParallelGroup
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
 import com.rowanmcalpin.nextftc.core.command.utility.delays.Delay
 import com.rowanmcalpin.nextftc.pedro.FollowPath
 
-object ObsZonePushbotActions {
+object PreloadSpecimenActions {
     val scorePreload: Command
         get() = SequentialGroup(
-            FollowPath(ObsZonePushbotPaths.scorePreloadPath, true),
+            FollowPath(PreloadSpecimenPaths.scorePreloadPath, true),
             // Scoring mechanism
             Pivot.toHigh,
             Lift.toHigh,
@@ -28,36 +27,36 @@ object ObsZonePushbotActions {
 
     val get1: Command
         get() = SequentialGroup(
-            FollowPath(ObsZonePushbotPaths.get1Path, true)
+            FollowPath(PreloadSpecimenPaths.get1Path, true)
         )
 
     val give1: Command
         get() = SequentialGroup(
-            FollowPath(ObsZonePushbotPaths.give1Path, true)
+            FollowPath(PreloadSpecimenPaths.give1Path, true)
         )
 
     val get2: Command
         get() = SequentialGroup(
-            FollowPath(ObsZonePushbotPaths.get2Path, true)
+            FollowPath(PreloadSpecimenPaths.get2Path, true)
         )
 
     val give2: Command
         get() = SequentialGroup(
-            FollowPath(ObsZonePushbotPaths.give2Path, true)
+            FollowPath(PreloadSpecimenPaths.give2Path, true)
         )
 
     val get3: Command
         get() = SequentialGroup(
-            FollowPath(ObsZonePushbotPaths.get3Path, true)
+            FollowPath(PreloadSpecimenPaths.get3Path, true)
         )
 
     val give3: Command
         get() = SequentialGroup(
-            FollowPath(ObsZonePushbotPaths.give3Path, true)
+            FollowPath(PreloadSpecimenPaths.give3Path, true)
         )
 
     val park: Command
         get() = SequentialGroup(
-            FollowPath(ObsZonePushbotPaths.parkPath, true)
+            FollowPath(PreloadSpecimenPaths.parkPath, true)
         )
 }
