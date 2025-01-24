@@ -21,7 +21,7 @@ dependencies {
     implementation 'com.rowanmcalpin.nextftc:ftc:0.5.6-beta'
     implementation 'com.rowanmcalpin.nextftc:pedro:0.5.6-beta'
     
-    implementation 'com.pedropathing:pedro:1.0.6'
+    implementation 'com.pedropathing:beta:1.0.7-beta7'
 
     //noinspection GradleDependency
     implementation 'androidx.appcompat:appcompat:1.2.0'
