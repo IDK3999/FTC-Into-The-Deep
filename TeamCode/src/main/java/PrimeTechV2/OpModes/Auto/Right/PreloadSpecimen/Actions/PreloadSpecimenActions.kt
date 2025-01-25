@@ -15,12 +15,12 @@ object PreloadSpecimenActions {
     val scorePreload: Command
         get() = SequentialGroup(
             ParallelGroup(
-                FollowPath(PreloadSpecimenPaths.scorePreloadPath, true),
-                Pivot.toHigh
+                Pivot.toHigh,
+                FollowPath(PreloadSpecimenPaths.scorePreloadPath, true)
             ),
             // Scoring mechanism
             Lift.toHigh,
-            Delay(0.2),
+            Delay(0.1),
             Claw.open,
             Delay(0.2),
             Pivot.toMid,
