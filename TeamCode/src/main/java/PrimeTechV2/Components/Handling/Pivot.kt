@@ -23,7 +23,7 @@ object Pivot: Subsystem() {
 
     // region Declare Values
     val lowPosition = 0.0
-    val highPosition = 2000.0
+    val highPosition = 1995.0
     val midPosition = 1050.0
     // endregion Declare Values
 

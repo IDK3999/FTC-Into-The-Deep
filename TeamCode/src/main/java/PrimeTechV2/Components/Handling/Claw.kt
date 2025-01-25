@@ -24,7 +24,7 @@ object Claw: Subsystem() {
 
     val frontPosition = 0.95
     val midPosition = 0.4
-    val backPosition = 0.0
+    val backPosition = 0.07
 
     val rotationVertical = 0.25
     val rotationHorizontal = 0.5
