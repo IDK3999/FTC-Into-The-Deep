@@ -49,6 +49,14 @@ object PreloadSpecimenPaths {
     lateinit var get3Path: PathChain
     lateinit var give3Path: PathChain
     lateinit var parkPath: PathChain
+    lateinit var load2Path: PathChain
+    lateinit var score2Path: PathChain
+    lateinit var load3Path: PathChain
+    lateinit var score3Path: PathChain
+    lateinit var load4Path: PathChain
+    lateinit var score4Path: PathChain
+    lateinit var load5Path: PathChain
+    lateinit var score5Path: PathChain
     // endregion Paths
 
     fun buildObsZonePushbotPaths() {
@@ -91,11 +99,49 @@ object PreloadSpecimenPaths {
             .setConstantHeadingInterpolation(give3.heading)
             .build()
 
+        load2Path = follower!!.pathBuilder()
+            .addPath(BezierCurve(Point(give3), Point(parkControl1), Point(park)))
+            .setConstantHeadingInterpolation(give3.heading)
+            .build()
+
+        score2Path = follower!!.pathBuilder()
+            .addPath(BezierLine(Point(park), Point(score2)))
+            .setConstantHeadingInterpolation(score2.heading)
+            .build()
+
+        load3Path = follower!!.pathBuilder()
+            .addPath(BezierLine(Point(score2), Point(park)))
+            .setConstantHeadingInterpolation(park.heading)
+            .build()
+
+        score3Path = follower!!.pathBuilder()
+            .addPath(BezierLine(Point(park), Point(score3)))
+            .setConstantHeadingInterpolation(score3.heading)
+            .build()
+
+        load4Path = follower!!.pathBuilder()
+            .addPath(BezierLine(Point(score3), Point(park)))
+            .setConstantHeadingInterpolation(park.heading)
+            .build()
+
+        score4Path = follower!!.pathBuilder()
+            .addPath(BezierLine(Point(park), Point(score4)))
+            .setConstantHeadingInterpolation(score4.heading)
+            .build()
+
+        load5Path = follower!!.pathBuilder()
+            .addPath(BezierLine(Point(score4), Point(park)))
+            .setConstantHeadingInterpolation(park.heading)
+            .build()
+
+        score5Path = follower!!.pathBuilder()
+            .addPath(BezierLine(Point(park), Point(score5)))
+            .setConstantHeadingInterpolation(score5.heading)
             .build()
 
         parkPath = follower!!.pathBuilder()
-            .addPath(BezierCurve(Point(give3), Point(parkControl1), Point(park)))
-            .setLinearHeadingInterpolation(give3.heading, park.heading)
+            .addPath(BezierLine(Point(score5), Point(park)))
+            .setConstantHeadingInterpolation(park.heading)
             .build()
     }
 }
