@@ -50,7 +50,8 @@ object PreloadSpecimenActions {
 
     val load2: Command
         get() = SequentialGroup(
-            FollowPath(PreloadSpecimenPaths.load2Path, true)
+            FollowPath(PreloadSpecimenPaths.load2Path, true),
+            ActionGroups.loadSpecimen
         )
 
     val score2: Command
@@ -61,7 +62,8 @@ object PreloadSpecimenActions {
 
     val load3: Command
         get() = SequentialGroup(
-            FollowPath(PreloadSpecimenPaths.load3Path, true)
+            FollowPath(PreloadSpecimenPaths.load3Path, true),
+            ActionGroups.loadSpecimen
         )
 
     val score3: Command
@@ -72,7 +74,8 @@ object PreloadSpecimenActions {
 
     val load4: Command
         get() = SequentialGroup(
-            FollowPath(PreloadSpecimenPaths.load4Path, true)
+            FollowPath(PreloadSpecimenPaths.load4Path, true),
+            ActionGroups.loadSpecimen
         )
 
     val score4: Command
@@ -83,7 +86,8 @@ object PreloadSpecimenActions {
 
     val load5: Command
         get() = SequentialGroup(
-            FollowPath(PreloadSpecimenPaths.load5Path, true)
+            FollowPath(PreloadSpecimenPaths.load5Path, true),
+            ActionGroups.loadSpecimen
         )
 
     val score5: Command
