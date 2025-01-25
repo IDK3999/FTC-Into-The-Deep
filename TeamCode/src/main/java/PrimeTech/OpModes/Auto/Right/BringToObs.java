@@ -17,7 +17,6 @@ import PrimeTech.Global.Global;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
-@Config
 @Autonomous(name = "Bring To Observation Zone", group = "Auto")
 public class BringToObs extends OpMode {
     // region Declare
