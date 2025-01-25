@@ -6,6 +6,7 @@ import PrimeTechV2.Components.Handling.Lift
 import PrimeTechV2.Components.Handling.Pivot
 import PrimeTechV2.OpModes.Auto.Right.PreloadSpecimen.Paths.PreloadSpecimenPaths
 import com.rowanmcalpin.nextftc.core.command.Command
+import com.rowanmcalpin.nextftc.core.command.groups.ParallelGroup
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
 import com.rowanmcalpin.nextftc.core.command.utility.delays.Delay
 import com.rowanmcalpin.nextftc.pedro.FollowPath
@@ -13,9 +14,11 @@ import com.rowanmcalpin.nextftc.pedro.FollowPath
 object PreloadSpecimenActions {
     val scorePreload: Command
         get() = SequentialGroup(
-            FollowPath(PreloadSpecimenPaths.scorePreloadPath, true),
+            ParallelGroup(
+                FollowPath(PreloadSpecimenPaths.scorePreloadPath, true),
+                Pivot.toHigh
+            ),
             // Scoring mechanism
-            Pivot.toHigh,
             Lift.toHigh,
             Delay(0.2),
             Claw.open,
