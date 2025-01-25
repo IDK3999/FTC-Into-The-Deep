@@ -58,19 +58,16 @@ object PreloadSpecimenPaths {
 
         scorePreloadPath = follower!!.pathBuilder()
             .addPath(BezierLine(Point(start), Point(scorePreload)))
-//            .setLinearHeadingInterpolation(start.heading, scorePreload.heading)
             .setConstantHeadingInterpolation(start.heading)
             .build()
 
         get1Path = follower!!.pathBuilder()
             .addPath(BezierCurve(Point(scorePreload), Point(get1Control1), Point(get1Control2), Point(get1)))
-//            .setLinearHeadingInterpolation(scorePreload.heading, get1.heading)
             .setConstantHeadingInterpolation(start.heading)
             .build()
 
         give1Path = follower!!.pathBuilder()
             .addPath(BezierLine(Point(get1), Point(give1)))
-//            .setConstantHeadingInterpolation(give1.heading)
             .setConstantHeadingInterpolation(start.heading)
             .build()
 
