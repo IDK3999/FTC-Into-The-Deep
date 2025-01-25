@@ -14,11 +14,9 @@ import com.rowanmcalpin.nextftc.pedro.FollowPath
 object PreloadSpecimenActions {
     val scorePreload: Command
         get() = SequentialGroup(
-            ParallelGroup(
-                Pivot.toHigh,
-                FollowPath(PreloadSpecimenPaths.scorePreloadPath, true)
-            ),
+            FollowPath(PreloadSpecimenPaths.scorePreloadPath, true),
             // Scoring mechanism
+            Pivot.toHigh,
             Lift.toHigh,
             Delay(0.1),
             Claw.open,
