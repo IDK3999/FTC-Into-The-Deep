@@ -1,4 +1,4 @@
-package PrimeTechV2.OpModes.Auto.Right.PreloadSpecimen.Paths
+package PrimeTechV2.OpModes.Auto.Right.Specimen.Paths
 
 import com.pedropathing.localization.Pose
 import com.pedropathing.pathgen.BezierCurve
@@ -8,7 +8,7 @@ import com.pedropathing.pathgen.Point
 import com.rowanmcalpin.nextftc.pedro.FollowerNotInitializedException
 import com.rowanmcalpin.nextftc.pedro.PedroData.follower
 
-object PreloadSpecimenPaths {
+object SpecimenPaths {
     // region Poses
     private var startX = 8.9
     private var scoreX = 40.4

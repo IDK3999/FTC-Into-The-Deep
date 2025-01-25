@@ -1,11 +1,11 @@
-package PrimeTechV2.OpModes.Auto.Right.PreloadSpecimen
+package PrimeTechV2.OpModes.Auto.Right.Specimen
 
 import PrimeTechV2.Components.ActionGroups.ActionGroups
 import PrimeTechV2.Components.Handling.Claw
 import PrimeTechV2.Components.Handling.Lift
 import PrimeTechV2.Components.Handling.Pivot
-import PrimeTechV2.OpModes.Auto.Right.PreloadSpecimen.Actions.PreloadSpecimenActions
-import PrimeTechV2.OpModes.Auto.Right.PreloadSpecimen.Paths.PreloadSpecimenPaths
+import PrimeTechV2.OpModes.Auto.Right.Specimen.Actions.SpecimenActions
+import PrimeTechV2.OpModes.Auto.Right.Specimen.Paths.SpecimenPaths
 import com.pedropathing.follower.Follower
 import com.pedropathing.util.Constants
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
@@ -16,8 +16,8 @@ import com.rowanmcalpin.nextftc.pedro.PedroOpMode
 import pedroPathing.constants.FConstants
 import pedroPathing.constants.LConstants
 
-@Autonomous(name = "Steroid Bring To Observation Zone")
-class PreloadSpecimenAuto : PedroOpMode(Claw, Lift, Pivot) {
+@Autonomous(name = "Steroid Specimen")
+class SpecimenAuto : PedroOpMode(Claw, Lift, Pivot) {
     val fConstants: FConstants = FConstants()
     val lConstants: LConstants = LConstants()
 
@@ -26,7 +26,7 @@ class PreloadSpecimenAuto : PedroOpMode(Claw, Lift, Pivot) {
 
         follower = Follower(hardwareMap)
 //        follower.resetIMU()
-        follower.setStartingPose(PreloadSpecimenPaths.start)
+        follower.setStartingPose(SpecimenPaths.start)
 
         OpModeData.telemetry = telemetry
     }
@@ -40,18 +40,18 @@ class PreloadSpecimenAuto : PedroOpMode(Claw, Lift, Pivot) {
 
     override fun onStartButtonPressed() {
 
-        PreloadSpecimenPaths.buildObsZonePushbotPaths()
+        SpecimenPaths.buildObsZonePushbotPaths()
 
         CommandManager.scheduleCommand(
             SequentialGroup(
                 ActionGroups.initializeHandling,
-                PreloadSpecimenActions.scorePreload,
-                PreloadSpecimenActions.get1,
-                PreloadSpecimenActions.give1,
-                PreloadSpecimenActions.get2,
-                PreloadSpecimenActions.give2,
-                PreloadSpecimenActions.get3,
-                PreloadSpecimenActions.give3
+                SpecimenActions.scorePreload,
+                SpecimenActions.get1,
+                SpecimenActions.give1,
+                SpecimenActions.get2,
+                SpecimenActions.give2,
+                SpecimenActions.get3,
+                SpecimenActions.give3
             )
         )
     }
