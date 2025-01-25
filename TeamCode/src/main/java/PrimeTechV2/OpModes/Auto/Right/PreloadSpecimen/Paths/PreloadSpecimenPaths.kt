@@ -12,8 +12,13 @@ object PreloadSpecimenPaths {
     // region Poses
     private var startX = 8.9
     private var scoreX = 40.4
-    private var firstScoreY = 68.0
     private var giveX = 14.5
+    private var scoreYStep = 2.0
+    private var firstScoreY = 68.0
+    private val secondScoreY = firstScoreY + scoreYStep
+    private val thirdScoreY = secondScoreY + scoreYStep
+    private val fourthScoreY = thirdScoreY + scoreYStep
+    private val fifthScoreY = fourthScoreY + scoreYStep
 
     val start: Pose = Pose(startX, 64.6, Math.toRadians(180.0))
     private val scorePreload: Pose = Pose(scoreX, firstScoreY, Math.toRadians(180.0))
@@ -29,6 +34,10 @@ object PreloadSpecimenPaths {
     private val give3: Pose = Pose(giveX, 8.6, Math.toRadians(180.0))
     private val park: Pose = Pose(12.2, 32.3, Math.toRadians(180.0))
     private val parkControl1: Pose = Pose(33.7, 25.0, Math.toRadians(0.0))
+    private val score2: Pose = Pose(scoreX, secondScoreY, Math.toRadians(180.0))
+    private val score3: Pose = Pose(scoreX, thirdScoreY, Math.toRadians(180.0))
+    private val score4: Pose = Pose(scoreX, fourthScoreY, Math.toRadians(180.0))
+    private val score5: Pose = Pose(scoreX, fifthScoreY, Math.toRadians(180.0))
     // endregion Poses
 
     // region Paths
