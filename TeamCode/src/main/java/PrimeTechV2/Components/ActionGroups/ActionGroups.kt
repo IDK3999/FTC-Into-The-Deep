@@ -22,6 +22,7 @@ object ActionGroups {
 
     val scoreSpecimen: Command
         get() = SequentialGroup(
+            initializeHandling,
             Lift.toMid,
             Pivot.toHigh,
             Lift.toHigh,
