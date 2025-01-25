@@ -17,11 +17,11 @@ object PreloadSpecimenActions {
             // Scoring mechanism
             Pivot.toHigh,
             Lift.toHigh,
-            Delay(0.5),
+            Delay(0.2),
             Claw.open,
-            Delay(2.0),
+            Delay(0.2),
             Pivot.toMid,
-            Delay(2.0),
+            Delay(0.1),
             ActionGroups.initializeHandling
         )
 
