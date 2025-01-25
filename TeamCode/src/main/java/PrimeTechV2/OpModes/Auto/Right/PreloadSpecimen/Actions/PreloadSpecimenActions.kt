@@ -57,11 +57,6 @@ object PreloadSpecimenActions {
             FollowPath(PreloadSpecimenPaths.give3Path, true)
         )
 
-    val parkFromScore: Command
-        get() = SequentialGroup(
-            FollowPath(PreloadSpecimenPaths.parkFromScorePath, true)
-        )
-
     val park: Command
         get() = SequentialGroup(
             FollowPath(PreloadSpecimenPaths.parkPath, true)

@@ -39,7 +39,6 @@ object PreloadSpecimenPaths {
     lateinit var give2Path: PathChain
     lateinit var get3Path: PathChain
     lateinit var give3Path: PathChain
-    lateinit var parkFromScorePath: PathChain
     lateinit var parkPath: PathChain
     // endregion Paths
 
@@ -86,9 +85,6 @@ object PreloadSpecimenPaths {
             .setConstantHeadingInterpolation(give3.heading)
             .build()
 
-        parkFromScorePath = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(scorePreload), Point(park)))
-            .setConstantHeadingInterpolation(Math.toRadians(180.0))
             .build()
 
         parkPath = follower!!.pathBuilder()
