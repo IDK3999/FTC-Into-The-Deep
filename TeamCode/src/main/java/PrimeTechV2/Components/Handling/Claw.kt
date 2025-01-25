@@ -6,7 +6,7 @@ import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.ftc.OpModeData
 import com.rowanmcalpin.nextftc.ftc.hardware.ServoToPosition
 
-object Claw: Subsystem() {
+object Claw : Subsystem() {
     // region Declare Components
     lateinit var openingServo: Servo
     val openingServoName = "openingServo"
@@ -35,43 +35,50 @@ object Claw: Subsystem() {
         get() = ServoToPosition(
             openingServo,
             openPosition,
-            this)
+            this
+        )
 
     val close: Command
         get() = ServoToPosition(
             openingServo,
             closePosition,
-            this)
+            this
+        )
 
     val vertical: Command
         get() = ServoToPosition(
             rotationServo,
             rotationVertical,
-            this)
+            this
+        )
 
     val horizontal: Command
         get() = ServoToPosition(
             rotationServo,
             rotationHorizontal,
-            this)
+            this
+        )
 
     val front: Command
         get() = ServoToPosition(
             frontBackServo,
             frontPosition,
-            this)
+            this
+        )
 
     val mid: Command
         get() = ServoToPosition(
             frontBackServo,
             midPosition,
-            this)
+            this
+        )
 
     val back: Command
         get() = ServoToPosition(
             frontBackServo,
             backPosition,
-            this)
+            this
+        )
     // endregion Commands
 
     override fun initialize() {

@@ -17,7 +17,7 @@ import pedroPathing.constants.FConstants
 import pedroPathing.constants.LConstants
 
 @Autonomous(name = "Steroid Bring To Observation Zone")
-class PreloadSpecimenAuto: PedroOpMode(Claw, Lift, Pivot) {
+class PreloadSpecimenAuto : PedroOpMode(Claw, Lift, Pivot) {
     val fConstants: FConstants = FConstants()
     val lConstants: LConstants = LConstants()
 

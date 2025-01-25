@@ -2,16 +2,14 @@ package PrimeTechV2.Components.Handling
 
 import PrimeTechV2.Utils.PIDControllerWrapper
 import com.arcrobotics.ftclib.controller.PIDController
-import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.rowanmcalpin.nextftc.core.Subsystem
 import com.rowanmcalpin.nextftc.core.command.Command
-import com.rowanmcalpin.nextftc.ftc.OpModeData
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.HoldPosition
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorEx
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorGroup
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.RunToPosition
 
-object Lift: Subsystem() {
+object Lift : Subsystem() {
     // region Declare Components
     lateinit var liftMotorLeft: MotorEx
     lateinit var liftMotorRight: MotorEx

@@ -8,7 +8,7 @@ import com.rowanmcalpin.nextftc.ftc.hardware.controllables.HoldPosition
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorEx
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.RunToPosition
 
-object Pivot: Subsystem() {
+object Pivot : Subsystem() {
     // region Declare Components
     lateinit var pivotMotor: MotorEx
 
