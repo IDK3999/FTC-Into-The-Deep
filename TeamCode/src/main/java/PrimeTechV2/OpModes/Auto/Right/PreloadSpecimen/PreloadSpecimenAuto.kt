@@ -46,14 +46,14 @@ class PreloadSpecimenAuto: PedroOpMode(Claw, Lift, Pivot) {
             SequentialGroup(
                 ActionGroups.initializeHandling,
                 PreloadSpecimenActions.scorePreload,
-                PreloadSpecimenActions.parkFromScore
-//                ObsZonePushbotActions.get1,
-//                ObsZonePushbotActions.give1
-//                ObsZonePushbotActions.get2,
-//                ObsZonePushbotActions.give2,
-//                ObsZonePushbotActions.get3,
-//                ObsZonePushbotActions.give3,
-//                ObsZonePushbotActions.park
+                PreloadSpecimenActions.get1
+//                PreloadSpecimenActions.parkFromScore
+//                PreloadSpecimenActions.give1
+//                PreloadSpecimenActions.get2,
+//                PreloadSpecimenActions.give2,
+//                PreloadSpecimenActions.get3,
+//                PreloadSpecimenActions.give3,
+//                PreloadSpecimenActions.park
             )
         )
     }
