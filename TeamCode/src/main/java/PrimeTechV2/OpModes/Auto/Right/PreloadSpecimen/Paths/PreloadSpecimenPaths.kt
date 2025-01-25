@@ -10,12 +10,12 @@ import com.rowanmcalpin.nextftc.pedro.PedroData.follower
 
 object PreloadSpecimenPaths {
     // region Poses
-    var startX = 8.8
-    var scoreX = 39.5
+    var startX = 7.5
+    var scoreX = 40.5
     private var scoreY = 65.0
     var giveX = 17.9
 
-    val start: Pose = Pose(startX, 55.0, Math.toRadians(180.0))
+    val start: Pose = Pose(startX, 64.6, Math.toRadians(180.0))
     val scorePreload: Pose = Pose(scoreX, scoreY, Math.toRadians(180.0))
     val get1: Pose = Pose(57.0, 23.0, Math.toRadians(180.0))
     val get1Control1: Pose = Pose(6.0, 32.0)
