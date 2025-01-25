@@ -33,12 +33,12 @@ object ActionGroups {
             initializeHandling
         )
 
-    val grabSpecimen: Command
+    val loadSpecimen: Command
         get() = SequentialGroup(
             ParallelGroup(
                 Claw.open,
                 Claw.vertical,
-                Claw.front,
+                Claw.mid
             ),
             Lift.toGrabSpecimen,
             Claw.close,
