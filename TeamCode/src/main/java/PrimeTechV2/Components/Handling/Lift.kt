@@ -30,7 +30,8 @@ object Lift: Subsystem() {
 
     // region Declare Values
     val lowPosition = 0.0
-    val highPosition = 1200.0
+    val midPosition = 300.0
+    val highPosition = 1500.0
     val grabPosition = 40.0
     // endregion Declare Values
 
@@ -42,6 +43,14 @@ object Lift: Subsystem() {
         get() = RunToPosition(
             motors,
             lowPosition,
+            controller,
+            this
+        )
+
+    val toMid: Command
+        get() = RunToPosition(
+            motors,
+            midPosition,
             controller,
             this
         )

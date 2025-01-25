@@ -16,6 +16,7 @@ object PreloadSpecimenActions {
         get() = SequentialGroup(
             FollowPath(PreloadSpecimenPaths.scorePreloadPath, true),
             // Scoring mechanism
+            Lift.toMid,
             Pivot.toHigh,
             Lift.toHigh,
             Delay(0.1),
