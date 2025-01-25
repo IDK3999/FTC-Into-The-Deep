@@ -15,16 +15,7 @@ object PreloadSpecimenActions {
     val scorePreload: Command
         get() = SequentialGroup(
             FollowPath(PreloadSpecimenPaths.scorePreloadPath, true),
-            // Scoring mechanism
-            Lift.toMid,
-            Pivot.toHigh,
-            Lift.toHigh,
-            Delay(0.1),
-            Claw.open,
-            Delay(0.2),
-            Pivot.toMid,
-            Delay(0.1),
-            ActionGroups.initializeHandling
+            ActionGroups.scoreSpecimen
         )
 
     val get1: Command
@@ -64,7 +55,8 @@ object PreloadSpecimenActions {
 
     val score2: Command
         get() = SequentialGroup(
-            FollowPath(PreloadSpecimenPaths.score2Path, true)
+            FollowPath(PreloadSpecimenPaths.score2Path, true),
+            ActionGroups.scoreSpecimen
         )
 
     val load3: Command
@@ -74,7 +66,8 @@ object PreloadSpecimenActions {
 
     val score3: Command
         get() = SequentialGroup(
-            FollowPath(PreloadSpecimenPaths.score3Path, true)
+            FollowPath(PreloadSpecimenPaths.score3Path, true),
+            ActionGroups.scoreSpecimen
         )
 
     val load4: Command
@@ -84,7 +77,8 @@ object PreloadSpecimenActions {
 
     val score4: Command
         get() = SequentialGroup(
-            FollowPath(PreloadSpecimenPaths.score4Path, true)
+            FollowPath(PreloadSpecimenPaths.score4Path, true),
+            ActionGroups.scoreSpecimen
         )
 
     val load5: Command
@@ -94,7 +88,8 @@ object PreloadSpecimenActions {
 
     val score5: Command
         get() = SequentialGroup(
-            FollowPath(PreloadSpecimenPaths.score5Path, true)
+            FollowPath(PreloadSpecimenPaths.score5Path, true),
+            ActionGroups.scoreSpecimen
         )
 
     val park: Command
