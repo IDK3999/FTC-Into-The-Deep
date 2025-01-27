@@ -75,8 +75,5 @@ object Lift : Subsystem() {
         liftMotorRight = MotorEx(liftMotorRightName)
 
         motors = MotorGroup(liftMotorRight, liftMotorLeft)
-
-//        liftMotorLeft = MotorEx(OpModeData.hardwareMap.get(DcMotorEx::class.java, liftMotorLeftName))
-//        liftMotorRight = MotorEx(OpModeData.hardwareMap.get(DcMotorEx::class.java, liftMotorRightName))
     }
 }
