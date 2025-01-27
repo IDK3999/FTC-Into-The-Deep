@@ -30,7 +30,7 @@ object Lift : Subsystem() {
     val lowPosition = 0.0
     val midPosition = 300.0
     val highPosition = 1500.0
-    val grabPosition = 40.0
+    val grabPosition = 100.0
     // endregion Declare Values
 
     // region Commands
