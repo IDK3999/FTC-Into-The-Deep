@@ -40,6 +40,7 @@ object ActionGroups {
                 Claw.vertical,
                 Claw.mid
             ),
+            Delay(1),
             Lift.toGrabSpecimen,
             Delay(0.3),
             Claw.close,
