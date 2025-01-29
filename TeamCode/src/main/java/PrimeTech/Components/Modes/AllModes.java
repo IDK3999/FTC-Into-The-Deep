@@ -11,7 +11,7 @@ public class AllModes {
     public static double intakeSpecimenExtension = 0;
     public static double intakeSpecimenPivot = 375;
 
-    public static double outtakeSpecimenExtension = 800;
+    public static double outtakeSpecimenExtension = 900;
     public static double outtakeSpecimenPivot = 2100;
 
     public static double outtakeSampleExtension = 2500;
@@ -70,7 +70,6 @@ public class AllModes {
             case IDLE:
                 switch(mode){
                     case INTAKE_SAMPLE:
-                        Claw.getInstance().openState_method();
                         Claw.getInstance().intake_rotation();
 
                         Pivot.getInstance().run_to_target(pivotTarget);
@@ -81,7 +80,6 @@ public class AllModes {
                         Extension.getInstance().run_to_target(extensionTarget);
                         break;
                     case INTAKE_SPECIMEN:
-                        Claw.getInstance().openState_method();
                         Claw.getInstance().pivot(Claw.MID_POS + Pivot.pivot_angle() / 180);
 
                         Pivot.getInstance().loop();
@@ -153,6 +151,7 @@ public class AllModes {
 
     public static void intake_specimen() {
         run_to_pos_in_order(intakeSpecimenPivot,intakeSpecimenExtension,Mode.INTAKE_SPECIMEN);
+        Claw.getInstance().openState_method();
     }
 
 
@@ -172,6 +171,7 @@ public class AllModes {
 
     public static void intake_sample() {
         run_to_pos_in_order(intakeSamplePivot,intakeSampleExtension,Mode.INTAKE_SAMPLE);
+        Claw.getInstance().openState_method();
     }
 
 }
