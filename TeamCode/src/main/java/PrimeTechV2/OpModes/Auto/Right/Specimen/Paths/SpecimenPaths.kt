@@ -13,8 +13,8 @@ object SpecimenPaths {
     private var startX = 8.9
     private var scoreX = 40.4
     private var giveX = 14.5
-    private var scoreYStep = 2.0
-    private var firstScoreY = 68.0
+    private var scoreYStep = 0.7
+    private var firstScoreY = 64.6
     private val secondScoreY = firstScoreY + scoreYStep
     private val thirdScoreY = secondScoreY + scoreYStep
     private val fourthScoreY = thirdScoreY + scoreYStep
