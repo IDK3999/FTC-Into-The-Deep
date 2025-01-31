@@ -9,7 +9,7 @@ import PrimeTech.Components.Outtake.Pivot;
 @Config
 public class AllModes {
     public static double intakeSpecimenExtension = 0;
-    public static double intakeSpecimenPivot = 375;
+    public static double intakeSpecimenPivot = 400;
 
     public static double outtakeSpecimenExtension = 900;
     public static double outtakeSpecimenPivot = 2100;
