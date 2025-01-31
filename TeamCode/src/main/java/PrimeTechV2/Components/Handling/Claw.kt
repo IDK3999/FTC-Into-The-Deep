@@ -19,8 +19,8 @@ object Claw : Subsystem() {
     // endregion Declare Components
 
     // region Declare Values
-    val openPosition = 0.5
-    val closePosition = 0.0
+    val openPosition = 0.65
+    val closePosition = 1.0
 
     val frontPosition = 0.95
     val midPosition = 0.5
