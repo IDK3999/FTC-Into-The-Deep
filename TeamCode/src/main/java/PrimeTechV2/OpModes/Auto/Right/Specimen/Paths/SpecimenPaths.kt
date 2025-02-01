@@ -29,7 +29,7 @@ object SpecimenPaths {
     private val get2: Pose = Pose(52.0, 13.0, Math.toRadians(180.0))
     private val get2Control1: Pose = Pose(72.0, 30.0, Math.toRadians(180.0))
     private val give2: Pose = Pose(giveX, 13.0, Math.toRadians(180.0))
-    private val get3: Pose = Pose(58.0, 8.6, Math.toRadians(180.0))
+    private val get3: Pose = Pose(58.0, 10.0, Math.toRadians(180.0))
     private val get3Control1: Pose = Pose(57.8, 15.5)
     private val give3: Pose = Pose(giveX, 8.6, Math.toRadians(180.0))
     private val park: Pose = Pose(12.2, 32.3, Math.toRadians(180.0))
