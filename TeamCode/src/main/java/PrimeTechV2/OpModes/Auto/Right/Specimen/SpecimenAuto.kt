@@ -52,15 +52,15 @@ class SpecimenAuto : PedroOpMode(Claw, Lift, Pivot) {
                 SpecimenActions.give2,
                 SpecimenActions.get3,
                 SpecimenActions.give3,
-                SpecimenActions.load2,
-                SpecimenActions.score2,
-                SpecimenActions.load3,
-                SpecimenActions.score3,
-                SpecimenActions.load4,
-                SpecimenActions.score4,
-                SpecimenActions.load5,
-                SpecimenActions.score5,
-                SpecimenActions.park
+//                SpecimenActions.load2,
+//                SpecimenActions.score2,
+//                SpecimenActions.load3,
+//                SpecimenActions.score3,
+//                SpecimenActions.load4,
+//                SpecimenActions.score4,
+//                SpecimenActions.load5,
+//                SpecimenActions.score5,
+//                SpecimenActions.park
             )
         )
     }
