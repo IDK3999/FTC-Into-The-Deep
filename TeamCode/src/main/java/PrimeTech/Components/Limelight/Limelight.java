@@ -23,7 +23,7 @@ public class Limelight {
     public void init_blue() {
         //0 red  1 blue
         int color = 1;
-        double[] pythonInputs={color,0,0,0,0,0,0,0};
+        double[] pythonInputs = {color, 0, 0, 0, 0, 0, 0, 0};
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.updatePythonInputs(pythonInputs);
         limelight.setPollRateHz(100);
@@ -35,7 +35,7 @@ public class Limelight {
     public void init_red() {
         //0 red  1 blue
         int color = 0;
-        double[] pythonInputs={color,0,0,0,0,0,0,0};
+        double[] pythonInputs = {color, 0, 0, 0, 0, 0, 0, 0};
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.updatePythonInputs(pythonInputs);
         limelight.setPollRateHz(100);
@@ -47,16 +47,17 @@ public class Limelight {
     public void loop() {
         LLResult result = limelight.getLatestResult();
         if (result != null) {
-                pythonOutputs = result.getPythonOutput();
-                //telemetry.addData("limelight pipeline", result.getPipelineIndex());
-                //telemetry.addData("Color", pythonOutputs[6]);
+            pythonOutputs = result.getPythonOutput();
+            //telemetry.addData("limelight pipeline", result.getPipelineIndex());
+            //telemetry.addData("Color", pythonOutputs[6]);
         }
     }
 
     public boolean foundPiece() {
         return pythonOutputs[0] == 1;
     }
-    public double getAngle(){
+
+    public double getAngle() {
         return pythonOutputs[5];
     }
 }

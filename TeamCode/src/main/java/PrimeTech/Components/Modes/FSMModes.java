@@ -1,15 +1,9 @@
 package PrimeTech.Components.Modes;
 
 import PrimeTech.Components.Gamepad.Gamepad;
-import PrimeTech.Components.Outtake.Claw;
-import PrimeTech.Components.Outtake.Extension;
 
 public class FSMModes {
     private static FSMModes instance = null;
-
-    enum Modes {
-        GENERAL, INTAKE_SAMPLE, INTAKE_SPECIMEN, OUTTAKE_SPECIMEN, OUTTAKE_SAMPLE
-    }
     private Modes modes = Modes.GENERAL;
 
     public static synchronized FSMModes getInstance() {
@@ -19,7 +13,7 @@ public class FSMModes {
         return instance;
     }
 
-    public void start(){
+    public void start() {
         modes = Modes.GENERAL;
     }
 
@@ -58,6 +52,10 @@ public class FSMModes {
             AllModes.outtake_specimen_init();
         }
 
+    }
+
+    enum Modes {
+        GENERAL, INTAKE_SAMPLE, INTAKE_SPECIMEN, OUTTAKE_SPECIMEN, OUTTAKE_SAMPLE
     }
 
 }

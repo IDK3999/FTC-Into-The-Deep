@@ -1,15 +1,11 @@
 package PrimeTech.OpModes.Tele.TeleSimple;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import PrimeTech.Components.Gamepad.Gamepad;
-import PrimeTech.Components.Limelight.Limelight;
 import PrimeTech.Components.Modes.FSMModes;
-import PrimeTech.Components.Outtake.Extension;
 import PrimeTech.Components.Outtake.Outtake;
-import PrimeTech.Components.Outtake.Pivot;
 import PrimeTech.Global.Global;
 import PrimeTech.OpModes.Tele.TeleSimple.Drivetrain.Drivetrain;
 

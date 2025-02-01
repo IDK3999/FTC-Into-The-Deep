@@ -1,6 +1,5 @@
 package PrimeTech.OpModes.Auto.Right;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierLine;

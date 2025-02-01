@@ -1,49 +1,29 @@
 package PrimeTech.Components.Outtake;
 
 import static PrimeTech.Global.Global.hardwareMap;
-import static PrimeTech.Global.Global.telemetry;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
 import PrimeTech.Components.Gamepad.Gamepad;
-import PrimeTech.Components.Limelight.Limelight;
 
 public class Claw {
+    // Servo positions
+    public static final double OPEN_POS = 0.65;
+    public static final double CLOSED_POS = 1;
+    public static final double FRONT_POS = 0.95;
+    public static final double MID_POS = 0.47;
+    public static final double OUTTAKE_SAMPLE_PIVOT_POS = 0.35;
+    public static final double BACK_POS = 0.0;
+    public static final double ROTATION_INIT = 0.25;
+    public static final double ROTATION_PERPENDICULAR = 0.6;
     private static Claw instance = null;
     public Servo openingServo = null;
     public Servo rotationServo = null;
     public Servo frontBackServo_left = null;
     public Servo frontBackServo_right = null;
-
-    enum Rotation{
-        ZERO, NINETIES
-    }
-
     Rotation rotation = Rotation.ZERO;
-
-    enum OpenState {
-        OPEN, CLOSED
-    }
-
     OpenState openState = OpenState.CLOSED;
-
-    enum FrontBackState {
-        FRONT, BACK
-    }
-
     FrontBackState frontBackState = FrontBackState.FRONT;
-    // Servo positions
-    public static final double OPEN_POS = 0.65;
-    public static final double CLOSED_POS = 1;
-
-    public static final double FRONT_POS = 0.95;
-    public static final double MID_POS = 0.47;
-    public static final double OUTTAKE_SAMPLE_PIVOT_POS = 0.35 ;
-    public static final double BACK_POS = 0.0;
-
-    public static final double ROTATION_INIT = 0.25;
-    public static final double ROTATION_PERPENDICULAR = 0.6;
-
 
     public static synchronized Claw getInstance() {
         if (instance == null) {
@@ -62,7 +42,8 @@ public class Claw {
 
         frontBackServo_right = hardwareMap.get(Servo.class, "frontBackServoRight");
     }
-    public void start(){
+
+    public void start() {
         frontBackState = FrontBackState.BACK;
         openState = OpenState.CLOSED;
         rotation = Rotation.ZERO;
@@ -74,7 +55,7 @@ public class Claw {
         frontBackServo_right.setPosition(BACK_POS);
     }
 
-    public void openState_method(){
+    public void openState_method() {
         switch (openState) {
             case OPEN:
                 if (Gamepad.getInstance().cross()) {
@@ -93,16 +74,16 @@ public class Claw {
         }
     }
 
-    public void intake_rotation(){
-        switch(rotation){
+    public void intake_rotation() {
+        switch (rotation) {
             case ZERO:
-                if(Gamepad.getInstance().triangle()){
+                if (Gamepad.getInstance().triangle()) {
                     rotate(ROTATION_PERPENDICULAR);
                     rotation = Rotation.NINETIES;
                 }
                 break;
             case NINETIES:
-                if(Gamepad.getInstance().triangle()){
+                if (Gamepad.getInstance().triangle()) {
                     rotate(ROTATION_INIT);
                     rotation = Rotation.ZERO;
                 }
@@ -110,8 +91,7 @@ public class Claw {
         }
     }
 
-
-    public void rotate(double angle){
+    public void rotate(double angle) {
         rotationServo.setPosition(angle);
     }
 
@@ -120,9 +100,22 @@ public class Claw {
         frontBackServo_left.setPosition(angle);
     }
 
-    public void change_to_OPEN_POS(){
+    public void change_to_OPEN_POS() {
         openingServo.setPosition(OPEN_POS);
         openState = OpenState.OPEN;
+    }
+
+
+    enum Rotation {
+        ZERO, NINETIES
+    }
+
+    enum OpenState {
+        OPEN, CLOSED
+    }
+
+    enum FrontBackState {
+        FRONT, BACK
     }
 
 }

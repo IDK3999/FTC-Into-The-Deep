@@ -7,9 +7,6 @@ public class Outtake {
     private static Outtake instance = null;
     WhatToRetract whatToRetract = WhatToRetract.IDLE;
 
-    enum WhatToRetract {
-        EXTENSION, PIVOT, IDLE
-    }
     public static synchronized Outtake getInstance() {
         if (instance == null) {
             instance = new Outtake();
@@ -24,7 +21,7 @@ public class Outtake {
         Pivot.getInstance().init();
     }
 
-    public void start(){
+    public void start() {
         Claw.getInstance().start();
         Extension.getInstance().start();
         Pivot.getInstance().start();
@@ -58,6 +55,10 @@ public class Outtake {
                 }
                 break;
         }
+    }
+
+    enum WhatToRetract {
+        EXTENSION, PIVOT, IDLE
     }
 
 }

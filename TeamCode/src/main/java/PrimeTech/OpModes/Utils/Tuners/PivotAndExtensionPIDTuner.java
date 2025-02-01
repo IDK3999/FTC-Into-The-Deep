@@ -85,11 +85,10 @@ public class PivotAndExtensionPIDTuner extends OpMode {
         }*/
 
 
-
         controller_extension.setPID(extension_p, extension_i, extension_d);
         int lift_pos = extension_right.getCurrentPosition();
         double pid_extension = controller_extension.calculate(lift_pos, target_extension);
-        double ff_extension = Math.sin(Math.toRadians(motorPivot.getCurrentPosition()/ticks_in_degrees))*lift_pos / 2600 * extension_f;
+        double ff_extension = Math.sin(Math.toRadians(motorPivot.getCurrentPosition() / ticks_in_degrees)) * lift_pos / 2600 * extension_f;
         double power_extension = pid_extension + ff_extension;
 
         extension_right.setPower(power_extension);

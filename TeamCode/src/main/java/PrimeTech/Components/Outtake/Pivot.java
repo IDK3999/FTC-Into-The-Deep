@@ -12,33 +12,26 @@ public class Pivot {
     // TODO: Edit with correct values
     public static final double MAX_TICKS = 2100;
     public static final double MIN_TICKS = 0.0;
-
-    private PIDController controller;
+    public static final double ticks_in_degrees = (double) 8192 / 360;
     public static double p = 0.0026, i = 0.015, d = 0.0005;
     public static double f = 0.13;
 
     public static double target = 0;
-
-    public final double increment = 50;
-    public static final double ticks_in_degrees = (double) 8192 / 360;
-
     public static DcMotorEx motorPivot = null;
-
-
-    enum LiftState {
-        MAX, INRANGE, MIN
-    }
-
-    LiftState liftState = LiftState.MIN;
-
-
     private static Pivot instance = null;
+    public final double increment = 50;
+    LiftState liftState = LiftState.MIN;
+    private PIDController controller;
 
     public static synchronized Pivot getInstance() {
         if (instance == null) {
             instance = new Pivot();
         }
         return instance;
+    }
+
+    public static double pivot_angle() {
+        return motorPivot.getCurrentPosition() / ticks_in_degrees;
     }
 
     public void init() {
@@ -50,7 +43,7 @@ public class Pivot {
         motorPivot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void start(){
+    public void start() {
         target = 0;
         liftState = LiftState.MIN;
     }
@@ -59,7 +52,6 @@ public class Pivot {
         double local_target = fsm();
         run_to_target(local_target);
     }
-
 
 
     public double fsm() {
@@ -112,10 +104,9 @@ public class Pivot {
     }
 
 
-    public static double pivot_angle(){
-        return motorPivot.getCurrentPosition()/ticks_in_degrees;
+    enum LiftState {
+        MAX, INRANGE, MIN
     }
-
 
 
 }

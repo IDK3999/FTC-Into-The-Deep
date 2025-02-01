@@ -25,7 +25,6 @@ class SpecimenAuto : PedroOpMode(Claw, Lift, Pivot) {
         Constants.setConstants(FConstants::class.java, LConstants::class.java)
 
         follower = Follower(hardwareMap)
-//        follower.resetIMU()
         follower.setStartingPose(SpecimenPaths.start)
 
         OpModeData.telemetry = telemetry
@@ -39,7 +38,6 @@ class SpecimenAuto : PedroOpMode(Claw, Lift, Pivot) {
     }
 
     override fun onStartButtonPressed() {
-
         SpecimenPaths.buildObsZonePushbotPaths()
 
         CommandManager.scheduleCommand(

@@ -13,25 +13,24 @@ import PrimeTech.Global.Global;
 //@Disabled
 @Config
 @TeleOp(name = "test servo", group = "InitializeForAssembly")
-public class TestServo extends OpMode{
+public class TestServo extends OpMode {
     public static final double OPEN_POS = 0.0;
     public static final double CLOSED_POS = 0.0;
 
     public static final double FRONT_BACK_INIT = 0.5;
 
     public static final double ROTATION_INIT = 0.25;
+    public static double openingServo_pos = CLOSED_POS;
+    public static double rotationServo_pos = ROTATION_INIT;
+    public static double frontBackServoRight_pos = FRONT_BACK_INIT;
     Servo openingServo = null;
     Servo rotationServo = null;
     Servo frontBackServo_left = null;
     Servo frontBackServo_right = null;
 
-    public static double openingServo_pos=CLOSED_POS;
-    public static double rotationServo_pos=ROTATION_INIT;
-    public static double frontBackServoRight_pos=FRONT_BACK_INIT;
-
     @Override
     public void init() {
-       // Global.gamepad1 = gamepad1;
+        // Global.gamepad1 = gamepad1;
         //Gamepad.getInstance().init();
         Global.hardwareMap = hardwareMap;
         Global.telemetry = telemetry;
@@ -65,7 +64,7 @@ public class TestServo extends OpMode{
         frontBackServo_right.setPosition(frontBackServoRight_pos);
         rotationServo.setPosition(rotationServo_pos);
         //rotationServo.setPosition(0.5);
-       // double angle = Limelight.getInstance().getAngle()/360;
+        // double angle = Limelight.getInstance().getAngle()/360;
 
         //rotationServo.setPosition(angle);
 
@@ -88,8 +87,8 @@ public class TestServo extends OpMode{
         else{
             rotationServo.setPosition(0.25);
         */
-       // }
-       // frontBackServo_right.setPosition(1);
+        // }
+        // frontBackServo_right.setPosition(1);
         //frontBackServo_left.setPosition(1);
         //sleep();
 
@@ -101,7 +100,7 @@ public class TestServo extends OpMode{
 
     }
 
-    void move_to_ll_angle(){
-        rotationServo.setPosition(Limelight.getInstance().getAngle()/360);
+    void move_to_ll_angle() {
+        rotationServo.setPosition(Limelight.getInstance().getAngle() / 360);
     }
 }

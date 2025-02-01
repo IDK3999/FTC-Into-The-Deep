@@ -11,29 +11,20 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import PrimeTech.Components.Gamepad.Gamepad;
 
 public class Extension {
-    // TODO: Edit with correct values
-    public static  double MAX_TICKS = 1600;
     public static final double MIN_TICKS = 0.0;
-
-    private PIDController controller;
+    // TODO: Edit with correct values
+    public static double MAX_TICKS = 1600;
     public static double p = 0.01, i = 0.15, d = 0.00027;
     public static double f = 0.07;
-
     public static double target = 0;
-
     static public DcMotorEx extension_right = null;
-
+    private static Extension instance = null;
     public final double increment = 50.0;
     public final double ticks_in_degrees = (double) 8192 / 360;
 
     public DcMotorEx extension_left = null;
-
-    enum LiftState {
-        MAX, INRANGE, MIN
-    }
     LiftState liftState = LiftState.MIN;
-
-    private static Extension instance = null;
+    private PIDController controller;
 
     public static synchronized Extension getInstance() {
         if (instance == null) {
@@ -57,7 +48,7 @@ public class Extension {
         extension_right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void start(){
+    public void start() {
         target = 0;
         liftState = LiftState.MIN;
     }
@@ -101,7 +92,7 @@ public class Extension {
         controller.setPID(p, i, d);
         int lift_pos = extension_right.getCurrentPosition();
         double pid = controller.calculate(lift_pos, target);
-        double ff = Math.sin(Math.toRadians(Pivot.pivot_angle()))*lift_pos/2600 * f;
+        double ff = Math.sin(Math.toRadians(Pivot.pivot_angle())) * lift_pos / 2600 * f;
         double power = pid + ff;
 
         extension_right.setPower(power);
@@ -117,6 +108,9 @@ public class Extension {
         liftState = LiftState.INRANGE;
     }
 
+    enum LiftState {
+        MAX, INRANGE, MIN
+    }
 
 
 }
