@@ -37,6 +37,7 @@ public class AllModes {
     public static void run_to_pos_in_order(double pivotTarget, double extensionTarget, Mode mode) {
         switch (retractCase) {
             case EXTENSION_RETRACT:
+                Pivot.getInstance().run_to_target(Pivot.target);
                 if (Extension.extension_right.getCurrentPosition() > 100) {
                     Extension.getInstance().run_to_target(0);
                 } else {
@@ -62,22 +63,27 @@ public class AllModes {
             case IDLE:
                 switch (mode) {
                     case INTAKE_SAMPLE:
+                        Pivot.target = intakeSamplePivot;
                         Claw.getInstance().intake_rotation();
 
                         Pivot.getInstance().run_to_target(pivotTarget);
                         Extension.getInstance().loop();
                         break;
                     case OUTTAKE_SAMPLE:
+                        Pivot.target = outtakeSamplePivot;
                         Pivot.getInstance().run_to_target(pivotTarget);
                         Extension.getInstance().run_to_target(extensionTarget);
                         break;
                     case INTAKE_SPECIMEN:
+                        Pivot.target = intakeSpecimenPivot;
                         Claw.getInstance().pivot(Claw.MID_POS + Pivot.pivot_angle() / 180);
 
                         Pivot.getInstance().loop();
                         Extension.getInstance().run_to_target(extensionTarget);
                         break;
                     case OUTTAKE_SPECIMEN:
+                        Pivot.target = outtakeSpecimenPivot;
+
                         Pivot.getInstance().run_to_target(pivotTarget);
                         Extension.getInstance().loop();
                         break;
@@ -95,8 +101,6 @@ public class AllModes {
     public static void outtake_sample_init() {
         setRetractCase_to_EXTENSION_RETRACT();
 
-        Pivot.target = outtakeSamplePivot;
-
         Extension.target = outtakeSampleExtension;
 
         Claw.getInstance().rotate(Claw.ROTATION_INIT);
@@ -111,8 +115,6 @@ public class AllModes {
     /// OUTTAKE SPECIMEN
     public static void outtake_specimen_init() {
         setRetractCase_to_EXTENSION_RETRACT();
-
-        Pivot.target = outtakeSpecimenPivot;
 
         Extension.target = outtakeSpecimenExtension;
         Extension.getInstance().change_liftState_to_INRANGE();
@@ -130,7 +132,7 @@ public class AllModes {
     public static void intake_specimen_init() {
         setRetractCase_to_EXTENSION_RETRACT();
 
-        Pivot.target = intakeSpecimenPivot;
+
 
         Extension.target = intakeSpecimenExtension;
 
@@ -147,7 +149,7 @@ public class AllModes {
     public static void intake_sample_init() {
         setRetractCase_to_EXTENSION_RETRACT();
 
-        Pivot.target = intakeSamplePivot;
+
 
         Extension.target = intakeSampleExtension;
         Extension.getInstance().start();
