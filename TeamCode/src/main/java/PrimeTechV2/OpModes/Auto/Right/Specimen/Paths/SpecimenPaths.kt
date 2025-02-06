@@ -32,12 +32,13 @@ object SpecimenPaths {
     private val get3: Pose = Pose(58.0, 11.0, Math.toRadians(180.0))
     private val get3Control1: Pose = Pose(57.8, 15.5)
     private val give3: Pose = Pose(giveX, 8.6, Math.toRadians(180.0))
-    private val park: Pose = Pose(12.2, 32.3, Math.toRadians(180.0))
-    private val parkControl1: Pose = Pose(33.7, 25.0, Math.toRadians(0.0))
+    private val load: Pose = Pose(12.2, 32.3, Math.toRadians(180.0))
+    private val loadControl1: Pose = Pose(33.7, 25.0, Math.toRadians(0.0))
     private val score2: Pose = Pose(scoreX, secondScoreY, Math.toRadians(180.0))
     private val score3: Pose = Pose(scoreX, thirdScoreY, Math.toRadians(180.0))
     private val score4: Pose = Pose(scoreX, fourthScoreY, Math.toRadians(180.0))
     private val score5: Pose = Pose(scoreX, fifthScoreY, Math.toRadians(180.0))
+    private val park: Pose = Pose(12.2, 32.3, Math.toRadians(180.0))
     // endregion Poses
 
     // region Paths
@@ -107,48 +108,48 @@ object SpecimenPaths {
             .build()
 
         load2Path = follower!!.pathBuilder()
-            .addPath(BezierCurve(Point(give3), Point(parkControl1), Point(park)))
+            .addPath(BezierCurve(Point(give3), Point(loadControl1), Point(load)))
             .setConstantHeadingInterpolation(give3.heading)
             .build()
 
         score2Path = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(park), Point(score2)))
+            .addPath(BezierLine(Point(load), Point(score2)))
             .setConstantHeadingInterpolation(score2.heading)
             .build()
 
         load3Path = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(score2), Point(park)))
-            .setConstantHeadingInterpolation(park.heading)
+            .addPath(BezierLine(Point(score2), Point(load)))
+            .setConstantHeadingInterpolation(load.heading)
             .build()
 
         score3Path = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(park), Point(score3)))
+            .addPath(BezierLine(Point(load), Point(score3)))
             .setConstantHeadingInterpolation(score3.heading)
             .build()
 
         load4Path = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(score3), Point(park)))
-            .setConstantHeadingInterpolation(park.heading)
+            .addPath(BezierLine(Point(score3), Point(load)))
+            .setConstantHeadingInterpolation(load.heading)
             .build()
 
         score4Path = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(park), Point(score4)))
+            .addPath(BezierLine(Point(load), Point(score4)))
             .setConstantHeadingInterpolation(score4.heading)
             .build()
 
         load5Path = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(score4), Point(park)))
-            .setConstantHeadingInterpolation(park.heading)
+            .addPath(BezierLine(Point(score4), Point(load)))
+            .setConstantHeadingInterpolation(load.heading)
             .build()
 
         score5Path = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(park), Point(score5)))
+            .addPath(BezierLine(Point(load), Point(score5)))
             .setConstantHeadingInterpolation(score5.heading)
             .build()
 
         parkPath = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(score5), Point(park)))
-            .setConstantHeadingInterpolation(park.heading)
+            .addPath(BezierLine(Point(score5), Point(load)))
+            .setConstantHeadingInterpolation(load.heading)
             .build()
     }
 }
