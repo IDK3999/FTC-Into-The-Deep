@@ -28,8 +28,8 @@ object ActionGroups {
             Delay(0.1),
             Claw.open,
             Delay(0.2),
-            Pivot.toMid,
             Delay(0.1),
+            Pivot.toBeforeClosingFromHigh,
             initializeHandling
         )
 

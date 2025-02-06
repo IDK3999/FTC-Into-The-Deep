@@ -24,7 +24,7 @@ object Pivot : Subsystem() {
     // region Declare Values
     val lowPosition = 0.0
     val highPosition = 1980.0
-    val midPosition = 1050.0
+    val beforeClosingFromHighPosition = 1850.0
     // endregion Declare Values
 
     // region Commands
@@ -47,10 +47,10 @@ object Pivot : Subsystem() {
             this
         )
 
-    val toMid: Command
+    val toBeforeClosingFromHigh: Command
         get() = RunToPosition(
             pivotMotor,
-            midPosition,
+            beforeClosingFromHighPosition,
             controller,
             this
         )
