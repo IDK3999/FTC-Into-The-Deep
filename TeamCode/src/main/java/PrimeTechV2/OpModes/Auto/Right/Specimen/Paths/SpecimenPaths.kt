@@ -10,7 +10,7 @@ import com.rowanmcalpin.nextftc.pedro.PedroData.follower
 
 object SpecimenPaths {
     // region Poses
-    private var startX = 8.9
+    private var startX = 8.4
     private var scoreX = 40.4
     private var giveX = 14.5
     private var scoreYStep = 0.7
