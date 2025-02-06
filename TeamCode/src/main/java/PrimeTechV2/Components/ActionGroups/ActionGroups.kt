@@ -44,6 +44,7 @@ object ActionGroups {
             Lift.toGrabSpecimen,
             Delay(0.3),
             Claw.close,
+            Delay(0.5),
             initializeHandling
         )
 }
