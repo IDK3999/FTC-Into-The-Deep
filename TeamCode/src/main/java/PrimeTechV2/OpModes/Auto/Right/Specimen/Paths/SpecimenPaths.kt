@@ -148,8 +148,8 @@ object SpecimenPaths {
             .build()
 
         parkPath = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(score5), Point(load)))
-            .setConstantHeadingInterpolation(load.heading)
+            .addPath(BezierLine(Point(score5), Point(park)))
+            .setConstantHeadingInterpolation(park.heading)
             .build()
     }
 }
