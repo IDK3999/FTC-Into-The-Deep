@@ -27,9 +27,9 @@ object ActionGroups {
             Lift.toHigh,
             Delay(0.1),
             Claw.open,
-            Delay(0.2),
             Delay(0.1),
             Pivot.toBeforeClosingFromHigh,
+//            Delay(0.1),
             initializeHandling
         )
 
@@ -40,11 +40,11 @@ object ActionGroups {
                 Claw.vertical,
                 Claw.mid
             ),
-            Delay(0.5),
             Lift.toGrabSpecimen,
             Delay(0.3),
+//            Delay(0.3),
             Claw.close,
-            Delay(0.5),
+            Delay(0.2),
             initializeHandling
         )
 }
