@@ -25,6 +25,7 @@ object Pivot : Subsystem() {
     val lowPosition = 0.0
     val highPosition = 1995.0
     val beforeClosingFromHighPosition = 1850.0
+    val grabSpecimenPivotPosition = 450.0
     // endregion Declare Values
 
     // region Commands
@@ -51,6 +52,14 @@ object Pivot : Subsystem() {
         get() = RunToPosition(
             pivotMotor,
             beforeClosingFromHighPosition,
+            controller,
+            this
+        )
+
+    val toGrabSpecimenPivot: Command
+        get() = RunToPosition(
+            pivotMotor,
+            grabSpecimenPivotPosition,
             controller,
             this
         )
