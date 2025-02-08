@@ -37,14 +37,15 @@ object ActionGroups {
             ParallelGroup(
                 Claw.open,
                 Claw.vertical,
-                Claw.grabSpecimenClawPivot
+                Claw.mid
             ),
-            Pivot.toGrabSpecimenPivot,
+            //Pivot.toGrabSpecimenPivot,
             Lift.toGrabSpecimen,
             Delay(0.3),
             Claw.close,
             Delay(0.2),
             Claw.back,
+            Delay(0.2),
             initializeHandling
         )
 }
