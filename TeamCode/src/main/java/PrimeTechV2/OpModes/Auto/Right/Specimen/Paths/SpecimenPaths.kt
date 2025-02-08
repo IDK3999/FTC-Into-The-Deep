@@ -13,7 +13,7 @@ object SpecimenPaths {
     private var startX = 8.4
     private var scoreX = 40.4
     private var giveX = 14.5
-    private var scoreYStep = 0.7
+    private var scoreYStep = 1.5
     private var firstScoreY = 66.0
     private val secondScoreY = firstScoreY + scoreYStep
     private val thirdScoreY = secondScoreY + scoreYStep
@@ -32,7 +32,7 @@ object SpecimenPaths {
     private val get3: Pose = Pose(58.0, 11.0, Math.toRadians(180.0))
     private val get3Control1: Pose = Pose(57.8, 15.5)
     private val give3: Pose = Pose(giveX, 8.6, Math.toRadians(180.0))
-    private val load: Pose = Pose(14.0, 32.3, Math.toRadians(180.0))
+    private val load: Pose = Pose(16.0, 32.3, Math.toRadians(180.0))
     private val loadControl1: Pose = Pose(33.7, 25.0, Math.toRadians(0.0))
     private val score2: Pose = Pose(scoreX, secondScoreY, Math.toRadians(180.0))
     private val score3: Pose = Pose(scoreX, thirdScoreY, Math.toRadians(180.0))

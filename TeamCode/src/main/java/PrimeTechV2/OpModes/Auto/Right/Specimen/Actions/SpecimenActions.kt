@@ -1,6 +1,8 @@
 package PrimeTechV2.OpModes.Auto.Right.Specimen.Actions
 
 import PrimeTechV2.Components.ActionGroups.ActionGroups
+import PrimeTechV2.Components.Handling.Claw
+import PrimeTechV2.Components.Handling.Pivot
 import PrimeTechV2.OpModes.Auto.Right.Specimen.Paths.SpecimenPaths
 import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
@@ -45,6 +47,8 @@ object SpecimenActions {
 
     val load2: Command
         get() = SequentialGroup(
+//            Claw.grabSpecimenClawPivot,
+//            Pivot.toGrabSpecimenPivot,
             FollowPath(SpecimenPaths.load2Path, true),
             ActionGroups.loadSpecimen
         )
