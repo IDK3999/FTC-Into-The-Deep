@@ -35,15 +35,15 @@ object SpecimenActions {
             FollowPath(SpecimenPaths.give2Path, true)
         )
 
-//    val get3: Command
-//        get() = SequentialGroup(
-//            FollowPath(SpecimenPaths.get3Path, true)
-//        )
-//
-//    val give3: Command
-//        get() = SequentialGroup(
-//            FollowPath(SpecimenPaths.give3Path, true)
-//        )
+    val get3: Command
+        get() = SequentialGroup(
+            FollowPath(SpecimenPaths.get3Path, true)
+        )
+
+    val give3: Command
+        get() = SequentialGroup(
+            FollowPath(SpecimenPaths.give3Path, true)
+        )
 
     val load2: Command
         get() = SequentialGroup(
