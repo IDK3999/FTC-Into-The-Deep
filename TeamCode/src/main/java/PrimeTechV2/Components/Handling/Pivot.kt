@@ -24,7 +24,7 @@ object Pivot : Subsystem() {
     // region Declare Values
     val lowPosition = 0.0
     val highPosition = 1995.0
-    val beforeClosingFromHighPosition = 1850.0
+    val beforeClosingFromHighPosition = 1800.0
     val grabSpecimenPivotPosition = 600.0
     // endregion Declare Values
 
