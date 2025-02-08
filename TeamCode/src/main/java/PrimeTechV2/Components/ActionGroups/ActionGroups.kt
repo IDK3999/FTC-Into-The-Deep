@@ -44,6 +44,7 @@ object ActionGroups {
             Delay(0.3),
             Claw.close,
             Delay(0.2),
+            Claw.back,
             initializeHandling
         )
 }
