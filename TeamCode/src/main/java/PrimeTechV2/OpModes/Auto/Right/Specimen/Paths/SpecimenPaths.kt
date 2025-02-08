@@ -109,7 +109,8 @@ object SpecimenPaths {
 
         load2Path = follower!!.pathBuilder()
 //            .addPath(BezierCurve(Point(give3), Point(loadControl1), Point(load)))
-            .addPath(BezierCurve(Point(give2), Point(loadControl1), Point(load)))
+//            .addPath(BezierCurve(Point(give2), Point(loadControl1), Point(load)))
+            .addPath(BezierCurve(Point(give1), Point(loadControl1), Point(load)))
             .setConstantHeadingInterpolation(give3.heading)
             .build()
 
