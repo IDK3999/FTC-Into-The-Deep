@@ -4,8 +4,10 @@ import PrimeTechV2.Components.ActionGroups.ActionGroups
 import PrimeTechV2.Components.Handling.Claw
 import PrimeTechV2.Components.Handling.Pivot
 import PrimeTechV2.OpModes.Auto.Right.Specimen.Paths.SpecimenPaths
+import android.app.Notification.Action
 import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
+import com.rowanmcalpin.nextftc.core.command.utility.delays.Delay
 import com.rowanmcalpin.nextftc.pedro.FollowPath
 
 object SpecimenActions {
@@ -61,7 +63,9 @@ object SpecimenActions {
 
     val load3: Command
         get() = SequentialGroup(
+            ActionGroups.beforeLoadSpecimen,
             FollowPath(SpecimenPaths.load3Path, true),
+            Delay(0.3),
             ActionGroups.loadSpecimen
         )
 
