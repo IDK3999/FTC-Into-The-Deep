@@ -149,13 +149,25 @@ public class AllModes {
     public static void intake_sample_init() {
         setRetractCase_to_EXTENSION_RETRACT();
 
-
-
         Extension.target = intakeSampleExtension;
         Extension.getInstance().start();
 
         Claw.getInstance().change_to_OPEN_POS();
         Claw.getInstance().rotate(Claw.ROTATION_INIT);
+        Claw.getInstance().change_to_rotation_ZERO();
+        Claw.getInstance().pivot(Claw.MID_POS);
+    }
+
+    public static void intake_sample_parallel() {
+        Claw.getInstance().rotate(Claw.ROTATION_INIT);
+        Claw.getInstance().change_to_rotation_ZERO();
+        Claw.getInstance().pivot(Claw.MID_POS);
+    }
+
+    public static void intake_sample_perpendicular() {
+        Claw.getInstance().change_to_OPEN_POS();
+        Claw.getInstance().rotate(Claw.ROTATION_INIT);
+        Claw.getInstance().change_to_rotation_ZERO();
         Claw.getInstance().pivot(Claw.FRONT_POS);
     }
 
@@ -164,7 +176,7 @@ public class AllModes {
         Claw.getInstance().openState_method();
     }
 
-
+    ///ENUMS
     enum Mode {
         INTAKE_SAMPLE, INTAKE_SPECIMEN, OUTTAKE_SAMPLE, OUTTAKE_SPECIMEN
     }

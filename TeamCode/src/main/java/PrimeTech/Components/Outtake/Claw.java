@@ -91,6 +91,10 @@ public class Claw {
         }
     }
 
+    public void change_to_rotation_ZERO() {
+        rotation = Rotation.ZERO;
+    }
+
     public void rotate(double angle) {
         rotationServo.setPosition(angle);
     }
