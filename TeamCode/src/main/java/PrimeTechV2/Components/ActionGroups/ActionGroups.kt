@@ -34,12 +34,10 @@ object ActionGroups {
 
     val beforeLoadSpecimen: Command
         get() = ParallelGroup(
-                Claw.open,
-                Claw.vertical,
-                Claw.grabSpecimenClawPivot,
-//            Pivot.toGrabSpecimenPivot,
-//            Lift.toGrabSpecimen
-            )
+            Claw.open,
+            Claw.vertical,
+            Claw.grabSpecimenClawPivot
+        )
 
     val loadSpecimen: Command
         get() = SequentialGroup(
