@@ -49,8 +49,6 @@ object SpecimenActions {
 
     val load2: Command
         get() = SequentialGroup(
-//            Claw.grabSpecimenClawPivot,
-//            Pivot.toGrabSpecimenPivot,
             ActionGroups.beforeLoadSpecimen,
             FollowPath(SpecimenPaths.load2Path, true),
             Delay(0.3),
