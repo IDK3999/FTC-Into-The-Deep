@@ -77,7 +77,9 @@ object SpecimenActions {
 
     val load4: Command
         get() = SequentialGroup(
+            ActionGroups.beforeLoadSpecimen,
             FollowPath(SpecimenPaths.load4Path, true),
+            Delay(0.3),
             ActionGroups.loadSpecimen
         )
 
@@ -89,7 +91,9 @@ object SpecimenActions {
 
     val load5: Command
         get() = SequentialGroup(
+            ActionGroups.beforeLoadSpecimen,
             FollowPath(SpecimenPaths.load5Path, true),
+            Delay(0.3),
             ActionGroups.loadSpecimen
         )
 
