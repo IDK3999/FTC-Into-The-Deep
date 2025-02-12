@@ -153,20 +153,17 @@ public class AllModes {
         Extension.getInstance().start();
 
         Claw.getInstance().change_to_OPEN_POS();
-        Claw.getInstance().rotate(Claw.ROTATION_INIT);
         Claw.getInstance().change_to_rotation_ZERO();
         Claw.getInstance().pivot(Claw.MID_POS);
     }
 
     public static void intake_sample_parallel() {
-        Claw.getInstance().rotate(Claw.ROTATION_INIT);
         Claw.getInstance().change_to_rotation_ZERO();
         Claw.getInstance().pivot(Claw.MID_POS);
     }
 
     public static void intake_sample_perpendicular() {
         Claw.getInstance().change_to_OPEN_POS();
-        Claw.getInstance().rotate(Claw.ROTATION_INIT);
         Claw.getInstance().change_to_rotation_ZERO();
         Claw.getInstance().pivot(Claw.FRONT_POS);
     }

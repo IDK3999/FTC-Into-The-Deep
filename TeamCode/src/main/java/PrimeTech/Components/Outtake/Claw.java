@@ -93,6 +93,7 @@ public class Claw {
 
     public void change_to_rotation_ZERO() {
         rotation = Rotation.ZERO;
+        rotate(Claw.ROTATION_INIT);
     }
 
     public void rotate(double angle) {
