@@ -30,10 +30,12 @@ import pedroPathing.constants.LConstants;
  * @version 1.0, 3/12/2024
  */
 @Config
-@Autonomous(name = "Straight Back And Forth", group = "PIDF Tuning")
+@Autonomous (name = "Straight Back And Forth", group = "PIDF Tuning")
 public class StraightBackAndForth extends OpMode {
-    public static double DISTANCE = 48;
     private Telemetry telemetryA;
+
+    public static double DISTANCE = 40;
+
     private boolean forward = true;
 
     private Follower follower;
@@ -50,17 +52,17 @@ public class StraightBackAndForth extends OpMode {
         Constants.setConstants(FConstants.class, LConstants.class);
         follower = new Follower(hardwareMap);
 
-        forwards = new Path(new BezierLine(new Point(0, 0, Point.CARTESIAN), new Point(DISTANCE, 0, Point.CARTESIAN)));
+        forwards = new Path(new BezierLine(new Point(0,0, Point.CARTESIAN), new Point(DISTANCE,0, Point.CARTESIAN)));
         forwards.setConstantHeadingInterpolation(0);
-        backwards = new Path(new BezierLine(new Point(DISTANCE, 0, Point.CARTESIAN), new Point(0, 0, Point.CARTESIAN)));
+        backwards = new Path(new BezierLine(new Point(DISTANCE,0, Point.CARTESIAN), new Point(0,0, Point.CARTESIAN)));
         backwards.setConstantHeadingInterpolation(0);
 
         follower.followPath(forwards);
 
         telemetryA = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetryA.addLine("This will run the robot in a straight line going " + DISTANCE
-                + " inches forward. The robot will go forward and backward continuously"
-                + " along the path. Make sure you have enough room.");
+                            + " inches forward. The robot will go forward and backward continuously"
+                            + " along the path. Make sure you have enough room.");
         telemetryA.update();
     }
 

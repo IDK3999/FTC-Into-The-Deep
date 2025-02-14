@@ -50,14 +50,18 @@ import pedroPathing.constants.LConstants;
 @Config
 @Autonomous(name = "Lateral Zero Power Acceleration Tuner", group = "Automatic Tuners")
 public class LateralZeroPowerAccelerationTuner extends OpMode {
-    public static double VELOCITY = 30;
-    private final ArrayList<Double> accelerations = new ArrayList<>();
+    private ArrayList<Double> accelerations = new ArrayList<>();
+
     private DcMotorEx leftFront;
     private DcMotorEx leftRear;
     private DcMotorEx rightFront;
     private DcMotorEx rightRear;
     private List<DcMotorEx> motors;
+
     private PoseUpdater poseUpdater;
+
+    public static double VELOCITY = 30;
+
     private double previousVelocity;
 
     private long previousTimeNano;
@@ -158,7 +162,7 @@ public class LateralZeroPowerAccelerationTuner extends OpMode {
             for (Double acceleration : accelerations) {
                 average += acceleration;
             }
-            average /= accelerations.size();
+            average /= (double) accelerations.size();
 
             telemetryA.addData("lateral zero power acceleration (deceleration):", average);
             telemetryA.update();
