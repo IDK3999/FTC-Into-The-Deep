@@ -59,6 +59,7 @@ class SpecimenAuto : PedroOpMode(Claw, Lift, Pivot) {
 //                SpecimenActions.load5,
 //                SpecimenActions.score5,
 //                SpecimenActions.park
+                ActionGroups.initializeHandling
             )
         )
     }

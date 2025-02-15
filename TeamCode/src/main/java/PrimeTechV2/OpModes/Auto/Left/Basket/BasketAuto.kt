@@ -50,7 +50,8 @@ class BasketAuto : PedroOpMode(Claw, Lift, Pivot) {
                 BasketActions.load2FromGround,
                 BasketActions.score2,
                 BasketActions.load3FromGround,
-                BasketActions.score3
+                BasketActions.score3,
+                ActionGroups.initializeHandling
             )
         )
     }
