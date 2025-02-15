@@ -4,6 +4,7 @@ import PrimeTechV2.Components.ActionGroups.ActionGroups
 import PrimeTechV2.Components.Handling.Claw
 import PrimeTechV2.Components.Handling.Lift
 import PrimeTechV2.Components.Handling.Pivot
+import PrimeTechV2.OpModes.Auto.Left.Basket.Actions.BasketActions
 import PrimeTechV2.OpModes.Auto.Left.Basket.Paths.BasketPaths
 import PrimeTechV2.OpModes.Auto.Right.Specimen.Paths.SpecimenPaths
 import com.pedropathing.follower.Follower
@@ -25,7 +26,7 @@ class BasketAuto : PedroOpMode(Claw, Lift, Pivot) {
         Constants.setConstants(FConstants::class.java, LConstants::class.java)
 
         follower = Follower(hardwareMap)
-        follower.setStartingPose(SpecimenPaths.start)
+        follower.setStartingPose(BasketPaths.start)
 
         OpModeData.telemetry = telemetry
     }
@@ -42,7 +43,14 @@ class BasketAuto : PedroOpMode(Claw, Lift, Pivot) {
 
         CommandManager.scheduleCommand(
             SequentialGroup(
-                ActionGroups.initializeHandling
+                ActionGroups.initializeHandling,
+                BasketActions.scorePreload,
+                BasketActions.load1FromGround,
+                BasketActions.score1,
+                BasketActions.load2FromGround,
+                BasketActions.score2,
+                BasketActions.load3FromGround,
+                BasketActions.score3
             )
         )
     }

@@ -55,4 +55,34 @@ object ActionGroups {
             Pivot.toHigh,
             Lift.toScoreBasket
         )
+
+    val scoreBasket: Command
+        get() = SequentialGroup(
+            beforeScoreBasket,
+            Claw.back,
+            Delay(0.5),
+            Claw.open,
+            Delay(0.1),
+            Claw.back,
+            Delay(0.1),
+            initializeHandling
+        )
+
+    val beforeLoadFromGround: Command
+        get() = ParallelGroup(
+            Claw.open,
+            Claw.vertical,
+            Claw.front
+        )
+
+    val loadFromGround: Command
+        get() = SequentialGroup(
+            beforeLoadFromGround,
+            Lift.toLoadFromGround,
+            Delay(0.2),
+            Claw.close,
+            Delay(0.2),
+            Claw.back,
+            initializeHandling
+        )
 }

@@ -17,7 +17,7 @@ object BasketPaths {
     private var load1FromGroundY = 120.75
     private val load2FromGroundY = load1FromGroundY + loadFromGroundYStep
 
-    private val start = Pose(7.5, 88.6)
+    val start = Pose(7.5, 88.6)
     private val score = Pose(scoreX, scoreY, scoreHeading)
     private val load1FromGround = Pose(loadFromGroundX, load1FromGroundY)
     private val load2FromGround = Pose(loadFromGroundX, load2FromGroundY)
