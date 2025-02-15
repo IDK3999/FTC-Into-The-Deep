@@ -31,6 +31,7 @@ object Lift : Subsystem() {
     val midPosition = 300.0
     val highPosition = 1500.0
     val grabPosition = 350.0
+    val scoreBasketPosition = 2000.0
     // endregion Declare Values
 
     // region Commands
@@ -65,6 +66,14 @@ object Lift : Subsystem() {
         get() = RunToPosition(
             motors,
             grabPosition,
+            controller,
+            this
+        )
+
+    val toScoreBasket: Command
+        get() = RunToPosition(
+            motors,
+            scoreBasketPosition,
             controller,
             this
         )
