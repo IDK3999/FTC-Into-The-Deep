@@ -10,22 +10,22 @@ import com.rowanmcalpin.nextftc.ftc.hardware.controllables.RunToPosition
 
 object Pivot : Subsystem() {
     // region Declare Components
-    lateinit var pivotMotor: MotorEx
+    private lateinit var pivotMotor: MotorEx
 
-    val pivotMotorName = "motorPivot"
+    private val pivotMotorName = "motorPivot"
 
-    val p = 0.0026
-    val i = 0.015
-    val d = 0.0005
-    val tolerance = 60.0
-    val controller = PIDControllerWrapper(PIDController(p, i, d), tolerance)
+    private val p = 0.0026
+    private val i = 0.015
+    private val d = 0.0005
+    private val tolerance = 60.0
+    private val controller = PIDControllerWrapper(PIDController(p, i, d), tolerance)
     // endregion Declare Components
 
     // region Declare Values
-    val lowPosition = 0.0
-    val highPosition = 1995.0
-    val beforeClosingFromHighPosition = 1800.0
-    val grabSpecimenPivotPosition = 600.0
+    private val lowPosition = 0.0
+    private val highPosition = 1995.0
+    private val beforeClosingFromHighPosition = 1800.0
+    private val grabSpecimenPivotPosition = 600.0
     // endregion Declare Values
 
     // region Commands

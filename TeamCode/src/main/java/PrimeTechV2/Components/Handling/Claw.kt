@@ -8,27 +8,27 @@ import com.rowanmcalpin.nextftc.ftc.hardware.ServoToPosition
 
 object Claw : Subsystem() {
     // region Declare Components
-    lateinit var openingServo: Servo
-    val openingServoName = "openingServo"
+    private lateinit var openingServo: Servo
+    private val openingServoName = "openingServo"
 
-    lateinit var rotationServo: Servo
-    val rotationServoName = "rotationServo"
+    private lateinit var rotationServo: Servo
+    private val rotationServoName = "rotationServo"
 
-    lateinit var frontBackServo: Servo
-    val frontBackServoName = "frontBackServoRight"
+    private lateinit var frontBackServo: Servo
+    private val frontBackServoName = "frontBackServoRight"
     // endregion Declare Components
 
     // region Declare Values
-    val openPosition = 0.65
-    val closedPosition = 1.0
+    private val openPosition = 0.65
+    private val closedPosition = 1.0
 
-    val frontPosition = 0.95
-    val grabSpecimenClawPivotPosition = 0.4
-    val midPosition = 0.47
-    val backPosition = 0.07
+    private val frontPosition = 0.95
+    private val grabSpecimenClawPivotPosition = 0.4
+    private val midPosition = 0.47
+    private val backPosition = 0.07
 
-    val rotationVertical = 0.25
-    val rotationHorizontal = 0.6
+    private val rotationVertical = 0.25
+    private val rotationHorizontal = 0.6
     // endregion Declare Values
 
     // region Commands

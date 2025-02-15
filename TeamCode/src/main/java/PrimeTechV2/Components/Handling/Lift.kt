@@ -11,27 +11,27 @@ import com.rowanmcalpin.nextftc.ftc.hardware.controllables.RunToPosition
 
 object Lift : Subsystem() {
     // region Declare Components
-    lateinit var liftMotorLeft: MotorEx
-    lateinit var liftMotorRight: MotorEx
+    private lateinit var liftMotorLeft: MotorEx
+    private lateinit var liftMotorRight: MotorEx
 
-    lateinit var motors: MotorGroup
+    private lateinit var motors: MotorGroup
 
-    val liftMotorLeftName = "extensionLeft"
-    val liftMotorRightName = "extensionRight"
+    private val liftMotorLeftName = "extensionLeft"
+    private val liftMotorRightName = "extensionRight"
 
-    val p = 0.01
-    val i = 0.15
-    val d = 0.00027
-    val tolerance = 50.0
-    val controller = PIDControllerWrapper(PIDController(p, i, d), tolerance)
+    private val p = 0.01
+    private val i = 0.15
+    private val d = 0.00027
+    private val tolerance = 50.0
+    private val controller = PIDControllerWrapper(PIDController(p, i, d), tolerance)
     // endregion Declare Components
 
     // region Declare Values
-    val lowPosition = 0.0
-    val midPosition = 300.0
-    val highPosition = 1500.0
-    val grabPosition = 350.0
-    val scoreBasketPosition = 2000.0
+    private val lowPosition = 0.0
+    private val midPosition = 300.0
+    private val highPosition = 1500.0
+    private val grabPosition = 350.0
+    private val scoreBasketPosition = 2000.0
     // endregion Declare Values
 
     // region Commands
