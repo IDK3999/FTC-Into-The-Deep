@@ -47,4 +47,12 @@ object ActionGroups {
             Delay(0.2),
             initializeHandling
         )
+
+    val beforeScoreBasket: Command
+        get() = ParallelGroup(
+            Claw.mid,
+            Claw.vertical,
+            Pivot.toHigh,
+            Lift.toScoreBasket
+        )
 }
