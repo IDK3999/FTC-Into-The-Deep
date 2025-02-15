@@ -32,8 +32,8 @@ object SpecimenPaths {
     private val get3: Pose = Pose(58.0, 11.0, Math.toRadians(180.0))
     private val get3Control1: Pose = Pose(57.8, 15.5)
     private val give3: Pose = Pose(giveX, 8.6, Math.toRadians(180.0))
-    private val load: Pose = Pose(10.5, 32.3, Math.toRadians(180.0))
-    private val loadControl1: Pose = Pose(33.7, 25.0, Math.toRadians(0.0))
+    private val load: Pose = Pose(10.5, 32.0, Math.toRadians(180.0))
+    private val loadControl1: Pose = Pose(33.0, 25.0, Math.toRadians(0.0))
     private val score2: Pose = Pose(scoreX, secondScoreY, Math.toRadians(180.0))
     private val score3: Pose = Pose(scoreX, thirdScoreY, Math.toRadians(180.0))
     private val score4: Pose = Pose(scoreX, fourthScoreY, Math.toRadians(180.0))
@@ -71,14 +71,7 @@ object SpecimenPaths {
             .build()
 
         get1Path = follower!!.pathBuilder()
-            .addPath(
-                BezierCurve(
-                    Point(scorePreload),
-                    Point(get1Control1),
-                    Point(get1Control2),
-                    Point(get1)
-                )
-            )
+            .addPath(BezierCurve(Point(scorePreload), Point(get1Control1), Point(get1Control2), Point(get1)))
             .setConstantHeadingInterpolation(start.heading)
             .build()
 
@@ -108,9 +101,7 @@ object SpecimenPaths {
             .build()
 
         load2Path = follower!!.pathBuilder()
-//            .addPath(BezierCurve(Point(give3), Point(loadControl1), Point(load)))
-//            .addPath(BezierCurve(Point(give2), Point(loadControl1), Point(load)))
-            .addPath(BezierCurve(Point(give1), Point(loadControl1), Point(load)))
+            .addPath(BezierCurve(Point(give3), Point(loadControl1), Point(load)))
             .setConstantHeadingInterpolation(give3.heading)
             .build()
 
