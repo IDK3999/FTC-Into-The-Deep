@@ -20,7 +20,7 @@ object Claw : Subsystem() {
 
     // region Declare Values
     val openPosition = 0.65
-    val closePosition = 1.0
+    val closedPosition = 1.0
 
     val frontPosition = 0.95
     val grabSpecimenClawPivotPosition = 0.4
@@ -42,7 +42,7 @@ object Claw : Subsystem() {
     val close: Command
         get() = ServoToPosition(
             openingServo,
-            closePosition,
+            closedPosition,
             this
         )
 
