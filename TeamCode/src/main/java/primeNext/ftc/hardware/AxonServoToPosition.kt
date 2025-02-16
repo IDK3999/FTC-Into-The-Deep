@@ -7,7 +7,8 @@ import com.rowanmcalpin.nextftc.core.command.Command
 import kotlin.math.abs
 
 /**
- * This command moves a servo to a target position
+ * This command moves an Axon servo to a target position, and
+ * uses an analog input to correctly mark the command as done.
  *
  * @param servo the servo to move
  * @param targetPosition the position to move the servo to
@@ -16,7 +17,7 @@ import kotlin.math.abs
  *                      subsystem holds this command)
  * @param tolerance the (optional) tolerance value for the servo position
  */
-class AxonServoToPosition(
+class AxonServoToPosition @JvmOverloads constructor(
     private val servo: Servo,
     private val targetPosition: Double,
     private val analogInput: AnalogInput,
