@@ -1,6 +1,6 @@
 package PrimeTechV2.Components.Handling
 
-import PrimeTechV2.Utils.PIDControllerWrapper
+import primeNext.core.control.controllers.FTCLibPIDControllerWrapper
 import com.arcrobotics.ftclib.controller.PIDController
 import com.rowanmcalpin.nextftc.core.Subsystem
 import com.rowanmcalpin.nextftc.core.command.Command
@@ -18,7 +18,7 @@ object Pivot : Subsystem() {
     private val i = 0.015
     private val d = 0.0005
     private val tolerance = 60.0
-    private val controller = PIDControllerWrapper(PIDController(p, i, d), tolerance)
+    private val controller = FTCLibPIDControllerWrapper(PIDController(p, i, d), tolerance)
     // endregion Declare Components
 
     // region Declare Values

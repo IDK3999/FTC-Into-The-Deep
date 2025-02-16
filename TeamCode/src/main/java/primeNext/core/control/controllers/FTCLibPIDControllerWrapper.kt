@@ -1,9 +1,9 @@
-package PrimeTechV2.Utils
+package primeNext.core.control.controllers
 
 import com.arcrobotics.ftclib.controller.PIDController
 import com.rowanmcalpin.nextftc.core.control.controllers.Controller
 
-class PIDControllerWrapper(
+class FTCLibPIDControllerWrapper(
     val ftcLibController: PIDController,
     override var setPointTolerance: Double
 ) : Controller {
