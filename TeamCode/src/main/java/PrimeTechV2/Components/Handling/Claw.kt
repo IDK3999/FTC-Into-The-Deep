@@ -19,16 +19,16 @@ object Claw : Subsystem() {
     // endregion Declare Components
 
     // region Declare Values
-    private val openPosition = 0.65
+    private val openPosition = 0.0
     private val closedPosition = 1.0
 
-    private val frontPosition = 0.95
+    private val frontPosition = 0.0
     private val grabSpecimenClawPivotPosition = 0.4
-    private val midPosition = 0.47
-    private val backPosition = 0.07
+    private val midPosition = 0.5
+    private val backPosition = 1.0
 
-    private val rotationVertical = 0.25
-    private val rotationHorizontal = 0.6
+    private val rotationVertical = 0.0
+    private val rotationHorizontal = 1.0
     // endregion Declare Values
 
     // region Commands
