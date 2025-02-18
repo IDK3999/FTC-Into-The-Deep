@@ -13,14 +13,13 @@ import PrimeTech.Components.Gamepad.Gamepad;
 public class Extension {
     public static final double MIN_TICKS = 0.0;
     // TODO: Edit with correct values
-    public static double MAX_TICKS = 1600;
-    public static double p = 0.01, i = 0.15, d = 0.00027;
-    public static double f = 0.07;
+    public static double MAX_TICKS = 700;
+    public static double p = 0.01, i = 0, d = 0;
+    public static double f = 0.02;
     public static double target = 0;
     static public DcMotorEx extension_right = null;
     private static Extension instance = null;
-    public final double increment = 50.0;
-    public final double ticks_in_degrees = (double) 8192 / 360;
+    public final double increment = 20.0;
 
     public DcMotorEx extension_left = null;
     LiftState liftState = LiftState.MIN;

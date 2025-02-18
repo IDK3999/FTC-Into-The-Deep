@@ -11,11 +11,11 @@ public class AllModes {
     public static double intakeSpecimenExtension = 0;
     public static double intakeSpecimenPivot = 450;
 
-    public static double outtakeSpecimenExtension = 1000;
-    public static double outtakeSpecimenPivot = 2050;
+    public static double outtakeSpecimenExtension = 360;
+    public static double outtakeSpecimenPivot = 1950;
 
-    public static double outtakeSampleExtension = 2500;
-    public static double outtakeSamplePivot = 2100;
+    public static double outtakeSampleExtension = 900;
+    public static double outtakeSamplePivot = 1950;
 
     public static double intakeSampleExtension = 0;
     public static double intakeSamplePivot = 0;
@@ -76,7 +76,7 @@ public class AllModes {
                         break;
                     case INTAKE_SPECIMEN:
                         Pivot.target = intakeSpecimenPivot;
-                        Claw.getInstance().pivot(Claw.MID_POS + Pivot.pivot_angle() / 180);
+                        Claw.getInstance().pivot(Claw.MID_POS - Pivot.pivot_angle() / 180);
 
                         Pivot.getInstance().loop();
                         Extension.getInstance().run_to_target(extensionTarget);
