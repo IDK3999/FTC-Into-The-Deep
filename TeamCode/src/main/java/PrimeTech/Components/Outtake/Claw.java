@@ -8,14 +8,14 @@ import PrimeTech.Components.Gamepad.Gamepad;
 
 public class Claw {
     // Servo positions
-    public static final double OPEN_POS = 0.65;
+    public static final double OPEN_POS = 0;
     public static final double CLOSED_POS = 1;
-    public static final double FRONT_POS = 0.95;
-    public static final double MID_POS = 0.47;
+    public static final double FRONT_POS = 1;
+    public static final double MID_POS = 0.5;
     public static final double OUTTAKE_SAMPLE_PIVOT_POS = 0.35;
     public static final double BACK_POS = 0.0;
-    public static final double ROTATION_INIT = 0.25;
-    public static final double ROTATION_PERPENDICULAR = 0.6;
+    public static final double ROTATION_INIT = 0;
+    public static final double ROTATION_PERPENDICULAR = 1;
     private static Claw instance = null;
     public Servo openingServo = null;
     public Servo rotationServo = null;
@@ -38,7 +38,6 @@ public class Claw {
         rotationServo = hardwareMap.get(Servo.class, "rotationServo");
 
         frontBackServo_left = hardwareMap.get(Servo.class, "frontBackServoLeft");
-        frontBackServo_left.setDirection(Servo.Direction.REVERSE);
 
         frontBackServo_right = hardwareMap.get(Servo.class, "frontBackServoRight");
     }
