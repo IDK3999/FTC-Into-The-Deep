@@ -11,10 +11,10 @@ import com.rowanmcalpin.nextftc.pedro.PedroData.follower
 object SpecimenPaths {
     // region Poses
     private var startX = 8.4
-    private var scoreX = 40.4
+    private var scoreX = 40.0
     private var giveX = 14.5
     private var scoreYStep = 1.5
-    private var firstScoreY = 66.0
+    private var firstScoreY = 67.0
     private val secondScoreY = firstScoreY + scoreYStep
     private val thirdScoreY = secondScoreY + scoreYStep
     private val fourthScoreY = thirdScoreY + scoreYStep
@@ -28,10 +28,10 @@ object SpecimenPaths {
     private val get1Control2 = Pose(74.0, 38.0)
     private val give1 = Pose(giveX, 23.0)
     private val get2 = Pose(52.0, 13.0)
-    private val get2Control1 = Pose(72.0, 30.0)
+    private val get2Control1 = Pose(72.0, 27.0)
     private val give2 = Pose(giveX, 13.0)
-    private val get3 = Pose(60.0, 7.5)
-    private val get3Control1 = Pose(57.8, 15.5)
+    private val get3 = Pose(52.0, 7.5)
+    private val get3Control1 = Pose(72.0, 16.0)
     private val give3 = Pose(giveX, 7.5)
     private val load = Pose(11.5, 32.0)
     private val loadControl1 = Pose(33.0, 25.0)
@@ -39,7 +39,7 @@ object SpecimenPaths {
     private val score3 = Pose(scoreX, thirdScoreY)
     private val score4 = Pose(scoreX, fourthScoreY)
     private val score5 = Pose(scoreX, fifthScoreY)
-    private val park = Pose(12.2, 32.3)
+    private val park = Pose(14.0, 34.0)
     // endregion Poses
 
     // region Paths
