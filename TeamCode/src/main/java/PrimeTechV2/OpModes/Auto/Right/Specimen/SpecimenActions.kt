@@ -10,7 +10,10 @@ import com.rowanmcalpin.nextftc.pedro.FollowPath
 object SpecimenActions {
     val scorePreload: Command
         get() = SequentialGroup(
-            FollowPath(SpecimenPaths.scorePreloadPath, true),
+            ParallelGroup(
+                ActionGroups.beforeScoreSpecimen,
+                FollowPath(SpecimenPaths.scorePreloadPath, true)
+            ),
             ActionGroups.scoreSpecimen
         )
 
