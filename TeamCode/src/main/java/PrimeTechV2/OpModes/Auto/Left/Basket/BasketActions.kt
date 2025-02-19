@@ -1,7 +1,6 @@
-package PrimeTechV2.OpModes.Auto.Left.Basket.Actions
+package PrimeTechV2.OpModes.Auto.Left.Basket
 
 import PrimeTechV2.Components.ActionGroups.ActionGroups
-import PrimeTechV2.OpModes.Auto.Left.Basket.Paths.BasketPaths
 import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
 import com.rowanmcalpin.nextftc.pedro.FollowPath

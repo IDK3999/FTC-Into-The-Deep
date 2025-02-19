@@ -1,4 +1,4 @@
-package PrimeTechV2.OpModes.Auto.Left.Basket.Paths
+package PrimeTechV2.OpModes.Auto.Left.Basket
 
 import com.pedropathing.localization.Pose
 import com.pedropathing.pathgen.BezierLine

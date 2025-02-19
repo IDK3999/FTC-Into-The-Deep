@@ -4,8 +4,6 @@ import PrimeTechV2.Components.ActionGroups.ActionGroups
 import PrimeTechV2.Components.Handling.Claw
 import PrimeTechV2.Components.Handling.Lift
 import PrimeTechV2.Components.Handling.Pivot
-import PrimeTechV2.OpModes.Auto.Left.Basket.Actions.BasketActions
-import PrimeTechV2.OpModes.Auto.Left.Basket.Paths.BasketPaths
 import com.pedropathing.follower.Follower
 import com.pedropathing.util.Constants
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous

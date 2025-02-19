@@ -1,4 +1,4 @@
-package PrimeTechV2.OpModes.Auto.Right.Specimen.Paths
+package PrimeTechV2.OpModes.Auto.Right.Specimen
 
 import com.pedropathing.localization.Pose
 import com.pedropathing.pathgen.BezierCurve
@@ -19,7 +19,7 @@ object SpecimenPaths {
     private val thirdScoreY = secondScoreY + scoreYStep
     private val fourthScoreY = thirdScoreY + scoreYStep
     private val fifthScoreY = fourthScoreY + scoreYStep
-    private val heading = Math.toRadians(180.0);
+    private val heading = Math.toRadians(180.0)
 
     val start = Pose(startX, 65.0, heading)
     private val scorePreload = Pose(scoreX, firstScoreY)

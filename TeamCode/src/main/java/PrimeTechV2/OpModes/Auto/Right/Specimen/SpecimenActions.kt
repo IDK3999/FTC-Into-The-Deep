@@ -1,7 +1,6 @@
-package PrimeTechV2.OpModes.Auto.Right.Specimen.Actions
+package PrimeTechV2.OpModes.Auto.Right.Specimen
 
 import PrimeTechV2.Components.ActionGroups.ActionGroups
-import PrimeTechV2.OpModes.Auto.Right.Specimen.Paths.SpecimenPaths
 import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
 import com.rowanmcalpin.nextftc.core.command.utility.delays.Delay
