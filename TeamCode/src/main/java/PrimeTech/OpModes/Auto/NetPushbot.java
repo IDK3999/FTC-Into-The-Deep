@@ -1,4 +1,4 @@
-package PrimeTech.OpModes.Auto.Left;
+package PrimeTech.OpModes.Auto;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.follower.Follower;
@@ -11,85 +11,62 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import PrimeTech.Components.Outtake.Claw;
 import PrimeTech.Global.Global;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
 @Config
-@Autonomous(name = "Net Zone", group = "Auto")
-public class Net extends OpMode {
-    // region Declare
-    public static double startX = 8.3;
-    public static double parkX = 11;
-    public static double parkY = 124;
-
-    public static double maxSec = 3;
-
-    private final Pose start = new Pose(startX, 89);
-    private final Pose parking = new Pose(parkX, parkY);
+@Autonomous(name = "Net Pushbot", group = "Auto")
+public class NetPushbot extends OpMode {
+    private static final double x = 8.3;
+    private static final double parkY = 124;
+    private final Pose start = new Pose(x, 89);
+    private final Pose parking = new Pose(x, parkY);
 
     private Follower follower;
-
     private int pathState;
     private Path park;
+    private Timer timer;
 
-    private Timer pathTimer, opmodeTimer;
-    // endregion Declare
-
-    public void buildPaths() {
+    private void buildPaths() {
         park = new Path(new BezierLine(new Point(start), new Point(parking)));
         park.setConstantHeadingInterpolation(Math.toRadians(0));
     }
 
-    public void autonomousPathUpdate() {
+    private void autonomousPathUpdate() {
+        double maxSec = 3;
         switch (pathState) {
             case 0:
                 follower.followPath(park);
                 setPathState(1);
                 break;
             case 1:
-                if (pathTimer.getElapsedTimeSeconds() > maxSec) {
+                if (timer.getElapsedTimeSeconds() > maxSec) {
                     setPathState(-1);
                 }
                 break;
         }
     }
 
-    public void setPathState(int pState) {
-        pathState = pState;
-        pathTimer.resetTimer();
+    public void setPathState(int state) {
+        pathState = state;
+        timer.resetTimer();
     }
 
     @Override
     public void init() {
         Global.hardwareMap = hardwareMap;
-
-        pathTimer = new Timer();
-
+        timer = new Timer();
         Constants.setConstants(FConstants.class, LConstants.class);
         follower = new Follower(hardwareMap);
         follower.setStartingPose(start);
         buildPaths();
-
-        Claw.getInstance().init();
-    }
-
-    @Override
-    public void start() {
         setPathState(0);
-        Claw.getInstance().start();
-
     }
 
     @Override
     public void loop() {
         follower.update();
         autonomousPathUpdate();
-
-        telemetry.addData("x", follower.getPose().getX());
-        telemetry.addData("y", follower.getPose().getY());
-        telemetry.addData("heading", follower.getPose().getHeading());
-        telemetry.update();
     }
 }
