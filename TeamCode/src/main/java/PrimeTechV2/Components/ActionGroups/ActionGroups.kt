@@ -25,10 +25,9 @@ object ActionGroups {
                 Pivot.toHigh,
             ),
             Lift.toHigh,
-            Delay(0.1),
             Claw.open,
             Delay(0.1),
-            Pivot.toBeforeClosingFromHigh,
+//            Pivot.toBeforeClosingFromHigh,
             initializeHandling
         )
 
@@ -44,8 +43,7 @@ object ActionGroups {
             Claw.close,
             Delay(0.2),
             Claw.back,
-            Delay(0.2),
-            initializeHandling
+            Delay(0.1)
         )
 
     val beforeScoreBasket: Command
