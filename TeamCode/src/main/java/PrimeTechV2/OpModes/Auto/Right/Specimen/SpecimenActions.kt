@@ -1,6 +1,7 @@
 package PrimeTechV2.OpModes.Auto.Right.Specimen
 
 import PrimeTechV2.Components.ActionGroups.ActionGroups
+import PrimeTechV2.Components.ActionGroups.ActionGroups.initializeHandling
 import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.core.command.groups.ParallelGroup
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
@@ -18,7 +19,8 @@ object SpecimenActions {
         )
 
     val get1: Command
-        get() = SequentialGroup(
+        get() = ParallelGroup(
+            initializeHandling,
             FollowPath(SpecimenPaths.get1Path, true)
         )
 

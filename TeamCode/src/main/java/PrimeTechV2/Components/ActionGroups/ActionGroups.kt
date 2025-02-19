@@ -32,11 +32,13 @@ object ActionGroups {
             Claw.open,
             Delay(0.1),
 //            Pivot.toBeforeClosingFromHigh,
-            initializeHandling
+//            initializeHandling
         )
 
     val beforeLoadSpecimen: Command
         get() = ParallelGroup(
+            Lift.toLow,
+            Pivot.toLow,
             Claw.open,
             Claw.vertical,
             Claw.grabSpecimenClawPivot
