@@ -1,6 +1,5 @@
 package PrimeTechV2.Components.Handling
 
-import primeNext.core.control.controllers.FTCLibPIDControllerWrapper
 import com.arcrobotics.ftclib.controller.PIDController
 import com.rowanmcalpin.nextftc.core.Subsystem
 import com.rowanmcalpin.nextftc.core.command.Command
@@ -8,6 +7,7 @@ import com.rowanmcalpin.nextftc.ftc.hardware.controllables.HoldPosition
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorEx
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorGroup
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.RunToPosition
+import primeNext.core.control.controllers.FTCLibPIDControllerWrapper
 
 object Lift : Subsystem() {
     // region Declare Components
