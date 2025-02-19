@@ -2,6 +2,7 @@ package PrimeTechV2.OpModes.Auto.Right.Specimen
 
 import PrimeTechV2.Components.ActionGroups.ActionGroups
 import com.rowanmcalpin.nextftc.core.command.Command
+import com.rowanmcalpin.nextftc.core.command.groups.ParallelGroup
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
 import com.rowanmcalpin.nextftc.core.command.utility.delays.Delay
 import com.rowanmcalpin.nextftc.pedro.FollowPath
@@ -53,7 +54,10 @@ object SpecimenActions {
 
     val score2: Command
         get() = SequentialGroup(
-            FollowPath(SpecimenPaths.score2Path, true),
+            ParallelGroup(
+                ActionGroups.beforeScoreSpecimen,
+                FollowPath(SpecimenPaths.score2Path, true)
+            ),
             ActionGroups.scoreSpecimen
         )
 
@@ -67,7 +71,10 @@ object SpecimenActions {
 
     val score3: Command
         get() = SequentialGroup(
-            FollowPath(SpecimenPaths.score3Path, true),
+            ParallelGroup(
+                ActionGroups.beforeScoreSpecimen,
+                FollowPath(SpecimenPaths.score3Path, true)
+            ),
             ActionGroups.scoreSpecimen
         )
 
@@ -81,7 +88,10 @@ object SpecimenActions {
 
     val score4: Command
         get() = SequentialGroup(
-            FollowPath(SpecimenPaths.score4Path, true),
+            ParallelGroup(
+                ActionGroups.beforeScoreSpecimen,
+                FollowPath(SpecimenPaths.score4Path, true)
+            ),
             ActionGroups.scoreSpecimen
         )
 
@@ -95,7 +105,10 @@ object SpecimenActions {
 
     val score5: Command
         get() = SequentialGroup(
-            FollowPath(SpecimenPaths.score5Path, true),
+            ParallelGroup(
+                ActionGroups.beforeScoreSpecimen,
+                FollowPath(SpecimenPaths.score5Path, true)
+            ),
             ActionGroups.scoreSpecimen
         )
 

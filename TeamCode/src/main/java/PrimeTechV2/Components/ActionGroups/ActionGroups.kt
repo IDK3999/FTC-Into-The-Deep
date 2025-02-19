@@ -18,12 +18,14 @@ object ActionGroups {
             Claw.back
         )
 
+    val beforeScoreSpecimen: Command
+        get() = ParallelGroup(
+            Lift.toMid,
+            Pivot.toHigh
+        )
+
     val scoreSpecimen: Command
         get() = SequentialGroup(
-            ParallelGroup(
-                Lift.toMid,
-                Pivot.toHigh,
-            ),
             Lift.toHigh,
             Claw.open,
             Delay(0.1),
