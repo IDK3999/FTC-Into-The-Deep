@@ -14,9 +14,9 @@ object Pivot : Subsystem() {
 
     private val pivotMotorName = "motorPivot"
 
-    private val p = 0.0026
-    private val i = 0.015
-    private val d = 0.0005
+    private val p = 0.00285
+    private val i = 0.025
+    private val d = 0.00028
     private val tolerance = 60.0
     private val controller = FTCLibPIDControllerWrapper(PIDController(p, i, d), tolerance)
     // endregion Declare Components

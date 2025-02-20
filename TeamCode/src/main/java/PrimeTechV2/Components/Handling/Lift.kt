@@ -20,8 +20,8 @@ object Lift : Subsystem() {
     private val liftMotorRightName = "extensionRight"
 
     private val p = 0.01
-    private val i = 0.15
-    private val d = 0.00027
+    private val i = 0.0
+    private val d = 0.0
     private val tolerance = 50.0
     private val controller = FTCLibPIDControllerWrapper(PIDController(p, i, d), tolerance)
     // endregion Declare Components
