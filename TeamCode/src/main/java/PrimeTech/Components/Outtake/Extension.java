@@ -4,16 +4,21 @@ import static PrimeTech.Global.Global.hardwareMap;
 import static PrimeTech.Global.Global.telemetry;
 
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.arcrobotics.ftclib.util.InterpLUT;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+
 import PrimeTech.Components.Gamepad.Gamepad;
 
 public class Extension {
+
     public static final double MIN_TICKS = 0.0;
-    // TODO: Edit with correct values
+
     public static double MAX_TICKS = 700;
+    public static double FINAL_MAX_TICKS = 800;
+    public static double LIMITED_MAX_TICKS = 250;
     public static double p = 0.01, i = 0, d = 0;
     public static double f = 0.02;
     public static double target = 0;

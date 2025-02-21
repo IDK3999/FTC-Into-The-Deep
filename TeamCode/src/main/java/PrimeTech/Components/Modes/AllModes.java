@@ -12,7 +12,7 @@ public class AllModes {
     public static double intakeSpecimenExtension = 0;
     public static double intakeSpecimenPivot = 450;
 
-    public static double outtakeSpecimenExtension = 360;
+    public static double outtakeSpecimenExtension = 80;
     public static double outtakeSpecimenPivot = 1950;
 
     public static double outtakeSampleExtension = 900;
@@ -138,9 +138,11 @@ public class AllModes {
 
         Extension.target = outtakeSpecimenExtension;
         Extension.getInstance().change_liftState_to_INRANGE();
+        Extension.MAX_TICKS = Extension.LIMITED_MAX_TICKS;
 
-        Claw.getInstance().pivot(Claw.BACK_POS);
+        Claw.getInstance().pivot(Claw.OUTTAKE_SAMPLE_PIVOT_POS);
         Claw.getInstance().rotate(Claw.ROTATION_INIT);
+
     }
 
     public static void outtake_specimen() {
@@ -169,10 +171,12 @@ public class AllModes {
 
         Extension.target = intakeSampleExtension;
         Extension.getInstance().start();
+        Extension.MAX_TICKS = Extension.FINAL_MAX_TICKS;
 
         Claw.getInstance().change_to_CLOSE_POS();
         Claw.getInstance().change_to_rotation_ZERO();
         Claw.getInstance().pivot(Claw.MID_POS);
+
     }
 
     public static void intake_sample_parallel() {
