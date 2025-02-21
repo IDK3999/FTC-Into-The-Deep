@@ -66,6 +66,14 @@ public class Gamepad {
         return currentGamepad.right_bumper;
     }
 
+    public boolean right_bumper_pressed() {
+        return currentGamepad.right_bumper && !previousGamepad.right_bumper;
+    }
+
+    public boolean left_bumper_pressed() {
+        return currentGamepad.left_bumper && !previousGamepad.left_bumper;
+    }
+
     public boolean dpad_left() {
         return currentGamepad.dpad_left && !previousGamepad.dpad_left;
     }

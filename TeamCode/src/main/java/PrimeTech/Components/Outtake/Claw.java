@@ -109,6 +109,11 @@ public class Claw {
         openState = OpenState.OPEN;
     }
 
+    public void change_to_CLOSE_POS() {
+        openingServo.setPosition(CLOSED_POS);
+        openState = OpenState.CLOSED;
+    }
+
 
     enum Rotation {
         ZERO, NINETIES

@@ -5,6 +5,7 @@ import com.acmerobotics.dashboard.config.Config;
 import PrimeTech.Components.Outtake.Claw;
 import PrimeTech.Components.Outtake.Extension;
 import PrimeTech.Components.Outtake.Pivot;
+import PrimeTech.Components.Gamepad.Gamepad;
 
 @Config
 public class AllModes {
@@ -63,6 +64,25 @@ public class AllModes {
             case IDLE:
                 switch (mode) {
                     case INTAKE_SAMPLE:
+                        if(Gamepad.getInstance().left_bumper_pressed()){
+                            FSMModes.getInstance().changeIntakeSampleToParallel();
+
+                            Claw.getInstance().change_to_rotation_ZERO();
+                            Claw.getInstance().pivot(Claw.MID_POS);
+
+                            Extension.getInstance().run_to_target(0);
+                            Extension.target = 0;
+                        }
+                        if(Gamepad.getInstance().right_bumper_pressed()){
+                            FSMModes.getInstance().changeIntakeSampleToParallel();
+
+                            Claw.getInstance().change_to_rotation_ZERO();
+                            Claw.getInstance().pivot(Claw.MID_POS);
+
+                            Extension.getInstance().run_to_target(Extension.MAX_TICKS);
+                            Extension.target = Extension.MAX_TICKS;
+                        }
+
                         Pivot.target = intakeSamplePivot;
                         Claw.getInstance().intake_rotation();
 
@@ -132,8 +152,6 @@ public class AllModes {
     public static void intake_specimen_init() {
         setRetractCase_to_EXTENSION_RETRACT();
 
-
-
         Extension.target = intakeSpecimenExtension;
 
         Claw.getInstance().pivot(Claw.MID_POS);
@@ -152,12 +170,13 @@ public class AllModes {
         Extension.target = intakeSampleExtension;
         Extension.getInstance().start();
 
-        Claw.getInstance().change_to_OPEN_POS();
+        Claw.getInstance().change_to_CLOSE_POS();
         Claw.getInstance().change_to_rotation_ZERO();
         Claw.getInstance().pivot(Claw.MID_POS);
     }
 
     public static void intake_sample_parallel() {
+        Claw.getInstance().change_to_CLOSE_POS();
         Claw.getInstance().change_to_rotation_ZERO();
         Claw.getInstance().pivot(Claw.MID_POS);
     }

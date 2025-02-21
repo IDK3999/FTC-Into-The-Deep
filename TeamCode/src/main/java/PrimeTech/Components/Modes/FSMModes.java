@@ -1,6 +1,7 @@
 package PrimeTech.Components.Modes;
 
 import PrimeTech.Components.Gamepad.Gamepad;
+import PrimeTech.Components.Outtake.Claw;
 
 public class FSMModes {
     private static FSMModes instance = null;
@@ -68,6 +69,10 @@ public class FSMModes {
             AllModes.outtake_specimen_init();
         }
 
+    }
+
+    public void changeIntakeSampleToParallel() {
+        intakeSample = IntakeSample.PARALLEL;
     }
 
     enum Modes {
