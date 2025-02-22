@@ -20,7 +20,7 @@ object Claw : Subsystem() {
 
     // region Declare Values
     private val openPosition = 0.0
-    private val closedPosition = 1.0
+    private val closedPosition = 0.9
 
     private val frontPosition = 0.0
     private val grabSpecimenClawPivotPosition = 0.55
