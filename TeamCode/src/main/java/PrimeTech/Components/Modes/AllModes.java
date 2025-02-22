@@ -156,6 +156,7 @@ public class AllModes {
 
         Extension.target = intakeSpecimenExtension;
 
+        Claw.getInstance().change_to_OPEN_POS();
         Claw.getInstance().pivot(Claw.MID_POS);
         Claw.getInstance().rotate(Claw.ROTATION_INIT);
     }
