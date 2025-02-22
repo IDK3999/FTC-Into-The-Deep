@@ -38,7 +38,7 @@ public class Pivot {
         controller = new PIDController(p, i, d);
 
         motorPivot = hardwareMap.get(DcMotorEx.class, "motorPivot");
-        motorPivot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //motorPivot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorPivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorPivot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }

@@ -42,13 +42,13 @@ public class Extension {
 
         extension_left = hardwareMap.get(DcMotorEx.class, "extensionLeft");
         extension_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        extension_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //extension_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         extension_left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         extension_left.setDirection(DcMotorSimple.Direction.REVERSE);
 
         extension_right = hardwareMap.get(DcMotorEx.class, "extensionRight");
         extension_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        extension_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //extension_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         extension_right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
