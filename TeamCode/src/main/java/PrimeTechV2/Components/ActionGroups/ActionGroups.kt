@@ -38,7 +38,7 @@ object ActionGroups {
     val beforeLoadSpecimen: Command
         get() = ParallelGroup(
             Lift.toLow,
-            Pivot.toLow,
+            Pivot.toGrabSpecimenPivot,
             Claw.open,
             Claw.vertical,
             Claw.grabSpecimenClawPivot
