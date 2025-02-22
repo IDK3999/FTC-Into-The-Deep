@@ -20,7 +20,10 @@ object ActionGroups {
 
     val beforeScoreSpecimen: Command
         get() = ParallelGroup(
-            Lift.toMid,
+            SequentialGroup(
+                Delay(1.0),
+                Lift.toMid
+            ),
             Pivot.toHigh,
             Claw.back,
             Claw.vertical
@@ -30,7 +33,7 @@ object ActionGroups {
         get() = SequentialGroup(
             Lift.toHigh,
             Claw.open,
-            Delay(0.1),
+            Delay(0.5),
 //            Pivot.toBeforeClosingFromHigh,
 //            initializeHandling
         )
@@ -46,6 +49,7 @@ object ActionGroups {
 
     val loadSpecimen: Command
         get() = SequentialGroup(
+            Delay(0.2),
             Claw.close,
             Delay(0.2),
             Claw.back,

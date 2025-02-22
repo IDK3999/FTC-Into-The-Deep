@@ -17,15 +17,15 @@ object Pivot : Subsystem() {
     private val p = 0.00285
     private val i = 0.025
     private val d = 0.00028
-    private val tolerance = 60.0
+    private val tolerance = 100.0
     private val controller = FTCLibPIDControllerWrapper(PIDController(p, i, d), tolerance)
     // endregion Declare Components
 
     // region Declare Values
     private val lowPosition = 0.0
-    private val highPosition = 1950.0
+    private val highPosition = 2000.0
     private val beforeClosingFromHighPosition = 1800.0
-    private val grabSpecimenPivotPosition = 450.0
+    private val grabSpecimenPivotPosition = 350.0
     // endregion Declare Values
 
     // region Commands

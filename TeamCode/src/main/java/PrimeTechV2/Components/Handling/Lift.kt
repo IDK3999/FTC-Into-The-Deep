@@ -22,14 +22,14 @@ object Lift : Subsystem() {
     private val p = 0.01
     private val i = 0.0
     private val d = 0.0
-    private val tolerance = 50.0
+    private val tolerance = 30.0
     private val controller = FTCLibPIDControllerWrapper(PIDController(p, i, d), tolerance)
     // endregion Declare Components
 
     // region Declare Values
     private val lowPosition = 0.0
-    private val midPosition = 300.0
-    private val highPosition = 500.0
+    private val midPosition = 170.0
+    private val highPosition = 300.0
     private val grabPosition = 350.0
     private val scoreBasketPosition = 2000.0
     private val loadFromGroundPosition = 100.0
