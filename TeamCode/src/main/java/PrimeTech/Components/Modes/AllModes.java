@@ -12,7 +12,7 @@ public class AllModes {
     public static double intakeSpecimenExtension = 0;
     public static double intakeSpecimenPivot = 450;
 
-    public static double outtakeSpecimenExtension = 80;
+    public static double outtakeSpecimenExtension = 120;
     public static double outtakeSpecimenPivot = 1950;
 
     public static double outtakeSampleExtension = 900;
@@ -102,10 +102,18 @@ public class AllModes {
                         Extension.getInstance().run_to_target(extensionTarget);
                         break;
                     case OUTTAKE_SPECIMEN:
+                        if(Gamepad.getInstance().left_bumper_pressed()){
+                            Extension.target = outtakeSpecimenExtension;
+                        }
+                        if(Gamepad.getInstance().right_bumper_pressed()){
+                            Extension.target = Extension.MAX_TICKS;
+                        }
+
+
                         Pivot.target = outtakeSpecimenPivot;
 
                         Pivot.getInstance().run_to_target(pivotTarget);
-                        Extension.getInstance().loop();
+                        Extension.getInstance().run_to_target(Extension.target);
                         break;
                 }
                 break;
