@@ -21,7 +21,7 @@ object ActionGroups {
     val beforeScoreSpecimen: Command
         get() = ParallelGroup(
             SequentialGroup(
-                Delay(1.0),
+                Delay(1.5),
                 Lift.toMid
             ),
             Pivot.toHigh,
