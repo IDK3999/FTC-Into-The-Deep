@@ -12,7 +12,7 @@ public class AllModes {
     public static double intakeSpecimenExtension = 0;
     public static double intakeSpecimenPivot = 450;
 
-    public static double outtakeSpecimenExtension = 120;
+    public static double outtakeSpecimenExtension = 100;
     public static double outtakeSpecimenPivot = 1950;
 
     public static double outtakeSampleExtension = 900;
@@ -39,14 +39,14 @@ public class AllModes {
         switch (retractCase) {
             case EXTENSION_RETRACT:
                 Pivot.getInstance().run_to_target(Pivot.target);
-                if (Extension.extension_right.getCurrentPosition() > 40) {
+                if (Extension.extension_right.getCurrentPosition() > 10) {
                     Extension.getInstance().run_to_target(0);
                 } else {
                     retractCase = RetractCase.PIVOT;
                 }
                 break;
             case PIVOT:
-                Extension.getInstance().run_to_target(5);
+                Extension.getInstance().run_to_target(0);
                 if (Pivot.motorPivot.getCurrentPosition() > pivotTarget + 100 || Pivot.motorPivot.getCurrentPosition() < pivotTarget - 100) {
                     Pivot.getInstance().run_to_target(pivotTarget);
                 } else {
