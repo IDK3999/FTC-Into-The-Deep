@@ -17,8 +17,11 @@ object Pivot : Subsystem() {
     private val p = 0.00285
     private val i = 0.025
     private val d = 0.00028
-    private val tolerance = 100.0
-    private val controller = FTCLibPIDControllerWrapper(PIDController(p, i, d), tolerance)
+    private val highTolerance = 100.0
+    private val lowTolerance = 50.0
+    private val controllerHighTol =
+        FTCLibPIDControllerWrapper(PIDController(p, i, d), highTolerance)
+    private val controllerLowTol = FTCLibPIDControllerWrapper(PIDController(p, i, d), lowTolerance)
     // endregion Declare Components
 
     // region Declare Values
@@ -30,13 +33,13 @@ object Pivot : Subsystem() {
 
     // region Commands
     override val defaultCommand
-        get() = HoldPosition(pivotMotor, controller, this)
+        get() = HoldPosition(pivotMotor, controllerLowTol, this)
 
     val toLow: Command
         get() = RunToPosition(
             pivotMotor,
             lowPosition,
-            controller,
+            controllerHighTol,
             this
         )
 
@@ -44,7 +47,7 @@ object Pivot : Subsystem() {
         get() = RunToPosition(
             pivotMotor,
             highPosition,
-            controller,
+            controllerLowTol,
             this
         )
 
@@ -52,7 +55,7 @@ object Pivot : Subsystem() {
         get() = RunToPosition(
             pivotMotor,
             beforeClosingFromHighPosition,
-            controller,
+            controllerLowTol,
             this
         )
 
@@ -60,7 +63,7 @@ object Pivot : Subsystem() {
         get() = RunToPosition(
             pivotMotor,
             grabSpecimenPivotPosition,
-            controller,
+            controllerHighTol,
             this
         )
     // endregion Commands
