@@ -12,7 +12,10 @@ object SpecimenActions {
     val scorePreload: Command
         get() = SequentialGroup(
             ParallelGroup(
-                ActionGroups.beforeScoreSpecimen,
+                SequentialGroup(
+                    Delay(1.0),
+                    ActionGroups.beforeScoreSpecimen
+                ),
                 FollowPath(SpecimenPaths.scorePreloadPath, true)
             ),
             ActionGroups.scoreSpecimen
