@@ -113,7 +113,8 @@ public class AllModes {
                         Pivot.target = outtakeSpecimenPivot;
 
                         Pivot.getInstance().run_to_target(pivotTarget);
-                        Extension.getInstance().run_to_target(Extension.target);
+                        Extension.getInstance().loop();
+                        //Extension.getInstance().run_to_target(Extension.target);
                         break;
                 }
                 break;
