@@ -58,7 +58,6 @@ object SpecimenActions {
                 ActionGroups.beforeLoadSpecimen,
                 FollowPath(SpecimenPaths.load2Path, true)
             ),
-            Delay(0.3),
             ActionGroups.loadSpecimen
         )
 
@@ -77,7 +76,6 @@ object SpecimenActions {
                 ActionGroups.beforeLoadSpecimen,
                 FollowPath(SpecimenPaths.load3Path, true)
             ),
-            Delay(0.3),
             ActionGroups.loadSpecimen
         )
 
@@ -96,7 +94,6 @@ object SpecimenActions {
                 ActionGroups.beforeLoadSpecimen,
                 FollowPath(SpecimenPaths.load4Path, true)
             ),
-            Delay(0.3),
             ActionGroups.loadSpecimen
         )
 
@@ -115,7 +112,6 @@ object SpecimenActions {
                 ActionGroups.beforeLoadSpecimen,
                 FollowPath(SpecimenPaths.load5Path, true)
             ),
-            Delay(0.3),
             ActionGroups.loadSpecimen
         )
 

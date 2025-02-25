@@ -50,11 +50,10 @@ object ActionGroups {
 
     val loadSpecimen: Command
         get() = SequentialGroup(
-            Delay(0.2),
             Claw.close,
             Delay(0.2),
             Claw.back,
-            Delay(0.1)
+            Delay(0.3)
         )
 
     val beforeScoreBasket: Command
