@@ -36,6 +36,7 @@ class SpecimenAuto : PedroOpMode(Claw, Lift, Pivot) {
     }
 
     override fun onStartButtonPressed() {
+        // TODO: Try to move this to init
         SpecimenPaths.buildObsZonePushbotPaths()
 
         CommandManager.scheduleCommand(
