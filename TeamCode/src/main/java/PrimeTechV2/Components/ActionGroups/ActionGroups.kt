@@ -5,6 +5,7 @@ import PrimeTechV2.Components.Handling.Lift
 import PrimeTechV2.Components.Handling.Pivot
 import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.core.command.groups.ParallelGroup
+import com.rowanmcalpin.nextftc.core.command.groups.ParallelRaceGroup
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
 import com.rowanmcalpin.nextftc.core.command.utility.delays.Delay
 
@@ -38,7 +39,10 @@ object ActionGroups {
     val beforeLoadSpecimen: Command
         get() = ParallelGroup(
             Lift.toLow,
-            Pivot.toGrabSpecimenPivot,
+            ParallelRaceGroup(
+                Pivot.toGrabSpecimenPivot,
+                Delay(2.0)
+            ),
             Claw.open,
             Claw.vertical,
             Claw.grabSpecimenClawPivot
