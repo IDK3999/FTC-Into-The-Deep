@@ -31,9 +31,7 @@ object ActionGroups {
         get() = SequentialGroup(
             Lift.toHigh,
             Claw.open,
-            Delay(0.5),
-//            Pivot.toBeforeClosingFromHigh,
-//            initializeHandling
+            Delay(0.15)
         )
 
     val beforeLoadSpecimen: Command
@@ -41,7 +39,7 @@ object ActionGroups {
             Lift.toLow,
             ParallelRaceGroup(
                 Pivot.toGrabSpecimenPivot,
-                Delay(2.0)
+                Delay(1.5)
             ),
             Claw.open,
             Claw.vertical,
@@ -51,9 +49,9 @@ object ActionGroups {
     val loadSpecimen: Command
         get() = SequentialGroup(
             Claw.close,
-            Delay(0.2),
+            Delay(0.15),
             Claw.back,
-            Delay(0.3)
+            Delay(0.15)
         )
 
     val beforeScoreBasket: Command
@@ -68,11 +66,11 @@ object ActionGroups {
         get() = SequentialGroup(
             beforeScoreBasket,
             Claw.back,
-            Delay(0.5),
+            Delay(0.15),
             Claw.open,
-            Delay(0.1),
+            Delay(0.15),
             Claw.back,
-            Delay(0.1),
+            Delay(0.15),
             initializeHandling
         )
 
@@ -87,10 +85,8 @@ object ActionGroups {
         get() = SequentialGroup(
             beforeLoadFromGround,
             Lift.toLoadFromGround,
-            Delay(0.2),
             Claw.close,
-            Delay(0.2),
-            Claw.back,
+            Delay(0.15),
             initializeHandling
         )
 }
