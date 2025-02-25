@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import PrimeTech.Components.Gamepad.Gamepad;
 
 public class Pivot {
-    // TODO: Edit with correct values
     public static final double MAX_TICKS = 2100;
     public static final double MIN_TICKS = 0.0;
     public static final double ticks_in_degrees = (double) 8192 / 360;
