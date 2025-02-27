@@ -48,5 +48,6 @@ public class FConstants {
         FollowerConstants.pathEndHeadingConstraint = 0.007;
 
         FollowerConstants.nominalVoltage = 13.6;
+        FollowerConstants.useVoltageCompensationInAuto = true;
     }
 }
