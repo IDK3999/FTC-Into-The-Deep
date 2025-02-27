@@ -54,10 +54,8 @@ object SpecimenActions {
 
     val load2: Command
         get() = SequentialGroup(
-//            ParallelGroup(
-//                ActionGroups.beforeLoadSpecimen,
-                FollowPath(SpecimenPaths.load2Path, true),
-//            ),
+            FollowPath(SpecimenPaths.load2Path, true),
+            Delay(0.5),
             ActionGroups.loadSpecimen
         )
 
