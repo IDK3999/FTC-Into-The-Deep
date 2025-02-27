@@ -14,7 +14,7 @@ import com.rowanmcalpin.nextftc.pedro.PedroOpMode
 import pedroPathing.constants.FConstants
 import pedroPathing.constants.LConstants
 
-@Autonomous(name = "Steroid Specimen")
+@Autonomous(name = "Specimen")
 class SpecimenAuto : PedroOpMode(Claw, Lift, Pivot) {
     val fConstants: FConstants = FConstants()
     val lConstants: LConstants = LConstants()
