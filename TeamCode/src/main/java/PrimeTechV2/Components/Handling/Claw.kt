@@ -19,16 +19,16 @@ object Claw : Subsystem() {
     // endregion Declare Components
 
     // region Declare Values
-    private val openPosition = 0.0
-    private val closedPosition = 0.9
+    private val openPosition = 0.9
+    private val closedPosition = 0.1
 
     private val frontPosition = 0.0
     private val grabSpecimenClawPivotPosition = 0.55
     private val midPosition = 0.5
     private val backPosition = 0.8
 
-    private val rotationVertical = 0.0
-    private val rotationHorizontal = 1.0
+    private val rotationVertical = 0.5
+    private val rotationHorizontal = 0.16
     // endregion Declare Values
 
     // region Commands
@@ -92,6 +92,7 @@ object Claw : Subsystem() {
     override fun initialize() {
         openingServo = OpModeData.hardwareMap.get(Servo::class.java, openingServoName)
         rotationServo = OpModeData.hardwareMap.get(Servo::class.java, rotationServoName)
+        rotationServo.direction = Servo.Direction.REVERSE
         frontBackServo = OpModeData.hardwareMap.get(Servo::class.java, frontBackServoName)
     }
 }
