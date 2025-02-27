@@ -12,7 +12,7 @@ public class Claw {
     public static final double CLOSED_POS = 0.1;
     public static final double FRONT_POS = 0;
     public static final double MID_POS = 0.5;
-    public static final double OUTTAKE_SAMPLE_PIVOT_POS = 0.7;
+    public static final double OUTTAKE_SAMPLE_PIVOT_POS = 0.8;
     public static final double BACK_POS = 1;
     public static final double ROTATION_INIT = 0.5;
     public static final double ROTATION_PERPENDICULAR = 0.16;
