@@ -92,7 +92,6 @@ object Claw : Subsystem() {
     override fun initialize() {
         openingServo = OpModeData.hardwareMap.get(Servo::class.java, openingServoName)
         rotationServo = OpModeData.hardwareMap.get(Servo::class.java, rotationServoName)
-        rotationServo.direction = Servo.Direction.REVERSE
         frontBackServo = OpModeData.hardwareMap.get(Servo::class.java, frontBackServoName)
     }
 }

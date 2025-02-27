@@ -40,8 +40,6 @@ public class Claw {
         frontBackServo_left = hardwareMap.get(Servo.class, "frontBackServoLeft");
 
         frontBackServo_right = hardwareMap.get(Servo.class, "frontBackServoRight");
-
-        rotationServo.setDirection(Servo.Direction.REVERSE);
     }
 
     public void start() {
