@@ -12,7 +12,7 @@ object SpecimenPaths {
     // region Poses
     private var startX = 8.4
     private var scoreX = 40.0
-    private var giveX = 15.5
+    private var giveX = 17.5
     private var scoreYStep = 1.5
     private var firstScoreY = 67.0
     private val secondScoreY = firstScoreY + scoreYStep
