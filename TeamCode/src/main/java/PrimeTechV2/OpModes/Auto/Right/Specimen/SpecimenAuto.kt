@@ -41,7 +41,7 @@ class SpecimenAuto : PedroOpMode(Claw, Lift, Pivot) {
 
         CommandManager.scheduleCommand(
             SequentialGroup(
-                ActionGroups.initializeHandling,
+                ActionGroups.initializeClaw,
                 SpecimenActions.scorePreload,
                 SpecimenActions.get1,
                 SpecimenActions.give1,

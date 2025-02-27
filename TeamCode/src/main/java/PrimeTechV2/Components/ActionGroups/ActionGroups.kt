@@ -19,6 +19,13 @@ object ActionGroups {
             Claw.back
         )
 
+    val initializeClaw: Command
+        get() = ParallelGroup(
+            Claw.close,
+            Claw.vertical,
+            Claw.back
+        )
+
     val beforeScoreSpecimen: Command
         get() = ParallelGroup(
             Lift.toMid,
