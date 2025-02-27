@@ -17,8 +17,8 @@ object Pivot : Subsystem() {
     private val p = 0.00285
     private val i = 0.025
     private val d = 0.00028
-    private val highTolerance = 120.0
-    private val lowTolerance = 50.0
+    private val highTolerance = 100.0
+    private val lowTolerance = 40.0
     private val controllerHighTol =
         FTCLibPIDControllerWrapper(PIDController(p, i, d), highTolerance)
     private val controllerLowTol = FTCLibPIDControllerWrapper(PIDController(p, i, d), lowTolerance)
@@ -28,7 +28,7 @@ object Pivot : Subsystem() {
     private val lowPosition = 0.0
     private val highPosition = 2000.0
     private val beforeClosingFromHighPosition = 1800.0
-    private val grabSpecimenPivotPosition = 350.0
+    private val grabSpecimenPivotPosition = 200.0
     // endregion Declare Values
 
     // region Commands
