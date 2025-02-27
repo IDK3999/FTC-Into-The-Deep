@@ -28,8 +28,8 @@ object Lift : Subsystem() {
 
     // region Declare Values
     private val lowPosition = 0.0
-    private val midPosition = 220.0
-    private val highPosition = 310.0
+    private val midPosition = 70.0
+    private val highPosition = 300.0
     private val grabPosition = 350.0
     private val scoreBasketPosition = 2000.0
     private val loadFromGroundPosition = 100.0
