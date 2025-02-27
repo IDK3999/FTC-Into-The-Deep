@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 //@Disabled
 @TeleOp(name = "Pivot & Extension PID Tuner", group = "Tuners")
@@ -23,13 +24,19 @@ public class PivotAndExtensionPIDTuner extends OpMode {
     public static double extension_p = 0, extension_i = 0, extension_d = 0;
     public static double extension_f = 0;
     public static double increment_extension = 50;
-    public static double target_extension = 0;
+    public static double extension_target = 0;
     public DcMotorEx motorPivot = null;
     public DcMotorEx extension_left = null;
     public DcMotorEx extension_right = null;
     public double ticks_in_degrees = (double) 8192 / 360;
     private PIDController controller_pivot;
     private PIDController controller_extension;
+
+    public static final double FRONT_BACK_INIT = 0.5;
+
+    public static double frontBackServoRight_pos = FRONT_BACK_INIT;
+    Servo frontBackServo_left = null;
+    Servo frontBackServo_right = null;
 
     @Override
     public void init() {
@@ -38,7 +45,7 @@ public class PivotAndExtensionPIDTuner extends OpMode {
         controller_pivot = new PIDController(pivot_p, pivot_i, pivot_d);
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         motorPivot = hardwareMap.get(DcMotorEx.class, "motorPivot");
-        motorPivot.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        //motorPivot.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         motorPivot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         controller_extension = new PIDController(extension_p, extension_i, extension_d);
@@ -46,14 +53,22 @@ public class PivotAndExtensionPIDTuner extends OpMode {
 
         extension_left = hardwareMap.get(DcMotorEx.class, "extensionLeft");
         extension_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        extension_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       // extension_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         extension_left.setDirection(DcMotorSimple.Direction.REVERSE);
         extension_left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         extension_right = hardwareMap.get(DcMotorEx.class, "extensionRight");
         extension_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        extension_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       // extension_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         extension_right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        frontBackServo_left = hardwareMap.get(Servo.class, "frontBackServoLeft");
+        frontBackServo_left.setDirection(Servo.Direction.REVERSE);
+        frontBackServo_left.setPosition(FRONT_BACK_INIT);
+
+
+        frontBackServo_right = hardwareMap.get(Servo.class, "frontBackServoRight");
+        frontBackServo_right.setPosition(FRONT_BACK_INIT);
     }
 
     @Override
@@ -87,7 +102,7 @@ public class PivotAndExtensionPIDTuner extends OpMode {
 
         controller_extension.setPID(extension_p, extension_i, extension_d);
         int lift_pos = extension_right.getCurrentPosition();
-        double pid_extension = controller_extension.calculate(lift_pos, target_extension);
+        double pid_extension = controller_extension.calculate(lift_pos, extension_target);
         double ff_extension = Math.sin(Math.toRadians(motorPivot.getCurrentPosition() / ticks_in_degrees)) * lift_pos / 2600 * extension_f;
         double power_extension = pid_extension + ff_extension;
 
@@ -99,7 +114,7 @@ public class PivotAndExtensionPIDTuner extends OpMode {
         telemetry.addData("pivot_pos: ", pivot_pos);
         telemetry.addData("pivot_target: ", target_pivot);
         telemetry.addData("lift_pos: ", lift_pos);
-        telemetry.addData("lift_target: ", target_extension);
+        telemetry.addData("lift_target: ", extension_target);
         telemetry.update();
 
 

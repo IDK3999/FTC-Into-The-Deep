@@ -16,8 +16,8 @@ public class Extension {
 
     public static final double MIN_TICKS = 0.0;
 
-    public static double MAX_TICKS = 700;
-    public static double FINAL_MAX_TICKS = 800;
+    public static double MAX_TICKS = 500;
+    public static double FINAL_MAX_TICKS = 500;
     public static double LIMITED_MAX_TICKS = 300;
     public static double p = 0.01, i = 0, d = 0;
     public static double f = 0.02;
@@ -96,7 +96,7 @@ public class Extension {
         controller.setPID(p, i, d);
         int lift_pos = extension_right.getCurrentPosition();
         double pid = controller.calculate(lift_pos, target);
-        double ff = Math.sin(Math.toRadians(Pivot.pivot_angle())) * lift_pos / 2600 * f;
+        double ff = Math.sin(Math.toRadians(Pivot.pivot_angle())) * f;
         double power = pid + ff;
 
         extension_right.setPower(power);
