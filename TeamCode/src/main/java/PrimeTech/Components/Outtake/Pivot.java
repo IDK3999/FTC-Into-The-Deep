@@ -1,6 +1,7 @@
 package PrimeTech.Components.Outtake;
 
 import static PrimeTech.Global.Global.hardwareMap;
+import static PrimeTech.Global.Global.telemetry;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -97,9 +98,9 @@ public class Pivot {
         motorPivot.setPower(power);
 
         // Telemetry
-        //telemetry.addData("pivot_pos: ", pivot_pos);
-        //telemetry.addData("pivot_target: ", target);
-        //telemetry.update();
+        telemetry.addData("pivot_pos: ", pivot_pos);
+        telemetry.addData("pivot_target: ", target);
+        telemetry.update();
     }
 
 

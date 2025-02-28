@@ -10,6 +10,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+
 import PrimeTech.Components.Gamepad.Gamepad;
 
 public class Extension {
@@ -102,9 +104,12 @@ public class Extension {
         extension_right.setPower(power);
         extension_left.setPower(power);
 
-        // Telemetry
-        //telemetry.addData("lift_pos: ", lift_pos);
-        //telemetry.addData("lift_target: ", target);
+        double voltage =extension_right.getCurrent(CurrentUnit.MILLIAMPS);
+
+         //Telemetry
+        telemetry.addData("voltage: ", voltage);
+        telemetry.addData("lift_pos: ", lift_pos);
+        telemetry.addData("lift_target: ", target);
         telemetry.update();
     }
 
