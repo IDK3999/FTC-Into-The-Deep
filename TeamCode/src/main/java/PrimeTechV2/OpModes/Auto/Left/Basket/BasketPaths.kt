@@ -1,6 +1,7 @@
 package PrimeTechV2.OpModes.Auto.Left.Basket
 
 import com.pedropathing.localization.Pose
+import com.pedropathing.pathgen.BezierCurve
 import com.pedropathing.pathgen.BezierLine
 import com.pedropathing.pathgen.PathChain
 import com.pedropathing.pathgen.Point
@@ -9,9 +10,9 @@ import com.rowanmcalpin.nextftc.pedro.PedroData.follower
 
 object BasketPaths {
     // region Poses
-    private var scoreX = 7.4
-    private var scoreY = 122.0
-    private var scoreHeading = Math.toRadians(-90.0)
+    private var scoreX = 14.0
+    private var scoreY = 130.0
+    private var scoreHeading = Math.toRadians(-45.0)
     private var loadFromGroundX = 35.0
     private var loadFromGroundYStep = -10.5
     private var load1FromGroundY = 120.75
@@ -19,6 +20,7 @@ object BasketPaths {
 
     val start = Pose(7.5, 88.5, Math.toRadians(-90.0))
     private val score = Pose(scoreX, scoreY)
+    private val scorePreloadControl = Pose(27.5, 90.3)
     private val load1FromGround = Pose(loadFromGroundX, load1FromGroundY)
     private val load2FromGround = Pose(loadFromGroundX, load2FromGroundY)
     private val load3FromGround = Pose(45.5, 131.0, Math.toRadians(90.0))
@@ -40,8 +42,8 @@ object BasketPaths {
         }
 
         scorePreloadPath = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(start), Point(score)))
-            .setConstantHeadingInterpolation(start.heading)
+            .addPath(BezierCurve(Point(start), Point(scorePreloadControl), Point(score)))
+            .setLinearHeadingInterpolation(start.heading, scoreHeading)
             .build()
 
         load1FromGroundPath = follower!!.pathBuilder()
