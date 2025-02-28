@@ -10,17 +10,14 @@ import com.rowanmcalpin.nextftc.pedro.PedroData.follower
 
 object BasketPaths {
     // region Poses
-    private var scoreX = 14.0
-    private var scoreY = 130.0
-    private var scoreHeading = Math.toRadians(-45.0)
     private var loadFromGroundX = 35.0
     private var loadFromGroundYStep = -10.5
     private var load1FromGroundY = 120.75
     private val load2FromGroundY = load1FromGroundY + loadFromGroundYStep
 
     val start = Pose(7.5, 88.5, Math.toRadians(-90.0))
-    private val score = Pose(scoreX, scoreY)
-    private val scorePreloadControl = Pose(27.5, 90.3)
+    private val score = Pose(15.0, 129.0, Math.toRadians(-45.0))
+    private val scorePreloadControl = Pose(25.0, 94.0)
     private val load1FromGround = Pose(loadFromGroundX, load1FromGroundY)
     private val load2FromGround = Pose(loadFromGroundX, load2FromGroundY)
     private val load3FromGround = Pose(45.5, 131.0, Math.toRadians(90.0))
@@ -43,37 +40,37 @@ object BasketPaths {
 
         scorePreloadPath = follower!!.pathBuilder()
             .addPath(BezierCurve(Point(start), Point(scorePreloadControl), Point(score)))
-            .setLinearHeadingInterpolation(start.heading, scoreHeading)
+            .setLinearHeadingInterpolation(start.heading, score.heading)
             .build()
 
         load1FromGroundPath = follower!!.pathBuilder()
             .addPath(BezierLine(Point(start), Point(load1FromGround)))
-            .setLinearHeadingInterpolation(scoreHeading, load1FromGround.heading)
+            .setLinearHeadingInterpolation(score.heading, load1FromGround.heading)
             .build()
 
         score1Path = follower!!.pathBuilder()
             .addPath(BezierLine(Point(load1FromGround), Point(score)))
-            .setLinearHeadingInterpolation(load1FromGround.heading, scoreHeading)
+            .setLinearHeadingInterpolation(load1FromGround.heading, score.heading)
             .build()
 
         load2FromGroundPath = follower!!.pathBuilder()
             .addPath(BezierLine(Point(score), Point(load2FromGround)))
-            .setLinearHeadingInterpolation(scoreHeading, load2FromGround.heading)
+            .setLinearHeadingInterpolation(score.heading, load2FromGround.heading)
             .build()
 
         score2Path = follower!!.pathBuilder()
             .addPath(BezierLine(Point(load2FromGround), Point(score)))
-            .setLinearHeadingInterpolation(load2FromGround.heading, scoreHeading)
+            .setLinearHeadingInterpolation(load2FromGround.heading, score.heading)
             .build()
 
         load3FromGroundPath = follower!!.pathBuilder()
             .addPath(BezierLine(Point(score), Point(load3FromGround)))
-            .setLinearHeadingInterpolation(scoreHeading, load3FromGround.heading)
+            .setLinearHeadingInterpolation(score.heading, load3FromGround.heading)
             .build()
 
         score3Path = follower!!.pathBuilder()
             .addPath(BezierLine(Point(load3FromGround), Point(score)))
-            .setLinearHeadingInterpolation(load3FromGround.heading, scoreHeading)
+            .setLinearHeadingInterpolation(load3FromGround.heading, score.heading)
             .build()
     }
 }
