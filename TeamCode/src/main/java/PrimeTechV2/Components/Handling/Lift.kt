@@ -3,10 +3,13 @@ package PrimeTechV2.Components.Handling
 import com.arcrobotics.ftclib.controller.PIDController
 import com.rowanmcalpin.nextftc.core.Subsystem
 import com.rowanmcalpin.nextftc.core.command.Command
+import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
+import com.rowanmcalpin.nextftc.core.command.utility.delays.WaitUntil
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.HoldPosition
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorEx
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorGroup
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.RunToPosition
+import com.rowanmcalpin.nextftc.ftc.hardware.controllables.SetPower
 import primeNext.core.control.controllers.FTCLibPIDControllerWrapper
 
 object Lift : Subsystem() {
@@ -60,6 +63,23 @@ object Lift : Subsystem() {
             highPosition,
             controller,
             this
+        )
+
+    val forceToHigh: Command
+        get() = SequentialGroup(
+            SetPower(
+                motors,
+                0.1,
+                this
+            ),
+            WaitUntil(
+                { motors.velocity <= 40; }
+            ),
+            SetPower(
+                motors,
+                0.0,
+                this
+            )
         )
 
     val toScoreBasket: Command
