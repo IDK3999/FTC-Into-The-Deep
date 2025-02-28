@@ -13,7 +13,7 @@ object SpecimenActions {
         get() = SequentialGroup(
             ParallelGroup(
                 SequentialGroup(
-                    Delay(0.5),
+                    Delay(0.3),
                     ActionGroups.beforeScoreSpecimen
                 ),
                 FollowPath(SpecimenPaths.scorePreloadPath, true)
