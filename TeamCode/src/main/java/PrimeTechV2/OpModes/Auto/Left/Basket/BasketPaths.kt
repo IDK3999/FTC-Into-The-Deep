@@ -16,7 +16,7 @@ object BasketPaths {
     private val load2FromGroundY = load1FromGroundY + loadFromGroundYStep
 
     val start = Pose(7.5, 88.5, Math.toRadians(-90.0))
-    private val score = Pose(15.0, 129.0, Math.toRadians(-45.0))
+    private val score = Pose(14.0, 128.0, Math.toRadians(-45.0))
     private val scorePreloadControl = Pose(25.0, 94.0)
     private val load1FromGround = Pose(loadFromGroundX, load1FromGroundY)
     private val load2FromGround = Pose(loadFromGroundX, load2FromGroundY)
