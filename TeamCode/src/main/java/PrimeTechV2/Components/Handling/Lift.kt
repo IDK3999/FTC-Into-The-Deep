@@ -65,23 +65,6 @@ object Lift : Subsystem() {
             this
         )
 
-    val forceToHigh: Command
-        get() = SequentialGroup(
-            SetPower(
-                motors,
-                0.1,
-                this
-            ),
-            WaitUntil(
-                { motors.velocity <= 40; }
-            ),
-            SetPower(
-                motors,
-                0.0,
-                this
-            )
-        )
-
     val toScoreBasket: Command
         get() = RunToPosition(
             motors,
