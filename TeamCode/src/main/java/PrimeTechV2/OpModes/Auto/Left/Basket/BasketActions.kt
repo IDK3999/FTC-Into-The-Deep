@@ -14,6 +14,7 @@ object BasketActions {
 
     val load1FromGround: Command
         get() = SequentialGroup(
+            ActionGroups.beforeLoadFromGround,
             FollowPath(BasketPaths.load1FromGroundPath, true),
             ActionGroups.loadFromGround
         )
