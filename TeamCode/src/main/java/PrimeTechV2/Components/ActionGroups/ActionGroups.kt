@@ -14,6 +14,7 @@ object ActionGroups {
         get() = ParallelGroup(
             SequentialGroup(
                 Lift.toLow,
+                Delay(1.0),
                 Pivot.toLow,
             ),
             Claw.close,
