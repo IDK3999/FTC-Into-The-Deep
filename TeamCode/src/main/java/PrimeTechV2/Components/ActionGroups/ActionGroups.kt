@@ -82,6 +82,7 @@ object ActionGroups {
             Claw.back,
             Delay(0.15),
             Claw.mid,
+            Delay(0.15),
             initializeHandling
         )
 
@@ -95,7 +96,6 @@ object ActionGroups {
     val loadFromGround: Command
         get() = SequentialGroup(
             beforeLoadFromGround,
-            Lift.toLoadFromGround,
             Claw.close,
             Delay(0.15),
             initializeHandling
