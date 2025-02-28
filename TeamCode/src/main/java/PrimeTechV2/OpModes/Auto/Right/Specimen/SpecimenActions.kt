@@ -2,6 +2,7 @@ package PrimeTechV2.OpModes.Auto.Right.Specimen
 
 import PrimeTechV2.Components.ActionGroups.ActionGroups
 import PrimeTechV2.Components.ActionGroups.ActionGroups.initializeHandling
+import PrimeTechV2.Components.Handling.Claw
 import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.core.command.groups.ParallelGroup
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
@@ -23,7 +24,9 @@ object SpecimenActions {
 
     val get1: Command
         get() = ParallelGroup(
-            ActionGroups.beforeLoadSpecimen,
+            SequentialGroup(
+                initializeHandling,
+                Claw.front),
             FollowPath(SpecimenPaths.get1Path, true)
         )
 
@@ -54,7 +57,10 @@ object SpecimenActions {
 
     val load2: Command
         get() = SequentialGroup(
-            FollowPath(SpecimenPaths.load2Path, true),
+            ParallelGroup(
+                ActionGroups.beforeLoadSpecimen,
+                FollowPath(SpecimenPaths.load2Path, true),
+            ),
             ActionGroups.loadSpecimen
         )
 
