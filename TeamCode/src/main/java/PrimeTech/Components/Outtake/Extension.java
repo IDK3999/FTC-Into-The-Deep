@@ -94,6 +94,8 @@ public class Extension {
         return target;
     }
 
+    boolean currentSpike = false;
+
     public void run_to_target(double target) {
         controller.setPID(p, i, d);
         int lift_pos = extension_right.getCurrentPosition();
@@ -103,11 +105,10 @@ public class Extension {
 
         extension_right.setPower(power);
         extension_left.setPower(power);
-
-        double voltage =extension_right.getCurrent(CurrentUnit.MILLIAMPS);
-
+        extension_right.setCurrentAlert(4.5, CurrentUnit.AMPS);
+        if(extension_right.isOverCurrent()) currentSpike = true;
          //Telemetry
-        telemetry.addData("voltage: ", voltage);
+        telemetry.addData("is current spike: ", currentSpike);
         telemetry.addData("lift_pos: ", lift_pos);
         telemetry.addData("lift_target: ", target);
         telemetry.update();
