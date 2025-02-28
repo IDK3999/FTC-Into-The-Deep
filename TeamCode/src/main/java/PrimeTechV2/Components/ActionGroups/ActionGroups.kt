@@ -75,11 +75,11 @@ object ActionGroups {
     val scoreBasket: Command
         get() = SequentialGroup(
             beforeScoreBasket,
-            Claw.back,
+            Claw.basketBack,
             Delay(0.15),
             Claw.open,
             Delay(0.15),
-            Claw.back,
+            Claw.basketBack,
             Delay(0.15),
             Claw.mid,
             Delay(0.15),

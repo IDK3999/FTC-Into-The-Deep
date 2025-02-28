@@ -26,6 +26,7 @@ object Claw : Subsystem() {
     private val grabSpecimenClawPivotPosition = 0.55
     private val midPosition = 0.5
     private val backPosition = 0.7
+    private val basketBackPosition = 0.9
 
     private val rotationVertical = 0.5
     private val rotationHorizontal = 0.16
@@ -78,6 +79,13 @@ object Claw : Subsystem() {
         get() = ServoToPosition(
             frontBackServo,
             backPosition,
+            this
+        )
+
+    val basketBack: Command
+        get() = ServoToPosition(
+            frontBackServo,
+            basketBackPosition,
             this
         )
 
