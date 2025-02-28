@@ -22,7 +22,7 @@ object Pivot : Subsystem() {
     private val i = 0.01
     private val d = 0.0002
     private val highTolerance = 100.0
-    private val lowTolerance = 15.0
+    private val lowTolerance = 25.0
     private val controllerHighTol =
         FTCLibPIDControllerWrapper(PIDController(p, i, d), highTolerance)
     private val controllerLowTol = FTCLibPIDControllerWrapper(PIDController(p, i, d), lowTolerance)
