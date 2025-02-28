@@ -12,6 +12,7 @@ object SpecimenPaths {
     // region Poses
     private var startX = 8.4
     private var scoreX = 39.5
+    private var scoreX2 = 40.5
     private var giveX = 17.5
     private var scoreYStep = 2.0
     private var firstScoreY = 66.0
@@ -33,13 +34,14 @@ object SpecimenPaths {
     private val get3 = Pose(52.0, 7.5)
     private val get3Control1 = Pose(72.0, 16.0)
     private val give3 = Pose(giveX, 7.5)
-    private val load = Pose(16.0, 24.0)
+    private val load = Pose(15.5, 24.0)
     private val loadControl1 = Pose(30.0, 7.5)
     private val loadControl2 = Pose(30.0, 35.0)
-    private val score2 = Pose(scoreX, secondScoreY)
-    private val score3 = Pose(scoreX, thirdScoreY)
-    private val score4 = Pose(scoreX, fourthScoreY)
-    private val score5 = Pose(scoreX, fifthScoreY)
+    private val loadControl = Pose(25.0, 30.0)
+    private val score2 = Pose(scoreX2, secondScoreY)
+    private val score3 = Pose(scoreX2, thirdScoreY)
+    private val score4 = Pose(scoreX2, fourthScoreY)
+    private val score5 = Pose(scoreX2, fifthScoreY)
     private val park = Pose(14.0, 34.0)
     // endregion Poses
 
@@ -110,7 +112,14 @@ object SpecimenPaths {
             .build()
 
         load2Path = follower!!.pathBuilder()
-            .addPath(BezierCurve(Point(give3), Point(loadControl1), Point(loadControl2), Point(load)))
+            .addPath(
+                BezierCurve(
+                    Point(give3),
+                    Point(loadControl1),
+                    Point(loadControl2),
+                    Point(load)
+                )
+            )
             .setConstantHeadingInterpolation(heading)
             .build()
 
@@ -120,7 +129,8 @@ object SpecimenPaths {
             .build()
 
         load3Path = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(score2), Point(load)))
+//            .addPath(BezierLine(Point(score2), Point(load)))
+            .addPath(BezierCurve(Point(score2), Point(loadControl), Point(load)))
             .setConstantHeadingInterpolation(heading)
             .build()
 
@@ -130,7 +140,8 @@ object SpecimenPaths {
             .build()
 
         load4Path = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(score3), Point(load)))
+//            .addPath(BezierLine(Point(score3), Point(load)))
+            .addPath(BezierCurve(Point(score3), Point(loadControl), Point(load)))
             .setConstantHeadingInterpolation(heading)
             .build()
 
@@ -140,7 +151,8 @@ object SpecimenPaths {
             .build()
 
         load5Path = follower!!.pathBuilder()
-            .addPath(BezierLine(Point(score4), Point(load)))
+//            .addPath(BezierLine(Point(score4), Point(load)))
+            .addPath(BezierCurve(Point(score4), Point(loadControl), Point(load)))
             .setConstantHeadingInterpolation(heading)
             .build()
 
