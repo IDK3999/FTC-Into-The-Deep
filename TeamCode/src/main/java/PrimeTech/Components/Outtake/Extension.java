@@ -19,7 +19,7 @@ public class Extension {
     public static double MAX_TICKS = 500;
     public static double FINAL_MAX_TICKS = 500;
     public static double LIMITED_MAX_TICKS = 300;
-    public static double p = 0.01, i = 0, d = 0;
+    public static double p = 0.012, i = 0.12, d = 0.000287;
     public static double f = 0.02;
     public static double target = 0;
     static public DcMotorEx extension_right = null;
