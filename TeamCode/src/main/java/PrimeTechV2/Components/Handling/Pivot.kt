@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.controller.PIDController
 import com.rowanmcalpin.nextftc.core.Subsystem
 import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
+import com.rowanmcalpin.nextftc.core.command.utility.delays.Delay
 import com.rowanmcalpin.nextftc.core.command.utility.delays.WaitUntil
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.HoldPosition
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorEx
@@ -17,9 +18,9 @@ object Pivot : Subsystem() {
 
     private val pivotMotorName = "motorPivot"
 
-    private val p = 0.00285
-    private val i = 0.025
-    private val d = 0.00028
+    private val p = 0.003
+    private val i = 0.01
+    private val d = 0.0002
     private val highTolerance = 100.0
     private val lowTolerance = 15.0
     private val controllerHighTol =
@@ -58,11 +59,12 @@ object Pivot : Subsystem() {
         get() = SequentialGroup(
             SetPower(
                 pivotMotor,
-                0.4,
+                1.0,
                 this
             ),
+            Delay(0.5),
             WaitUntil(
-                { pivotMotor.velocity <= 10; }
+                { pivotMotor.velocity <= 30; }
             ),
             SetPower(
                 pivotMotor,
