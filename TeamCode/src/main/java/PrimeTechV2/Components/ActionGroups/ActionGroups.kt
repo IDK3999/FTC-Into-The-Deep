@@ -65,8 +65,10 @@ object ActionGroups {
         get() = ParallelGroup(
             Claw.mid,
             Claw.vertical,
-            Pivot.toHigh,
-            Lift.toScoreBasket
+            SequentialGroup(
+                Pivot.toHigh,
+                Lift.toScoreBasket
+            )
         )
 
     val scoreBasket: Command

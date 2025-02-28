@@ -9,16 +9,16 @@ import com.rowanmcalpin.nextftc.pedro.PedroData.follower
 
 object BasketPaths {
     // region Poses
-    private var scoreX = 16.0
-    private var scoreY = 128.0
-    private var scoreHeading = Math.toRadians(-45.0)
+    private var scoreX = 7.4
+    private var scoreY = 122.0
+    private var scoreHeading = Math.toRadians(-90.0)
     private var loadFromGroundX = 35.0
     private var loadFromGroundYStep = -10.5
     private var load1FromGroundY = 120.75
     private val load2FromGroundY = load1FromGroundY + loadFromGroundYStep
 
-    val start = Pose(7.5, 88.6)
-    private val score = Pose(scoreX, scoreY, scoreHeading)
+    val start = Pose(7.5, 88.5, Math.toRadians(-90.0))
+    private val score = Pose(scoreX, scoreY)
     private val load1FromGround = Pose(loadFromGroundX, load1FromGroundY)
     private val load2FromGround = Pose(loadFromGroundX, load2FromGroundY)
     private val load3FromGround = Pose(45.5, 131.0, Math.toRadians(90.0))
@@ -41,7 +41,7 @@ object BasketPaths {
 
         scorePreloadPath = follower!!.pathBuilder()
             .addPath(BezierLine(Point(start), Point(score)))
-            .setLinearHeadingInterpolation(start.heading, scoreHeading)
+            .setConstantHeadingInterpolation(start.heading)
             .build()
 
         load1FromGroundPath = follower!!.pathBuilder()

@@ -33,7 +33,7 @@ object Lift : Subsystem() {
     private val lowPosition = 0.0
     private val midPosition = 60.0
     private val highPosition = 360.0
-    private val scoreBasketPosition = 2000.0
+    private val scoreBasketPosition = 900.0
     private val loadFromGroundPosition = 100.0
     // endregion Declare Values
 
