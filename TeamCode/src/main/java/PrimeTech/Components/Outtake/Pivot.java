@@ -91,7 +91,7 @@ public class Pivot {
         controller.setPID(p, i, d);
         int pivot_pos = motorPivot.getCurrentPosition();
         double pid = controller.calculate(pivot_pos, target);
-        double ff = Math.cos(Math.toRadians(pivot_pos / ticks_in_degrees)) * f * (1 + Extension.extension_right.getCurrentPosition() * 0.027 / 28);
+        double ff = Math.cos(Math.toRadians(pivot_pos / ticks_in_degrees)) * f * (1 + Extension.extension_right.getCurrentPosition() * 0.002);
         double power = pid + ff;
 
         motorPivot.setPower(power);
