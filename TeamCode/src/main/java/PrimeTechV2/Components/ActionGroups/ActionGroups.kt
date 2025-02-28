@@ -39,6 +39,7 @@ object ActionGroups {
 
     val scoreSpecimen: Command
         get() = SequentialGroup(
+            beforeScoreSpecimen,
             Lift.toHigh,
             Claw.open,
             Delay(0.15)
