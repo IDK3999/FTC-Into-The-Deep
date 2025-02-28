@@ -3,13 +3,10 @@ package PrimeTechV2.Components.Handling
 import com.arcrobotics.ftclib.controller.PIDController
 import com.rowanmcalpin.nextftc.core.Subsystem
 import com.rowanmcalpin.nextftc.core.command.Command
-import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
-import com.rowanmcalpin.nextftc.core.command.utility.delays.WaitUntil
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.HoldPosition
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorEx
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorGroup
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.RunToPosition
-import com.rowanmcalpin.nextftc.ftc.hardware.controllables.SetPower
 import primeNext.core.control.controllers.FTCLibPIDControllerWrapper
 
 object Lift : Subsystem() {
@@ -17,7 +14,7 @@ object Lift : Subsystem() {
     private lateinit var liftMotorLeft: MotorEx
     private lateinit var liftMotorRight: MotorEx
 
-    private lateinit var motors: MotorGroup
+    private lateinit var liftMotors: MotorGroup
 
     private val liftMotorLeftName = "extensionLeft"
     private val liftMotorRightName = "extensionRight"
@@ -25,7 +22,7 @@ object Lift : Subsystem() {
     private val p = 0.012
     private val i = 0.12
     private val d = 0.000287
-    private val tolerance = 25.0
+    private val tolerance = 20.0
     private val controller = FTCLibPIDControllerWrapper(PIDController(p, i, d), tolerance)
     // endregion Declare Components
 
@@ -39,11 +36,11 @@ object Lift : Subsystem() {
 
     // region Commands
     override val defaultCommand
-        get() = HoldPosition(motors, controller, this)
+        get() = HoldPosition(liftMotors, controller, this)
 
     val toLow: Command
         get() = RunToPosition(
-            motors,
+            liftMotors,
             lowPosition,
             controller,
             this
@@ -51,7 +48,7 @@ object Lift : Subsystem() {
 
     val toMid: Command
         get() = RunToPosition(
-            motors,
+            liftMotors,
             midPosition,
             controller,
             this
@@ -59,7 +56,7 @@ object Lift : Subsystem() {
 
     val toHigh: Command
         get() = RunToPosition(
-            motors,
+            liftMotors,
             highPosition,
             controller,
             this
@@ -67,7 +64,7 @@ object Lift : Subsystem() {
 
     val toScoreBasket: Command
         get() = RunToPosition(
-            motors,
+            liftMotors,
             scoreBasketPosition,
             controller,
             this
@@ -75,7 +72,7 @@ object Lift : Subsystem() {
 
     val toLoadFromGround: Command
         get() = RunToPosition(
-            motors,
+            liftMotors,
             loadFromGroundPosition,
             controller,
             this
@@ -86,6 +83,6 @@ object Lift : Subsystem() {
         liftMotorLeft = MotorEx(liftMotorLeftName).reverse()
         liftMotorRight = MotorEx(liftMotorRightName)
 
-        motors = MotorGroup(liftMotorRight, liftMotorLeft)
+        liftMotors = MotorGroup(liftMotorRight, liftMotorLeft)
     }
 }
