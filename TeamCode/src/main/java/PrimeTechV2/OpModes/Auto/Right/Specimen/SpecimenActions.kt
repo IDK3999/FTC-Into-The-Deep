@@ -26,7 +26,8 @@ object SpecimenActions {
         get() = ParallelGroup(
             SequentialGroup(
                 initializeHandling,
-                Claw.front),
+                Claw.front
+            ),
             FollowPath(SpecimenPaths.get1Path, true)
         )
 
