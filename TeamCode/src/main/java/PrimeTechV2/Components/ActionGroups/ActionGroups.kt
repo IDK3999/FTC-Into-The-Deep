@@ -12,8 +12,10 @@ import com.rowanmcalpin.nextftc.core.command.utility.delays.Delay
 object ActionGroups {
     val initializeHandling: Command
         get() = ParallelGroup(
-            Lift.toLow,
-            Pivot.toLow,
+            SequentialGroup(
+                Lift.toLow,
+                Pivot.toLow,
+            ),
             Claw.close,
             Claw.vertical,
             Claw.back
