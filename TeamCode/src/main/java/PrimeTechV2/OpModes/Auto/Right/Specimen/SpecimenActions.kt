@@ -19,14 +19,20 @@ object SpecimenActions {
                 ),
                 FollowPath(SpecimenPaths.scorePreloadPath, true)
             ),
-            ActionGroups.scoreSpecimen
+            ParallelGroup(
+                ActionGroups.scoreSpecimen,
+                SequentialGroup(
+                    Delay(0.5),
+                    Claw.open
+                )
+            )
         )
 
     val get1: Command
         get() = ParallelGroup(
             SequentialGroup(
                 initializeHandling,
-                Claw.front
+                Claw.back
             ),
             FollowPath(SpecimenPaths.get1Path, true)
         )
@@ -68,10 +74,16 @@ object SpecimenActions {
     val score2: Command
         get() = SequentialGroup(
             ParallelGroup(
-                ActionGroups.beforeScoreSpecimen,
+                ActionGroups.beforeScoreSpecimen2,
                 FollowPath(SpecimenPaths.score2Path, true)
             ),
-            ActionGroups.scoreSpecimen
+            ParallelGroup(
+                ActionGroups.scoreSpecimen,
+                SequentialGroup(
+                    Delay(0.5),
+                    Claw.open
+                )
+            )
         )
 
     val load3: Command
@@ -86,10 +98,16 @@ object SpecimenActions {
     val score3: Command
         get() = SequentialGroup(
             ParallelGroup(
-                ActionGroups.beforeScoreSpecimen,
+                ActionGroups.beforeScoreSpecimen2,
                 FollowPath(SpecimenPaths.score3Path, true)
             ),
-            ActionGroups.scoreSpecimen
+            ParallelGroup(
+                ActionGroups.scoreSpecimen,
+                SequentialGroup(
+                    Delay(0.5),
+                    Claw.open
+                )
+            )
         )
 
     val load4: Command
@@ -104,7 +122,7 @@ object SpecimenActions {
     val score4: Command
         get() = SequentialGroup(
             ParallelGroup(
-                ActionGroups.beforeScoreSpecimen,
+                ActionGroups.beforeScoreSpecimen2,
                 FollowPath(SpecimenPaths.score4Path, true)
             ),
             ActionGroups.scoreSpecimen
@@ -122,10 +140,16 @@ object SpecimenActions {
     val score5: Command
         get() = SequentialGroup(
             ParallelGroup(
-                ActionGroups.beforeScoreSpecimen,
+                ActionGroups.beforeScoreSpecimen2,
                 FollowPath(SpecimenPaths.score5Path, true)
             ),
-            ActionGroups.scoreSpecimen
+            ParallelGroup(
+                ActionGroups.scoreSpecimen,
+                SequentialGroup(
+                    Delay(0.5),
+                    Claw.open
+                )
+            )
         )
 
     val park: Command

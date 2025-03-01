@@ -23,9 +23,9 @@ object Claw : Subsystem() {
     private val closedPosition = 0.1
 
     private val frontPosition = 0.0
-    private val grabSpecimenClawPivotPosition = 0.55
+    private val grabSpecimenClawPivotPosition = 0.6
     private val midPosition = 0.5
-    private val backPosition = 0.7
+    private val backPosition = 0.6
     private val basketBackPosition = 0.9
 
     private val rotationVertical = 0.5

@@ -3,6 +3,7 @@ package PrimeTech.OpModes.Utils.Tuners;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -10,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import PrimeTech.Components.Limelight.Limelight;
 import PrimeTech.Global.Global;
 
-//@Disabled
+@Disabled
 @Config
 @TeleOp(name = "test servo", group = "InitializeForAssembly")
 public class TestServo extends OpMode {

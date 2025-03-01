@@ -22,16 +22,17 @@ object Lift : Subsystem() {
     private val p = 0.012
     private val i = 0.12
     private val d = 0.000287
-    private val tolerance = 20.0
+    private val tolerance = 35.0
     private val controller = FTCLibPIDControllerWrapper(PIDController(p, i, d), tolerance)
     // endregion Declare Components
 
     // region Declare Values
     private val lowPosition = 0.0
-    private val midPosition = 60.0
-    private val highPosition = 360.0
+    private val midPosition = 270.0
+    private val highPosition = 310.0
     private val scoreBasketPosition = 900.0
     private val loadFromGroundPosition = 100.0
+    private val loadFromWallPosition = 100.0
     // endregion Declare Values
 
     // region Commands
@@ -50,6 +51,14 @@ object Lift : Subsystem() {
         get() = RunToPosition(
             liftMotors,
             midPosition,
+            controller,
+            this
+        )
+
+    val toMid2: Command
+        get() = RunToPosition(
+            liftMotors,
+            midPosition - 200,
             controller,
             this
         )
@@ -74,6 +83,14 @@ object Lift : Subsystem() {
         get() = RunToPosition(
             liftMotors,
             loadFromGroundPosition,
+            controller,
+            this
+        )
+
+    val toLoadFromWall: Command
+        get() = RunToPosition(
+            liftMotors,
+            loadFromWallPosition,
             controller,
             this
         )
