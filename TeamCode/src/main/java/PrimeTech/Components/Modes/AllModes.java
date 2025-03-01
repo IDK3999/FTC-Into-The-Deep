@@ -70,7 +70,7 @@ public class AllModes {
                             Claw.getInstance().change_to_rotation_ZERO();
                             Claw.getInstance().pivot(Claw.MID_POS);
 
-                            Extension.getInstance().run_to_target(0);
+                            //Extension.getInstance().run_to_target(0);
                             Extension.target = 0;
                         }
                         if(Gamepad.getInstance().right_bumper_pressed()){
@@ -79,7 +79,7 @@ public class AllModes {
                             Claw.getInstance().change_to_rotation_ZERO();
                             Claw.getInstance().pivot(Claw.MID_POS);
 
-                            Extension.getInstance().run_to_target(Extension.MAX_TICKS);
+                            //Extension.getInstance().run_to_target(Extension.MAX_TICKS);
                             Extension.target = Extension.MAX_TICKS;
                         }
 
@@ -123,6 +123,7 @@ public class AllModes {
 
     public static void general() {
         Extension.getInstance().loop();
+        Claw.getInstance().openState_method();
         Pivot.getInstance().loop();
     }
 
