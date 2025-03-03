@@ -1,4 +1,4 @@
-package primeNext.ftc.hardware
+package PrimeTechV2.primeNext.ftc.hardware
 
 import com.qualcomm.robotcore.hardware.AnalogInput
 import com.qualcomm.robotcore.hardware.Servo

@@ -1,11 +1,12 @@
-package primeNext.core.commands.groups
+package PrimeTechV2.primeNext.core.commands.groups
 
 import com.rowanmcalpin.nextftc.core.Subsystem
 import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.core.command.CommandManager
 import com.rowanmcalpin.nextftc.core.command.groups.CommandGroup
 
-class DeadlineGroup(private val deadline: Command, vararg otherCommands: Command): CommandGroup(deadline, *otherCommands) {
+class DeadlineGroup(private val deadline: Command, vararg otherCommands: Command) :
+    CommandGroup(deadline, *otherCommands) {
     override var interruptible = true
 
     /**

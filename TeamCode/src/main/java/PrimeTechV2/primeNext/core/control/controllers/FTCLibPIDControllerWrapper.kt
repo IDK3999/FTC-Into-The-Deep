@@ -1,4 +1,4 @@
-package primeNext.core.control.controllers
+package PrimeTechV2.primeNext.core.control.controllers
 
 import com.arcrobotics.ftclib.controller.PIDController
 import com.rowanmcalpin.nextftc.core.control.controllers.Controller
