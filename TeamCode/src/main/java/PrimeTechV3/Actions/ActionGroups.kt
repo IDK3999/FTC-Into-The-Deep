@@ -74,6 +74,9 @@ object Actions {
     }
 
     fun update() {
+        Lift.update()
+        Pivot.update()
+
         when (action) {
             PossibleActions.IDLE -> {
                 // Do nothing
