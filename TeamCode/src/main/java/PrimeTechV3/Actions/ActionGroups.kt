@@ -86,6 +86,7 @@ object Actions {
                     ActionPhase.STARTING -> {
                         Claw.setClawPivot(Claw.ClawPivotState.SCORE_SPECIMEN)
                         Claw.setClawVertical(true)
+                        Claw.setClawOpen(false)
                         state = ActionPhase.POSITIONING_CLAW
                     }
                     ActionPhase.POSITIONING_CLAW -> {
@@ -116,6 +117,7 @@ object Actions {
                     ActionPhase.STARTING -> {
                         Claw.setClawPivot(Claw.ClawPivotState.SCORE_SAMPLE)
                         Claw.setClawVertical(true)
+                        Claw.setClawOpen(false)
                         state = ActionPhase.POSITIONING_CLAW
                     }
                     ActionPhase.POSITIONING_CLAW -> {
@@ -144,6 +146,7 @@ object Actions {
                     ActionPhase.STARTING -> {
                         Claw.setClawPivot(Claw.ClawPivotState.GRAB_SPECIMEN)
                         Claw.setClawVertical(false)
+                        Claw.setClawOpen(true)
                         state = ActionPhase.POSITIONING_CLAW
                     }
                     ActionPhase.POSITIONING_CLAW -> {
@@ -172,6 +175,7 @@ object Actions {
                     ActionPhase.STARTING -> {
                         Claw.setClawPivot(Claw.ClawPivotState.GRAB_SAMPLE)
                         Claw.setClawVertical(false)
+                        Claw.setClawOpen(true)
                         state = ActionPhase.POSITIONING_CLAW
                     }
                     ActionPhase.POSITIONING_CLAW -> {
@@ -198,7 +202,7 @@ object Actions {
             PossibleActions.RESET_ALL -> {
                 when (state) {
                     ActionPhase.STARTING -> {
-                        Claw.closeClaw()
+                        Claw.reset()
                         state = ActionPhase.POSITIONING_CLAW
                     }
                     ActionPhase.POSITIONING_CLAW -> {
