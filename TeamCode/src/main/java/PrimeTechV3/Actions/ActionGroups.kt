@@ -84,8 +84,15 @@ object Actions {
             PossibleActions.SCORE_SPECIMEN -> {
                 when (state) {
                     ActionPhase.STARTING -> {
-                        Pivot.setPivotPosition(Pivot.PivotPosition.SCORE_SPECIMEN)
-                        state = ActionPhase.MOVING_PIVOT
+                        Claw.setClawPivot(Claw.ClawPivotState.SCORE_SPECIMEN)
+                        Claw.setClawVertical(true)
+                        state = ActionPhase.POSITIONING_CLAW
+                    }
+                    ActionPhase.POSITIONING_CLAW -> {
+                        if (Claw.isDone()) {
+                            Pivot.setPivotPosition(Pivot.PivotPosition.SCORE_SPECIMEN)
+                            state = ActionPhase.MOVING_PIVOT
+                        }
                     }
                     ActionPhase.MOVING_PIVOT -> {
                         if (Pivot.isDone()) {
@@ -95,13 +102,6 @@ object Actions {
                     }
                     ActionPhase.MOVING_LIFT -> {
                         if (Lift.isDone()) {
-                            Claw.setClawPivot(Claw.ClawPivotState.SCORE_SPECIMEN)
-                            Claw.setClawVertical(true)
-                            state = ActionPhase.POSITIONING_CLAW
-                        }
-                    }
-                    ActionPhase.POSITIONING_CLAW -> {
-                        if (Claw.isDone()) {
                             state = ActionPhase.FINISHED
                         }
                     }
@@ -114,8 +114,15 @@ object Actions {
             PossibleActions.SCORE_SAMPLE -> {
                 when (state) {
                     ActionPhase.STARTING -> {
-                        Pivot.setPivotPosition(Pivot.PivotPosition.SCORE_SAMPLE)
-                        state = ActionPhase.MOVING_PIVOT
+                        Claw.setClawPivot(Claw.ClawPivotState.SCORE_SAMPLE)
+                        Claw.setClawVertical(true)
+                        state = ActionPhase.POSITIONING_CLAW
+                    }
+                    ActionPhase.POSITIONING_CLAW -> {
+                        if (Claw.isDone()) {
+                            Pivot.setPivotPosition(Pivot.PivotPosition.SCORE_SAMPLE)
+                            state = ActionPhase.MOVING_PIVOT
+                        }
                     }
                     ActionPhase.MOVING_PIVOT -> {
                         if (Pivot.isDone()) {
@@ -125,13 +132,6 @@ object Actions {
                     }
                     ActionPhase.MOVING_LIFT -> {
                         if (Lift.isDone()) {
-                            Claw.setClawPivot(Claw.ClawPivotState.SCORE_SAMPLE)
-                            Claw.setClawVertical(true)
-                            state = ActionPhase.POSITIONING_CLAW
-                        }
-                    }
-                    ActionPhase.POSITIONING_CLAW -> {
-                        if (Claw.isDone()) {
                             state = ActionPhase.FINISHED
                         }
                     }
@@ -142,8 +142,15 @@ object Actions {
             PossibleActions.GRAB_SPECIMEN -> {
                 when (state) {
                     ActionPhase.STARTING -> {
-                        Pivot.setPivotPosition(Pivot.PivotPosition.GRAB_SPECIMEN)
-                        state = ActionPhase.MOVING_PIVOT
+                        Claw.setClawPivot(Claw.ClawPivotState.GRAB_SPECIMEN)
+                        Claw.setClawVertical(false)
+                        state = ActionPhase.POSITIONING_CLAW
+                    }
+                    ActionPhase.POSITIONING_CLAW -> {
+                        if (Claw.isDone()) {
+                            Pivot.setPivotPosition(Pivot.PivotPosition.GRAB_SPECIMEN)
+                            state = ActionPhase.MOVING_PIVOT
+                        }
                     }
                     ActionPhase.MOVING_PIVOT -> {
                         if (Pivot.isDone()) {
@@ -153,13 +160,6 @@ object Actions {
                     }
                     ActionPhase.MOVING_LIFT -> {
                         if (Lift.isDone()) {
-                            Claw.setClawPivot(Claw.ClawPivotState.GRAB_SPECIMEN)
-                            Claw.setClawVertical(false)
-                            state = ActionPhase.POSITIONING_CLAW
-                        }
-                    }
-                    ActionPhase.POSITIONING_CLAW -> {
-                        if (Claw.isDone()) {
                             state = ActionPhase.FINISHED
                         }
                     }
@@ -170,8 +170,15 @@ object Actions {
             PossibleActions.GRAB_SAMPLE -> {
                 when (state) {
                     ActionPhase.STARTING -> {
-                        Pivot.setPivotPosition(Pivot.PivotPosition.LOW)
-                        state = ActionPhase.MOVING_PIVOT
+                        Claw.setClawPivot(Claw.ClawPivotState.GRAB_SAMPLE)
+                        Claw.setClawVertical(false)
+                        state = ActionPhase.POSITIONING_CLAW
+                    }
+                    ActionPhase.POSITIONING_CLAW -> {
+                        if (Claw.isDone()) {
+                            Pivot.setPivotPosition(Pivot.PivotPosition.LOW)
+                            state = ActionPhase.MOVING_PIVOT
+                        }
                     }
                     ActionPhase.MOVING_PIVOT -> {
                         if (Pivot.isDone()) {
@@ -181,13 +188,6 @@ object Actions {
                     }
                     ActionPhase.MOVING_LIFT -> {
                         if (Lift.isDone()) {
-                            Claw.setClawPivot(Claw.ClawPivotState.GRAB_SAMPLE)
-                            Claw.setClawVertical(false)
-                            state = ActionPhase.POSITIONING_CLAW
-                        }
-                    }
-                    ActionPhase.POSITIONING_CLAW -> {
-                        if (Claw.isDone()) {
                             state = ActionPhase.FINISHED
                         }
                     }
