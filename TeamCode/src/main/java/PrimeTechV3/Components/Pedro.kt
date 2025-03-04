@@ -31,6 +31,10 @@ object Pedro {
     }
 
     fun reset() {
+        stopFollowing()
+    }
+
+    fun stopFollowing() {
         follower.breakFollowing()
         state = PedroState.IDLE
     }
