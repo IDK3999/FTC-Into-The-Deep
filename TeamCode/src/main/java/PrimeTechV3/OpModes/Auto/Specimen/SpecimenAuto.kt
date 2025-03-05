@@ -1,6 +1,12 @@
 package PrimeTechV3.OpModes.Auto.Specimen
 
 import PrimeTechV3.Actions.Actions
+import PrimeTechV3.Components.Delay
+import PrimeTechV3.Components.Pedro
+import com.pedropathing.localization.Pose
+import com.pedropathing.pathgen.BezierLine
+import com.pedropathing.pathgen.PathChain
+import com.pedropathing.pathgen.Point
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 
@@ -10,18 +16,33 @@ class SpecimenAuto : OpMode() {
         INIT,
         SCORE_SPECIMEN,
         WAIT_FOR_SCORE_COMPLETE,
+        DELAY1,
         RESET_MECHANISMS,
         WAIT_FOR_RESET_COMPLETE,
+        FOLLOW_PATH,
         COMPLETE
     }
 
     private var currentState = AutoState.INIT
 
     private lateinit var actions: Actions
+    private lateinit var pedro: Pedro
+
+    private var pathStarted = false
+
+    private lateinit var scorePreloadPath: PathChain
 
     override fun init() {
         actions = Actions
         actions.init(hardwareMap)
+
+        pedro = Pedro
+        pedro.init(hardwareMap, Pose(0.0, 0.0, Math.toRadians(0.0)))
+
+        scorePreloadPath = pedro.follower.pathBuilder()
+            .addPath(BezierLine(Point(Pose(0.0, 0.0)), Point(Pose(1.0, 0.0))))
+            .setConstantHeadingInterpolation(Math.toRadians(0.0))
+            .build()
 
         telemetry.addData("Status", "Initialized! Press play to start")
         telemetry.update()
@@ -37,6 +58,7 @@ class SpecimenAuto : OpMode() {
 
     override fun loop() {
         actions.update()
+        pedro.update()
 
         telemetry.addData("Current State", currentState)
 
@@ -56,6 +78,15 @@ class SpecimenAuto : OpMode() {
 
                 if (actions.isDone()) {
                     telemetry.addData("Status", "Scoring complete!")
+                    Delay.start(1)
+                    currentState = AutoState.DELAY1
+                }
+            }
+
+            AutoState.DELAY1 -> {
+                telemetry.addData("Action", "Delaying")
+
+                if (Delay.isDone()) {
                     currentState = AutoState.RESET_MECHANISMS
                 }
             }
@@ -73,6 +104,22 @@ class SpecimenAuto : OpMode() {
 
                 if (actions.isDone()) {
                     telemetry.addData("Status", "Reset complete!")
+                    currentState = AutoState.FOLLOW_PATH
+                }
+            }
+
+            AutoState.FOLLOW_PATH -> {
+                telemetry.addData("Action", "Following path")
+
+                // Track if we need to start the path with a boolean variable
+                if (!pathStarted) {
+                    pedro.reset()
+                    pedro.followPath(scorePreloadPath)
+                    pathStarted = true
+                }
+                // Check if path is complete
+                else if (pedro.isDone()) {
+                    telemetry.addData("Status", "Path following complete!")
                     currentState = AutoState.COMPLETE
                 }
             }
