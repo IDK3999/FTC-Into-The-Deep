@@ -32,7 +32,7 @@ public class Gamepad {
 
     public boolean square() {
         return (currentGamepad.square && !previousGamepad.square);
-    } //activate ll
+    }
 
     public boolean circle() {
         return (currentGamepad.circle && !previousGamepad.circle);
@@ -44,7 +44,7 @@ public class Gamepad {
 
     public boolean dpad_up() {
         return currentGamepad.dpad_up && !previousGamepad.dpad_up;
-    } //start hang
+    }
 
     public boolean dpad_down() {
         return currentGamepad.dpad_down && !previousGamepad.dpad_down;

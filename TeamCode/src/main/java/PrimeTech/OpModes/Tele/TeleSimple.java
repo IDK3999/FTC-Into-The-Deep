@@ -27,7 +27,6 @@ public class TeleSimple extends OpMode {
         Drivetrain.getInstance().init();
         Gamepad.getInstance().init();
         Outtake.getInstance().init();
-        //  Hang.getInstance().init();
     }
 
     @Override
@@ -38,14 +37,11 @@ public class TeleSimple extends OpMode {
 
     @Override
     public void loop() {
-
         Drivetrain.getInstance().loop();
         Gamepad.getInstance().loop();
         Outtake.getInstance().loop();
         for (LynxModule hub : hardwareMap.getAll(LynxModule.class)) {
             hub.clearBulkCache();
         }
-        // Hang.getInstance().loop();
-        // Limelight.getInstance().loop();
     }
 }

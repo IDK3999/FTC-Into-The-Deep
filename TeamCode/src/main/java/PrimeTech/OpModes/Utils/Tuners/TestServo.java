@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import PrimeTech.Components.Limelight.Limelight;
 import PrimeTech.Global.Global;
 
 @Disabled
@@ -31,14 +30,10 @@ public class TestServo extends OpMode {
 
     @Override
     public void init() {
-        // Global.gamepad1 = gamepad1;
-        //Gamepad.getInstance().init();
         Global.hardwareMap = hardwareMap;
         Global.telemetry = telemetry;
-        //Limelight.getInstance().init_blue();
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         openingServo = hardwareMap.get(Servo.class, "openingServo");
-        //openingServo.setDirection(Servo.Direction.REVERSE);
         openingServo.setPosition(CLOSED_POS);
 
         rotationServo = hardwareMap.get(Servo.class, "rotationServo");
@@ -56,52 +51,15 @@ public class TestServo extends OpMode {
 
     @Override
     public void loop() {
-        //Limelight.getInstance().loop();
-        //Gamepad.getInstance().loop();
-
-
         openingServo.setPosition(openingServo_pos);
         frontBackServo_left.setPosition(frontBackServoRight_pos);
         frontBackServo_right.setPosition(frontBackServoRight_pos);
         rotationServo.setPosition(rotationServo_pos);
-        //rotationServo.setPosition(0.5);
-        // double angle = Limelight.getInstance().getAngle()/360;
-
-        //rotationServo.setPosition(angle);
-
-        //double pieceAngle=0;
-        //rotationServo.setPosition(rotationServo.getPosition()-0.25+ (double) Limelight.getInstance().getAngle() /360);
-
-        //telemetry.addData("Piece angle", angle);
-        //telemetry.addData("Servo angle",rotationServo.getPosition());
-        //telemetry.addData("Press",press);
-        //if(Limelight.getInstance().foundPiece()){
-
-            /*
-        if(pieceAngle<0.21){
-            rotationServo.setPosition(rotationServo.getPosition()-0.001);
-        }
-        else if(pieceAngle>0.29){
-            rotationServo.setPosition(rotationServo.getPosition()+0.001);
-        }
-        }
-        else{
-            rotationServo.setPosition(0.25);
-        */
-        // }
-        // frontBackServo_right.setPosition(1);
-        //frontBackServo_left.setPosition(1);
-        //sleep();
-
 
         telemetry.addData("openingServo_pos: ", openingServo_pos);
         telemetry.addData("rotationServo_pos: ", rotationServo_pos);
         telemetry.addData("frontBackServoRight_pos: ", frontBackServoRight_pos);
         telemetry.update();
 
-    }
-
-    void move_to_ll_angle() {
-        rotationServo.setPosition(Limelight.getInstance().getAngle() / 360);
     }
 }
