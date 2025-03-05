@@ -35,7 +35,7 @@ object Pivot {
 
         pivotMotor = hardwareMap.get(DcMotorEx::class.java, "motorPivot")
 
-        pivotMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+        pivotMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
 
         pivotMotor.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
 
@@ -69,18 +69,14 @@ object Pivot {
     }
 
     fun update() {
-        if (state == PivotState.MOVING) {
-            val currentPosition = pivotMotor.currentPosition.toDouble()
-            val power = controller.calculate(currentPosition)
-            val clampedPower = power.coerceIn(-1.0, 1.0)
+        val currentPosition = pivotMotor.currentPosition.toDouble()
+        val power = controller.calculate(currentPosition)
+        val clampedPower = power.coerceIn(-1.0, 1.0)
 
-            pivotMotor.power = clampedPower
+        pivotMotor.power = clampedPower
 
-            if (controller.atSetPoint()) {
-                pivotMotor.power = 0.0
-                state = PivotState.IDLE
-            }
-        }
+        if (state == PivotState.MOVING && controller.atSetPoint())
+            state = PivotState.IDLE
     }
 
     fun isAtTarget(): Boolean {
