@@ -64,31 +64,8 @@ public class AllModes {
             case IDLE:
                 switch (mode) {
                     case INTAKE_SAMPLE:
-                        if(Gamepad.getInstance().left_bumper_pressed()){
-                            FSMModes.getInstance().changeIntakeSampleToParallel();
-
-                            Claw.getInstance().change_to_rotation_ZERO();
-                            Claw.getInstance().pivot(Claw.MID_POS);
-
-                            //Extension.getInstance().run_to_target(0);
-                            Extension.target = 0;
-                        }
-                        if(Gamepad.getInstance().right_bumper_pressed()){
-                            FSMModes.getInstance().changeIntakeSampleToParallel();
-
-                            Claw.getInstance().change_to_rotation_ZERO();
-                            Claw.getInstance().pivot(Claw.MID_POS);
-
-                            //Extension.getInstance().run_to_target(Extension.MAX_TICKS);
-                            Extension.target = Extension.MAX_TICKS;
-                        }
-
-                        Pivot.target = intakeSamplePivot;
-                        Claw.getInstance().intake_rotation();
-
-                        Pivot.getInstance().run_to_target(pivotTarget);
-                        Extension.getInstance().loop();
-                        break;
+                        intake_sample_loop(pivotTarget);
+                    break;
                     case OUTTAKE_SAMPLE:
                         Pivot.target = outtakeSamplePivot;
                         Pivot.getInstance().run_to_target(pivotTarget);
@@ -187,7 +164,6 @@ public class AllModes {
         Claw.getInstance().change_to_CLOSE_POS();
         Claw.getInstance().change_to_rotation_ZERO();
         Claw.getInstance().pivot(Claw.MID_POS);
-
     }
 
     public static void intake_sample_parallel() {
@@ -205,6 +181,33 @@ public class AllModes {
     public static void intake_sample() {
         run_to_pos_in_order(intakeSamplePivot, intakeSampleExtension, Mode.INTAKE_SAMPLE);
         Claw.getInstance().openState_method();
+    }
+
+    public static void intake_sample_loop(double pivotTarget) {
+        if(Gamepad.getInstance().left_bumper_pressed()){
+            FSMModes.getInstance().changeIntakeSampleToParallel();
+
+            Claw.getInstance().change_to_rotation_ZERO();
+            Claw.getInstance().pivot(Claw.MID_POS);
+
+            //Extension.getInstance().run_to_target(0);
+            Extension.target = 0;
+        }
+        if(Gamepad.getInstance().right_bumper_pressed()){
+            FSMModes.getInstance().changeIntakeSampleToParallel();
+
+            Claw.getInstance().change_to_rotation_ZERO();
+            Claw.getInstance().pivot(Claw.MID_POS);
+
+            //Extension.getInstance().run_to_target(Extension.MAX_TICKS);
+            Extension.target = Extension.MAX_TICKS;
+        }
+
+        Pivot.target = intakeSamplePivot;
+        Claw.getInstance().intake_rotation();
+
+        Pivot.getInstance().run_to_target(pivotTarget);
+        Extension.getInstance().loop();
     }
 
     ///ENUMS
