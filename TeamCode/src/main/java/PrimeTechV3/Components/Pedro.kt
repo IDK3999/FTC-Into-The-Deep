@@ -14,7 +14,7 @@ object Pedro {
     val fConstants: FConstants = FConstants()
     val lConstants: LConstants = LConstants()
 
-    private lateinit var follower: Follower
+    lateinit var follower: Follower
 
     // region Declare States
     private var state: PedroState = PedroState.IDLE
