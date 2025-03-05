@@ -40,8 +40,8 @@ object Lift {
         liftMotorLeft = hardwareMap.get(DcMotorEx::class.java, "extensionLeft")
         liftMotorRight = hardwareMap.get(DcMotorEx::class.java, "extensionRight")
 
-        liftMotorLeft.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-        liftMotorRight.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+        liftMotorLeft.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
+        liftMotorRight.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
 
         liftMotorLeft.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
         liftMotorRight.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
@@ -78,20 +78,15 @@ object Lift {
     }
 
     fun update() {
-        if (state == LiftState.MOVING) {
-            val currentPosition = liftMotorLeft.currentPosition.toDouble()
-            val power = controller.calculate(currentPosition)
-            val clampedPower = power.coerceIn(-1.0, 1.0)
+        val currentPosition = liftMotorLeft.currentPosition.toDouble()
+        val power = controller.calculate(currentPosition)
+        val clampedPower = power.coerceIn(-1.0, 1.0)
 
-            liftMotorLeft.power = clampedPower
-            liftMotorRight.power = clampedPower
+        liftMotorLeft.power = clampedPower
+        liftMotorRight.power = clampedPower
 
-            if (controller.atSetPoint()) {
-                liftMotorLeft.power = 0.0
-                liftMotorRight.power = 0.0
-                state = LiftState.IDLE
-            }
-        }
+        if (state == LiftState.MOVING && controller.atSetPoint())
+            state = LiftState.IDLE
     }
 
     fun isAtTarget(): Boolean {
