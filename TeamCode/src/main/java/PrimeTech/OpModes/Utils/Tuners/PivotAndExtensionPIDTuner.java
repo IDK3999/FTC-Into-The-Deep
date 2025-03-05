@@ -18,6 +18,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class PivotAndExtensionPIDTuner extends OpMode {
     public static final double MAX_TICKS = 2600;
     public static final double MIN_TICKS = 0;
+    public static final double FRONT_BACK_INIT = 0.5;
     public static double pivot_p = 0, pivot_i = 0, pivot_d = 0.0;
     public static double pivot_f = 0;
     public static double increment_pivot = 50;
@@ -26,18 +27,15 @@ public class PivotAndExtensionPIDTuner extends OpMode {
     public static double extension_f = 0;
     public static double increment_extension = 50;
     public static double extension_target = 0;
+    public static double frontBackServoRight_pos = FRONT_BACK_INIT;
     public DcMotorEx motorPivot = null;
     public DcMotorEx extension_left = null;
     public DcMotorEx extension_right = null;
     public double ticks_in_degrees = (double) 8192 / 360;
-    private PIDController controller_pivot;
-    private PIDController controller_extension;
-
-    public static final double FRONT_BACK_INIT = 0.5;
-
-    public static double frontBackServoRight_pos = FRONT_BACK_INIT;
     Servo frontBackServo_left = null;
     Servo frontBackServo_right = null;
+    private PIDController controller_pivot;
+    private PIDController controller_extension;
 
     @Override
     public void init() {
@@ -54,13 +52,13 @@ public class PivotAndExtensionPIDTuner extends OpMode {
 
         extension_left = hardwareMap.get(DcMotorEx.class, "extensionLeft");
         extension_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-       // extension_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        // extension_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         extension_left.setDirection(DcMotorSimple.Direction.REVERSE);
         extension_left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         extension_right = hardwareMap.get(DcMotorEx.class, "extensionRight");
         extension_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-       // extension_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        // extension_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         extension_right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         frontBackServo_left = hardwareMap.get(Servo.class, "frontBackServoLeft");

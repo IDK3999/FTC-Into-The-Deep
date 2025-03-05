@@ -2,10 +2,10 @@ package PrimeTech.Components.Modes;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import PrimeTech.Components.Gamepad.Gamepad;
 import PrimeTech.Components.Outtake.Claw;
 import PrimeTech.Components.Outtake.Extension;
 import PrimeTech.Components.Outtake.Pivot;
-import PrimeTech.Components.Gamepad.Gamepad;
 
 @Config
 public class AllModes {
@@ -35,16 +35,7 @@ public class AllModes {
         retractCase = RetractCase.EXTENSION_RETRACT;
     }
 
-
-    ///ENUMS
-    enum Mode {
-        INTAKE_SAMPLE, INTAKE_SPECIMEN, OUTTAKE_SAMPLE, OUTTAKE_SPECIMEN
-    }
-
-    public enum RetractCase {
-        EXTENSION_RETRACT, EXTENSION, PIVOT, IDLE
-    }
-    ///RUN TO POSITION
+    /// RUN TO POSITION
     public static void run_to_pos_in_order(double pivotTarget, double extensionTarget, Mode mode) {
         switch (retractCase) {
             case EXTENSION_RETRACT:
@@ -90,8 +81,7 @@ public class AllModes {
         }
     }
 
-
-    ///GENERAL
+    /// GENERAL
     public static void general() {
         Extension.getInstance().loop();
         Claw.getInstance().openState_method();
@@ -113,7 +103,7 @@ public class AllModes {
         Claw.getInstance().openState_method();
     }
 
-    public static void outtake_sample_loop(double pivotTarget, double extensionTarget){
+    public static void outtake_sample_loop(double pivotTarget, double extensionTarget) {
         Pivot.target = outtakeSamplePivot;
         Pivot.getInstance().run_to_target(pivotTarget);
         Extension.getInstance().run_to_target(extensionTarget);
@@ -137,11 +127,11 @@ public class AllModes {
         Claw.getInstance().openState_method();
     }
 
-    public static void outtake_specimen_loop(double pivotTarget){
-        if(Gamepad.getInstance().left_bumper_pressed()){
+    public static void outtake_specimen_loop(double pivotTarget) {
+        if (Gamepad.getInstance().left_bumper_pressed()) {
             Extension.target = outtakeSpecimenExtension;
         }
-        if(Gamepad.getInstance().right_bumper_pressed()){
+        if (Gamepad.getInstance().right_bumper_pressed()) {
             Extension.target = Extension.MAX_TICKS;
         }
 
@@ -168,7 +158,7 @@ public class AllModes {
         Claw.getInstance().openState_method();
     }
 
-    public static void intake_specimen_loop(double extensionTarget){
+    public static void intake_specimen_loop(double extensionTarget) {
         Pivot.target = intakeSpecimenPivot;
         Claw.getInstance().pivot(Claw.MID_POS - Pivot.pivot_angle() / 180);
 
@@ -207,7 +197,7 @@ public class AllModes {
     }
 
     public static void intake_sample_loop(double pivotTarget) {
-        if(Gamepad.getInstance().left_bumper_pressed()){
+        if (Gamepad.getInstance().left_bumper_pressed()) {
             FSMModes.getInstance().changeIntakeSampleToParallel();
 
             Claw.getInstance().change_to_rotation_ZERO();
@@ -215,7 +205,7 @@ public class AllModes {
 
             Extension.getInstance().change_LiftState_to_MIN();
         }
-        if(Gamepad.getInstance().right_bumper_pressed()){
+        if (Gamepad.getInstance().right_bumper_pressed()) {
             FSMModes.getInstance().changeIntakeSampleToParallel();
 
             Claw.getInstance().change_to_rotation_ZERO();
@@ -231,6 +221,14 @@ public class AllModes {
         Extension.getInstance().loop();
     }
 
+    /// ENUMS
+    enum Mode {
+        INTAKE_SAMPLE, INTAKE_SPECIMEN, OUTTAKE_SAMPLE, OUTTAKE_SPECIMEN
+    }
+
+    public enum RetractCase {
+        EXTENSION_RETRACT, EXTENSION, PIVOT, IDLE
+    }
 
 
 }

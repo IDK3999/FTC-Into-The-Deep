@@ -4,13 +4,9 @@ import static PrimeTech.Global.Global.hardwareMap;
 import static PrimeTech.Global.Global.telemetry;
 
 import com.arcrobotics.ftclib.controller.PIDController;
-import com.arcrobotics.ftclib.util.InterpLUT;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
-
-import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 import PrimeTech.Components.Gamepad.Gamepad;
 
@@ -80,7 +76,7 @@ public class Extension {
             case INRANGE:
                 target += increment * Gamepad.getInstance().right_trigger() - increment * Gamepad.getInstance().left_trigger();
                 if (target > MAX_TICKS) {
-                   change_LiftState_to_MAX();
+                    change_LiftState_to_MAX();
                 }
                 if (target < MIN_TICKS) {
                     change_LiftState_to_MIN();
@@ -90,12 +86,12 @@ public class Extension {
         return target;
     }
 
-    public void change_LiftState_to_MIN(){
+    public void change_LiftState_to_MIN() {
         liftState = LiftState.MIN;
         target = MIN_TICKS;
     }
 
-    public void change_LiftState_to_MAX(){
+    public void change_LiftState_to_MAX() {
         liftState = LiftState.MAX;
         target = MAX_TICKS;
     }

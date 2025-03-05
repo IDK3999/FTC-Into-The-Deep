@@ -1,7 +1,6 @@
 package PrimeTech.Components.Modes;
 
 import PrimeTech.Components.Gamepad.Gamepad;
-import PrimeTech.Components.Outtake.Claw;
 
 public class FSMModes {
     private static FSMModes instance = null;
@@ -26,15 +25,15 @@ public class FSMModes {
                 break;
             case INTAKE_SAMPLE:
                 AllModes.intake_sample();
-                switch (intakeSample){
+                switch (intakeSample) {
                     case PARALLEL:
-                        if(Gamepad.getInstance().dpad_down()){
+                        if (Gamepad.getInstance().dpad_down()) {
                             AllModes.intake_sample_perpendicular();
                             intakeSample = IntakeSample.PERPENDICULAR;
                         }
                         break;
                     case PERPENDICULAR:
-                        if(Gamepad.getInstance().dpad_down()){
+                        if (Gamepad.getInstance().dpad_down()) {
                             AllModes.intake_sample_parallel();
                             intakeSample = IntakeSample.PARALLEL;
                         }
@@ -79,7 +78,7 @@ public class FSMModes {
         GENERAL, INTAKE_SAMPLE, INTAKE_SPECIMEN, OUTTAKE_SPECIMEN, OUTTAKE_SAMPLE
     }
 
-    enum IntakeSample{
+    enum IntakeSample {
         PARALLEL, PERPENDICULAR
     }
 

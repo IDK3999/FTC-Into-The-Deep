@@ -4,11 +4,11 @@ import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import PrimeTech.Components.Drivetrain.Drivetrain;
 import PrimeTech.Components.Gamepad.Gamepad;
 import PrimeTech.Components.Modes.FSMModes;
 import PrimeTech.Components.Outtake.Outtake;
 import PrimeTech.Global.Global;
-import PrimeTech.Components.Drivetrain.Drivetrain;
 
 
 @TeleOp(name = "TeleSimple", group = "TeleOp")
@@ -16,7 +16,7 @@ public class TeleSimple extends OpMode {
     @Override
 
     public void init() {
-        for(LynxModule hub : hardwareMap.getAll(LynxModule.class)){
+        for (LynxModule hub : hardwareMap.getAll(LynxModule.class)) {
             hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL);
         }
         Global.hardwareMap = hardwareMap;
@@ -42,7 +42,7 @@ public class TeleSimple extends OpMode {
         Drivetrain.getInstance().loop();
         Gamepad.getInstance().loop();
         Outtake.getInstance().loop();
-        for(LynxModule hub : hardwareMap.getAll(LynxModule.class)){
+        for (LynxModule hub : hardwareMap.getAll(LynxModule.class)) {
             hub.clearBulkCache();
         }
         // Hang.getInstance().loop();
