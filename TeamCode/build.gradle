@@ -26,15 +26,6 @@ android {
     packagingOptions {
         jniLibs.useLegacyPackaging true
     }
-
-    sourceSets {
-        main {
-            java {
-                exclude 'PrimeTechV2/**'
-            }
-        }
-    }
-
 }
 
 dependencies {
