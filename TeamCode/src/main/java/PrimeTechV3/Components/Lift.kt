@@ -78,7 +78,7 @@ object Lift {
     }
 
     fun update() {
-        if(state == LiftState.MOVING) {
+        if (state == LiftState.MOVING) {
             val currentPosition = liftMotorLeft.currentPosition.toDouble()
             val power = controller.calculate(currentPosition)
             val clampedPower = power.coerceIn(-1.0, 1.0)
@@ -86,7 +86,7 @@ object Lift {
             liftMotorLeft.power = clampedPower
             liftMotorRight.power = clampedPower
 
-            if(controller.atSetPoint()) {
+            if (controller.atSetPoint()) {
                 liftMotorLeft.power = 0.0
                 liftMotorRight.power = 0.0
                 state = LiftState.IDLE

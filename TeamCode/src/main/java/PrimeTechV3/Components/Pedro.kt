@@ -50,7 +50,7 @@ object Pedro {
 
     fun update() {
         if (state == PedroState.MOVING) {
-            if(follower.isBusy) {
+            if (follower.isBusy) {
                 follower.update()
             } else {
                 state = PedroState.IDLE

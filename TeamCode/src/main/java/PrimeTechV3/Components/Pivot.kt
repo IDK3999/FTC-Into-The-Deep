@@ -69,14 +69,14 @@ object Pivot {
     }
 
     fun update() {
-        if(state == PivotState.MOVING){
+        if (state == PivotState.MOVING) {
             val currentPosition = pivotMotor.currentPosition.toDouble()
             val power = controller.calculate(currentPosition)
             val clampedPower = power.coerceIn(-1.0, 1.0)
 
             pivotMotor.power = clampedPower
 
-            if(controller.atSetPoint()){
+            if (controller.atSetPoint()) {
                 pivotMotor.power = 0.0
                 state = PivotState.IDLE
             }

@@ -92,23 +92,27 @@ object Actions {
                         Claw.setClawOpen(false)
                         state = ActionPhase.POSITIONING_CLAW
                     }
+
                     ActionPhase.POSITIONING_CLAW -> {
                         if (Claw.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.SCORE_SPECIMEN)
                             state = ActionPhase.MOVING_PIVOT
                         }
                     }
+
                     ActionPhase.MOVING_PIVOT -> {
                         if (Pivot.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.SCORE_SPECIMEN)
                             state = ActionPhase.MOVING_LIFT
                         }
                     }
+
                     ActionPhase.MOVING_LIFT -> {
                         if (Lift.isDone()) {
                             state = ActionPhase.FINISHED
                         }
                     }
+
                     else -> {}
                 }
             }
@@ -123,23 +127,27 @@ object Actions {
                         Claw.setClawOpen(false)
                         state = ActionPhase.POSITIONING_CLAW
                     }
+
                     ActionPhase.POSITIONING_CLAW -> {
                         if (Claw.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.SCORE_SAMPLE)
                             state = ActionPhase.MOVING_PIVOT
                         }
                     }
+
                     ActionPhase.MOVING_PIVOT -> {
                         if (Pivot.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.SCORE_SAMPLE)
                             state = ActionPhase.MOVING_LIFT
                         }
                     }
+
                     ActionPhase.MOVING_LIFT -> {
                         if (Lift.isDone()) {
                             state = ActionPhase.FINISHED
                         }
                     }
+
                     else -> {}
                 }
             }
@@ -152,23 +160,27 @@ object Actions {
                         Claw.setClawOpen(true)
                         state = ActionPhase.POSITIONING_CLAW
                     }
+
                     ActionPhase.POSITIONING_CLAW -> {
                         if (Claw.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.GRAB_SPECIMEN)
                             state = ActionPhase.MOVING_PIVOT
                         }
                     }
+
                     ActionPhase.MOVING_PIVOT -> {
                         if (Pivot.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.LOAD_SPECIMEN)
                             state = ActionPhase.MOVING_LIFT
                         }
                     }
+
                     ActionPhase.MOVING_LIFT -> {
                         if (Lift.isDone()) {
                             state = ActionPhase.FINISHED
                         }
                     }
+
                     else -> {}
                 }
             }
@@ -181,23 +193,27 @@ object Actions {
                         Claw.setClawOpen(true)
                         state = ActionPhase.POSITIONING_CLAW
                     }
+
                     ActionPhase.POSITIONING_CLAW -> {
                         if (Claw.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.LOW)
                             state = ActionPhase.MOVING_PIVOT
                         }
                     }
+
                     ActionPhase.MOVING_PIVOT -> {
                         if (Pivot.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.LOAD_SAMPLE)
                             state = ActionPhase.MOVING_LIFT
                         }
                     }
+
                     ActionPhase.MOVING_LIFT -> {
                         if (Lift.isDone()) {
                             state = ActionPhase.FINISHED
                         }
                     }
+
                     else -> {}
                 }
             }
@@ -208,23 +224,27 @@ object Actions {
                         Claw.reset()
                         state = ActionPhase.POSITIONING_CLAW
                     }
+
                     ActionPhase.POSITIONING_CLAW -> {
                         if (Claw.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.LOW)
                             state = ActionPhase.MOVING_LIFT
                         }
                     }
+
                     ActionPhase.MOVING_LIFT -> {
                         if (Lift.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.LOW)
                             state = ActionPhase.MOVING_PIVOT
                         }
                     }
+
                     ActionPhase.MOVING_PIVOT -> {
                         if (Pivot.isDone()) {
                             state = ActionPhase.FINISHED
                         }
                     }
+
                     else -> {}
                 }
             }

@@ -3,7 +3,7 @@ package PrimeTechV3.PrimeBase.OpModes
 import PrimeTechV3.Actions.Actions
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 
-abstract class PrimeOpBase: OpMode() {
+abstract class PrimeOpBase : OpMode() {
     private val actions = Actions
 
     override fun init() {

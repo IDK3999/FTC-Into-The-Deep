@@ -1,6 +1,6 @@
 package PrimeTechV3.PrimeBase.OpModes
 
-class PrimeAutoBase: PrimeOpBase() {
+class PrimeAutoBase : PrimeOpBase() {
     override fun onInit() {}
 
     override fun onStart() {}

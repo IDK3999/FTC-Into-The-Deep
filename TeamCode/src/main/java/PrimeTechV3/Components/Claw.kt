@@ -63,7 +63,7 @@ object Claw {
     }
 
     fun isDone(): Boolean {
-        return true;
+        return true
     }
 
     fun setClawVertical(boolean: Boolean) {
@@ -75,7 +75,7 @@ object Claw {
     }
 
     fun setClawPivot(pivotState: ClawPivotState) {
-        when(pivotState) {
+        when (pivotState) {
             ClawPivotState.FRONT -> pivotClawFront()
             ClawPivotState.BACK -> pivotClawBack()
             ClawPivotState.SCORE_SPECIMEN -> pivotClawScoreSpecimen()
@@ -139,11 +139,11 @@ object Claw {
         VERTICAL, HORIZONTAL
     }
 
-    enum class ClawOpenState{
+    enum class ClawOpenState {
         OPEN, CLOSED
     }
 
-    enum class ClawPivotState{
+    enum class ClawPivotState {
         FRONT, BACK, SCORE_SPECIMEN, GRAB_SPECIMEN, SCORE_SAMPLE, GRAB_SAMPLE
     }
 }
