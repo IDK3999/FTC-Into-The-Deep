@@ -8,7 +8,7 @@ import PrimeTech.Components.Gamepad.Gamepad;
 import PrimeTech.Components.Modes.FSMModes;
 import PrimeTech.Components.Outtake.Outtake;
 import PrimeTech.Global.Global;
-import PrimeTech.OpModes.Tele.Drivetrain.Drivetrain;
+import PrimeTech.Components.Drivetrain.Drivetrain;
 
 
 @TeleOp(name = "TeleSimple", group = "TeleOp")

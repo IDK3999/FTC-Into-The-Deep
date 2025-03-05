@@ -44,13 +44,11 @@ public class Extension {
 
         extension_left = hardwareMap.get(DcMotorEx.class, "extensionLeft");
         extension_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        //extension_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         extension_left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         extension_left.setDirection(DcMotorSimple.Direction.REVERSE);
 
         extension_right = hardwareMap.get(DcMotorEx.class, "extensionRight");
         extension_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        //extension_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         extension_right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
@@ -82,19 +80,26 @@ public class Extension {
             case INRANGE:
                 target += increment * Gamepad.getInstance().right_trigger() - increment * Gamepad.getInstance().left_trigger();
                 if (target > MAX_TICKS) {
-                    liftState = LiftState.MAX;
-                    target = MAX_TICKS;
+                   change_LiftState_to_MAX();
                 }
                 if (target < MIN_TICKS) {
-                    liftState = LiftState.MIN;
-                    target = MIN_TICKS;
+                    change_LiftState_to_MIN();
                 }
                 break;
         }
         return target;
     }
 
-    boolean currentSpike = false;
+    public void change_LiftState_to_MIN(){
+        liftState = LiftState.MIN;
+        target = MIN_TICKS;
+    }
+
+    public void change_LiftState_to_MAX(){
+        liftState = LiftState.MAX;
+        target = MAX_TICKS;
+    }
+
 
     public void run_to_target(double target) {
         controller.setPID(p, i, d);
@@ -105,10 +110,7 @@ public class Extension {
 
         extension_right.setPower(power);
         extension_left.setPower(power);
-        extension_right.setCurrentAlert(4.5, CurrentUnit.AMPS);
-        if(extension_right.isOverCurrent()) currentSpike = true;
-         //Telemetry
-        telemetry.addData("is current spike: ", currentSpike);
+        //Telemetry
         telemetry.addData("lift_pos: ", lift_pos);
         telemetry.addData("lift_target: ", target);
         telemetry.update();

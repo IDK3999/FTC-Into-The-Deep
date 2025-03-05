@@ -1,4 +1,4 @@
-package PrimeTech.OpModes.Tele.Drivetrain;
+package PrimeTech.Components.Drivetrain;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import static PrimeTech.Global.Global.gamepad2;

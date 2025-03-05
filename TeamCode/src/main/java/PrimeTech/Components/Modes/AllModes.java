@@ -35,6 +35,16 @@ public class AllModes {
         retractCase = RetractCase.EXTENSION_RETRACT;
     }
 
+
+    ///ENUMS
+    enum Mode {
+        INTAKE_SAMPLE, INTAKE_SPECIMEN, OUTTAKE_SAMPLE, OUTTAKE_SPECIMEN
+    }
+
+    public enum RetractCase {
+        EXTENSION_RETRACT, EXTENSION, PIVOT, IDLE
+    }
+    ///RUN TO POSITION
     public static void run_to_pos_in_order(double pivotTarget, double extensionTarget, Mode mode) {
         switch (retractCase) {
             case EXTENSION_RETRACT:
@@ -65,39 +75,23 @@ public class AllModes {
                 switch (mode) {
                     case INTAKE_SAMPLE:
                         intake_sample_loop(pivotTarget);
-                    break;
+                        break;
                     case OUTTAKE_SAMPLE:
-                        Pivot.target = outtakeSamplePivot;
-                        Pivot.getInstance().run_to_target(pivotTarget);
-                        Extension.getInstance().run_to_target(extensionTarget);
+                        outtake_sample_loop(pivotTarget, extensionTarget);
                         break;
                     case INTAKE_SPECIMEN:
-                        Pivot.target = intakeSpecimenPivot;
-                        Claw.getInstance().pivot(Claw.MID_POS - Pivot.pivot_angle() / 180);
-
-                        Pivot.getInstance().loop();
-                        Extension.getInstance().run_to_target(extensionTarget);
+                        intake_specimen_loop(extensionTarget);
                         break;
                     case OUTTAKE_SPECIMEN:
-                        if(Gamepad.getInstance().left_bumper_pressed()){
-                            Extension.target = outtakeSpecimenExtension;
-                        }
-                        if(Gamepad.getInstance().right_bumper_pressed()){
-                            Extension.target = Extension.MAX_TICKS;
-                        }
-
-
-                        Pivot.target = outtakeSpecimenPivot;
-
-                        Pivot.getInstance().run_to_target(pivotTarget);
-                        Extension.getInstance().loop();
-                        //Extension.getInstance().run_to_target(Extension.target);
+                        outtake_specimen_loop(pivotTarget);
                         break;
                 }
                 break;
         }
     }
 
+
+    ///GENERAL
     public static void general() {
         Extension.getInstance().loop();
         Claw.getInstance().openState_method();
@@ -119,6 +113,12 @@ public class AllModes {
         Claw.getInstance().openState_method();
     }
 
+    public static void outtake_sample_loop(double pivotTarget, double extensionTarget){
+        Pivot.target = outtakeSamplePivot;
+        Pivot.getInstance().run_to_target(pivotTarget);
+        Extension.getInstance().run_to_target(extensionTarget);
+    }
+
     /// OUTTAKE SPECIMEN
     public static void outtake_specimen_init() {
         setRetractCase_to_EXTENSION_RETRACT();
@@ -137,6 +137,21 @@ public class AllModes {
         Claw.getInstance().openState_method();
     }
 
+    public static void outtake_specimen_loop(double pivotTarget){
+        if(Gamepad.getInstance().left_bumper_pressed()){
+            Extension.target = outtakeSpecimenExtension;
+        }
+        if(Gamepad.getInstance().right_bumper_pressed()){
+            Extension.target = Extension.MAX_TICKS;
+        }
+
+
+        Pivot.target = outtakeSpecimenPivot;
+
+        Pivot.getInstance().run_to_target(pivotTarget);
+        Extension.getInstance().loop();
+    }
+
     /// INTAKE SPECIMEN
     public static void intake_specimen_init() {
         setRetractCase_to_EXTENSION_RETRACT();
@@ -151,6 +166,14 @@ public class AllModes {
     public static void intake_specimen() {
         run_to_pos_in_order(intakeSpecimenPivot, intakeSpecimenExtension, Mode.INTAKE_SPECIMEN);
         Claw.getInstance().openState_method();
+    }
+
+    public static void intake_specimen_loop(double extensionTarget){
+        Pivot.target = intakeSpecimenPivot;
+        Claw.getInstance().pivot(Claw.MID_POS - Pivot.pivot_angle() / 180);
+
+        Pivot.getInstance().loop();
+        Extension.getInstance().run_to_target(extensionTarget);
     }
 
     /// INTAKE SAMPLE
@@ -190,8 +213,7 @@ public class AllModes {
             Claw.getInstance().change_to_rotation_ZERO();
             Claw.getInstance().pivot(Claw.MID_POS);
 
-            //Extension.getInstance().run_to_target(0);
-            Extension.target = 0;
+            Extension.getInstance().change_LiftState_to_MIN();
         }
         if(Gamepad.getInstance().right_bumper_pressed()){
             FSMModes.getInstance().changeIntakeSampleToParallel();
@@ -199,8 +221,7 @@ public class AllModes {
             Claw.getInstance().change_to_rotation_ZERO();
             Claw.getInstance().pivot(Claw.MID_POS);
 
-            //Extension.getInstance().run_to_target(Extension.MAX_TICKS);
-            Extension.target = Extension.MAX_TICKS;
+            Extension.getInstance().change_LiftState_to_MAX();
         }
 
         Pivot.target = intakeSamplePivot;
@@ -210,14 +231,7 @@ public class AllModes {
         Extension.getInstance().loop();
     }
 
-    ///ENUMS
-    enum Mode {
-        INTAKE_SAMPLE, INTAKE_SPECIMEN, OUTTAKE_SAMPLE, OUTTAKE_SPECIMEN
-    }
 
-    public enum RetractCase {
-        EXTENSION_RETRACT, EXTENSION, PIVOT, IDLE
-    }
 
 }
 
