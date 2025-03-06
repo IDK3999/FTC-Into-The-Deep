@@ -17,8 +17,9 @@ public class Extension {
     public static double MAX_TICKS = 500;
     public static double FINAL_MAX_TICKS = 500;
     public static double LIMITED_MAX_TICKS = 300;
-    public static double p = 0.012, i = 0.12, d = 0.000287;
-    public static double f = 0.02;
+    public static double p = 0.007, i = 0, d = 0.0002;
+    public static double f = 0.1;
+    public static double tolerance = 40;
     public static double target = 0;
     static public DcMotorEx extension_right = null;
     private static Extension instance = null;
@@ -46,6 +47,8 @@ public class Extension {
         extension_right = hardwareMap.get(DcMotorEx.class, "extensionRight");
         extension_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         extension_right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
     }
 
     public void start() {

@@ -40,7 +40,7 @@ public class AllModes {
         switch (retractCase) {
             case EXTENSION_RETRACT:
                 Pivot.getInstance().run_to_target(Pivot.target);
-                if (Extension.extension_right.getCurrentPosition() > 10) {
+                if (Extension.extension_right.getCurrentPosition() > Extension.tolerance) {
                     Extension.getInstance().run_to_target(0);
                 } else {
                     retractCase = RetractCase.PIVOT;
@@ -48,7 +48,7 @@ public class AllModes {
                 break;
             case PIVOT:
                 Extension.getInstance().run_to_target(0);
-                if (Pivot.motorPivot.getCurrentPosition() > pivotTarget + 100 || Pivot.motorPivot.getCurrentPosition() < pivotTarget - 100) {
+                if (Pivot.motorPivot.getCurrentPosition() > pivotTarget + Pivot.tolerance || Pivot.motorPivot.getCurrentPosition() < pivotTarget - Pivot.tolerance) {
                     Pivot.getInstance().run_to_target(pivotTarget);
                 } else {
                     retractCase = RetractCase.EXTENSION;
@@ -56,7 +56,7 @@ public class AllModes {
                 break;
             case EXTENSION:
                 Pivot.getInstance().run_to_target(pivotTarget);
-                if (Extension.extension_right.getCurrentPosition() > extensionTarget + 40 || Extension.extension_right.getCurrentPosition() < extensionTarget - 40) {
+                if (Extension.extension_right.getCurrentPosition() > extensionTarget + Extension.tolerance || Extension.extension_right.getCurrentPosition() < extensionTarget - Extension.tolerance) {
                     Extension.getInstance().run_to_target(extensionTarget);
                 } else {
                     retractCase = RetractCase.IDLE;

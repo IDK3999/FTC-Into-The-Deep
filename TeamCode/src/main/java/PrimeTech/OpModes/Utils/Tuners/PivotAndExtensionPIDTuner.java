@@ -12,10 +12,10 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Disabled
+
 @TeleOp(name = "Pivot & Extension PID Tuner", group = "Tuners")
 @Config
-public class PivotAndExtensionPIDTuner extends OpMode {
+public class    PivotAndExtensionPIDTuner extends OpMode {
     public static final double MAX_TICKS = 2600;
     public static final double MIN_TICKS = 0;
     public static final double FRONT_BACK_INIT = 0.5;

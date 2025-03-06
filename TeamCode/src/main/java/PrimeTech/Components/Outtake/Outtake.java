@@ -40,7 +40,7 @@ public class Outtake {
                 }
                 break;
             case EXTENSION:
-                if (Extension.extension_right.getCurrentPosition() > 25) {
+                if (Extension.extension_right.getCurrentPosition() > Extension.tolerance) {
                     Extension.getInstance().run_to_target(Extension.target);
                 } else {
                     whatToRetract = WhatToRetract.PIVOT;
@@ -48,7 +48,7 @@ public class Outtake {
                 break;
             case PIVOT:
                 Extension.getInstance().run_to_target(0);
-                if (Pivot.motorPivot.getCurrentPosition() > 100) {
+                if (Pivot.motorPivot.getCurrentPosition() > Pivot.tolerance) {
                     Pivot.getInstance().run_to_target(Pivot.target);
                 } else {
                     whatToRetract = WhatToRetract.IDLE;
