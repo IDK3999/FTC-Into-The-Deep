@@ -22,9 +22,11 @@ object Actions {
 
     enum class ActionPhase {
         STARTING,
+        MOVING_LIFT_BEFORE,
         MOVING_PIVOT,
         MOVING_LIFT,
         POSITIONING_CLAW,
+        RESETTING_CLAW,
         FINISHED
     }
 
@@ -95,6 +97,13 @@ object Actions {
 
                     ActionPhase.POSITIONING_CLAW -> {
                         if (Claw.isDone()) {
+                            Lift.setCustomLiftPosition(200)
+                            state = ActionPhase.MOVING_LIFT_BEFORE
+                        }
+                    }
+
+                    ActionPhase.MOVING_LIFT_BEFORE -> {
+                        if (Lift.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.SCORE_SPECIMEN)
                             state = ActionPhase.MOVING_PIVOT
                         }
@@ -109,6 +118,13 @@ object Actions {
 
                     ActionPhase.MOVING_LIFT -> {
                         if (Lift.isDone()) {
+                            Claw.setClawOpen(true)
+                            state = ActionPhase.RESETTING_CLAW
+                        }
+                    }
+
+                    ActionPhase.RESETTING_CLAW -> {
+                        if (Claw.isDone()) {
                             state = ActionPhase.FINISHED
                         }
                     }

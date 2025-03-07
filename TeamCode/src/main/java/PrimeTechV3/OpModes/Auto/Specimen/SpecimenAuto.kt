@@ -37,11 +37,11 @@ class SpecimenAuto : OpMode() {
         actions.init(hardwareMap)
 
         pedro = Pedro
-        pedro.init(hardwareMap, Pose(0.0, 0.0, Math.toRadians(0.0)))
+        pedro.init(hardwareMap, Pose(8.4, 0.0, Math.toRadians(-180.0)))
 
         scorePreloadPath = pedro.follower.pathBuilder()
-            .addPath(BezierLine(Point(Pose(0.0, 0.0)), Point(Pose(1.0, 0.0))))
-            .setConstantHeadingInterpolation(Math.toRadians(0.0))
+            .addPath(BezierLine(Point(Pose(8.4, 0.0)), Point(Pose(39.5,0.0,))))
+            .setConstantHeadingInterpolation(Math.toRadians(-180.0))
             .build()
 
         telemetry.addData("Status", "Initialized! Press play to start")
@@ -49,9 +49,10 @@ class SpecimenAuto : OpMode() {
     }
 
     override fun start() {
+        pedro.start()
         actions.start()
 
-        currentState = AutoState.SCORE_SPECIMEN
+        currentState = AutoState.FOLLOW_PATH
         telemetry.addData("Status", "Starting autonomous sequence")
         telemetry.update()
     }
@@ -64,6 +65,19 @@ class SpecimenAuto : OpMode() {
 
         when (currentState) {
             AutoState.INIT -> {}
+
+            AutoState.FOLLOW_PATH -> {
+                telemetry.addData("Action", "Following path")
+
+                if (!pathStarted) {
+                    pedro.reset()
+                    pedro.followPath(scorePreloadPath)
+                    pathStarted = true
+                } else if (pedro.isDone()) {
+                    telemetry.addData("Status", "Path following complete!")
+                    currentState = AutoState.SCORE_SPECIMEN
+                }
+            }
 
             AutoState.SCORE_SPECIMEN -> {
                 telemetry.addData("Action", "Starting specimen scoring")
@@ -104,22 +118,6 @@ class SpecimenAuto : OpMode() {
 
                 if (actions.isDone()) {
                     telemetry.addData("Status", "Reset complete!")
-                    currentState = AutoState.FOLLOW_PATH
-                }
-            }
-
-            AutoState.FOLLOW_PATH -> {
-                telemetry.addData("Action", "Following path")
-
-                // Track if we need to start the path with a boolean variable
-                if (!pathStarted) {
-                    pedro.reset()
-                    pedro.followPath(scorePreloadPath)
-                    pathStarted = true
-                }
-                // Check if path is complete
-                else if (pedro.isDone()) {
-                    telemetry.addData("Status", "Path following complete!")
                     currentState = AutoState.COMPLETE
                 }
             }

@@ -45,7 +45,7 @@ object Claw {
     }
 
     fun reset() {
-        openState = ClawOpenState.CLOSED
+        openState = ClawOpenState.OPEN
         rotationState = ClawRotationState.VERTICAL
         pivotState = ClawPivotState.BACK
 
