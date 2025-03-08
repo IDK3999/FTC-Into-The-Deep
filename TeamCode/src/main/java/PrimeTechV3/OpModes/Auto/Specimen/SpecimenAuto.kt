@@ -6,7 +6,7 @@ import PrimeTechV3.Components.Pedro
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 
-@Autonomous(name = "Specimen Auto")
+@Autonomous(name = "Specimen V3")
 class SpecimenAuto : OpMode() {
     private var state = 0
 
