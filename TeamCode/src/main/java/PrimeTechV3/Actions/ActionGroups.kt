@@ -12,6 +12,7 @@ object Actions {
         SCORE_SPECIMEN,
         BEFORE_SCORE_SAMPLE,
         SCORE_SAMPLE,
+        BEFORE_GRAB_SPECIMEN,
         GRAB_SPECIMEN,
         GRAB_SAMPLE,
         RESET_ALL
@@ -47,6 +48,11 @@ object Actions {
 
     fun scoreSample() {
         action = PossibleActions.SCORE_SAMPLE
+        state = 1
+    }
+
+    fun beforeScoreSpecimen() {
+        action = PossibleActions.BEFORE_SCORE_SPECIMEN
         state = 1
     }
 
@@ -154,11 +160,11 @@ object Actions {
                 }
             }
 
-            PossibleActions.GRAB_SPECIMEN -> {
+            PossibleActions.BEFORE_GRAB_SPECIMEN -> {
                 when (state) {
                     1 -> { // STARTING
                         Claw.setClawPivot(Claw.ClawPivotState.GRAB_SPECIMEN)
-                        Claw.setClawVertical(false)
+                        Claw.setClawVertical(true)
                         Claw.setClawOpen(true)
                         state = 2
                     }
@@ -172,13 +178,42 @@ object Actions {
 
                     3 -> { // MOVING_PIVOT
                         if (Pivot.isDone()) {
-                            Lift.setLiftPosition(Lift.LiftPosition.LOAD_SPECIMEN)
+                            Lift.setLiftPosition(Lift.LiftPosition.LOW)
                             state = 4
                         }
                     }
 
                     4 -> { // MOVING_LIFT
                         if (Lift.isDone()) {
+                            state = 0
+                        }
+                    }
+                }
+            }
+
+            PossibleActions.GRAB_SPECIMEN -> {
+                when (state) {
+                    1 -> { // STARTING
+                        Lift.setLiftPosition(Lift.LiftPosition.LOAD_SPECIMEN)
+                        state = 2
+                    }
+
+                    2 -> { // MOVING_LIFT
+                        if (Lift.isDone()) {
+                            Claw.closeClaw()
+                            state = 3
+                        }
+                    }
+
+                    3 -> { // POSITIONING_CLAW
+                        if (Claw.isDone()) {
+                            Claw.setClawPivot(Claw.ClawPivotState.BACK)
+                            state = 4
+                        }
+                    }
+
+                    4 -> { // POSITIONING_CLAW
+                        if (Claw.isDone()) {
                             state = 0
                         }
                     }
