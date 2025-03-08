@@ -25,7 +25,7 @@ abstract class PrimeOpBase : OpMode() {
         onLoop()
 
         telemetry.addData("Current Action", actions.getCurrentAction())
-        telemetry.addData("Current Phase", actions.getCurrentPhase())
+        telemetry.addData("Current Phase", actions.getCurrentState())
         telemetry.update()
     }
 

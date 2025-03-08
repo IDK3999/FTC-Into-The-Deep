@@ -20,19 +20,9 @@ object Actions {
 //        RESET_EXTENSION
     }
 
-    enum class ActionPhase {
-        STARTING,
-        MOVING_LIFT_BEFORE,
-        MOVING_PIVOT,
-        MOVING_LIFT,
-        POSITIONING_CLAW,
-        RESETTING_CLAW,
-        FINISHED
-    }
-
     // region Declare States
     private var action: PossibleActions = PossibleActions.IDLE
-    private var state: ActionPhase = ActionPhase.FINISHED
+    private var state = 0
     // endregion Declare States
 
     fun init(hardwareMap: HardwareMap) {
@@ -47,32 +37,32 @@ object Actions {
 
     fun reset() {
         action = PossibleActions.IDLE
-        state = ActionPhase.FINISHED
+        state = 0
     }
 
     fun scoreSpecimen() {
         action = PossibleActions.SCORE_SPECIMEN
-        state = ActionPhase.STARTING
+        state = 1
     }
 
     fun scoreSample() {
         action = PossibleActions.SCORE_SAMPLE
-        state = ActionPhase.STARTING
+        state = 1
     }
 
     fun grabSpecimen() {
         action = PossibleActions.GRAB_SPECIMEN
-        state = ActionPhase.STARTING
+        state = 1
     }
 
     fun grabSample() {
         action = PossibleActions.GRAB_SAMPLE
-        state = ActionPhase.STARTING
+        state = 1
     }
 
     fun returnToReset() {
         action = PossibleActions.RESET_ALL
-        state = ActionPhase.STARTING
+        state = 1
     }
 
     fun update() {
@@ -88,48 +78,46 @@ object Actions {
 
             PossibleActions.SCORE_SPECIMEN -> {
                 when (state) {
-                    ActionPhase.STARTING -> {
+                    1 -> { // STARTING
                         Claw.setClawPivot(Claw.ClawPivotState.SCORE_SPECIMEN)
                         Claw.setClawVertical(true)
                         Claw.setClawOpen(false)
-                        state = ActionPhase.POSITIONING_CLAW
+                        state = 2
                     }
 
-                    ActionPhase.POSITIONING_CLAW -> {
+                    2 -> { // POSITIONING_CLAW
                         if (Claw.isDone()) {
                             Lift.setCustomLiftPosition(200)
-                            state = ActionPhase.MOVING_LIFT_BEFORE
+                            state = 3
                         }
                     }
 
-                    ActionPhase.MOVING_LIFT_BEFORE -> {
+                    3 -> { // MOVING_LIFT_BEFORE
                         if (Lift.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.SCORE_SPECIMEN)
-                            state = ActionPhase.MOVING_PIVOT
+                            state = 4
                         }
                     }
 
-                    ActionPhase.MOVING_PIVOT -> {
+                    4 -> { // MOVING_PIVOT
                         if (Pivot.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.SCORE_SPECIMEN)
-                            state = ActionPhase.MOVING_LIFT
+                            state = 5
                         }
                     }
 
-                    ActionPhase.MOVING_LIFT -> {
+                    5 -> { // MOVING_LIFT
                         if (Lift.isDone()) {
                             Claw.setClawOpen(true)
-                            state = ActionPhase.RESETTING_CLAW
+                            state = 6
                         }
                     }
 
-                    ActionPhase.RESETTING_CLAW -> {
+                    6 -> { // RESETTING_CLAW
                         if (Claw.isDone()) {
-                            state = ActionPhase.FINISHED
+                            state = 0
                         }
                     }
-
-                    else -> {}
                 }
             }
 
@@ -137,145 +125,137 @@ object Actions {
 
             PossibleActions.SCORE_SAMPLE -> {
                 when (state) {
-                    ActionPhase.STARTING -> {
+                    1 -> { // STARTING
                         Claw.setClawPivot(Claw.ClawPivotState.SCORE_SAMPLE)
                         Claw.setClawVertical(true)
                         Claw.setClawOpen(false)
-                        state = ActionPhase.POSITIONING_CLAW
+                        state = 2
                     }
 
-                    ActionPhase.POSITIONING_CLAW -> {
+                    2 -> { // POSITIONING_CLAW
                         if (Claw.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.SCORE_SAMPLE)
-                            state = ActionPhase.MOVING_PIVOT
+                            state = 3
                         }
                     }
 
-                    ActionPhase.MOVING_PIVOT -> {
+                    3 -> { // MOVING_PIVOT
                         if (Pivot.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.SCORE_SAMPLE)
-                            state = ActionPhase.MOVING_LIFT
+                            state = 4
                         }
                     }
 
-                    ActionPhase.MOVING_LIFT -> {
+                    4 -> { // MOVING_LIFT
                         if (Lift.isDone()) {
-                            state = ActionPhase.FINISHED
+                            state = 0
                         }
                     }
-
-                    else -> {}
                 }
             }
 
             PossibleActions.GRAB_SPECIMEN -> {
                 when (state) {
-                    ActionPhase.STARTING -> {
+                    1 -> { // STARTING
                         Claw.setClawPivot(Claw.ClawPivotState.GRAB_SPECIMEN)
                         Claw.setClawVertical(false)
                         Claw.setClawOpen(true)
-                        state = ActionPhase.POSITIONING_CLAW
+                        state = 2
                     }
 
-                    ActionPhase.POSITIONING_CLAW -> {
+                    2 -> { // POSITIONING_CLAW
                         if (Claw.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.GRAB_SPECIMEN)
-                            state = ActionPhase.MOVING_PIVOT
+                            state = 3
                         }
                     }
 
-                    ActionPhase.MOVING_PIVOT -> {
+                    3 -> { // MOVING_PIVOT
                         if (Pivot.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.LOAD_SPECIMEN)
-                            state = ActionPhase.MOVING_LIFT
+                            state = 4
                         }
                     }
 
-                    ActionPhase.MOVING_LIFT -> {
+                    4 -> { // MOVING_LIFT
                         if (Lift.isDone()) {
-                            state = ActionPhase.FINISHED
+                            state = 0
                         }
                     }
-
-                    else -> {}
                 }
             }
 
             PossibleActions.GRAB_SAMPLE -> {
                 when (state) {
-                    ActionPhase.STARTING -> {
+                    1 -> { // STARTING
                         Claw.setClawPivot(Claw.ClawPivotState.GRAB_SAMPLE)
                         Claw.setClawVertical(false)
                         Claw.setClawOpen(true)
-                        state = ActionPhase.POSITIONING_CLAW
+                        state = 2
                     }
 
-                    ActionPhase.POSITIONING_CLAW -> {
+                    2 -> { // POSITIONING_CLAW
                         if (Claw.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.LOW)
-                            state = ActionPhase.MOVING_PIVOT
+                            state = 3
                         }
                     }
 
-                    ActionPhase.MOVING_PIVOT -> {
+                    3 -> { // MOVING_PIVOT
                         if (Pivot.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.LOAD_SAMPLE)
-                            state = ActionPhase.MOVING_LIFT
+                            state = 4
                         }
                     }
 
-                    ActionPhase.MOVING_LIFT -> {
+                    4 -> { // MOVING_LIFT
                         if (Lift.isDone()) {
-                            state = ActionPhase.FINISHED
+                            state = 0
                         }
                     }
-
-                    else -> {}
                 }
             }
 
             PossibleActions.RESET_ALL -> {
                 when (state) {
-                    ActionPhase.STARTING -> {
+                    1 -> { // STARTING
                         Claw.reset()
-                        state = ActionPhase.POSITIONING_CLAW
+                        state = 2
                     }
 
-                    ActionPhase.POSITIONING_CLAW -> {
+                    2 -> { // POSITIONING_CLAW
                         if (Claw.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.LOW)
-                            state = ActionPhase.MOVING_LIFT
+                            state = 3
                         }
                     }
 
-                    ActionPhase.MOVING_LIFT -> {
+                    3 -> { // MOVING_LIFT
                         if (Lift.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.LOW)
-                            state = ActionPhase.MOVING_PIVOT
+                            state = 4
                         }
                     }
 
-                    ActionPhase.MOVING_PIVOT -> {
+                    4 -> { // MOVING_PIVOT
                         if (Pivot.isDone()) {
-                            state = ActionPhase.FINISHED
+                            state = 0
                         }
                     }
-
-                    else -> {}
                 }
             }
         }
     }
 
     fun isDone(): Boolean {
-        return state == ActionPhase.FINISHED
+        return state == 0
     }
 
     fun getCurrentAction(): PossibleActions {
         return action
     }
 
-    fun getCurrentPhase(): ActionPhase {
+    fun getCurrentState(): Int {
         return state
     }
 }
