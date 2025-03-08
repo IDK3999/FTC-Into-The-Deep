@@ -40,7 +40,7 @@ class SpecimenAuto : OpMode() {
         pedro.init(hardwareMap, Pose(8.4, 0.0, Math.toRadians(-180.0)))
 
         scorePreloadPath = pedro.follower.pathBuilder()
-            .addPath(BezierLine(Point(Pose(8.4, 0.0)), Point(Pose(39.5,0.0,))))
+            .addPath(BezierLine(Point(Pose(8.4, 0.0)), Point(Pose(39.5, 0.0))))
             .setConstantHeadingInterpolation(Math.toRadians(-180.0))
             .build()
 
