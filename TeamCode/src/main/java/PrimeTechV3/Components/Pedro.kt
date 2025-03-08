@@ -44,7 +44,12 @@ object Pedro {
     }
 
     fun followPath(pathChain: PathChain) {
-        follower.followPath(pathChain)
+        follower.followPath(pathChain, true)
+        state = PedroState.MOVING
+    }
+
+    fun followPath(pathChain: PathChain, maxPower: Double) {
+        follower.followPath(pathChain, maxPower, true)
         state = PedroState.MOVING
     }
 
