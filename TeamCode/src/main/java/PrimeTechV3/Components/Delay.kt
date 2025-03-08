@@ -2,7 +2,7 @@ package PrimeTechV3.Components
 
 object Delay {
     private var delayStartTime: Long = 0
-    private var delayDuration: Long = 0
+    private var delayDuration: Double = 0.0
 
     fun init() {}
 
@@ -11,7 +11,7 @@ object Delay {
      *
      * @param seconds The duration of the delay in seconds.
      */
-    fun start(seconds: Long) {
+    fun start(seconds: Double) {
         delayDuration = seconds * 1000 // Convert seconds to milliseconds
         delayStartTime = System.currentTimeMillis()
     }
@@ -22,6 +22,6 @@ object Delay {
 
     fun reset() {
         delayStartTime = 0
-        delayDuration = 0
+        delayDuration = 0.0
     }
 }
