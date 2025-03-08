@@ -3,10 +3,6 @@ package PrimeTechV3.OpModes.Auto.Specimen
 import PrimeTechV3.Actions.Actions
 import PrimeTechV3.Components.Delay
 import PrimeTechV3.Components.Pedro
-import com.pedropathing.localization.Pose
-import com.pedropathing.pathgen.BezierLine
-import com.pedropathing.pathgen.PathChain
-import com.pedropathing.pathgen.Point
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 
@@ -18,7 +14,7 @@ class SpecimenAuto : OpMode() {
     private lateinit var pedro: Pedro
 
     private var pathStarted = false
-    
+
     override fun init() {
         actions = Actions
         actions.init(hardwareMap)
