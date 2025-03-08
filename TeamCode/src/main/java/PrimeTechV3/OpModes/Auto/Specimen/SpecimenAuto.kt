@@ -1,7 +1,6 @@
 package PrimeTechV3.OpModes.Auto.Specimen
 
 import PrimeTechV3.Actions.Actions
-import PrimeTechV3.Components.Delay
 import PrimeTechV3.Components.Pedro
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
@@ -13,7 +12,7 @@ class SpecimenAuto : OpMode() {
     private lateinit var actions: Actions
     private lateinit var pedro: Pedro
 
-    private var pathStarted = false
+    private var actionStarted = false
 
     override fun init() {
         actions = Actions
@@ -39,48 +38,36 @@ class SpecimenAuto : OpMode() {
         telemetry.addData("Current State", state)
 
         when (state) {
-            0 -> {} // INIT
+            0 -> {}
 
-            1 -> { // FOLLOW_PATH
-                if (!pathStarted) {
-                    pedro.reset()
+            1 -> {
+                if (!actionStarted) {
                     pedro.followPath(SpecimenPaths.scorePreloadPath)
-                    pathStarted = true
+                    actionStarted = true
                 } else if (pedro.isDone()) {
+                    actionStarted = false
                     state++
                 }
             }
 
-            2 -> { // SCORE_SPECIMEN
-                actions.scoreSpecimen()
-                state++
-            }
-
-            3 -> { // WAIT_FOR_SCORE_COMPLETE
-                if (actions.isDone()) {
-                    Delay.start(1)
+            2 -> {
+                if (!actionStarted) {
+                    actions.beforeScoreSpecimen()
+                    actionStarted = true
+                } else if (actions.isDone()) {
+                    actionStarted = false
                     state++
                 }
             }
 
-            4 -> { // DELAY1
-                if (Delay.isDone()) {
+            3 -> {
+                if (!actionStarted) {
+                    actions.scoreSpecimen()
+                    actionStarted = true
+                } else if (actions.isDone()) {
+                    actionStarted = false
                     state++
                 }
-            }
-
-            5 -> { // RESET_MECHANISMS
-                actions.returnToReset()
-                state++
-            }
-
-            6 -> { // WAIT_FOR_RESET_COMPLETE
-                if (actions.isDone()) {
-                    state++
-                }
-            }
-
-            7 -> { // COMPLETE
             }
         }
 
