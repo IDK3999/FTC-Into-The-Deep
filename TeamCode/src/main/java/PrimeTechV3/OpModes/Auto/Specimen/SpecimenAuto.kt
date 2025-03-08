@@ -18,20 +18,15 @@ class SpecimenAuto : OpMode() {
     private lateinit var pedro: Pedro
 
     private var pathStarted = false
-
-    private lateinit var scorePreloadPath: PathChain
-
+    
     override fun init() {
         actions = Actions
         actions.init(hardwareMap)
 
         pedro = Pedro
-        pedro.init(hardwareMap, Pose(8.4, 0.0, Math.toRadians(-180.0)))
+        pedro.init(hardwareMap, SpecimenPaths.start)
 
-        scorePreloadPath = pedro.follower.pathBuilder()
-            .addPath(BezierLine(Point(Pose(8.4, 0.0)), Point(Pose(39.5, 0.0))))
-            .setConstantHeadingInterpolation(Math.toRadians(-180.0))
-            .build()
+        SpecimenPaths.build(pedro.follower)
 
         telemetry.addData("Status", "Initialized! Press play to start")
         telemetry.update()
@@ -60,7 +55,7 @@ class SpecimenAuto : OpMode() {
 
                 if (!pathStarted) {
                     pedro.reset()
-                    pedro.followPath(scorePreloadPath)
+                    pedro.followPath(SpecimenPaths.scorePreloadPath)
                     pathStarted = true
                 } else if (pedro.isDone()) {
                     telemetry.addData("Status", "Path following complete!")
