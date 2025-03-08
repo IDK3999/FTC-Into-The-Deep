@@ -12,18 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode
 
 @Autonomous(name = "Specimen Auto")
 class SpecimenAuto : OpMode() {
-    enum class AutoState {
-        INIT,
-        SCORE_SPECIMEN,
-        WAIT_FOR_SCORE_COMPLETE,
-        DELAY1,
-        RESET_MECHANISMS,
-        WAIT_FOR_RESET_COMPLETE,
-        FOLLOW_PATH,
-        COMPLETE
-    }
-
-    private var currentState = AutoState.INIT
+    private var state = 0
 
     private lateinit var actions: Actions
     private lateinit var pedro: Pedro
@@ -52,7 +41,7 @@ class SpecimenAuto : OpMode() {
         pedro.start()
         actions.start()
 
-        currentState = AutoState.FOLLOW_PATH
+        state = 1
         telemetry.addData("Status", "Starting autonomous sequence")
         telemetry.update()
     }
@@ -61,12 +50,12 @@ class SpecimenAuto : OpMode() {
         actions.update()
         pedro.update()
 
-        telemetry.addData("Current State", currentState)
+        telemetry.addData("Current State", state)
 
-        when (currentState) {
-            AutoState.INIT -> {}
+        when (state) {
+            0 -> {} // INIT
 
-            AutoState.FOLLOW_PATH -> {
+            1 -> { // FOLLOW_PATH
                 telemetry.addData("Action", "Following path")
 
                 if (!pathStarted) {
@@ -75,54 +64,50 @@ class SpecimenAuto : OpMode() {
                     pathStarted = true
                 } else if (pedro.isDone()) {
                     telemetry.addData("Status", "Path following complete!")
-                    currentState = AutoState.SCORE_SPECIMEN
+                    state++
                 }
             }
 
-            AutoState.SCORE_SPECIMEN -> {
+            2 -> { // SCORE_SPECIMEN
                 telemetry.addData("Action", "Starting specimen scoring")
-
                 actions.scoreSpecimen()
-
-                currentState = AutoState.WAIT_FOR_SCORE_COMPLETE
+                state++
             }
 
-            AutoState.WAIT_FOR_SCORE_COMPLETE -> {
+            3 -> { // WAIT_FOR_SCORE_COMPLETE
                 telemetry.addData("Action", "Waiting for scoring to complete")
 
                 if (actions.isDone()) {
                     telemetry.addData("Status", "Scoring complete!")
                     Delay.start(1)
-                    currentState = AutoState.DELAY1
+                    state++
                 }
             }
 
-            AutoState.DELAY1 -> {
+            4 -> { // DELAY1
                 telemetry.addData("Action", "Delaying")
 
                 if (Delay.isDone()) {
-                    currentState = AutoState.RESET_MECHANISMS
+                    state++
                 }
             }
 
-            AutoState.RESET_MECHANISMS -> {
+            5 -> { // RESET_MECHANISMS
                 telemetry.addData("Action", "Starting reset sequence")
-
                 actions.returnToReset()
-
-                currentState = AutoState.WAIT_FOR_RESET_COMPLETE
+                state++
             }
 
-            AutoState.WAIT_FOR_RESET_COMPLETE -> {
+            6 -> { // WAIT_FOR_RESET_COMPLETE
                 telemetry.addData("Action", "Waiting for reset to complete")
 
                 if (actions.isDone()) {
                     telemetry.addData("Status", "Reset complete!")
-                    currentState = AutoState.COMPLETE
+                    state++
                 }
             }
 
-            AutoState.COMPLETE -> {
+            7 -> { // COMPLETE
                 telemetry.addData("Status", "All actions complete!")
             }
         }
