@@ -52,7 +52,9 @@ object Actions {
 
         when (action) {
             PossibleActions.IDLE -> {
-                // Do nothing
+                Claw.setClawPivot(Claw.ClawPivotState.BACK)
+                Claw.setClawVertical(true)
+                Claw.setClawOpen(false)
             }
 
             PossibleActions.BEFORE_SCORE_SPECIMEN -> {}
