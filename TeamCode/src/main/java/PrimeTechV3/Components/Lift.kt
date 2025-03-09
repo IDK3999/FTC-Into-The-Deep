@@ -14,7 +14,7 @@ object Lift {
     private val p = 0.012
     private val i = 0.12
     private val d = 0.000287
-    private val tolerance = 35.0
+    private val tolerance = 20.0
     private lateinit var controller: PIDController
 
     private var target = 0.0
