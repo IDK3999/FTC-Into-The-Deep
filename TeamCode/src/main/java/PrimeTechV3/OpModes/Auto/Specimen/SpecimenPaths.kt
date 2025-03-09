@@ -10,9 +10,9 @@ import com.pedropathing.pathgen.Point
 object SpecimenPaths {
     // region Poses
     private var startX = 8.4
-    private var scoreX = 39.5
+    private var scoreX = 38.0
     private var scoreX2 = 41.0
-    private var giveX = 14.0
+    private var giveX = 16.0
     private var scoreYStep = 3.0
     private var firstScoreY = 66.0
     private val secondScoreY = firstScoreY + scoreYStep
@@ -33,7 +33,7 @@ object SpecimenPaths {
     private val get3 = Pose(52.0, 8.3)
     private val get3Control1 = Pose(72.0, 16.0)
     private val give3 = Pose(giveX, 8.0)
-    private val load = Pose(16.0, 24.3)
+    val load = Pose(16.0, 24.3, heading)
     private val loadControl1 = Pose(30.0, 7.5)
     private val loadControl2 = Pose(30.0, 35.0)
     private val loadControl = Pose(25.0, 30.0)

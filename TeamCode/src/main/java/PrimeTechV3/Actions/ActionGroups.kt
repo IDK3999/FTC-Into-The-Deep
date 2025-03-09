@@ -57,46 +57,53 @@ object Actions {
                 Claw.setClawOpen(false)
             }
 
-            PossibleActions.BEFORE_SCORE_SPECIMEN -> {}
-
-            PossibleActions.SCORE_SPECIMEN -> {
+            PossibleActions.BEFORE_SCORE_SPECIMEN -> {
                 when (state) {
-                    1 -> { // STARTING
+                    1 -> {
                         Claw.setClawPivot(Claw.ClawPivotState.SCORE_SPECIMEN)
                         Claw.setClawVertical(true)
                         Claw.setClawOpen(false)
-                        state = 2
+                        state++
                     }
 
                     2 -> { // POSITIONING_CLAW
                         if (Claw.isDone()) {
-                            Lift.setCustomLiftPosition(200)
-                            state = 3
+//                            Lift.setLiftPosition(Lift.LiftPosition.BEFORE_SCORE_SPECIMEN)
+                            Lift.setCustomLiftPosition(100)
+                            state++
                         }
                     }
 
                     3 -> { // MOVING_LIFT_BEFORE
                         if (Lift.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.SCORE_SPECIMEN)
-                            state = 4
+                            state++
                         }
                     }
 
                     4 -> { // MOVING_PIVOT
                         if (Pivot.isDone()) {
-                            Lift.setLiftPosition(Lift.LiftPosition.SCORE_SPECIMEN)
-                            state = 5
+                            state = 0
                         }
                     }
+                }
+            }
 
-                    5 -> { // MOVING_LIFT
+            PossibleActions.SCORE_SPECIMEN -> {
+                when (state) {
+                    1 -> {
+                        Lift.setLiftPosition(Lift.LiftPosition.SCORE_SPECIMEN)
+                        state++
+                    }
+
+                    2 -> { // MOVING_LIFT
                         if (Lift.isDone()) {
                             Claw.setClawOpen(true)
-                            state = 6
+                            state++
                         }
                     }
 
-                    6 -> { // RESETTING_CLAW
+                    3 -> { // RESETTING_CLAW
                         if (Claw.isDone()) {
                             state = 0
                         }
@@ -189,8 +196,14 @@ object Actions {
                         }
                     }
 
-                    4 -> { // POSITIONING_CLAW
+                    4 -> {
                         if (Claw.isDone()) {
+                            Lift.setLiftPosition(Lift.LiftPosition.LOW)
+                        }
+                    }
+
+                    5 -> { // POSITIONING_CLAW
+                        if (Lift.isDone()) {
                             state = 0
                         }
                     }
