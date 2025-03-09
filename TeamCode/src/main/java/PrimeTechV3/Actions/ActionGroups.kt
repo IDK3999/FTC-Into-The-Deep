@@ -41,33 +41,8 @@ object Actions {
         state = 0
     }
 
-    fun scoreSpecimen() {
-        action = PossibleActions.SCORE_SPECIMEN
-        state = 1
-    }
-
-    fun scoreSample() {
-        action = PossibleActions.SCORE_SAMPLE
-        state = 1
-    }
-
-    fun beforeScoreSpecimen() {
-        action = PossibleActions.BEFORE_SCORE_SPECIMEN
-        state = 1
-    }
-
-    fun grabSpecimen() {
-        action = PossibleActions.GRAB_SPECIMEN
-        state = 1
-    }
-
-    fun grabSample() {
-        action = PossibleActions.GRAB_SAMPLE
-        state = 1
-    }
-
-    fun returnToReset() {
-        action = PossibleActions.RESET_ALL
+    fun setAction(setToAction: PossibleActions) {
+        action = setToAction
         state = 1
     }
 
