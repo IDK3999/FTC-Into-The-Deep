@@ -70,6 +70,47 @@ class SpecimenAuto : OpMode() {
                 }
             }
 
+            4 -> {
+                if (!actionStarted) {
+                    pedro.followPath(SpecimenPaths.getGiveSamples)
+                    actionStarted = true
+                } else if (pedro.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            5 -> {
+                if (!actionStarted) {
+                    pedro.followPath(SpecimenPaths.load2Path)
+                    actions.setAction(Actions.PossibleActions.BEFORE_GRAB_SPECIMEN)
+                    actionStarted = true
+                } else if (pedro.isDone() && actions.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            6 -> {
+                if (!actionStarted) {
+                    actions.setAction(Actions.PossibleActions.GRAB_SPECIMEN)
+                    actionStarted = true
+                } else if (actions.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            7 -> {
+                if (!actionStarted) {
+                    pedro.followPath(SpecimenPaths.score2Path)
+                    actionStarted = true
+                } else if (pedro.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
             else -> {
                 state = 0
             }
