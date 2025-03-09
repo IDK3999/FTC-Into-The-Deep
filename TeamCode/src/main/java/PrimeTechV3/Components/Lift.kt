@@ -78,7 +78,7 @@ object Lift {
     }
 
     fun update() {
-        val currentPosition = liftMotorLeft.currentPosition.toDouble()
+        val currentPosition = liftMotorRight.currentPosition.toDouble()
         val power = controller.calculate(currentPosition)
         val clampedPower = power.coerceIn(-1.0, 1.0)
 
