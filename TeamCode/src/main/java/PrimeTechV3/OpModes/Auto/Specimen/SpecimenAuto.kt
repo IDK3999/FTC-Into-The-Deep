@@ -52,7 +52,7 @@ class SpecimenAuto : OpMode() {
 
             2 -> {
                 if (!actionStarted) {
-                    actions.beforeScoreSpecimen()
+                    actions.setAction(Actions.PossibleActions.SCORE_SPECIMEN)
                     actionStarted = true
                 } else if (actions.isDone()) {
                     actionStarted = false
