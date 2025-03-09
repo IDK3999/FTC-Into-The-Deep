@@ -73,8 +73,9 @@ class SpecimenAuto : OpMode() {
             4 -> {
                 if (!actionStarted) {
                     pedro.followPath(SpecimenPaths.getGiveSamples)
+                    actions.setAction(Actions.PossibleActions.BEFORE_GRAB_SPECIMEN)
                     actionStarted = true
-                } else if (pedro.isDone()) {
+                } else if (pedro.isDone() && actions.isDone()) {
                     actionStarted = false
                     state++
                 }
@@ -83,9 +84,8 @@ class SpecimenAuto : OpMode() {
             5 -> {
                 if (!actionStarted) {
                     pedro.followPath(SpecimenPaths.load2Path)
-                    actions.setAction(Actions.PossibleActions.BEFORE_GRAB_SPECIMEN)
                     actionStarted = true
-                } else if (pedro.isDone() && actions.isDone()) {
+                } else if (pedro.isDone()) {
                     actionStarted = false
                     state++
                 }
