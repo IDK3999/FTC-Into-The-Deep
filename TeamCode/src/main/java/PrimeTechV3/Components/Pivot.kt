@@ -12,7 +12,7 @@ object Pivot {
     private val p = 0.003
     private val i = 0.01
     private val d = 0.0002
-    private val tolerance = 30.0
+    private val tolerance = 15.0
     private lateinit var controller: PIDController
 
     private var target = 0.0
