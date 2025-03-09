@@ -48,19 +48,20 @@ object Pedro {
         state = PedroState.MOVING
     }
 
+    fun followPath(pathChain: PathChain, hold: Boolean) {
+        follower.followPath(pathChain, hold)
+        state = PedroState.MOVING
+    }
+
     fun followPath(pathChain: PathChain, maxPower: Double) {
         follower.followPath(pathChain, maxPower, true)
         state = PedroState.MOVING
     }
 
     fun update() {
-        if (state == PedroState.MOVING) {
-            if (follower.isBusy) {
-                follower.update()
-            } else {
-                state = PedroState.IDLE
-            }
-        }
+        follower.update()
+        if (state == PedroState.MOVING && !follower.isBusy)
+            state = PedroState.IDLE
     }
 
     enum class PedroState {
