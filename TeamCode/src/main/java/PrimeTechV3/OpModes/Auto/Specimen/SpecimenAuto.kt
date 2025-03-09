@@ -62,12 +62,16 @@ class SpecimenAuto : OpMode() {
 
             3 -> {
                 if (!actionStarted) {
-                    actions.scoreSpecimen()
+                    actions.setAction(Actions.PossibleActions.SCORE_SPECIMEN)
                     actionStarted = true
                 } else if (actions.isDone()) {
                     actionStarted = false
                     state++
                 }
+            }
+
+            else -> {
+                state = 0
             }
         }
 
