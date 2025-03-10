@@ -87,14 +87,15 @@ object SpecimenPaths {
             .build()
 
         load2Path = follower.pathBuilder()
-            .addPath(
-                BezierCurve(
-                    Point(give3),
-                    Point(loadControl1),
-                    Point(loadControl2),
-                    Point(load)
-                )
-            )
+//            .addPath(
+//                BezierCurve(
+//                    Point(give3),
+//                    Point(loadControl1),
+//                    Point(loadControl2),
+//                    Point(load)
+//                )
+//            )
+            .addPath(BezierLine(Point(scorePreload), Point(load)))
             .setConstantHeadingInterpolation(heading)
             .build()
 
