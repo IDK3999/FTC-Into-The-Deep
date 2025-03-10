@@ -150,20 +150,20 @@ object Actions {
                         Claw.setClawPivot(Claw.ClawPivotState.GRAB_SPECIMEN)
                         Claw.setClawVertical(true)
                         Claw.setClawOpen(true)
-                        state = 2
+                        state++
                     }
 
                     2 -> { // POSITIONING_CLAW
                         if (Claw.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.GRAB_SPECIMEN)
-                            state = 3
+                            state++
                         }
                     }
 
                     3 -> { // MOVING_PIVOT
                         if (Pivot.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.LOW)
-                            state = 4
+                            state++
                         }
                     }
 
