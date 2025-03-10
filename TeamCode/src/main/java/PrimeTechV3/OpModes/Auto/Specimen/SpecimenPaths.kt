@@ -46,7 +46,12 @@ object SpecimenPaths {
 
     // region Paths
     lateinit var scorePreloadPath: PathChain
-    lateinit var getGiveSamples: PathChain
+    lateinit var get1Path: PathChain
+    lateinit var give1Path: PathChain
+    lateinit var get2Path: PathChain
+    lateinit var give2Path: PathChain
+    lateinit var get3Path: PathChain
+    lateinit var give3Path: PathChain
     lateinit var parkPath: PathChain
     lateinit var load2Path: PathChain
     lateinit var score2Path: PathChain
@@ -64,7 +69,7 @@ object SpecimenPaths {
             .setConstantHeadingInterpolation(heading)
             .build()
 
-        getGiveSamples = follower.pathBuilder()
+        get1Path = follower.pathBuilder()
             .addPath(
                 BezierCurve(
                     Point(scorePreload),
@@ -74,14 +79,29 @@ object SpecimenPaths {
                 )
             )
             .setConstantHeadingInterpolation(heading)
+            .build()
+
+        give1Path = follower.pathBuilder()
             .addPath(BezierLine(Point(get1), Point(give1)))
             .setConstantHeadingInterpolation(heading)
+            .build()
+
+        get2Path = follower.pathBuilder()
             .addPath(BezierCurve(Point(give1), Point(get2Control1), Point(get2)))
             .setConstantHeadingInterpolation(heading)
+            .build()
+
+        give2Path = follower.pathBuilder()
             .addPath(BezierLine(Point(get2), Point(give2)))
             .setConstantHeadingInterpolation(heading)
+            .build()
+
+        get3Path = follower.pathBuilder()
             .addPath(BezierCurve(Point(give2), Point(get3Control1), Point(get3)))
             .setConstantHeadingInterpolation(heading)
+            .build()
+
+        give3Path = follower.pathBuilder()
             .addPath(BezierLine(Point(get3), Point(give3)))
             .setConstantHeadingInterpolation(heading)
             .build()
