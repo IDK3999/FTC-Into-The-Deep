@@ -52,6 +52,7 @@ object SpecimenPaths {
     lateinit var give2Path: PathChain
     lateinit var get3Path: PathChain
     lateinit var give3Path: PathChain
+//    lateinit var getGiveSamples: PathChain
     lateinit var parkPath: PathChain
     lateinit var load2Path: PathChain
     lateinit var score2Path: PathChain
