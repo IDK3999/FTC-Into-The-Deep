@@ -34,6 +34,11 @@ object Claw {
         private set
     // endregion Declare States
 
+    // region Timer
+    private var startTime: Long = 0
+    private const val delayDuration = 300 // 0.3 seconds in milliseconds
+    // endregion Timer
+
     fun init(hardwareMap: HardwareMap) {
         openingServo = hardwareMap.get(Servo::class.java, "openingServo")
         rotationServo = hardwareMap.get(Servo::class.java, "rotationServo")
@@ -52,6 +57,8 @@ object Claw {
         openingServo.position = closedPosition
         rotationServo.position = rotationVertical
         pivotServo.position = pivotBackPosition
+
+        startTime = System.currentTimeMillis()
     }
 
     fun setClawOpen(boolean: Boolean) {
@@ -63,7 +70,7 @@ object Claw {
     }
 
     fun isDone(): Boolean {
-        return true
+        return System.currentTimeMillis() - startTime >= delayDuration
     }
 
     fun setClawVertical(boolean: Boolean) {
@@ -88,51 +95,61 @@ object Claw {
     fun openClaw() {
         openingServo.position = openPosition
         openState = ClawOpenState.OPEN
+        startTime = System.currentTimeMillis()
     }
 
     fun closeClaw() {
         openingServo.position = closedPosition
         openState = ClawOpenState.CLOSED
+        startTime = System.currentTimeMillis()
     }
 
     fun rotateClawVertical() {
         rotationServo.position = rotationVertical
         rotationState = ClawRotationState.VERTICAL
+        startTime = System.currentTimeMillis()
     }
 
     fun rotateClawHorizontal() {
         rotationServo.position = rotationHorizontal
         rotationState = ClawRotationState.HORIZONTAL
+        startTime = System.currentTimeMillis()
     }
 
     fun pivotClawFront() {
         pivotServo.position = pivotFrontPosition
         pivotState = ClawPivotState.FRONT
+        startTime = System.currentTimeMillis()
     }
 
     fun pivotClawBack() {
         pivotServo.position = pivotBackPosition
         pivotState = ClawPivotState.BACK
+        startTime = System.currentTimeMillis()
     }
 
     fun pivotClawScoreSpecimen() {
         pivotServo.position = pivotScoreSpecimenPosition
         pivotState = ClawPivotState.SCORE_SPECIMEN
+        startTime = System.currentTimeMillis()
     }
 
     fun pivotClawGrabSpecimen() {
         pivotServo.position = pivotGrabSpecimenPosition
         pivotState = ClawPivotState.GRAB_SPECIMEN
+        startTime = System.currentTimeMillis()
     }
 
     fun pivotClawScoreSample() {
         pivotServo.position = pivotScoreSamplePosition
         pivotState = ClawPivotState.SCORE_SAMPLE
+        startTime = System.currentTimeMillis()
     }
 
     fun pivotClawGrabSample() {
         pivotServo.position = pivotGrabSamplePosition
         pivotState = ClawPivotState.GRAB_SAMPLE
+        startTime = System.currentTimeMillis()
     }
 
     enum class ClawRotationState {
