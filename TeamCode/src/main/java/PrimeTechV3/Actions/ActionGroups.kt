@@ -155,20 +155,20 @@ object Actions {
 
                     2 -> { // POSITIONING_CLAW
                         if (Claw.isDone()) {
-                            Pivot.setPivotPosition(Pivot.PivotPosition.GRAB_SPECIMEN)
-                            state++
-                        }
-                    }
-
-                    3 -> { // MOVING_PIVOT
-                        if (Pivot.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.LOW)
                             state++
                         }
                     }
 
-                    4 -> { // MOVING_LIFT
+                    3 -> { // MOVING_LIFT
                         if (Lift.isDone()) {
+                            Pivot.setPivotPosition(Pivot.PivotPosition.GRAB_SPECIMEN)
+                            state++
+                        }
+                    }
+
+                    4 -> { // MOVING_PIVOT
+                        if (Pivot.isDone()) {
                             state = 0
                         }
                     }
