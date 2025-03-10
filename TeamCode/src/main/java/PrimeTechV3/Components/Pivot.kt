@@ -9,8 +9,8 @@ object Pivot {
     // region Declare Components
     private lateinit var pivotMotor: DcMotorEx
 
-    private val p = 0.003
-    private val i = 0.01
+    private val p = 0.0018
+    private val i = 0.035
     private val d = 0.0002
     private val tolerance = 15.0
     private lateinit var controller: PIDController

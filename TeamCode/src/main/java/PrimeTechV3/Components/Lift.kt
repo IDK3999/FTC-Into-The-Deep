@@ -11,9 +11,9 @@ object Lift {
     private lateinit var liftMotorLeft: DcMotorEx
     private lateinit var liftMotorRight: DcMotorEx
 
-    private val p = 0.012
-    private val i = 0.12
-    private val d = 0.000287
+    private val p = 0.007
+    private val i = 0.0
+    private val d = 0.0002
     private val tolerance = 15.0
     private lateinit var controller: PIDController
 
