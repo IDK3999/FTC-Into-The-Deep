@@ -24,8 +24,8 @@ object SpecimenPaths {
     val start = Pose(startX, 64.7, heading)
     private val scorePreload = Pose(scoreX, firstScoreY)
     private val get1 = Pose(57.0, 27.0)
-    private val get1Control1 = Pose(6.0, 28.0)
-    private val get1Control2 = Pose(74.0, 38.0)
+    private val get1Control1 = Pose(6.0, 18.0)
+    private val get1Control2 = Pose(74.0, 46.0)
     private val give1 = Pose(giveX, 23.0)
     private val get2 = Pose(52.0, 13.0)
     private val get2Control1 = Pose(72.0, 27.0)
@@ -73,7 +73,7 @@ object SpecimenPaths {
         get1Path = follower.pathBuilder()
             .addPath(
                 BezierCurve(
-                    Point(scorePreload),
+                    Point(score2),
                     Point(get1Control1),
                     Point(get1Control2),
                     Point(get1)
