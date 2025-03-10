@@ -134,10 +134,9 @@ class SpecimenAuto : OpMode() {
 
             4 -> {
                 if (!actionStarted) {
-                    pedro.followPath(SpecimenPaths.getGiveSamples)
                     actions.setAction(Actions.PossibleActions.BEFORE_GRAB_SPECIMEN)
                     actionStarted = true
-                } else if (pedro.isDone() && actions.isDone()) {
+                } else if (actions.isDone()) {
                     actionStarted = false
                     state++
                 }
