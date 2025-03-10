@@ -179,26 +179,27 @@ object Actions {
                 when (state) {
                     1 -> { // STARTING
                         Lift.setLiftPosition(Lift.LiftPosition.LOAD_SPECIMEN)
-                        state = 2
+                        state++
                     }
 
                     2 -> { // MOVING_LIFT
                         if (Lift.isDone()) {
                             Claw.closeClaw()
-                            state = 3
+                            state++
                         }
                     }
 
                     3 -> { // POSITIONING_CLAW
                         if (Claw.isDone()) {
                             Claw.setClawPivot(Claw.ClawPivotState.BACK)
-                            state = 4
+                            state++
                         }
                     }
 
                     4 -> {
                         if (Claw.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.LOW)
+                            state++
                         }
                     }
 
@@ -216,25 +217,31 @@ object Actions {
                         Claw.setClawPivot(Claw.ClawPivotState.GRAB_SAMPLE)
                         Claw.setClawVertical(false)
                         Claw.setClawOpen(true)
-                        state = 2
+                        state++
                     }
 
                     2 -> { // POSITIONING_CLAW
                         if (Claw.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.LOW)
-                            state = 3
+                            state++
                         }
                     }
 
                     3 -> { // MOVING_PIVOT
                         if (Pivot.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.LOAD_SAMPLE)
-                            state = 4
+                            state++
                         }
                     }
 
                     4 -> { // MOVING_LIFT
                         if (Lift.isDone()) {
+                            Claw.setClawOpen(false)
+                        }
+                    }
+
+                    5 -> { // CLOSING_CLAW
+                        if (Claw.isDone()) {
                             state = 0
                         }
                     }
@@ -245,20 +252,20 @@ object Actions {
                 when (state) {
                     1 -> { // STARTING
                         Claw.reset()
-                        state = 2
+                        state++
                     }
 
                     2 -> { // POSITIONING_CLAW
                         if (Claw.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.LOW)
-                            state = 3
+                            state++
                         }
                     }
 
                     3 -> { // MOVING_LIFT
                         if (Lift.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.LOW)
-                            state = 4
+                            state++
                         }
                     }
 
