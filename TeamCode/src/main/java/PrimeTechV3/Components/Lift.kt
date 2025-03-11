@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap
 object Lift {
     // region Declare Components
     private lateinit var liftMotorLeft: DcMotorEx
-    private lateinit var liftMotorRight: DcMotorEx
+    lateinit var liftMotorRight: DcMotorEx
 
     private val p = 0.007
     private val i = 0.0
@@ -17,7 +17,7 @@ object Lift {
     private val tolerance = 15.0
     private lateinit var controller: PIDController
 
-    private var target = 0.0
+    var target = 0.0
 
     private var resetStartTime: Long = 0
     private var isResetting = false
