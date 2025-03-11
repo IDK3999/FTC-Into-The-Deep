@@ -16,9 +16,6 @@ object Actions {
         GRAB_SPECIMEN,
         GRAB_SAMPLE,
         RESET_ALL
-//        RESET_CLAW
-//        RESET_LIFT,
-//        RESET_EXTENSION
     }
 
     // region Declare States
