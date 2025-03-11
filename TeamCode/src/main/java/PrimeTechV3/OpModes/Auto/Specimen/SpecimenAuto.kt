@@ -96,7 +96,7 @@ class SpecimenAuto : OpMode() {
 
             6 -> {
                 if (!actionStarted) {
-                    Delay.start(1.0)
+                    Delay.start(0.5)
                     actionStarted = true
                 } else if (Delay.isDone()) {
                     actionStarted = false
@@ -157,24 +157,15 @@ class SpecimenAuto : OpMode() {
             12 -> {
                 if (!actionStarted) {
                     actions.setAction(Actions.PossibleActions.BEFORE_GRAB_SPECIMEN)
+                    pedro.followPath(SpecimenPaths.get1Path)
                     actionStarted = true
-                } else if (actions.isDone()) {
+                } else if (actions.isDone() && pedro.isDone()) {
                     actionStarted = false
                     state++
                 }
             }
 
             13 -> {
-                if (!actionStarted) {
-                    pedro.followPath(SpecimenPaths.get1Path)
-                    actionStarted = true
-                } else if (pedro.isDone()) {
-                    actionStarted = false
-                    state++
-                }
-            }
-
-            14 -> {
                 if (!actionStarted) {
                     pedro.followPath(SpecimenPaths.give1Path)
                     actionStarted = true
@@ -184,7 +175,7 @@ class SpecimenAuto : OpMode() {
                 }
             }
 
-            15 -> {
+            14 -> {
                 if (!actionStarted) {
                     pedro.followPath(SpecimenPaths.get2Path)
                     actionStarted = true
@@ -194,11 +185,81 @@ class SpecimenAuto : OpMode() {
                 }
             }
 
-            16 -> {
+            15 -> {
                 if (!actionStarted) {
                     pedro.followPath(SpecimenPaths.give2Path)
                     actionStarted = true
                 } else if (pedro.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            16 -> {
+                if (!actionStarted) {
+                    pedro.followPath(SpecimenPaths.load3Path)
+                    actionStarted = true
+                } else if (pedro.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            17-> {
+                if (!actionStarted) {
+                    Delay.start(0.5)
+                    actionStarted = true
+                } else if (Delay.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            18 -> {
+                if (!actionStarted) {
+                    actions.setAction(Actions.PossibleActions.GRAB_SPECIMEN)
+                    actionStarted = true
+                } else if (actions.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            19 -> {
+                if (!actionStarted) {
+                    PrimeTechV3.Components.Lift.resetEncoders()
+                    actionStarted = true
+                } else if (PrimeTechV3.Components.Lift.isAtTarget()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            20 -> {
+                if (!actionStarted) {
+                    pedro.followPath(SpecimenPaths.score3Path)
+                    actionStarted = true
+                } else if (pedro.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            21 -> {
+                if (!actionStarted) {
+                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
+                    actionStarted = true
+                } else if (actions.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            22 -> {
+                if (!actionStarted) {
+                    actions.setAction(Actions.PossibleActions.SCORE_SPECIMEN)
+                    actionStarted = true
+                } else if (actions.isDone()) {
                     actionStarted = false
                     state++
                 }

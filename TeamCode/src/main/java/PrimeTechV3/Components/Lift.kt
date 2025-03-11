@@ -11,10 +11,10 @@ object Lift {
     private lateinit var liftMotorLeft: DcMotorEx
     lateinit var liftMotorRight: DcMotorEx
 
-    private val p = 0.007
+    private val p = 0.015
     private val i = 0.0
     private val d = 0.0002
-    private val tolerance = 15.0
+    private val tolerance = 20.0
     private lateinit var controller: PIDController
 
     var target = 0.0
@@ -25,8 +25,8 @@ object Lift {
 
     private val positions = mapOf(
         LiftPosition.LOW to 0.0,
-        LiftPosition.BEFORE_SCORE_SPECIMEN to 270.0,
-        LiftPosition.SCORE_SPECIMEN to 330.0,
+        LiftPosition.BEFORE_SCORE_SPECIMEN to 120.0,
+        LiftPosition.SCORE_SPECIMEN to 390.0,
         LiftPosition.SCORE_SAMPLE to 600.0,
         LiftPosition.LOAD_SPECIMEN to 100.0,
         LiftPosition.LOAD_SAMPLE to 100.0
@@ -91,11 +91,11 @@ object Lift {
     fun update() {
         if (state == LiftState.RESETTING) {
             val elapsedTime = System.currentTimeMillis() - resetStartTime
-            if (elapsedTime < 1000) {
-                val power = -0.5 + (0.5 * (elapsedTime / 1000.0))
+            if (elapsedTime < 500) {
+                val power = -0.5 + (0.5 * (elapsedTime / 500.0))
                 liftMotorLeft.power = power
                 liftMotorRight.power = power
-            } else if (elapsedTime < 1500) {
+            } else if (elapsedTime < 600) {
                 liftMotorLeft.power = 0.0
                 liftMotorRight.power = 0.0
             } else {

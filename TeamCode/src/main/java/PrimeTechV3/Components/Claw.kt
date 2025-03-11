@@ -17,7 +17,7 @@ object Claw {
     private val pivotFrontPosition = 0.0
     private val pivotBackPosition = 1.0
     private val pivotScoreSpecimenPosition = 0.75
-    private val pivotGrabSpecimenPosition = 0.6
+    private val pivotGrabSpecimenPosition = 0.50
     private val pivotScoreSamplePosition = 0.9
     private val pivotGrabSamplePosition = 0.1
 

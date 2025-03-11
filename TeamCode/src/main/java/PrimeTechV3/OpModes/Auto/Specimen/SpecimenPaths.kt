@@ -10,10 +10,11 @@ import com.pedropathing.pathgen.Point
 object SpecimenPaths {
     // region Poses
     private var startX = 8.4
-    private var scoreX = 40.0
-    private var scoreX2 = 41.0
+    private var scoreX = 39.0
+    private var scoreX2 = 39.5
+    private var scoreX3 = 40.0
     private var giveX = 16.0
-    private var scoreYStep = 3.0
+    private var scoreYStep = 3.5
     private var firstScoreY = 66.0
     private val secondScoreY = firstScoreY + scoreYStep
     private val thirdScoreY = secondScoreY + scoreYStep
@@ -38,7 +39,7 @@ object SpecimenPaths {
     private val loadControl2 = Pose(30.0, 35.0)
     private val loadControl = Pose(25.0, 30.0)
     private val score2 = Pose(scoreX2, secondScoreY)
-    private val score3 = Pose(scoreX2, thirdScoreY)
+    private val score3 = Pose(scoreX3, thirdScoreY)
     private val score4 = Pose(scoreX2, fourthScoreY)
     private val score5 = Pose(scoreX2, fifthScoreY)
     private val park = Pose(14.0, 34.0)
@@ -52,7 +53,6 @@ object SpecimenPaths {
     lateinit var give2Path: PathChain
     lateinit var get3Path: PathChain
     lateinit var give3Path: PathChain
-//    lateinit var getGiveSamples: PathChain
     lateinit var parkPath: PathChain
     lateinit var load2Path: PathChain
     lateinit var score2Path: PathChain
@@ -108,14 +108,6 @@ object SpecimenPaths {
             .build()
 
         load2Path = follower.pathBuilder()
-//            .addPath(
-//                BezierCurve(
-//                    Point(give3),
-//                    Point(loadControl1),
-//                    Point(loadControl2),
-//                    Point(load)
-//                )
-//            )
             .addPath(BezierLine(Point(scorePreload), Point(load)))
             .setConstantHeadingInterpolation(heading)
             .build()
@@ -126,7 +118,15 @@ object SpecimenPaths {
             .build()
 
         load3Path = follower.pathBuilder()
-            .addPath(BezierCurve(Point(score2), Point(loadControl), Point(load)))
+            .addPath(
+                BezierCurve(
+                    Point(give2),
+                    Point(loadControl1),
+                    Point(loadControl2),
+                    Point(load)
+                )
+            )
+//            .addPath(BezierCurve(Point(score2), Point(loadControl), Point(load)))
             .setConstantHeadingInterpolation(heading)
             .build()
 

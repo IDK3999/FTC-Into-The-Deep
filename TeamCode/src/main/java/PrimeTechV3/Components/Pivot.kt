@@ -12,7 +12,7 @@ object Pivot {
     private val p = 0.0018
     private val i = 0.035
     private val d = 0.0002
-    private val tolerance = 15.0
+    private val tolerance = 20.0
     private lateinit var controller: PIDController
 
     private var target = 0.0
@@ -22,7 +22,7 @@ object Pivot {
         PivotPosition.LOW to 0.0,
         PivotPosition.SCORE_SPECIMEN to 2050.0,
         PivotPosition.SCORE_SAMPLE to 2100.0,
-        PivotPosition.GRAB_SPECIMEN to 200.0
+        PivotPosition.GRAB_SPECIMEN to 250.0
     )
 
     // region Declare States
