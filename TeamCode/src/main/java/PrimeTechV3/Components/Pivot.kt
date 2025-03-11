@@ -37,6 +37,8 @@ object Pivot {
 
         pivotMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
 
+        pivotMotor.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+
         pivotMotor.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
 
         controller.setTolerance(tolerance)

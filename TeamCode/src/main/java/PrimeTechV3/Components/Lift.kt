@@ -45,6 +45,9 @@ object Lift {
         liftMotorLeft.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
         liftMotorRight.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
 
+        liftMotorLeft.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+        liftMotorRight.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+
         liftMotorLeft.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
         liftMotorRight.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
 
