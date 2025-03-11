@@ -89,8 +89,9 @@ object Lift {
         if (state == LiftState.RESETTING) {
             val elapsedTime = System.currentTimeMillis() - resetStartTime
             if (elapsedTime < 1000) {
-                liftMotorLeft.power = -0.2
-                liftMotorRight.power = -0.2
+                val power = -0.5 + (0.5 * (elapsedTime / 1000.0))
+                liftMotorLeft.power = power
+                liftMotorRight.power = power
             } else if (elapsedTime < 1500) {
                 liftMotorLeft.power = 0.0
                 liftMotorRight.power = 0.0
