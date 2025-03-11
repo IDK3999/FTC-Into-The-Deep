@@ -156,7 +156,7 @@ class SpecimenAuto : OpMode() {
 
             12 -> {
                 if (!actionStarted) {
-                    actions.setAction(Actions.PossibleActions.RESET_ALL)
+                    actions.setAction(Actions.PossibleActions.BEFORE_GRAB_SPECIMEN)
                     actionStarted = true
                 } else if (actions.isDone()) {
                     actionStarted = false
