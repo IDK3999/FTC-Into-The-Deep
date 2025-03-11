@@ -174,6 +174,16 @@ class SpecimenAuto : OpMode() {
 
             8 -> {
                 if (!actionStarted) {
+                    PrimeTechV3.Components.Lift.resetEncoders()
+                    actionStarted = true
+                } else if (PrimeTechV3.Components.Lift.isAtTarget()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            9 -> {
+                if (!actionStarted) {
                     pedro.followPath(SpecimenPaths.score2Path)
                     actionStarted = true
                 } else if (pedro.isDone()) {
@@ -182,7 +192,7 @@ class SpecimenAuto : OpMode() {
                 }
             }
 
-            9 -> {
+            10 -> {
                 if (!actionStarted) {
                     actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
                     actionStarted = true
@@ -192,7 +202,7 @@ class SpecimenAuto : OpMode() {
                 }
             }
 
-            10 -> {
+            11 -> {
                 if (!actionStarted) {
                     actions.setAction(Actions.PossibleActions.SCORE_SPECIMEN)
                     actionStarted = true
@@ -202,7 +212,7 @@ class SpecimenAuto : OpMode() {
                 }
             }
 
-            11 -> {
+            12 -> {
                 if (!actionStarted) {
                     actions.setAction(Actions.PossibleActions.RESET_ALL)
                     actionStarted = true

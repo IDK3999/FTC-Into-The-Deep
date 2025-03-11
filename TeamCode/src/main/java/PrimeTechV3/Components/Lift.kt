@@ -18,6 +18,9 @@ object Lift {
     private lateinit var controller: PIDController
 
     private var target = 0.0
+
+    private var resetStartTime: Long = 0
+    private var isResetting = false
     // endregion Declare Components
 
     private val positions = mapOf(
@@ -39,7 +42,6 @@ object Lift {
 
         liftMotorLeft = hardwareMap.get(DcMotorEx::class.java, "extensionLeft")
         liftMotorRight = hardwareMap.get(DcMotorEx::class.java, "extensionRight")
-
         liftMotorLeft.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
         liftMotorRight.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
 
@@ -77,16 +79,45 @@ object Lift {
         state = LiftState.MOVING
     }
 
+    fun resetEncoders() {
+        isResetting = true
+        resetStartTime = System.currentTimeMillis()
+        state = LiftState.RESETTING
+    }
+
     fun update() {
-        val currentPosition = liftMotorRight.currentPosition.toDouble()
-        val power = controller.calculate(currentPosition)
-        val clampedPower = power.coerceIn(-1.0, 1.0)
+        if (state == LiftState.RESETTING) {
+            val elapsedTime = System.currentTimeMillis() - resetStartTime
+            if (elapsedTime < 1000) {
+                liftMotorLeft.power = -0.2
+                liftMotorRight.power = -0.2
+            } else if (elapsedTime < 1500) {
+                liftMotorLeft.power = 0.0
+                liftMotorRight.power = 0.0
+            } else {
+                liftMotorLeft.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
+                liftMotorRight.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
 
-        liftMotorLeft.power = clampedPower
-        liftMotorRight.power = clampedPower
+                liftMotorLeft.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
+                liftMotorRight.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
 
-        if (state == LiftState.MOVING && controller.atSetPoint())
-            state = LiftState.IDLE
+                isResetting = false
+                state = LiftState.IDLE
+                position = LiftPosition.LOW
+                target = 0.0
+                controller.setPoint = target
+            }
+        } else {
+            val currentPosition = liftMotorRight.currentPosition.toDouble()
+            val power = controller.calculate(currentPosition)
+            val clampedPower = power.coerceIn(-1.0, 1.0)
+
+            liftMotorLeft.power = clampedPower
+            liftMotorRight.power = clampedPower
+
+            if (state == LiftState.MOVING && controller.atSetPoint())
+                state = LiftState.IDLE
+        }
     }
 
     fun isAtTarget(): Boolean {
@@ -104,6 +135,6 @@ object Lift {
     }
 
     enum class LiftState {
-        IDLE, MOVING
+        IDLE, MOVING, RESETTING
     }
 }
