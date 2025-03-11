@@ -164,6 +164,46 @@ class SpecimenAuto : OpMode() {
                 }
             }
 
+            13 -> {
+                if (!actionStarted) {
+                    pedro.followPath(SpecimenPaths.get1Path)
+                    actionStarted = true
+                } else if (pedro.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            14 -> {
+                if (!actionStarted) {
+                    pedro.followPath(SpecimenPaths.give1Path)
+                    actionStarted = true
+                } else if (pedro.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            15 -> {
+                if (!actionStarted) {
+                    pedro.followPath(SpecimenPaths.get2Path)
+                    actionStarted = true
+                } else if (pedro.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            16 -> {
+                if (!actionStarted) {
+                    pedro.followPath(SpecimenPaths.give2Path)
+                    actionStarted = true
+                } else if (pedro.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
             else -> {
                 state = 0
             }
