@@ -40,7 +40,7 @@ object SpecimenPaths {
     private val loadControl = Pose(25.0, 30.0)
     private val score2 = Pose(scoreX2, secondScoreY)
     private val score3 = Pose(scoreX3, thirdScoreY)
-    private val score4 = Pose(scoreX2, fourthScoreY)
+    private val score4 = Pose(scoreX3, fourthScoreY)
     private val score5 = Pose(scoreX2, fifthScoreY)
     private val park = Pose(14.0, 34.0)
     // endregion Poses

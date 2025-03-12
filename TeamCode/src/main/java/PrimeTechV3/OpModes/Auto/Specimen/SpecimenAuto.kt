@@ -6,7 +6,7 @@ import PrimeTechV3.Components.Pedro
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 
-@Autonomous(name = "Specimen V3")
+@Autonomous(name = "Specimen")
 class SpecimenAuto : OpMode() {
     private var state = 0
 
@@ -256,6 +256,77 @@ class SpecimenAuto : OpMode() {
             }
 
             22 -> {
+                if (!actionStarted) {
+                    actions.setAction(Actions.PossibleActions.SCORE_SPECIMEN)
+                    actionStarted = true
+                } else if (actions.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            23 -> {
+                if (!actionStarted) {
+                    actions.setAction(Actions.PossibleActions.BEFORE_GRAB_SPECIMEN)
+                    pedro.followPath(SpecimenPaths.load4Path)
+                    actionStarted = true
+                } else if (actions.isDone() && pedro.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            24-> {
+                if (!actionStarted) {
+                    Delay.start(0.5)
+                    actionStarted = true
+                } else if (Delay.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            25 -> {
+                if (!actionStarted) {
+                    actions.setAction(Actions.PossibleActions.GRAB_SPECIMEN)
+                    actionStarted = true
+                } else if (actions.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            26 -> {
+                if (!actionStarted) {
+                    PrimeTechV3.Components.Lift.resetEncoders()
+                    actionStarted = true
+                } else if (PrimeTechV3.Components.Lift.isAtTarget()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            27 -> {
+                if (!actionStarted) {
+                    pedro.followPath(SpecimenPaths.score4Path)
+                    actionStarted = true
+                } else if (pedro.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            28 -> {
+                if (!actionStarted) {
+                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
+                    actionStarted = true
+                } else if (actions.isDone()) {
+                    actionStarted = false
+                    state++
+                }
+            }
+
+            29 -> {
                 if (!actionStarted) {
                     actions.setAction(Actions.PossibleActions.SCORE_SPECIMEN)
                     actionStarted = true
