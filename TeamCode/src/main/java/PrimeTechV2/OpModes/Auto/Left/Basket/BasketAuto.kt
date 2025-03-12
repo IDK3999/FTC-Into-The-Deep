@@ -7,6 +7,7 @@ import PrimeTechV2.Components.Handling.Pivot
 import com.pedropathing.follower.Follower
 import com.pedropathing.util.Constants
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.rowanmcalpin.nextftc.core.command.CommandManager
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
 import com.rowanmcalpin.nextftc.ftc.OpModeData
@@ -14,6 +15,7 @@ import com.rowanmcalpin.nextftc.pedro.PedroOpMode
 import pedroPathing.constants.FConstants
 import pedroPathing.constants.LConstants
 
+@Disabled
 @Autonomous(name = "Basket")
 class BasketAuto : PedroOpMode(Claw, Lift, Pivot) {
     val fConstants: FConstants = FConstants()
