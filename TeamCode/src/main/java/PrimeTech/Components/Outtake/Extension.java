@@ -14,9 +14,9 @@ public class Extension {
 
     public static final double MIN_TICKS = 0.0;
 
-    public static double MAX_TICKS = 500;
-    public static double FINAL_MAX_TICKS = 500;
-    public static double LIMITED_MAX_TICKS = 300;
+    public static double MAX_TICKS = 550;
+    public static double FINAL_MAX_TICKS = 550;
+    public static double LIMITED_MAX_TICKS = 350;
     public static double p = 0.007, i = 0, d = 0.0002;
     public static double f = 0.1;
     public static double tolerance = 40;
@@ -110,9 +110,7 @@ public class Extension {
         extension_right.setPower(power);
         extension_left.setPower(power);
         //Telemetry
-        telemetry.addData("lift_pos: ", lift_pos);
-        telemetry.addData("lift_target: ", target);
-        telemetry.update();
+
     }
 
     public void change_liftState_to_INRANGE() {

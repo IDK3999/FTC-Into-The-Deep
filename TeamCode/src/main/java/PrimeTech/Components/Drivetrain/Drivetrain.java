@@ -3,9 +3,13 @@ package PrimeTech.Components.Drivetrain;
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import static PrimeTech.Global.Global.gamepad2;
 import static PrimeTech.Global.Global.hardwareMap;
+import static PrimeTech.Global.Global.telemetry;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
+import PrimeTech.Components.Outtake.Extension;
+import PrimeTech.Components.Outtake.Pivot;
 
 public class Drivetrain {
     private static Drivetrain instance = null;
@@ -53,6 +57,14 @@ public class Drivetrain {
         leftBack.setPower((y - x + rx) * baterry_saver);
         rightFront.setPower((y - x - rx) * baterry_saver);
         rightBack.setPower((y + x - rx) * baterry_saver);
+
+
+        telemetry.addData("lift_pos: ", Extension.extension_right.getCurrentPosition()
+        );
+        telemetry.addData("lift_target: ", Extension.target);
+        telemetry.addData("pivot_pos: ", Pivot.motorPivot.getCurrentPosition());
+        telemetry.addData("pivot_target: ", Pivot.target);
+        telemetry.update();
     }
 
     private double smoothControl(double val) {

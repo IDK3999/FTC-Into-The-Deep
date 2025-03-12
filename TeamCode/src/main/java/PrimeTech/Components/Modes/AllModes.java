@@ -1,5 +1,7 @@
 package PrimeTech.Components.Modes;
 
+import static PrimeTech.Global.Global.telemetry;
+
 import com.acmerobotics.dashboard.config.Config;
 
 import PrimeTech.Components.Gamepad.Gamepad;
