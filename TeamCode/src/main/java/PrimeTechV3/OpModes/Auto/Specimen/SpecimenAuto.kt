@@ -15,6 +15,8 @@ class SpecimenAuto : OpMode() {
 
     private var actionStarted = false
 
+    private val grabDelay = 0.2
+
     override fun init() {
         actions = Actions
         actions.init(hardwareMap)
@@ -96,7 +98,7 @@ class SpecimenAuto : OpMode() {
 
             6 -> {
                 if (!actionStarted) {
-                    Delay.start(0.5)
+                    Delay.start(0.2)
                     actionStarted = true
                 } else if (Delay.isDone()) {
                     actionStarted = false
@@ -207,7 +209,7 @@ class SpecimenAuto : OpMode() {
 
             17-> {
                 if (!actionStarted) {
-                    Delay.start(0.5)
+                    Delay.start(0.2)
                     actionStarted = true
                 } else if (Delay.isDone()) {
                     actionStarted = false
@@ -278,7 +280,7 @@ class SpecimenAuto : OpMode() {
 
             24-> {
                 if (!actionStarted) {
-                    Delay.start(0.5)
+                    Delay.start(0.2)
                     actionStarted = true
                 } else if (Delay.isDone()) {
                     actionStarted = false
