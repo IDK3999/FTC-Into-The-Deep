@@ -14,7 +14,7 @@ object Lift {
     private val p = 0.015
     private val i = 0.0
     private val d = 0.0002
-    private val tolerance = 20.0
+    private val tolerance = 25.0
     private lateinit var controller: PIDController
 
     var target = 0.0
@@ -25,8 +25,8 @@ object Lift {
 
     private val positions = mapOf(
         LiftPosition.LOW to 0.0,
-        LiftPosition.BEFORE_SCORE_SPECIMEN to 120.0,
-        LiftPosition.SCORE_SPECIMEN to 390.0,
+        LiftPosition.BEFORE_SCORE_SPECIMEN to 90.0,
+        LiftPosition.SCORE_SPECIMEN to 360.0,
         LiftPosition.SCORE_SAMPLE to 600.0,
         LiftPosition.LOAD_SPECIMEN to 100.0,
         LiftPosition.LOAD_SAMPLE to 100.0

@@ -22,7 +22,7 @@ object Pivot {
         PivotPosition.LOW to 0.0,
         PivotPosition.SCORE_SPECIMEN to 2050.0,
         PivotPosition.SCORE_SAMPLE to 2100.0,
-        PivotPosition.GRAB_SPECIMEN to 250.0
+        PivotPosition.GRAB_SPECIMEN to 350.0
     )
 
     // region Declare States
