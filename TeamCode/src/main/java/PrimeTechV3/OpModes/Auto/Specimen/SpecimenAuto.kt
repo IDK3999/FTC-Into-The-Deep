@@ -24,7 +24,6 @@ class SpecimenAuto : OpMode() {
 
         pedro = Pedro
         pedro.init(hardwareMap, SpecimenPaths.start)
-//        pedro.init(hardwareMap, SpecimenPaths.load)
 
         SpecimenPaths.build(pedro.follower)
     }
