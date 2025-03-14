@@ -1,6 +1,7 @@
 package PrimeTechV3.OpModes.Auto.Specimen
 
 import PrimeTechV3.Actions.Actions
+import PrimeTechV3.Components.Claw
 import PrimeTechV3.Components.Delay
 import PrimeTechV3.Components.Pedro
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
@@ -48,6 +49,7 @@ class SpecimenAuto : OpMode() {
 
             1 -> {
                 if (!actionStarted) {
+                    Claw.setClawOpen(false)
                     pedro.followPath(SpecimenPaths.scorePreloadPath, 0.7)
                     actionStarted = true
                 } else if (pedro.isDone()) {
