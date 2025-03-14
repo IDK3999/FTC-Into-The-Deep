@@ -112,17 +112,17 @@ object Actions {
             PossibleActions.SCORE_SAMPLE -> {
                 when (state) {
                     1 -> { // STARTING
-                        Claw.setClawPivot(Claw.ClawPivotState.SCORE_SAMPLE)
+                        Claw.setClawPivot(Claw.ClawPivotState.FRONT)
                         Claw.setClawVertical(true)
                         Claw.setClawOpen(false)
                         state = 2
                     }
 
                     2 -> { // POSITIONING_CLAW
-                        if (Claw.isDone()) {
+//                        if (Claw.isDone()) {
                             Pivot.setPivotPosition(Pivot.PivotPosition.SCORE_SAMPLE)
                             state = 3
-                        }
+//                        }
                     }
 
                     3 -> { // MOVING_PIVOT
@@ -134,6 +134,27 @@ object Actions {
 
                     4 -> { // MOVING_LIFT
                         if (Lift.isDone()) {
+                            Claw.setClawPivot(Claw.ClawPivotState.SCORE_SAMPLE)
+                            state++
+                        }
+                    }
+
+                    5 -> {
+                        if (Claw.isDone()) {
+                            Claw.setClawOpen(true)
+                            state++
+                        }
+                    }
+
+                    6 -> {
+                        if (Claw.isDone()) {
+                            Claw.setClawPivot(Claw.ClawPivotState.FRONT)
+                            state++
+                        }
+                    }
+
+                    7 -> {
+                        if (Claw.isDone()) {
                             state = 0
                         }
                     }
