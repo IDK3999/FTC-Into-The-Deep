@@ -9,9 +9,9 @@ object Pivot {
     // region Declare Components
     private lateinit var pivotMotor: DcMotorEx
 
-    private val p = 0.0018
-    private val i = 0.035
-    private val d = 0.0002
+    private val p = 0.003
+    private val i = 0.0
+    private val d = 0.0003
     private val defaultTolerance = 20.0
     private val grabSpecimenTolerance = 50.0  // Higher tolerance for grab specimen position
     private lateinit var controller: PIDController
