@@ -64,10 +64,10 @@ object Actions {
                     }
 
                     2 -> { // POSITIONING_CLAW
-                        if (Claw.isDone()) {
+                        //if (Claw.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.BEFORE_SCORE_SPECIMEN)
                             state++
-                        }
+                        //}
                     }
 
                     3 -> { // MOVING_LIFT_BEFORE
@@ -150,10 +150,10 @@ object Actions {
                     }
 
                     2 -> { // POSITIONING_CLAW
-                        if (Claw.isDone()) {
+                        //if (Claw.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.LOW)
                             state++
-                        }
+                        //}
                     }
 
                     3 -> { // MOVING_LIFT
