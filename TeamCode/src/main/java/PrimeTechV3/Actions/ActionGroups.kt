@@ -66,7 +66,6 @@ object Actions {
                     2 -> { // POSITIONING_CLAW
                         if (Claw.isDone()) {
                             Lift.setLiftPosition(Lift.LiftPosition.BEFORE_SCORE_SPECIMEN)
-//                            Lift.setCustomLiftPosition(100)
                             state++
                         }
                     }
