@@ -27,7 +27,7 @@ object Lift {
         LiftPosition.LOW to 0.0,
         LiftPosition.BEFORE_SCORE_SPECIMEN to 90.0,
         LiftPosition.SCORE_SPECIMEN to 360.0,
-        LiftPosition.SCORE_SAMPLE to 600.0,
+        LiftPosition.SCORE_SAMPLE to 900.0,
         LiftPosition.LOAD_SPECIMEN to 100.0,
         LiftPosition.LOAD_SAMPLE to 100.0
     )
