@@ -17,7 +17,7 @@ public class Extension {
     public static double MAX_TICKS = 600;
     public static double FINAL_MAX_TICKS = 600;
     public static double LIMITED_MAX_TICKS = 400;
-    public static double p = 0.007, i = 0, d = 0.0002;
+    public static double p = 0.01, i = 0, d = 0.00025;
     public static double f = 0.1;
     public static double tolerance = 40;
     public static double target = 0;
