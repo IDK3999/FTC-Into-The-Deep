@@ -36,7 +36,7 @@ object Claw {
 
     // region Timer
     private var startTime: Long = 0
-    private const val delayDuration = 300 // 0.3 seconds in milliseconds
+    private const val delayDuration = 150 // 0.15 seconds in milliseconds
     // endregion Timer
 
     fun init(hardwareMap: HardwareMap) {
