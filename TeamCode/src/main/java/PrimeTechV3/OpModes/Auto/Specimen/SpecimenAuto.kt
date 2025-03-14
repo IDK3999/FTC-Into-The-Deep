@@ -40,6 +40,7 @@ class SpecimenAuto : OpMode() {
         pedro.update()
 
         telemetry.addData("Current State", state)
+        telemetry.addData("Current State", Actions.getCurrentState())
 
         when (state) {
             0 -> {}
@@ -47,9 +48,10 @@ class SpecimenAuto : OpMode() {
             1 -> {
                 if (!actionStarted) {
                     Claw.setClawOpen(false)
+                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
                     pedro.followPath(SpecimenPaths.scorePreloadPath, 0.7)
                     actionStarted = true
-                } else if (pedro.isDone()) {
+                } else if (actions.isDone() && pedro.isDone()) {
                     actionStarted = false
                     state++
                 }
@@ -57,9 +59,9 @@ class SpecimenAuto : OpMode() {
 
             2 -> {
                 if (!actionStarted) {
-                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
+                    Delay.start(0.15)
                     actionStarted = true
-                } else if (actions.isDone()) {
+                } else if (Delay.isDone()) {
                     actionStarted = false
                     state++
                 }
@@ -127,9 +129,10 @@ class SpecimenAuto : OpMode() {
 
             9 -> {
                 if (!actionStarted) {
+                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
                     pedro.followPath(SpecimenPaths.score2Path)
                     actionStarted = true
-                } else if (pedro.isDone()) {
+                } else if (actions.isDone() && pedro.isDone()) {
                     actionStarted = false
                     state++
                 }
@@ -137,9 +140,9 @@ class SpecimenAuto : OpMode() {
 
             10 -> {
                 if (!actionStarted) {
-                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
+                    Delay.start(0.15)
                     actionStarted = true
-                } else if (actions.isDone()) {
+                } else if (Delay.isDone()) {
                     actionStarted = false
                     state++
                 }
@@ -238,9 +241,10 @@ class SpecimenAuto : OpMode() {
 
             20 -> {
                 if (!actionStarted) {
+                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
                     pedro.followPath(SpecimenPaths.score3Path)
                     actionStarted = true
-                } else if (pedro.isDone()) {
+                } else if (actions.isDone() && pedro.isDone()) {
                     actionStarted = false
                     state++
                 }
@@ -248,9 +252,9 @@ class SpecimenAuto : OpMode() {
 
             21 -> {
                 if (!actionStarted) {
-                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
+                    Delay.start(0.15)
                     actionStarted = true
-                } else if (actions.isDone()) {
+                } else if (Delay.isDone()) {
                     actionStarted = false
                     state++
                 }
@@ -309,9 +313,10 @@ class SpecimenAuto : OpMode() {
 
             27 -> {
                 if (!actionStarted) {
+                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
                     pedro.followPath(SpecimenPaths.score4Path)
                     actionStarted = true
-                } else if (pedro.isDone()) {
+                } else if (actions.isDone() && pedro.isDone()) {
                     actionStarted = false
                     state++
                 }
@@ -319,9 +324,9 @@ class SpecimenAuto : OpMode() {
 
             28 -> {
                 if (!actionStarted) {
-                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
+                    Delay.start(0.15)
                     actionStarted = true
-                } else if (actions.isDone()) {
+                } else if (Delay.isDone()) {
                     actionStarted = false
                     state++
                 }
