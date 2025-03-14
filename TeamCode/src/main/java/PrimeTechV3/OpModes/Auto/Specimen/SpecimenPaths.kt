@@ -79,7 +79,7 @@ object SpecimenPaths {
         get1Path = follower.pathBuilder()
             .addPath(
                 BezierCurve(
-                    Point(score2),
+                    Point(score2f),
                     Point(get1Control1),
                     Point(get1Control2),
                     Point(get1)
@@ -123,6 +123,11 @@ object SpecimenPaths {
             .setConstantHeadingInterpolation(heading)
             .build()
 
+        score2fPath = follower.pathBuilder()
+            .addPath(BezierLine(Point(score2), Point(score2f)))
+            .setConstantHeadingInterpolation(heading)
+            .build()
+
         load3Path = follower.pathBuilder()
             .addPath(
                 BezierCurve(
@@ -141,6 +146,11 @@ object SpecimenPaths {
             .setConstantHeadingInterpolation(heading)
             .build()
 
+        score3fPath = follower.pathBuilder()
+            .addPath(BezierLine(Point(score3), Point(score3f)))
+            .setConstantHeadingInterpolation(heading)
+            .build()
+
         load4Path = follower.pathBuilder()
             .addPath(BezierCurve(Point(score3), Point(loadControl), Point(load)))
             .setConstantHeadingInterpolation(heading)
@@ -148,6 +158,11 @@ object SpecimenPaths {
 
         score4Path = follower.pathBuilder()
             .addPath(BezierCurve(Point(load), Point(16.0, 67.0), Point(score4)))
+            .setConstantHeadingInterpolation(heading)
+            .build()
+
+        score4fPath = follower.pathBuilder()
+            .addPath(BezierLine(Point(score4), Point(score4f)))
             .setConstantHeadingInterpolation(heading)
             .build()
 
