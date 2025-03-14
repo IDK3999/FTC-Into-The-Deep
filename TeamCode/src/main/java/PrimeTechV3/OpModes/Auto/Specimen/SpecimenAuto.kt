@@ -40,8 +40,6 @@ class SpecimenAuto : OpMode() {
         pedro.update()
 
         telemetry.addData("Current State", state)
-        telemetry.addData("Lift", PrimeTechV3.Components.Lift.liftMotorRight.currentPosition)
-        telemetry.addData("Trgt", PrimeTechV3.Components.Lift.target)
 
         when (state) {
             0 -> {}
