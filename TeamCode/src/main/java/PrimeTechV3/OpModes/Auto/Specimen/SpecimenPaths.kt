@@ -39,8 +39,11 @@ object SpecimenPaths {
     private val loadControl2 = Pose(30.0, 35.0)
     private val loadControl = Pose(25.0, 30.0)
     private val score2 = Pose(scoreX2, secondScoreY)
+    private val score2f = Pose(scoreX2 + 4, secondScoreY)
     private val score3 = Pose(scoreX3, thirdScoreY)
+    private val score3f = Pose(scoreX3 + 4, thirdScoreY)
     private val score4 = Pose(scoreX3, fourthScoreY)
+    private val score4f = Pose(scoreX3 + 4, fourthScoreY)
     private val score5 = Pose(scoreX2, fifthScoreY)
     private val park = Pose(14.0, 34.0)
     // endregion Poses
@@ -56,10 +59,13 @@ object SpecimenPaths {
     lateinit var parkPath: PathChain
     lateinit var load2Path: PathChain
     lateinit var score2Path: PathChain
+    lateinit var score2fPath: PathChain
     lateinit var load3Path: PathChain
     lateinit var score3Path: PathChain
+    lateinit var score3fPath: PathChain
     lateinit var load4Path: PathChain
     lateinit var score4Path: PathChain
+    lateinit var score4fPath: PathChain
     lateinit var load5Path: PathChain
     lateinit var score5Path: PathChain
     // endregion Paths
