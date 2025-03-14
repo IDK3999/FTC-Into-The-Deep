@@ -34,7 +34,7 @@ object SpecimenPaths {
     private val get3 = Pose(52.0, 8.3)
     private val get3Control1 = Pose(72.0, 16.0)
     private val give3 = Pose(giveX, 8.0)
-    private val load = Pose(16.0, 24.3, heading)
+    private val load = Pose(15.0, 24.0, heading)
     private val loadControl1 = Pose(30.0, 7.5)
     private val loadControl2 = Pose(30.0, 35.0)
     private val loadControl = Pose(25.0, 30.0)
