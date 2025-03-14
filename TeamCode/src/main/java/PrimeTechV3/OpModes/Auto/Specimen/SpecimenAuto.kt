@@ -207,7 +207,7 @@ class SpecimenAuto : OpMode() {
                 }
             }
 
-            17-> {
+            17 -> {
                 if (!actionStarted) {
                     Delay.start(0.2)
                     actionStarted = true
@@ -278,7 +278,7 @@ class SpecimenAuto : OpMode() {
                 }
             }
 
-            24-> {
+            24 -> {
                 if (!actionStarted) {
                     Delay.start(0.2)
                     actionStarted = true
