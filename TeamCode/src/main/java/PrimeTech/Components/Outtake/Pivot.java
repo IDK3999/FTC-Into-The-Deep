@@ -13,8 +13,8 @@ public class Pivot {
     public static final double MAX_TICKS = 2100;
     public static final double MIN_TICKS = 0.0;
     public static final double ticks_in_degrees = (double) 8192 / 360;
-    public static double p = 0.0018, i = 0.035, d = 0.0002;
-    public static double f = 0.09;
+    public static double p = 0.003, i = 0.0, d = 0.0003;
+    public static double f = 0.0;
     public static double tolerance = 100;
     public static double target = 0;
     public static DcMotorEx motorPivot = null;
