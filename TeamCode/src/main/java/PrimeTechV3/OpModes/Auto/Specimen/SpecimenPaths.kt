@@ -24,9 +24,9 @@ object SpecimenPaths {
 
     val start = Pose(startX, 64.7, heading)
     private val scorePreload = Pose(scoreX, firstScoreY)
-    private val get1 = Pose(57.0, 27.0)
-    private val get1Control1 = Pose(6.0, 18.0)
-    private val get1Control2 = Pose(74.0, 46.0)
+    private val get1 = Pose(60.0, 27.0)
+    private val get1Control1 = Pose(4.0, 14.0)
+    private val get1Control2 = Pose(60.0, 47.0)
     private val give1 = Pose(giveX, 23.0)
     private val get2 = Pose(52.0, 13.0)
     private val get2Control1 = Pose(72.0, 27.0)
