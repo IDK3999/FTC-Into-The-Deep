@@ -49,7 +49,7 @@ class SpecimenAuto : OpMode() {
                 if (!actionStarted) {
                     Claw.setClawOpen(false)
                     actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
-                    pedro.followPath(SpecimenPaths.scorePreloadPath, 0.7)
+                    pedro.followPath(SpecimenPaths.scorePreloadPath)
                     actionStarted = true
                 } else if (actions.isDone() && pedro.isDone()) {
                     actionStarted = false
@@ -323,57 +323,57 @@ class SpecimenAuto : OpMode() {
                 }
             }
 
-            28 -> {
-                if (!actionStarted) {
-                    PrimeTechV3.Components.Lift.resetEncoders()
-                    actionStarted = true
-                } else if (PrimeTechV3.Components.Lift.isAtTarget()) {
-                    actionStarted = false
-                    state++
-                }
-            }
-
-            29 -> {
-                if (!actionStarted) {
-                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
-                    pedro.followPath(SpecimenPaths.score4Path)
-                    actionStarted = true
-                } else if (actions.isDone() && pedro.isDone()) {
-                    actionStarted = false
-                    state++
-                }
-            }
-
-            30 -> {
-                if (!actionStarted) {
-                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
-                    pedro.followPath(SpecimenPaths.score4fPath)
-                    actionStarted = true
-                } else if (actions.isDone() && pedro.isDone()) {
-                    actionStarted = false
-                    state++
-                }
-            }
-
-            31 -> {
-                if (!actionStarted) {
-                    Delay.start(0.05)
-                    actionStarted = true
-                } else if (Delay.isDone()) {
-                    actionStarted = false
-                    state++
-                }
-            }
-
-            32 -> {
-                if (!actionStarted) {
-                    actions.setAction(Actions.PossibleActions.SCORE_SPECIMEN)
-                    actionStarted = true
-                } else if (actions.isDone()) {
-                    actionStarted = false
-                    state++
-                }
-            }
+//            28 -> {
+//                if (!actionStarted) {
+//                    PrimeTechV3.Components.Lift.resetEncoders()
+//                    actionStarted = true
+//                } else if (PrimeTechV3.Components.Lift.isAtTarget()) {
+//                    actionStarted = false
+//                    state++
+//                }
+//            }
+//
+//            29 -> {
+//                if (!actionStarted) {
+//                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
+//                    pedro.followPath(SpecimenPaths.score4Path)
+//                    actionStarted = true
+//                } else if (actions.isDone() && pedro.isDone()) {
+//                    actionStarted = false
+//                    state++
+//                }
+//            }
+//
+//            30 -> {
+//                if (!actionStarted) {
+//                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
+//                    pedro.followPath(SpecimenPaths.score4fPath)
+//                    actionStarted = true
+//                } else if (actions.isDone() && pedro.isDone()) {
+//                    actionStarted = false
+//                    state++
+//                }
+//            }
+//
+//            31 -> {
+//                if (!actionStarted) {
+//                    Delay.start(0.05)
+//                    actionStarted = true
+//                } else if (Delay.isDone()) {
+//                    actionStarted = false
+//                    state++
+//                }
+//            }
+//
+//            32 -> {
+//                if (!actionStarted) {
+//                    actions.setAction(Actions.PossibleActions.SCORE_SPECIMEN)
+//                    actionStarted = true
+//                } else if (actions.isDone()) {
+//                    actionStarted = false
+//                    state++
+//                }
+//            }
 
             else -> {
                 state = 0
