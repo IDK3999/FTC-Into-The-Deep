@@ -10,9 +10,9 @@ import com.pedropathing.pathgen.Point
 object SpecimenPaths {
     // region Poses
     private var startX = 8.4
-    private var scoreX = 39.0
-    private var scoreX2 = 35.0
-    private var scoreX3 = 35.0
+    private var scoreX = 40.0
+    private var scoreX2 = 36.0
+    private var scoreX3 = 36.0
     private var giveX = 16.0
     private var scoreYStep = 3.5
     private var firstScoreY = 66.0

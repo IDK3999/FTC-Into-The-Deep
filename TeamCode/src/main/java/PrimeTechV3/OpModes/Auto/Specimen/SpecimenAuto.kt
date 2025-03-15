@@ -59,7 +59,7 @@ class SpecimenAuto : OpMode() {
 
             2 -> {
                 if (!actionStarted) {
-                    Delay.start(0.15)
+                    Delay.start(0.05)
                     actionStarted = true
                 } else if (Delay.isDone()) {
                     actionStarted = false
@@ -151,7 +151,7 @@ class SpecimenAuto : OpMode() {
 
             11 -> {
                 if (!actionStarted) {
-                    Delay.start(0.15)
+                    Delay.start(0.05)
                     actionStarted = true
                 } else if (Delay.isDone()) {
                     actionStarted = false
@@ -274,7 +274,7 @@ class SpecimenAuto : OpMode() {
 
             23 -> {
                 if (!actionStarted) {
-                    Delay.start(0.15)
+                    Delay.start(0.05)
                     actionStarted = true
                 } else if (Delay.isDone()) {
                     actionStarted = false
@@ -357,7 +357,7 @@ class SpecimenAuto : OpMode() {
 
             31 -> {
                 if (!actionStarted) {
-                    Delay.start(0.15)
+                    Delay.start(0.05)
                     actionStarted = true
                 } else if (Delay.isDone()) {
                     actionStarted = false
