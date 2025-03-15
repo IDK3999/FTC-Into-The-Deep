@@ -24,12 +24,12 @@ object SpecimenPaths {
 
     val start = Pose(startX, 64.7, heading)
     private val scorePreload = Pose(scoreX, firstScoreY)
-    private val get1 = Pose(60.0, 27.0)
+    private val get1 = Pose(60.0, 24.0)
     private val get1Control1 = Pose(4.0, 14.0)
     private val get1Control2 = Pose(60.0, 47.0)
-    private val give1 = Pose(giveX, 23.0)
-    private val get2 = Pose(52.0, 13.0)
-    private val get2Control1 = Pose(72.0, 27.0)
+    private val give1 = Pose(giveX, 24.0)
+    private val get2 = Pose(58.0, 13.0)
+    private val get2Control1 = Pose(70.0, 27.0)
     private val give2 = Pose(giveX, 13.0)
     private val get3 = Pose(52.0, 8.3)
     private val get3Control1 = Pose(72.0, 16.0)
@@ -91,6 +91,7 @@ object SpecimenPaths {
         give1Path = follower.pathBuilder()
             .addPath(BezierLine(Point(get1), Point(give1)))
             .setConstantHeadingInterpolation(heading)
+            .setZeroPowerAccelerationMultiplier(4.0)
             .build()
 
         get2Path = follower.pathBuilder()
@@ -101,6 +102,7 @@ object SpecimenPaths {
         give2Path = follower.pathBuilder()
             .addPath(BezierLine(Point(get2), Point(give2)))
             .setConstantHeadingInterpolation(heading)
+            .setZeroPowerAccelerationMultiplier(4.0)
             .build()
 
         get3Path = follower.pathBuilder()
@@ -137,7 +139,6 @@ object SpecimenPaths {
                     Point(load)
                 )
             )
-//            .addPath(BezierCurve(Point(score2), Point(loadControl), Point(load)))
             .setConstantHeadingInterpolation(heading)
             .build()
 

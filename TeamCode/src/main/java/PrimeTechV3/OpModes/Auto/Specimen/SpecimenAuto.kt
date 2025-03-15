@@ -132,7 +132,7 @@ class SpecimenAuto : OpMode() {
                     actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
                     pedro.followPath(SpecimenPaths.score2Path)
                     actionStarted = true
-                } else if (actions.isDone() && pedro.isDone()) {
+                } else if (pedro.isDone()) {
                     actionStarted = false
                     state++
                 }
@@ -140,7 +140,6 @@ class SpecimenAuto : OpMode() {
 
             10 -> {
                 if (!actionStarted) {
-                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
                     pedro.followPath(SpecimenPaths.score2fPath)
                     actionStarted = true
                 } else if (actions.isDone() && pedro.isDone()) {
@@ -255,7 +254,7 @@ class SpecimenAuto : OpMode() {
                     actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
                     pedro.followPath(SpecimenPaths.score3Path)
                     actionStarted = true
-                } else if (actions.isDone() && pedro.isDone()) {
+                } else if (pedro.isDone()) {
                     actionStarted = false
                     state++
                 }
@@ -263,7 +262,6 @@ class SpecimenAuto : OpMode() {
 
             22 -> {
                 if (!actionStarted) {
-                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
                     pedro.followPath(SpecimenPaths.score3fPath)
                     actionStarted = true
                 } else if (actions.isDone() && pedro.isDone()) {
@@ -338,7 +336,7 @@ class SpecimenAuto : OpMode() {
 //                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
 //                    pedro.followPath(SpecimenPaths.score4Path)
 //                    actionStarted = true
-//                } else if (actions.isDone() && pedro.isDone()) {
+//                } else if (pedro.isDone()) {
 //                    actionStarted = false
 //                    state++
 //                }
@@ -346,7 +344,6 @@ class SpecimenAuto : OpMode() {
 //
 //            30 -> {
 //                if (!actionStarted) {
-//                    actions.setAction(Actions.PossibleActions.BEFORE_SCORE_SPECIMEN)
 //                    pedro.followPath(SpecimenPaths.score4fPath)
 //                    actionStarted = true
 //                } else if (actions.isDone() && pedro.isDone()) {
