@@ -21,7 +21,7 @@ object Pivot {
 
     private val positions = mapOf(
         PivotPosition.LOW to 0.0,
-        PivotPosition.SCORE_SPECIMEN to 2050.0,
+        PivotPosition.SCORE_SPECIMEN to 2070.0,
         PivotPosition.SCORE_SAMPLE to 2100.0,
         PivotPosition.GRAB_SPECIMEN to 350.0
     )
