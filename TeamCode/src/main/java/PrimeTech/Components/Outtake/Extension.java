@@ -1,7 +1,6 @@
 package PrimeTech.Components.Outtake;
 
 import static PrimeTech.Global.Global.hardwareMap;
-import static PrimeTech.Global.Global.telemetry;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;

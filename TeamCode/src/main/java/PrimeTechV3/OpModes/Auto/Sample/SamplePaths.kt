@@ -3,7 +3,6 @@ package PrimeTechV3.OpModes.Auto.Sample
 import com.pedropathing.follower.Follower
 import com.pedropathing.localization.Pose
 import com.pedropathing.pathgen.BezierCurve
-import com.pedropathing.pathgen.BezierLine
 import com.pedropathing.pathgen.PathChain
 import com.pedropathing.pathgen.Point
 
@@ -33,7 +32,14 @@ object SamplePaths {
             .build()
 
         parkPath = follower.pathBuilder()
-            .addPath(BezierCurve(Point(scorePreload), Point(parkControl1), Point(parkC2), Point(park)))
+            .addPath(
+                BezierCurve(
+                    Point(scorePreload),
+                    Point(parkControl1),
+                    Point(parkC2),
+                    Point(park)
+                )
+            )
             .setConstantHeadingInterpolation(heading)
             .build()
     }

@@ -65,8 +65,8 @@ object Actions {
 
                     2 -> { // POSITIONING_CLAW
                         //if (Claw.isDone()) {
-                            Lift.setLiftPosition(Lift.LiftPosition.BEFORE_SCORE_SPECIMEN)
-                            state++
+                        Lift.setLiftPosition(Lift.LiftPosition.BEFORE_SCORE_SPECIMEN)
+                        state++
                         //}
                     }
 
@@ -120,8 +120,8 @@ object Actions {
 
                     2 -> { // POSITIONING_CLAW
 //                        if (Claw.isDone()) {
-                            Pivot.setPivotPosition(Pivot.PivotPosition.SCORE_SAMPLE)
-                            state = 3
+                        Pivot.setPivotPosition(Pivot.PivotPosition.SCORE_SAMPLE)
+                        state = 3
 //                        }
                     }
 
@@ -172,8 +172,8 @@ object Actions {
 
                     2 -> { // POSITIONING_CLAW
                         //if (Claw.isDone()) {
-                            Lift.setLiftPosition(Lift.LiftPosition.LOW)
-                            state++
+                        Lift.setLiftPosition(Lift.LiftPosition.LOW)
+                        state++
                         //}
                     }
 

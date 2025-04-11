@@ -4,7 +4,6 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -15,7 +14,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Pivot & Extension PID Tuner", group = "Tuners")
 @Config
-public class    PivotAndExtensionPIDTuner extends OpMode {
+public class PivotAndExtensionPIDTuner extends OpMode {
     public static final double MAX_TICKS = 2600;
     public static final double MIN_TICKS = 0;
     public static final double FRONT_BACK_INIT = 0.5;
