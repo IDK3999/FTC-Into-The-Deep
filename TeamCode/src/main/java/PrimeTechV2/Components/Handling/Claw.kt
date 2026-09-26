@@ -6,6 +6,15 @@ import com.rowanmcalpin.nextftc.core.command.Command
 import com.rowanmcalpin.nextftc.ftc.OpModeData
 import com.rowanmcalpin.nextftc.ftc.hardware.ServoToPosition
 
+/**
+ * The claw, as a NextFTC [Subsystem].
+ *
+ * Each `val` here is a [Command] - an object describing a movement, not the movement itself.
+ * Nothing happens until a command is scheduled, which is what [ActionGroups] does.
+ *
+ * A subsystem can only run one command at a time; NextFTC uses that to stop two actions
+ * fighting over the same servo.
+ */
 object Claw : Subsystem() {
     // region Declare Components
     private lateinit var openingServo: Servo

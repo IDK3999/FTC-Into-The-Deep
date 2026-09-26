@@ -2,234 +2,306 @@ package PrimeTech.Components.Modes;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import PrimeTech.Components.Gamepad.Gamepad;
+import PrimeTech.Components.Gamepad.GamepadTracker;
 import PrimeTech.Components.Outtake.Claw;
 import PrimeTech.Components.Outtake.Extension;
 import PrimeTech.Components.Outtake.Pivot;
 
+/**
+ * What the arm does in each of the four scoring modes. {@link FSMModes} decides which mode
+ * is active; this class holds the behaviour of each one.
+ *
+ * <p>Every mode has three methods:
+ * <ul>
+ *   <li>{@code init...} - run once when the driver selects the mode. Sets claw servos and
+ *       kicks off the move into position.</li>
+ *   <li>{@code update...} - run every loop while the mode is active. Drives the arm into
+ *       position via {@link #runToPositionInOrder}, then hands over to {@code hold...}.</li>
+ *   <li>{@code hold...} - run every loop once the arm has arrived. This is where the driver
+ *       gets manual control back.</li>
+ * </ul>
+ *
+ * <p>The {@code @Config} annotation exposes the public static fields below to
+ * <a href="http://192.168.43.1:8080/dash">FTC Dashboard</a>, so target positions can be
+ * edited live over wifi instead of rebuilding. Numbers changed there are lost on restart -
+ * once a value is right, copy it back into this file.
+ */
 @Config
 public class AllModes {
-    public static double intakeSpecimenExtension = 0;
-    public static double intakeSpecimenPivot = 450;
+    // region Target positions, in encoder ticks
+    public static double intakeSpecimenExtensionTicks = 0;
+    public static double intakeSpecimenPivotTicks = 450;
 
-    public static double outtakeSpecimenExtension = 50;
-    public static double outtakeSpecimenPivot = 2100;
+    public static double outtakeSpecimenExtensionTicks = 50;
+    public static double outtakeSpecimenPivotTicks = 2100;
 
-    public static double outtakeSampleExtension = 900;
-    public static double outtakeSamplePivot = 2050;
+    public static double outtakeSampleExtensionTicks = 900;
+    public static double outtakeSamplePivotTicks = 2050;
 
-    public static double intakeSampleExtension = 0;
-    public static double intakeSamplePivot = 0;
+    public static double intakeSampleExtensionTicks = 0;
+    public static double intakeSamplePivotTicks = 0;
+    // endregion Target positions
 
-    public static AllModes instance = null;
-    public static RetractCase retractCase = RetractCase.EXTENSION_RETRACT;
+    /** Which stage of "get into position" we are in. See {@link #runToPositionInOrder}. */
+    public static RetractStage retractStage = RetractStage.EXTENSION_RETRACT;
 
-    public static synchronized AllModes getInstance() {
-        if (instance == null) {
-            instance = new AllModes();
-        }
-        return instance;
+    /** Restarts the positioning sequence from the beginning. Called by every {@code init}. */
+    public static void beginRetractSequence() {
+        retractStage = RetractStage.EXTENSION_RETRACT;
     }
 
-    public static void setRetractCase_to_EXTENSION_RETRACT() {
-        retractCase = RetractCase.EXTENSION_RETRACT;
-    }
-
-    /// RUN TO POSITION
-    public static void run_to_pos_in_order(double pivotTarget, double extensionTarget, Mode mode) {
-        switch (retractCase) {
+    /**
+     * Moves the arm to {@code pivotTarget} / {@code extensionTarget} in a safe order, then
+     * hands control to the mode's {@code hold} method.
+     *
+     * <p>The order matters. Swinging the arm while the slide is extended puts the claw a long
+     * way from the robot, where it can hit the field, the submersible, or the floor. So the
+     * sequence is always:
+     *
+     * <ol>
+     *   <li>{@code EXTENSION_RETRACT} - pull the slide in, holding the arm where it is.</li>
+     *   <li>{@code PIVOT} - slide is in, so now it is safe to swing the arm to its angle.</li>
+     *   <li>{@code EXTENSION} - arm is at its angle, so extend out to the target.</li>
+     *   <li>{@code IDLE} - in position; run the mode's {@code hold} behaviour from now on.</li>
+     * </ol>
+     *
+     * <p>Each stage keeps driving the axis it is not waiting on, so nothing sags under gravity
+     * while another axis moves.
+     */
+    public static void runToPositionInOrder(double pivotTarget, double extensionTarget, Mode mode) {
+        switch (retractStage) {
             case EXTENSION_RETRACT:
-                Pivot.getInstance().run_to_target(Pivot.target);
-                if (Extension.extension_right.getCurrentPosition() > Extension.tolerance) {
-                    Extension.getInstance().run_to_target(0);
+                // Hold the arm at its existing target while the slide comes in.
+                Pivot.getInstance().runToTarget(Pivot.targetTicks);
+                if (Extension.extensionMotorRight.getCurrentPosition() > Extension.TOLERANCE_TICKS) {
+                    Extension.getInstance().runToTarget(0);
                 } else {
-                    retractCase = RetractCase.PIVOT;
+                    retractStage = RetractStage.PIVOT;
                 }
                 break;
             case PIVOT:
-                Extension.getInstance().run_to_target(0);
-                if (Pivot.motorPivot.getCurrentPosition() > pivotTarget + Pivot.tolerance || Pivot.motorPivot.getCurrentPosition() < pivotTarget - Pivot.tolerance) {
-                    Pivot.getInstance().run_to_target(pivotTarget);
+                // Keep the slide pinned in while the arm swings.
+                Extension.getInstance().runToTarget(0);
+                if (Pivot.pivotMotor.getCurrentPosition() > pivotTarget + Pivot.TOLERANCE_TICKS
+                        || Pivot.pivotMotor.getCurrentPosition() < pivotTarget - Pivot.TOLERANCE_TICKS) {
+                    Pivot.getInstance().runToTarget(pivotTarget);
                 } else {
-                    retractCase = RetractCase.EXTENSION;
+                    retractStage = RetractStage.EXTENSION;
                 }
                 break;
             case EXTENSION:
-                Pivot.getInstance().run_to_target(pivotTarget);
-                if (Extension.extension_right.getCurrentPosition() > extensionTarget + Extension.tolerance || Extension.extension_right.getCurrentPosition() < extensionTarget - Extension.tolerance) {
-                    Extension.getInstance().run_to_target(extensionTarget);
+                // Hold the arm angle while the slide goes out.
+                Pivot.getInstance().runToTarget(pivotTarget);
+                if (Extension.extensionMotorRight.getCurrentPosition() > extensionTarget + Extension.TOLERANCE_TICKS
+                        || Extension.extensionMotorRight.getCurrentPosition() < extensionTarget - Extension.TOLERANCE_TICKS) {
+                    Extension.getInstance().runToTarget(extensionTarget);
                 } else {
-                    retractCase = RetractCase.IDLE;
+                    retractStage = RetractStage.IDLE;
                 }
                 break;
             case IDLE:
                 switch (mode) {
                     case INTAKE_SAMPLE:
-                        intake_sample_loop(pivotTarget);
+                        holdIntakeSample(pivotTarget);
                         break;
                     case OUTTAKE_SAMPLE:
-                        outtake_sample_loop(pivotTarget, extensionTarget);
+                        holdOuttakeSample(pivotTarget, extensionTarget);
                         break;
                     case INTAKE_SPECIMEN:
-                        intake_specimen_loop(extensionTarget);
+                        holdIntakeSpecimen(extensionTarget);
                         break;
                     case OUTTAKE_SPECIMEN:
-                        outtake_specimen_loop(pivotTarget);
+                        holdOuttakeSpecimen(pivotTarget);
                         break;
                 }
                 break;
         }
     }
 
-    /// GENERAL
-    public static void general() {
+    /**
+     * The default mode: full manual control. Triggers extend the slide, bumpers raise the
+     * arm, cross toggles the claw. No automatic positioning at all.
+     */
+    public static void updateGeneral() {
         Extension.getInstance().loop();
-        Claw.getInstance().openState_method();
+        Claw.getInstance().updateGripToggle();
         Pivot.getInstance().loop();
     }
 
-    /// OUTTAKE SAMPLE
-    public static void outtake_sample_init() {
-        setRetractCase_to_EXTENSION_RETRACT();
+    // region Outtake sample - drop a sample into the basket
 
-        Extension.target = outtakeSampleExtension;
+    public static void initOuttakeSample() {
+        beginRetractSequence();
 
-        Claw.getInstance().rotate(Claw.ROTATION_INIT);
-        Claw.getInstance().pivot(Claw.OUTTAKE_SAMPLE_PIVOT_POS);
+        Extension.targetTicks = outtakeSampleExtensionTicks;
+
+        Claw.getInstance().setWrist(Claw.WRIST_STRAIGHT);
+        Claw.getInstance().setClawPivot(Claw.CLAW_PIVOT_SCORE_SAMPLE);
     }
 
-    public static void outtake_sample() {
-        run_to_pos_in_order(outtakeSamplePivot, outtakeSampleExtension, Mode.OUTTAKE_SAMPLE);
-        Claw.getInstance().openState_method();
+    public static void updateOuttakeSample() {
+        runToPositionInOrder(outtakeSamplePivotTicks, outtakeSampleExtensionTicks, Mode.OUTTAKE_SAMPLE);
+        Claw.getInstance().updateGripToggle();
     }
 
-    public static void outtake_sample_loop(double pivotTarget, double extensionTarget) {
-        Pivot.target = outtakeSamplePivot;
-        Pivot.getInstance().run_to_target(pivotTarget);
-        Extension.getInstance().run_to_target(extensionTarget);
+    /** In position over the basket: just hold both axes there so the driver can release. */
+    public static void holdOuttakeSample(double pivotTarget, double extensionTarget) {
+        Pivot.targetTicks = outtakeSamplePivotTicks;
+        Pivot.getInstance().runToTarget(pivotTarget);
+        Extension.getInstance().runToTarget(extensionTarget);
     }
 
-    /// OUTTAKE SPECIMEN
-    public static void outtake_specimen_init() {
-        setRetractCase_to_EXTENSION_RETRACT();
+    // endregion Outtake sample
 
-        Extension.target = outtakeSpecimenExtension;
-        Extension.getInstance().change_liftState_to_INRANGE();
-        Extension.MAX_TICKS = Extension.LIMITED_MAX_TICKS;
+    // region Outtake specimen - hang a specimen on the chamber
 
-        Claw.getInstance().pivot(Claw.OUTTAKE_SAMPLE_PIVOT_POS);
-        Claw.getInstance().rotate(Claw.ROTATION_INIT);
+    public static void initOuttakeSpecimen() {
+        beginRetractSequence();
 
+        Extension.targetTicks = outtakeSpecimenExtensionTicks;
+        Extension.getInstance().setLimitStateInRange();
+        // Cap the slide shorter than usual: at chamber height, full extension would put the
+        // claw outside the robot's legal footprint.
+        Extension.maxTicks = Extension.SPECIMEN_MAX_TICKS;
+
+        Claw.getInstance().setClawPivot(Claw.CLAW_PIVOT_SCORE_SAMPLE);
+        Claw.getInstance().setWrist(Claw.WRIST_STRAIGHT);
     }
 
-    public static void outtake_specimen() {
-        run_to_pos_in_order(outtakeSpecimenPivot, outtakeSpecimenExtension, Mode.OUTTAKE_SPECIMEN);
-        Claw.getInstance().openState_method();
+    public static void updateOuttakeSpecimen() {
+        runToPositionInOrder(outtakeSpecimenPivotTicks, outtakeSpecimenExtensionTicks, Mode.OUTTAKE_SPECIMEN);
+        Claw.getInstance().updateGripToggle();
     }
 
-    public static void outtake_specimen_loop(double pivotTarget) {
-        if (Gamepad.getInstance().left_bumper_pressed()) {
-            Extension.target = outtakeSpecimenExtension;
+    /**
+     * In position at the chamber. The bumpers snap the slide between fully in and fully out,
+     * which is the motion that hooks the specimen onto the bar.
+     */
+    public static void holdOuttakeSpecimen(double pivotTarget) {
+        if (GamepadTracker.getInstance().leftBumperPressed()) {
+            Extension.targetTicks = outtakeSpecimenExtensionTicks;
         }
-        if (Gamepad.getInstance().right_bumper_pressed()) {
-            Extension.target = Extension.MAX_TICKS;
+        if (GamepadTracker.getInstance().rightBumperPressed()) {
+            Extension.targetTicks = Extension.maxTicks;
         }
 
+        Pivot.targetTicks = outtakeSpecimenPivotTicks;
 
-        Pivot.target = outtakeSpecimenPivot;
-
-        Pivot.getInstance().run_to_target(pivotTarget);
+        Pivot.getInstance().runToTarget(pivotTarget);
         Extension.getInstance().loop();
     }
 
-    /// INTAKE SPECIMEN
-    public static void intake_specimen_init() {
-        setRetractCase_to_EXTENSION_RETRACT();
+    // endregion Outtake specimen
 
-        Extension.target = intakeSpecimenExtension;
+    // region Intake specimen - take a specimen off the wall
 
-        Claw.getInstance().change_to_OPEN_POS();
-        Claw.getInstance().pivot(Claw.MID_POS);
-        Claw.getInstance().rotate(Claw.ROTATION_INIT);
+    public static void initIntakeSpecimen() {
+        beginRetractSequence();
+
+        Extension.targetTicks = intakeSpecimenExtensionTicks;
+
+        Claw.getInstance().open();
+        Claw.getInstance().setClawPivot(Claw.CLAW_PIVOT_MID);
+        Claw.getInstance().setWrist(Claw.WRIST_STRAIGHT);
     }
 
-    public static void intake_specimen() {
-        run_to_pos_in_order(intakeSpecimenPivot, intakeSpecimenExtension, Mode.INTAKE_SPECIMEN);
-        Claw.getInstance().openState_method();
+    public static void updateIntakeSpecimen() {
+        runToPositionInOrder(intakeSpecimenPivotTicks, intakeSpecimenExtensionTicks, Mode.INTAKE_SPECIMEN);
+        Claw.getInstance().updateGripToggle();
     }
 
-    public static void intake_specimen_loop(double extensionTarget) {
-        Pivot.target = intakeSpecimenPivot;
-        Claw.getInstance().pivot(Claw.MID_POS - Pivot.pivot_angle() / 180);
+    /**
+     * At the wall. The arm stays under bumper control here, and the claw pivot is adjusted as
+     * the arm moves so the jaws stay pointing the same way in space rather than tilting with
+     * the arm - dividing the arm angle by 180 converts degrees into roughly the right amount
+     * of servo travel to cancel it out.
+     */
+    public static void holdIntakeSpecimen(double extensionTarget) {
+        Pivot.targetTicks = intakeSpecimenPivotTicks;
+        Claw.getInstance().setClawPivot(Claw.CLAW_PIVOT_MID - Pivot.getPivotAngleDegrees() / 180);
 
         Pivot.getInstance().loop();
-        Extension.getInstance().run_to_target(extensionTarget);
+        Extension.getInstance().runToTarget(extensionTarget);
     }
 
-    /// INTAKE SAMPLE
-    public static void intake_sample_init() {
-        setRetractCase_to_EXTENSION_RETRACT();
+    // endregion Intake specimen
 
-        Extension.target = intakeSampleExtension;
+    // region Intake sample - pick a sample up off the floor
+
+    public static void initIntakeSample() {
+        beginRetractSequence();
+
+        Extension.targetTicks = intakeSampleExtensionTicks;
         Extension.getInstance().start();
-        Extension.MAX_TICKS = Extension.FINAL_MAX_TICKS;
+        Extension.maxTicks = Extension.FULL_RANGE_MAX_TICKS;
 
-        Claw.getInstance().change_to_CLOSE_POS();
-        Claw.getInstance().change_to_rotation_ZERO();
-        Claw.getInstance().pivot(Claw.MID_POS);
+        Claw.getInstance().close();
+        Claw.getInstance().straightenWrist();
+        Claw.getInstance().setClawPivot(Claw.CLAW_PIVOT_MID);
     }
 
-    public static void intake_sample_parallel() {
-        Claw.getInstance().change_to_CLOSE_POS();
-        Claw.getInstance().change_to_rotation_ZERO();
-        Claw.getInstance().pivot(Claw.MID_POS);
+    /** Claw tucked and closed - the shape for driving around, or for a sample lying lengthways. */
+    public static void setSampleGrabParallel() {
+        Claw.getInstance().close();
+        Claw.getInstance().straightenWrist();
+        Claw.getInstance().setClawPivot(Claw.CLAW_PIVOT_MID);
     }
 
-    public static void intake_sample_perpendicular() {
-        Claw.getInstance().change_to_OPEN_POS();
-        Claw.getInstance().change_to_rotation_ZERO();
-        Claw.getInstance().pivot(Claw.FRONT_POS);
+    /** Claw open and swung right forward, to drop over a sample lying across the robot. */
+    public static void setSampleGrabPerpendicular() {
+        Claw.getInstance().open();
+        Claw.getInstance().straightenWrist();
+        Claw.getInstance().setClawPivot(Claw.CLAW_PIVOT_FRONT);
     }
 
-    public static void intake_sample() {
-        run_to_pos_in_order(intakeSamplePivot, intakeSampleExtension, Mode.INTAKE_SAMPLE);
-        Claw.getInstance().openState_method();
+    public static void updateIntakeSample() {
+        runToPositionInOrder(intakeSamplePivotTicks, intakeSampleExtensionTicks, Mode.INTAKE_SAMPLE);
+        Claw.getInstance().updateGripToggle();
     }
 
-    public static void intake_sample_loop(double pivotTarget) {
-        if (Gamepad.getInstance().left_bumper_pressed()) {
-            FSMModes.getInstance().changeIntakeSampleToParallel();
+    /**
+     * Down at floor level. The bumpers snap the slide fully in or fully out for reaching
+     * samples at different distances, and triangle rolls the wrist to match a sample's angle.
+     */
+    public static void holdIntakeSample(double pivotTarget) {
+        if (GamepadTracker.getInstance().leftBumperPressed()) {
+            FSMModes.getInstance().resetSampleGrabOrientation();
 
-            Claw.getInstance().change_to_rotation_ZERO();
-            Claw.getInstance().pivot(Claw.MID_POS);
+            Claw.getInstance().straightenWrist();
+            Claw.getInstance().setClawPivot(Claw.CLAW_PIVOT_MID);
 
-            Extension.getInstance().change_LiftState_to_MIN();
+            Extension.getInstance().clampToMin();
         }
-        if (Gamepad.getInstance().right_bumper_pressed()) {
-            FSMModes.getInstance().changeIntakeSampleToParallel();
+        if (GamepadTracker.getInstance().rightBumperPressed()) {
+            FSMModes.getInstance().resetSampleGrabOrientation();
 
-            Claw.getInstance().change_to_rotation_ZERO();
-            Claw.getInstance().pivot(Claw.MID_POS);
+            Claw.getInstance().straightenWrist();
+            Claw.getInstance().setClawPivot(Claw.CLAW_PIVOT_MID);
 
-            Extension.getInstance().change_LiftState_to_MAX();
+            Extension.getInstance().clampToMax();
         }
 
-        Pivot.target = intakeSamplePivot;
-        Claw.getInstance().intake_rotation();
+        Pivot.targetTicks = intakeSamplePivotTicks;
+        Claw.getInstance().updateWristToggle();
 
-        Pivot.getInstance().run_to_target(pivotTarget);
+        Pivot.getInstance().runToTarget(pivotTarget);
         Extension.getInstance().loop();
     }
 
-    /// ENUMS
+    // endregion Intake sample
+
+    /**
+     * The four modes that have a fixed arm position to drive to.
+     *
+     * <p>{@link FSMModes.RobotMode} is the same list plus GENERAL. The duplication is a wart -
+     * GENERAL has no position to drive to, so it never reaches {@link #runToPositionInOrder}.
+     */
     enum Mode {
         INTAKE_SAMPLE, INTAKE_SPECIMEN, OUTTAKE_SAMPLE, OUTTAKE_SPECIMEN
     }
 
-    public enum RetractCase {
+    /** Stage of the safe positioning sequence in {@link #runToPositionInOrder}. */
+    public enum RetractStage {
         EXTENSION_RETRACT, EXTENSION, PIVOT, IDLE
     }
-
-
 }
-

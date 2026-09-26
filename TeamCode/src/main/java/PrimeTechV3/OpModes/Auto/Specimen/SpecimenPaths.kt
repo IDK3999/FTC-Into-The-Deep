@@ -7,179 +7,281 @@ import com.pedropathing.pathgen.BezierLine
 import com.pedropathing.pathgen.PathChain
 import com.pedropathing.pathgen.Point
 
+/**
+ * Every path driven by [SpecimenAuto], and the field positions they join up.
+ *
+ * ## Reading the coordinates
+ *
+ * Pedro Pathing measures the field in **inches** from one corner, so both x and y run
+ * 0 to 144, and headings are in **radians**. A [Pose] is a position plus a heading;
+ * a [Point] is just a position.
+ *
+ * Every path here holds a constant heading of 180 degrees ([HEADING]) - the robot never
+ * turns during this routine, it only slides around, because the claw scores over the back
+ * of the robot. That is why larger x means "further onto the chamber" below.
+ *
+ * ## Curves and control points
+ *
+ * A [BezierLine] is a straight line between two points. A [BezierCurve] bends: it takes a
+ * start, one or more **control points**, and an end. The curve is pulled towards the control
+ * points without passing through them, which is how a path is steered around the
+ * submersible instead of driving through it. Names ending in `Control` are only there to
+ * shape a curve - the robot never visits them.
+ *
+ * ## Editing these
+ *
+ * Positions were found by driving the robot and reading its pose off FTC Dashboard, then
+ * nudging the numbers until the run worked. If a path is off, change the number here rather
+ * than adding a correction elsewhere - and re-test, because later paths start where earlier
+ * ones end.
+ */
 object SpecimenPaths {
-    // region Poses
-    private var startX = 8.4
-    private var scoreX = 40.0
-    private var scoreX2 = 36.0
-    private var scoreX3 = 36.0
-    private var giveX = 16.0
-    private var scoreYStep = 3.5
-    private var firstScoreY = 66.0
-    private val secondScoreY = firstScoreY + scoreYStep
-    private val thirdScoreY = secondScoreY + scoreYStep
-    private val fourthScoreY = thirdScoreY + scoreYStep
-    private val fifthScoreY = fourthScoreY + scoreYStep
-    private val heading = Math.toRadians(180.0)
+    /** Constant robot heading for the whole routine: 180 degrees, i.e. claw facing the chamber. */
+    private val HEADING = Math.toRadians(180.0)
 
-    val start = Pose(startX, 64.7, heading)
-    private val scorePreload = Pose(scoreX, firstScoreY)
-    private val get1 = Pose(60.0, 24.0)
-    private val get1Control1 = Pose(4.0, 14.0)
-    private val get1Control2 = Pose(60.0, 47.0)
-    private val give1 = Pose(giveX, 24.0)
-    private val get2 = Pose(58.0, 13.0)
-    private val get2Control1 = Pose(70.0, 27.0)
-    private val give2 = Pose(giveX, 13.0)
-    private val get3 = Pose(52.0, 8.3)
-    private val get3Control1 = Pose(72.0, 16.0)
-    private val give3 = Pose(giveX, 8.0)
-    private val load = Pose(15.0, 24.0, heading)
-    private val loadControl1 = Pose(25.0, 13.0)
-    private val loadControl2 = Pose(25.0, 24.0)
-    private val loadControl = Pose(25.0, 30.0)
-    private val score2 = Pose(scoreX2, secondScoreY)
-    private val score2f = Pose(scoreX2 + 5, secondScoreY)
-    private val score3 = Pose(scoreX3, thirdScoreY)
-    private val score3f = Pose(scoreX3 + 5, thirdScoreY)
-    private val score4 = Pose(scoreX3, fourthScoreY)
-    private val score4f = Pose(scoreX3 + 5, fourthScoreY)
-    private val score5 = Pose(scoreX2, fifthScoreY)
-    private val park = Pose(14.0, 34.0)
-    // endregion Poses
+    // region Field positions
+    /** x of the wall the robot starts against, and returns to for specimens. */
+    private const val START_X = 8.4
+
+    /** x of the chamber for the preloaded specimen. */
+    private const val PRELOAD_SCORE_X = 40.0
+
+    /** x of the chamber for every later specimen - slightly closer, they seat better. */
+    private const val SCORE_X = 36.0
+
+    /** x the samples get pushed back to, inside the observation zone. */
+    private const val PUSH_TO_X = 16.0
+
+    /**
+     * How far apart along y the specimens are hung.
+     *
+     * Each one goes beside the last rather than on top of it, so they do not knock each
+     * other off the bar.
+     */
+    private const val SCORE_Y_STEP = 3.5
+
+    private const val FIRST_SCORE_Y = 66.0
+    private const val SECOND_SCORE_Y = FIRST_SCORE_Y + SCORE_Y_STEP
+    private const val THIRD_SCORE_Y = SECOND_SCORE_Y + SCORE_Y_STEP
+    private const val FOURTH_SCORE_Y = THIRD_SCORE_Y + SCORE_Y_STEP
+
+    /**
+     * How much further the robot pushes once it is at the chamber, to seat the specimen.
+     *
+     * Done as its own short path so the robot is already square to the bar before it pushes.
+     */
+    private const val SCORE_PUSH_DISTANCE = 5.0
+
+    /** Where the robot is placed before the match starts. */
+    val start = Pose(START_X, 64.7, HEADING)
+
+    private val scorePreload = Pose(PRELOAD_SCORE_X, FIRST_SCORE_Y)
+
+    // Approach the chamber, then push forward onto the bar.
+    private val scoreSpecimen2 = Pose(SCORE_X, SECOND_SCORE_Y)
+    private val scoreSpecimen2Push = Pose(SCORE_X + SCORE_PUSH_DISTANCE, SECOND_SCORE_Y)
+    private val scoreSpecimen3 = Pose(SCORE_X, THIRD_SCORE_Y)
+    private val scoreSpecimen3Push = Pose(SCORE_X + SCORE_PUSH_DISTANCE, THIRD_SCORE_Y)
+    private val scoreSpecimen4 = Pose(SCORE_X, FOURTH_SCORE_Y)
+    private val scoreSpecimen4Push = Pose(SCORE_X + SCORE_PUSH_DISTANCE, FOURTH_SCORE_Y)
+
+    // The three neutral samples sitting in the middle of the field. For each one the robot
+    // drives out past it ("behindSample") then shoves it back to the wall ("pushSample").
+    private val behindSample1 = Pose(60.0, 24.0)
+    private val behindSample1Control1 = Pose(4.0, 14.0)
+    private val behindSample1Control2 = Pose(60.0, 47.0)
+    private val pushSample1 = Pose(PUSH_TO_X, 24.0)
+
+    private val behindSample2 = Pose(58.0, 13.0)
+    private val behindSample2Control1 = Pose(70.0, 27.0)
+    private val pushSample2 = Pose(PUSH_TO_X, 13.0)
+
+    private val behindSample3 = Pose(52.0, 8.3)
+    private val behindSample3Control1 = Pose(72.0, 16.0)
+    private val pushSample3 = Pose(PUSH_TO_X, 8.0)
+
+    /** Where the robot waits at the wall for the human player to hand over a specimen. */
+    private val wallPickup = Pose(15.0, 24.0, HEADING)
+    private val wallPickupControl1 = Pose(25.0, 13.0)
+    private val wallPickupControl2 = Pose(25.0, 24.0)
+    private val wallPickupControl3 = Pose(25.0, 30.0)
+
+    /** Control point shared by the approaches to the chamber. */
+    private val chamberApproachControl = Pose(16.0, 67.0)
+    // endregion Field positions
 
     // region Paths
+    // `lateinit` means "assigned later, trust me" - these get their values in build(),
+    // which needs the Follower and so cannot run until the OpMode has one. Reading one of
+    // these before build() throws UninitializedPropertyAccessException.
     lateinit var scorePreloadPath: PathChain
-    lateinit var get1Path: PathChain
-    lateinit var give1Path: PathChain
-    lateinit var get2Path: PathChain
-    lateinit var give2Path: PathChain
-    lateinit var get3Path: PathChain
-    lateinit var give3Path: PathChain
-    lateinit var parkPath: PathChain
-    lateinit var load2Path: PathChain
-    lateinit var score2Path: PathChain
-    lateinit var score2fPath: PathChain
-    lateinit var load3Path: PathChain
-    lateinit var score3Path: PathChain
-    lateinit var score3fPath: PathChain
-    lateinit var load4Path: PathChain
-    lateinit var score4Path: PathChain
-    lateinit var score4fPath: PathChain
-    lateinit var load5Path: PathChain
-    lateinit var score5Path: PathChain
+
+    lateinit var loadSpecimen2Path: PathChain
+    lateinit var scoreSpecimen2Path: PathChain
+    lateinit var scoreSpecimen2PushPath: PathChain
+
+    lateinit var driveBehindSample1Path: PathChain
+    lateinit var pushSample1Path: PathChain
+    lateinit var driveBehindSample2Path: PathChain
+    lateinit var pushSample2Path: PathChain
+    lateinit var driveBehindSample3Path: PathChain
+    lateinit var pushSample3Path: PathChain
+
+    lateinit var loadSpecimen3Path: PathChain
+    lateinit var scoreSpecimen3Path: PathChain
+    lateinit var scoreSpecimen3PushPath: PathChain
+
+    lateinit var loadSpecimen4Path: PathChain
+    lateinit var scoreSpecimen4Path: PathChain
+    lateinit var scoreSpecimen4PushPath: PathChain
     // endregion Paths
 
+    /**
+     * Creates every path. Must be called once, from the OpMode's `init`, before any path
+     * is followed.
+     *
+     * Note that each path starts where the previous one ended, so the whole run is chained
+     * together - moving one position shifts everything after it.
+     */
     fun build(follower: Follower) {
+        // Straight out from the wall to the chamber, carrying the preloaded specimen.
         scorePreloadPath = follower.pathBuilder()
             .addPath(BezierLine(Point(start), Point(scorePreload)))
-            .setConstantHeadingInterpolation(heading)
+            .setConstantHeadingInterpolation(HEADING)
             .build()
 
-        get1Path = follower.pathBuilder()
+        // Back to the wall for the second specimen.
+        loadSpecimen2Path = follower.pathBuilder()
+            .addPath(BezierCurve(Point(scorePreload), Point(15.0, 67.0), Point(wallPickup)))
+            .setConstantHeadingInterpolation(HEADING)
+            .build()
+
+        scoreSpecimen2Path = follower.pathBuilder()
             .addPath(
                 BezierCurve(
-                    Point(score2f),
-                    Point(get1Control1),
-                    Point(get1Control2),
-                    Point(get1)
+                    Point(wallPickup),
+                    Point(chamberApproachControl),
+                    Point(scoreSpecimen2)
                 )
             )
-            .setConstantHeadingInterpolation(heading)
+            .setConstantHeadingInterpolation(HEADING)
             .build()
 
-        give1Path = follower.pathBuilder()
-            .addPath(BezierLine(Point(get1), Point(give1)))
-            .setConstantHeadingInterpolation(heading)
+        scoreSpecimen2PushPath = follower.pathBuilder()
+            .addPath(BezierLine(Point(scoreSpecimen2), Point(scoreSpecimen2Push)))
+            .setConstantHeadingInterpolation(HEADING)
+            .build()
+
+        // Loop out around the first sample. Starts from where the robot finished scoring.
+        driveBehindSample1Path = follower.pathBuilder()
+            .addPath(
+                BezierCurve(
+                    Point(scoreSpecimen2Push),
+                    Point(behindSample1Control1),
+                    Point(behindSample1Control2),
+                    Point(behindSample1)
+                )
+            )
+            .setConstantHeadingInterpolation(HEADING)
+            .build()
+
+        // Shove the sample to the wall. The high acceleration multiplier makes the robot
+        // stop harder at the end, so it does not coast into the wall behind the sample.
+        pushSample1Path = follower.pathBuilder()
+            .addPath(BezierLine(Point(behindSample1), Point(pushSample1)))
+            .setConstantHeadingInterpolation(HEADING)
             .setZeroPowerAccelerationMultiplier(4.0)
             .build()
 
-        get2Path = follower.pathBuilder()
-            .addPath(BezierCurve(Point(give1), Point(get2Control1), Point(get2)))
-            .setConstantHeadingInterpolation(heading)
+        driveBehindSample2Path = follower.pathBuilder()
+            .addPath(
+                BezierCurve(
+                    Point(pushSample1),
+                    Point(behindSample2Control1),
+                    Point(behindSample2)
+                )
+            )
+            .setConstantHeadingInterpolation(HEADING)
             .build()
 
-        give2Path = follower.pathBuilder()
-            .addPath(BezierLine(Point(get2), Point(give2)))
-            .setConstantHeadingInterpolation(heading)
+        pushSample2Path = follower.pathBuilder()
+            .addPath(BezierLine(Point(behindSample2), Point(pushSample2)))
+            .setConstantHeadingInterpolation(HEADING)
             .setZeroPowerAccelerationMultiplier(4.0)
             .build()
 
-        get3Path = follower.pathBuilder()
-            .addPath(BezierCurve(Point(give2), Point(get3Control1), Point(get3)))
-            .setConstantHeadingInterpolation(heading)
-            .build()
-
-        give3Path = follower.pathBuilder()
-            .addPath(BezierLine(Point(get3), Point(give3)))
-            .setConstantHeadingInterpolation(heading)
-            .build()
-
-        load2Path = follower.pathBuilder()
-            .addPath(BezierCurve(Point(scorePreload), Point(15.0, 67.0), Point(load)))
-            .setConstantHeadingInterpolation(heading)
-            .build()
-
-        score2Path = follower.pathBuilder()
-            .addPath(BezierCurve(Point(load), Point(16.0, 67.0), Point(score2)))
-            .setConstantHeadingInterpolation(heading)
-            .build()
-
-        score2fPath = follower.pathBuilder()
-            .addPath(BezierLine(Point(score2), Point(score2f)))
-            .setConstantHeadingInterpolation(heading)
-            .build()
-
-        load3Path = follower.pathBuilder()
+        // The third sample is built but SpecimenAuto does not use it - the run ran out of
+        // time. Two samples pushed, then straight back to collecting specimens.
+        driveBehindSample3Path = follower.pathBuilder()
             .addPath(
                 BezierCurve(
-                    Point(give2),
-                    Point(loadControl1),
-                    Point(loadControl2),
-                    Point(load)
+                    Point(pushSample2),
+                    Point(behindSample3Control1),
+                    Point(behindSample3)
                 )
             )
-            .setConstantHeadingInterpolation(heading)
+            .setConstantHeadingInterpolation(HEADING)
             .build()
 
-        score3Path = follower.pathBuilder()
-            .addPath(BezierCurve(Point(load), Point(16.0, 67.0), Point(score3)))
-            .setConstantHeadingInterpolation(heading)
+        pushSample3Path = follower.pathBuilder()
+            .addPath(BezierLine(Point(behindSample3), Point(pushSample3)))
+            .setConstantHeadingInterpolation(HEADING)
             .build()
 
-        score3fPath = follower.pathBuilder()
-            .addPath(BezierLine(Point(score3), Point(score3f)))
-            .setConstantHeadingInterpolation(heading)
+        // From the second sample straight back to the wall for the third specimen.
+        loadSpecimen3Path = follower.pathBuilder()
+            .addPath(
+                BezierCurve(
+                    Point(pushSample2),
+                    Point(wallPickupControl1),
+                    Point(wallPickupControl2),
+                    Point(wallPickup)
+                )
+            )
+            .setConstantHeadingInterpolation(HEADING)
             .build()
 
-        load4Path = follower.pathBuilder()
-            .addPath(BezierCurve(Point(score3f), Point(loadControl), Point(load)))
-            .setConstantHeadingInterpolation(heading)
+        scoreSpecimen3Path = follower.pathBuilder()
+            .addPath(
+                BezierCurve(
+                    Point(wallPickup),
+                    Point(chamberApproachControl),
+                    Point(scoreSpecimen3)
+                )
+            )
+            .setConstantHeadingInterpolation(HEADING)
             .build()
 
-        score4Path = follower.pathBuilder()
-            .addPath(BezierCurve(Point(load), Point(16.0, 67.0), Point(score4)))
-            .setConstantHeadingInterpolation(heading)
+        scoreSpecimen3PushPath = follower.pathBuilder()
+            .addPath(BezierLine(Point(scoreSpecimen3), Point(scoreSpecimen3Push)))
+            .setConstantHeadingInterpolation(HEADING)
             .build()
 
-        score4fPath = follower.pathBuilder()
-            .addPath(BezierLine(Point(score4), Point(score4f)))
-            .setConstantHeadingInterpolation(heading)
+        loadSpecimen4Path = follower.pathBuilder()
+            .addPath(
+                BezierCurve(
+                    Point(scoreSpecimen3Push),
+                    Point(wallPickupControl3),
+                    Point(wallPickup)
+                )
+            )
+            .setConstantHeadingInterpolation(HEADING)
             .build()
 
-        load5Path = follower.pathBuilder()
-            .addPath(BezierCurve(Point(score4), Point(loadControl), Point(load)))
-            .setConstantHeadingInterpolation(heading)
+        scoreSpecimen4Path = follower.pathBuilder()
+            .addPath(
+                BezierCurve(
+                    Point(wallPickup),
+                    Point(chamberApproachControl),
+                    Point(scoreSpecimen4)
+                )
+            )
+            .setConstantHeadingInterpolation(HEADING)
             .build()
 
-        score5Path = follower.pathBuilder()
-            .addPath(BezierLine(Point(load), Point(score5)))
-            .setConstantHeadingInterpolation(heading)
-            .build()
-
-        parkPath = follower.pathBuilder()
-            .addPath(BezierLine(Point(score5), Point(park)))
-            .setConstantHeadingInterpolation(heading)
+        scoreSpecimen4PushPath = follower.pathBuilder()
+            .addPath(BezierLine(Point(scoreSpecimen4), Point(scoreSpecimen4Push)))
+            .setConstantHeadingInterpolation(HEADING)
             .build()
     }
 }

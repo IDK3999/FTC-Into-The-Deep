@@ -11,111 +11,125 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-
+/**
+ * Tunes the arm's pivot and extension PIDs at the same time, from FTC Dashboard.
+ *
+ * <p>Both axes interact - extending the slide changes how much torque the pivot needs, and
+ * raising the arm changes how much the slide has to hold - so it is worth tuning them
+ * together rather than one at a time. See {@link PivotPIDTuner} for the tuning procedure.
+ *
+ * <p>Targets are set from the dashboard here; there are no gamepad controls.
+ */
 @TeleOp(name = "Pivot & Extension PID Tuner", group = "Tuners")
 @Config
 public class PivotAndExtensionPIDTuner extends OpMode {
-    public static final double MAX_TICKS = 2600;
-    public static final double MIN_TICKS = 0;
-    public static final double FRONT_BACK_INIT = 0.5;
-    public static double pivot_p = 0, pivot_i = 0, pivot_d = 0.0;
-    public static double pivot_f = 0;
-    public static double increment_pivot = 50;
-    public static double target_pivot = 0;
-    public static double extension_p = 0, extension_i = 0, extension_d = 0;
-    public static double extension_f = 0;
-    public static double increment_extension = 50;
-    public static double extension_target = 0;
-    public static double frontBackServoRight_pos = FRONT_BACK_INIT;
-    public DcMotorEx motorPivot = null;
-    public DcMotorEx extension_left = null;
-    public DcMotorEx extension_right = null;
-    public double ticks_in_degrees = (double) 8192 / 360;
-    Servo frontBackServo_left = null;
-    Servo frontBackServo_right = null;
-    private PIDController controller_pivot;
-    private PIDController controller_extension;
+    /** Claw pivot servo position held throughout, to keep the claw out of the way. */
+    public static final double CLAW_PIVOT_INIT = 0.5;
+
+    public static final double TICKS_PER_DEGREE = (double) 8192 / 360;
+
+    // region Pivot (arm rotation)
+    public static double pivotProportionalGain = 0;
+    public static double pivotIntegralGain = 0;
+    public static double pivotDerivativeGain = 0.0;
+
+    /** Gravity feedforward gain for the arm. */
+    public static double pivotFeedforwardGain = 0;
+
+    /** Arm position to drive to, in ticks. Set from the dashboard. */
+    public static double pivotTarget = 0;
+    // endregion Pivot
+
+    // region Extension (slide)
+    public static double extensionProportionalGain = 0;
+    public static double extensionIntegralGain = 0;
+    public static double extensionDerivativeGain = 0;
+
+    /** Gravity feedforward gain for the slide. */
+    public static double extensionFeedforwardGain = 0;
+
+    /** Slide position to drive to, in ticks. Set from the dashboard. */
+    public static double extensionTarget = 0;
+    // endregion Extension
+
+    public DcMotorEx pivotMotor = null;
+    public DcMotorEx extensionMotorLeft = null;
+    public DcMotorEx extensionMotorRight = null;
+
+    Servo clawPivotServoLeft = null;
+    Servo clawPivotServoRight = null;
+
+    private PIDController pivotController;
+    private PIDController extensionController;
 
     @Override
     public void init() {
-        //Global.gamepad1 = gamepad1;
-        //Gamepad.getInstance().init();
-        controller_pivot = new PIDController(pivot_p, pivot_i, pivot_d);
-        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-        motorPivot = hardwareMap.get(DcMotorEx.class, "motorPivot");
-        //motorPivot.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        motorPivot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        controller_extension = new PIDController(extension_p, extension_i, extension_d);
+        // MultipleTelemetry sends the same data to both the Driver Hub and the dashboard.
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        extension_left = hardwareMap.get(DcMotorEx.class, "extensionLeft");
-        extension_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        // extension_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        extension_left.setDirection(DcMotorSimple.Direction.REVERSE);
-        extension_left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pivotController = new PIDController(
+                pivotProportionalGain, pivotIntegralGain, pivotDerivativeGain);
+        extensionController = new PIDController(
+                extensionProportionalGain, extensionIntegralGain, extensionDerivativeGain);
 
-        extension_right = hardwareMap.get(DcMotorEx.class, "extensionRight");
-        extension_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        // extension_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        extension_right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        // Note: the encoders are deliberately NOT reset here, so you can restart this OpMode
+        // without losing the zero you are tuning against.
+        pivotMotor = hardwareMap.get(DcMotorEx.class, "motorPivot");
+        pivotMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        frontBackServo_left = hardwareMap.get(Servo.class, "frontBackServoLeft");
-        frontBackServo_left.setDirection(Servo.Direction.REVERSE);
-        frontBackServo_left.setPosition(FRONT_BACK_INIT);
+        extensionMotorLeft = hardwareMap.get(DcMotorEx.class, "extensionLeft");
+        extensionMotorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        extensionMotorLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        extensionMotorLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        extensionMotorRight = hardwareMap.get(DcMotorEx.class, "extensionRight");
+        extensionMotorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        extensionMotorRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        frontBackServo_right = hardwareMap.get(Servo.class, "frontBackServoRight");
-        frontBackServo_right.setPosition(FRONT_BACK_INIT);
+        // The two claw pivot servos are mirrored, so one is reversed to make them agree.
+        clawPivotServoLeft = hardwareMap.get(Servo.class, "frontBackServoLeft");
+        clawPivotServoLeft.setDirection(Servo.Direction.REVERSE);
+        clawPivotServoLeft.setPosition(CLAW_PIVOT_INIT);
+
+        clawPivotServoRight = hardwareMap.get(Servo.class, "frontBackServoRight");
+        clawPivotServoRight.setPosition(CLAW_PIVOT_INIT);
     }
 
     @Override
     public void loop() {
-        /*Gamepad.getInstance().loop();
+        // Gains are re-applied every loop so dashboard edits take effect immediately.
+        pivotController.setPID(pivotProportionalGain, pivotIntegralGain, pivotDerivativeGain);
 
-        if (Gamepad.getInstance().left_bumper() && target_pivot < MAX_TICKS) {
-            target_pivot += increment_pivot;
-        }
-        if (Gamepad.getInstance().right_bumper() && target_pivot > MIN_TICKS) {
-            target_pivot -= increment_pivot;
-        }*/
-        controller_pivot.setPID(pivot_p, pivot_i, pivot_d);
-        int pivot_pos = motorPivot.getCurrentPosition();
-        double pid_pivot = controller_pivot.calculate(pivot_pos, target_pivot);
-        double ff_pivot = pivot_f * (1 + extension_right.getCurrentPosition() * 0.002) * Math.cos(Math.toRadians(pivot_pos / ticks_in_degrees));
-        double power_pivot = pid_pivot + ff_pivot;
+        int pivotTicks = pivotMotor.getCurrentPosition();
+        double pivotPidOutput = pivotController.calculate(pivotTicks, pivotTarget);
 
-        motorPivot.setPower(power_pivot);
+        // Scaled by the extension position: the further the slide is out, the more leverage
+        // the arm's weight has, so the more holding power it needs.
+        double pivotFeedforward = pivotFeedforwardGain
+                * (1 + extensionMotorRight.getCurrentPosition() * 0.002)
+                * Math.cos(Math.toRadians(pivotTicks / TICKS_PER_DEGREE));
 
-        // Telemetry
+        pivotMotor.setPower(pivotPidOutput + pivotFeedforward);
 
+        extensionController.setPID(
+                extensionProportionalGain, extensionIntegralGain, extensionDerivativeGain);
 
-        /*if (target_extension < MAX_TICKS) {
-            target_extension += increment_extension * Gamepad.getInstance().right_trigger();
-        }
-        if (target_extension > MIN_TICKS) {
-            target_extension -= increment_extension * Gamepad.getInstance().left_trigger();
-        }*/
+        int extensionTicks = extensionMotorRight.getCurrentPosition();
+        double extensionPidOutput = extensionController.calculate(extensionTicks, extensionTarget);
 
+        // The more the arm is raised, the more of the slide's weight the motors must hold.
+        double extensionFeedforward = Math.sin(
+                Math.toRadians(pivotMotor.getCurrentPosition() / TICKS_PER_DEGREE))
+                * extensionFeedforwardGain;
 
-        controller_extension.setPID(extension_p, extension_i, extension_d);
-        int lift_pos = extension_right.getCurrentPosition();
-        double pid_extension = controller_extension.calculate(lift_pos, extension_target);
-        double ff_extension = Math.sin(Math.toRadians(motorPivot.getCurrentPosition() / ticks_in_degrees)) * extension_f;
-        double power_extension = pid_extension + ff_extension;
+        double extensionPower = extensionPidOutput + extensionFeedforward;
+        extensionMotorRight.setPower(extensionPower);
+        extensionMotorLeft.setPower(extensionPower);
 
-        extension_right.setPower(power_extension);
-        extension_left.setPower(power_extension);
-
-        // Telemetry
-        //
-        telemetry.addData("pivot_pos: ", pivot_pos);
-        telemetry.addData("pivot_target: ", target_pivot);
-        telemetry.addData("lift_pos: ", lift_pos);
-        telemetry.addData("lift_target: ", extension_target);
+        telemetry.addData("pivot_pos: ", pivotTicks);
+        telemetry.addData("pivot_target: ", pivotTarget);
+        telemetry.addData("extension_pos: ", extensionTicks);
+        telemetry.addData("extension_target: ", extensionTarget);
         telemetry.update();
-
-
     }
-
 }

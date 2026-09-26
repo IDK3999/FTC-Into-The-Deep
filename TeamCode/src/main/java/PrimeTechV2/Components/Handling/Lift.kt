@@ -9,6 +9,16 @@ import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorEx
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorGroup
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.RunToPosition
 
+/**
+ * The lift, as a NextFTC [Subsystem]. Positions are in encoder ticks.
+ *
+ * Two things to notice:
+ *
+ * - [defaultCommand] is [HoldPosition], which NextFTC runs whenever nothing else has claimed
+ *   this subsystem. That is what stops the slide sagging between actions - in `PrimeTechV3`
+ *   the same job is done by calling `Lift.update()` every loop.
+ * - [MotorGroup] ties the two motors together so one command drives both.
+ */
 object Lift : Subsystem() {
     // region Declare Components
     private lateinit var liftMotorLeft: MotorEx

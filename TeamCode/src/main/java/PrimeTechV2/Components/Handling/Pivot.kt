@@ -12,6 +12,13 @@ import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorEx
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.RunToPosition
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.SetPower
 
+/**
+ * The arm rotation motor, as a NextFTC [Subsystem]. Positions are in encoder ticks.
+ *
+ * Two PID controllers are kept, differing only in tolerance: a loose one for moves where
+ * "close enough" is fine, and a tight one where the arm has to be accurate. A move that
+ * cannot settle within its tolerance never reports finished, which would stall the sequence.
+ */
 object Pivot : Subsystem() {
     // region Declare Components
     private lateinit var pivotMotor: MotorEx

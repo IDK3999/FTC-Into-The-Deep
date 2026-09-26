@@ -15,6 +15,15 @@ import com.rowanmcalpin.nextftc.pedro.PedroOpMode
 import pedroPathing.constants.FConstants
 import pedroPathing.constants.LConstants
 
+/**
+ * Basket-side autonomous, written with NextFTC. `@Disabled`, so it does not appear on the
+ * Driver Hub.
+ *
+ * Compare this with `PrimeTechV3`'s `SampleAuto`: there is no step counter and no `loop()`
+ * here at all. [onStartButtonPressed] hands NextFTC one big [SequentialGroup] and the library
+ * drives it to completion. That is the whole appeal of the command-based approach - and the
+ * reason this version is worth reading even though the team stopped using it.
+ */
 @Disabled
 @Autonomous(name = "Basket")
 class BasketAuto : PedroOpMode(Claw, Lift, Pivot) {
@@ -46,11 +55,9 @@ class BasketAuto : PedroOpMode(Claw, Lift, Pivot) {
                 BasketActions.scorePreload,
                 BasketActions.load1FromGround,
                 BasketActions.score1,
-//                BasketActions.load2FromGround,
-//                BasketActions.score2,
-//                BasketActions.load3FromGround,
-//                BasketActions.score3,
-//                ActionGroups.initializeHandling
+                // Only one sample was ever scored here. BasketActions still defines
+                // load2FromGround / score2 / load3FromGround / score3 - add them to this
+                // list to extend the run.
             )
         )
     }

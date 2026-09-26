@@ -6,74 +6,93 @@ import PrimeTechV3.Components.Pedro
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 
+/**
+ * Autonomous for the basket (left-hand) side of the field.
+ *
+ * **This one was never finished.** It drives up to the basket and then parks, without
+ * scoring anything - steps 2 and 3 are empty placeholders where the scoring would go.
+ * It is kept because the drive paths are tuned and working, which is most of the job;
+ * see [PrimeTechV3.OpModes.Auto.Specimen.SpecimenAuto] for a complete routine to copy
+ * the scoring steps from.
+ *
+ * The step structure is the same as `SpecimenAuto` - see [runStep].
+ */
 @Autonomous(name = "Sample")
 class SampleAuto : OpMode() {
-    private var state = 0
+    /** Which step of the plan we are on. 0 means the run is over. */
+    private var step = 0
 
-    private lateinit var actions: Actions
-    private lateinit var pedro: Pedro
+    /** Whether the current step's `begin` block has already fired. */
+    private var stepStarted = false
 
-    private var actionStarted = false
+    /** Capped speed on the way to the basket - slower, because this one has to be accurate. */
+    private val approachSpeed = 0.7
+
+    /** Capped speed on the way to park; accuracy matters less, so it can go faster. */
+    private val parkSpeed = 0.8
 
     override fun init() {
-        actions = Actions
-        actions.init(hardwareMap)
+        Actions.init(hardwareMap)
+        Pedro.init(hardwareMap, SamplePaths.start)
 
-        pedro = Pedro
-        pedro.init(hardwareMap, SamplePaths.start)
-
-        SamplePaths.build(pedro.follower)
+        SamplePaths.build(Pedro.follower)
     }
 
     override fun start() {
-        pedro.start()
-        actions.start()
+        Pedro.start()
+        Actions.start()
 
-        state = 1
+        step = 1
     }
 
     override fun loop() {
-        actions.update()
-        pedro.update()
+        Actions.update()
+        Pedro.update()
 
-        when (state) {
-            0 -> {}
+        telemetry.addData("Auto step", step)
 
-            1 -> {
-                if (!actionStarted) {
-                    Claw.setClawOpen(false)
-                    pedro.followPath(SamplePaths.scorePreloadPath, 0.7)
-                    actionStarted = true
-                } else if (pedro.isDone()) {
-                    actionStarted = false
-                    state++
-                }
-            }
+        when (step) {
+            0 -> {} // Run finished.
 
-            2 -> {
-                state++
-            }
+            // Drive from the wall up to the basket, holding onto the preloaded sample.
+            1 -> runStep(
+                begin = {
+                    Claw.closeGrip()
+                    Pedro.followPath(SamplePaths.scorePreloadPath, approachSpeed)
+                },
+                isFinished = { Pedro.isDone() }
+            )
 
-            3 -> {
-                state++
-            }
+            // Placeholders: this is where raising the arm and dropping the sample into the
+            // basket belongs. They do nothing but fall through to the next step.
+            2, 3 -> step++
 
-            4 -> {
-                if (!actionStarted) {
-                    Claw.setClawOpen(false)
-                    pedro.followPath(SamplePaths.parkPath, 0.8)
-                    actionStarted = true
-                } else if (pedro.isDone()) {
-                    actionStarted = false
-                    state++
-                }
-            }
+            // Park out by the submersible.
+            4 -> runStep(
+                begin = {
+                    Claw.closeGrip()
+                    Pedro.followPath(SamplePaths.parkPath, parkSpeed)
+                },
+                isFinished = { Pedro.isDone() }
+            )
 
-            else -> {
-                state = 0
-            }
+            else -> step = 0
         }
 
         telemetry.update()
+    }
+
+    /**
+     * Runs one step of the plan, spread over as many loops as it takes: [begin] fires on
+     * the first loop only, then we wait until [isFinished] says we can move on.
+     */
+    private fun runStep(begin: () -> Unit, isFinished: () -> Boolean) {
+        if (!stepStarted) {
+            begin()
+            stepStarted = true
+        } else if (isFinished()) {
+            stepStarted = false
+            step++
+        }
     }
 }

@@ -4,26 +4,55 @@ import static PrimeTech.Global.Global.hardwareMap;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
-import PrimeTech.Components.Gamepad.Gamepad;
+import PrimeTech.Components.Gamepad.GamepadTracker;
 
+/**
+ * The claw on the end of the arm, driven by four servos:
+ *
+ * <ul>
+ *   <li><b>grip</b> - opens and closes the jaws.</li>
+ *   <li><b>wrist</b> - rolls the jaws sideways, to line up with a sample lying at an angle.</li>
+ *   <li><b>claw pivot</b> (a pair, left and right) - swings the whole claw front-to-back.
+ *       Not the same thing as {@link Pivot}, which rotates the entire arm.</li>
+ * </ul>
+ *
+ * <p>All positions are servo positions in the range 0.0 to 1.0, not angles or distances.
+ *
+ * <p>Servos are open loop: we can tell one where to go but cannot read back where it is, so
+ * nothing here can report when a movement has finished.
+ */
 public class Claw {
-    // Servo positions
-    public static final double OPEN_POS = 0.9;
-    public static final double CLOSED_POS = 0.1;
-    public static final double FRONT_POS = 0;
-    public static final double MID_POS = 0.5;
-    public static final double OUTTAKE_SAMPLE_PIVOT_POS = 0.65;
-    public static final double BACK_POS = 1;
-    public static final double ROTATION_INIT = 0.5;
-    public static final double ROTATION_PERPENDICULAR = 0.16;
+    // region Servo positions
+    public static final double GRIP_OPEN = 0.9;
+    public static final double GRIP_CLOSED = 0.1;
+
+    public static final double CLAW_PIVOT_FRONT = 0.0;
+    public static final double CLAW_PIVOT_MID = 0.5;
+    public static final double CLAW_PIVOT_SCORE_SAMPLE = 0.65;
+    public static final double CLAW_PIVOT_BACK = 1.0;
+
+    /** Wrist upright, jaws level - the normal carrying position. */
+    public static final double WRIST_STRAIGHT = 0.5;
+
+    /** Wrist rolled 90 degrees, for grabbing a sample lying sideways. */
+    public static final double WRIST_TURNED_90 = 0.16;
+    // endregion Servo positions
+
     private static Claw instance = null;
-    public Servo openingServo = null;
-    public Servo rotationServo = null;
-    public Servo frontBackServo_left = null;
-    public Servo frontBackServo_right = null;
-    Rotation rotation = Rotation.ZERO;
-    OpenState openState = OpenState.CLOSED;
-    FrontBackState frontBackState = FrontBackState.FRONT;
+
+    // region Hardware
+    // Strings are device names from the Robot Configuration on the Driver Hub.
+    public Servo gripServo = null;             // config name: "openingServo"
+    public Servo wristServo = null;            // config name: "rotationServo"
+    public Servo clawPivotServoLeft = null;    // config name: "frontBackServoLeft"
+    public Servo clawPivotServoRight = null;   // config name: "frontBackServoRight"
+    // endregion Hardware
+
+    // region Current state
+    // Only what we last asked for - servos give no feedback, so this is not a measurement.
+    WristRotation wristRotation = WristRotation.STRAIGHT;
+    GripState gripState = GripState.CLOSED;
+    // endregion Current state
 
     public static synchronized Claw getInstance() {
         if (instance == null) {
@@ -33,98 +62,110 @@ public class Claw {
     }
 
     public void init() {
-        openingServo = hardwareMap.get(Servo.class, "openingServo");
+        gripServo = hardwareMap.get(Servo.class, "openingServo");
 
-        rotationServo = hardwareMap.get(Servo.class, "rotationServo");
+        wristServo = hardwareMap.get(Servo.class, "rotationServo");
 
-        frontBackServo_left = hardwareMap.get(Servo.class, "frontBackServoLeft");
+        // NOTE: the two claw-pivot servos are mounted mirrored, so one of them normally has
+        // to be reversed (see the TestServo and PivotAndExtensionPIDTuner OpModes, which
+        // both call setDirection(REVERSE) on the left one). That call is missing here, so in
+        // this TeleOp the two servos are driven to the same position and fight each other.
+        // PrimeTechV3 sidesteps the problem by only using the right servo. Check this on the
+        // robot before relying on the left one.
+        clawPivotServoLeft = hardwareMap.get(Servo.class, "frontBackServoLeft");
 
-        frontBackServo_right = hardwareMap.get(Servo.class, "frontBackServoRight");
+        clawPivotServoRight = hardwareMap.get(Servo.class, "frontBackServoRight");
     }
 
+    /** Moves the claw to its safe starting shape: jaws closed, wrist straight, pivoted back. */
     public void start() {
-        frontBackState = FrontBackState.BACK;
-        openState = OpenState.CLOSED;
-        rotation = Rotation.ZERO;
+        gripState = GripState.CLOSED;
+        wristRotation = WristRotation.STRAIGHT;
 
-        openingServo.setPosition(CLOSED_POS);
-        rotationServo.setPosition(ROTATION_INIT);
+        gripServo.setPosition(GRIP_CLOSED);
+        wristServo.setPosition(WRIST_STRAIGHT);
 
-        frontBackServo_left.setPosition(BACK_POS);
-        frontBackServo_right.setPosition(BACK_POS);
+        clawPivotServoLeft.setPosition(CLAW_PIVOT_BACK);
+        clawPivotServoRight.setPosition(CLAW_PIVOT_BACK);
     }
 
-    public void openState_method() {
-        switch (openState) {
+    /**
+     * Toggles the jaws open/closed when cross is pressed. Call once per loop.
+     *
+     * <p>Uses {@code crossPressed()} (one loop only) rather than the button's raw state, so
+     * one press gives exactly one toggle.
+     */
+    public void updateGripToggle() {
+        switch (gripState) {
             case OPEN:
-                if (Gamepad.getInstance().cross()) {
-                    // Transition to CLOSED state
-                    openingServo.setPosition(CLOSED_POS);
-                    openState = OpenState.CLOSED;
+                if (GamepadTracker.getInstance().crossPressed()) {
+                    close();
                 }
                 break;
             case CLOSED:
-                if (Gamepad.getInstance().cross()) {
-                    // Transition to OPEN state
-                    openingServo.setPosition(OPEN_POS);
-                    openState = OpenState.OPEN;
+                if (GamepadTracker.getInstance().crossPressed()) {
+                    open();
                 }
                 break;
         }
     }
 
-    public void intake_rotation() {
-        switch (rotation) {
-            case ZERO:
-                if (Gamepad.getInstance().triangle()) {
-                    rotate(ROTATION_PERPENDICULAR);
-                    rotation = Rotation.NINETIES;
+    /** Toggles the wrist between straight and rolled 90 degrees on triangle. Call once per loop. */
+    public void updateWristToggle() {
+        switch (wristRotation) {
+            case STRAIGHT:
+                if (GamepadTracker.getInstance().trianglePressed()) {
+                    setWrist(WRIST_TURNED_90);
+                    wristRotation = WristRotation.TURNED_90;
                 }
                 break;
-            case NINETIES:
-                if (Gamepad.getInstance().triangle()) {
-                    rotate(ROTATION_INIT);
-                    rotation = Rotation.ZERO;
+            case TURNED_90:
+                if (GamepadTracker.getInstance().trianglePressed()) {
+                    setWrist(WRIST_STRAIGHT);
+                    wristRotation = WristRotation.STRAIGHT;
                 }
                 break;
         }
     }
 
-    public void change_to_rotation_ZERO() {
-        rotation = Rotation.ZERO;
-        rotate(Claw.ROTATION_INIT);
+    /** Rolls the wrist back upright and records it. */
+    public void straightenWrist() {
+        wristRotation = WristRotation.STRAIGHT;
+        setWrist(WRIST_STRAIGHT);
     }
 
-    public void rotate(double angle) {
-        rotationServo.setPosition(angle);
+    /** @param position servo position 0.0 to 1.0, e.g. {@link #WRIST_STRAIGHT}. */
+    public void setWrist(double position) {
+        wristServo.setPosition(position);
     }
 
-    public void pivot(double angle) {
-        frontBackServo_right.setPosition(angle);
-        frontBackServo_left.setPosition(angle);
+    /**
+     * Swings the claw front-to-back. Both pivot servos get the same position.
+     *
+     * @param position servo position 0.0 to 1.0, e.g. {@link #CLAW_PIVOT_MID}.
+     */
+    public void setClawPivot(double position) {
+        clawPivotServoRight.setPosition(position);
+        clawPivotServoLeft.setPosition(position);
     }
 
-    public void change_to_OPEN_POS() {
-        openingServo.setPosition(OPEN_POS);
-        openState = OpenState.OPEN;
+    public void open() {
+        gripServo.setPosition(GRIP_OPEN);
+        gripState = GripState.OPEN;
     }
 
-    public void change_to_CLOSE_POS() {
-        openingServo.setPosition(CLOSED_POS);
-        openState = OpenState.CLOSED;
+    public void close() {
+        gripServo.setPosition(GRIP_CLOSED);
+        gripState = GripState.CLOSED;
     }
 
-
-    enum Rotation {
-        ZERO, NINETIES
+    /** How far the wrist is rolled. */
+    enum WristRotation {
+        STRAIGHT, TURNED_90
     }
 
-    enum OpenState {
+    /** Whether the jaws are gripping something. */
+    enum GripState {
         OPEN, CLOSED
     }
-
-    enum FrontBackState {
-        FRONT, BACK
-    }
-
 }

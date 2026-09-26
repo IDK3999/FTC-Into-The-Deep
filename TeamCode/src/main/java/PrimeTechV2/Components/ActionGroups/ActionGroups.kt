@@ -9,6 +9,23 @@ import com.rowanmcalpin.nextftc.core.command.groups.ParallelRaceGroup
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup
 import com.rowanmcalpin.nextftc.core.command.utility.delays.Delay
 
+/**
+ * Whole jobs, built by combining the components' commands.
+ *
+ * This is the part of NextFTC worth understanding. Instead of writing a step machine by hand
+ * (as `PrimeTech` and `PrimeTechV3` both do), you describe *what* should happen and the
+ * library works out the sequencing:
+ *
+ * - [SequentialGroup] runs its commands one after another, each waiting for the last.
+ * - [ParallelGroup] runs them all at once and finishes when the slowest one does.
+ * - [ParallelRaceGroup] runs them all at once and finishes when the *first* one does -
+ *   which is how [scoreSpecimen] below gets a 2 second timeout: whichever finishes first,
+ *   the real work or the `Delay(2.0)`, ends the group.
+ *
+ * Note every property here is a `get()` rather than a stored value, so each use builds a
+ * fresh command. Commands carry state while they run, so reusing one instance twice would
+ * misbehave.
+ */
 object ActionGroups {
     val initializeHandling: Command
         get() = SequentialGroup(

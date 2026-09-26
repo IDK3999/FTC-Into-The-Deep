@@ -15,6 +15,14 @@ import com.rowanmcalpin.nextftc.pedro.PedroOpMode
 import pedroPathing.constants.FConstants
 import pedroPathing.constants.LConstants
 
+/**
+ * Specimen-side autonomous, written with NextFTC. `@Disabled`, so it does not appear on the
+ * Driver Hub.
+ *
+ * The whole 17-step routine is the single [SequentialGroup] in [onStartButtonPressed]. The
+ * equivalent in `PrimeTechV3` is `SpecimenAuto`, which spells the same run out as a numbered
+ * step machine - worth reading side by side to see what the library buys you.
+ */
 @Disabled
 @Autonomous(name = "Specimen")
 class SpecimenAuto : PedroOpMode(Claw, Lift, Pivot) {
