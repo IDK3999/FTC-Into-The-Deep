@@ -1,4 +1,4 @@
-# How FTC code actually runs
+# How FTC code actually runs 
 
 Read this before anything else. Robot code is structured very differently from the programs you
 write for a contest, and almost all of the difference comes from one rule.

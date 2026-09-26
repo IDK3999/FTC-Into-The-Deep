@@ -1,4 +1,4 @@
-# Java and Kotlin, for someone who knows olympiad C++
+# Java and Kotlin, for someone who knows olympiad C++ 
 
 You already know how to program. This is a translation guide, not a tutorial: what maps straight
 across, what is genuinely different, and which contest habits to drop.

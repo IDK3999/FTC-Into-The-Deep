@@ -1,4 +1,4 @@
-# Robot configuration
+# Robot configuration 
 
 Every motor and servo is looked up by a **name** that must match the configuration stored on the
 Driver Hub. Get one wrong and the OpMode throws the instant it initialises.
