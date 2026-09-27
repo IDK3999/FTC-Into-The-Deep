@@ -59,4 +59,5 @@ this repo come from its quickstart and are **not** team code:
 - `pedroPathing/tuners_tests/` - upstream tuning OpModes. Left exactly as they came, so they can
   be replaced wholesale when the library updates. Do not edit these.
 
-### 👨‍💻 Authors: [Robert Lupas](https://github.com/RobertLupas/), [Matei Chiorean](https://github.com/matei135), [Tudor Ceclan](https://github.com/Tud8r)
+Please note that this documentation has been written by AI, most of it being the AI taking comments from inside the project and putting them inside READMEs. In addition to that, an AI also rewrote the code to make it more human-readable, so it might not behave well on a robot. If you wish to use this code on an actual robot, please use https://github.com/PrimeTech-Robotics/FTC-Into-The-Deep instead.
+
